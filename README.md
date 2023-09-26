@@ -21,7 +21,7 @@ footer(Optional)    (꼬리말)
 |Refactor|코드 리팩토링|
 |Rename|변수, 클래스, 메소드, 패키지명 변경|
 |Build|dependencies 추가 및 삭제|
-|Chore|기타 변경사항|
+|Chore|기타 변경사항(빌드 관련, 패키지 매니징, assets 등)|
 
 **Sample**
 ```
