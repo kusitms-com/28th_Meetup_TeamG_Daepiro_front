@@ -17,11 +17,11 @@ abstract class BaseActivity<T: ViewDataBinding>(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        initView()
-        subscribeUi()
-
         binding = DataBindingUtil.setContentView(this, layoutId)
         binding.lifecycleOwner = this
+
+        initView()
+        subscribeUi()
     }
 
     protected open fun initView() { }
