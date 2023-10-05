@@ -1,5 +1,6 @@
 package com.example.numberoneproject.presentation.di
 
+import com.example.numberoneproject.BuildConfig
 import com.example.numberoneproject.data.network.ApiResultCallAdapterFactory
 import com.example.numberoneproject.data.network.ApiService
 import com.example.numberoneproject.data.repositoryimpl.SampleRepositoryImpl
@@ -29,7 +30,7 @@ abstract class RepositoryModule {
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-    const val BASE_URL = "https://kusitms.shop"
+    const val BASE_URL = BuildConfig.BASE_URL
 
     @Singleton
     @Provides
