@@ -25,7 +25,7 @@ footer(Optional)    (꼬리말)
 
 **Sample**
 ```
-Feat : 회원가입 기능 구현
+[Feat #Issue Number] 회원가입 기능 구현
 
 이메일 중복 검사 기능 추가
 회원가입 API 연결
