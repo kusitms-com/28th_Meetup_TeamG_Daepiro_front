@@ -40,6 +40,7 @@ android {
         dataBinding = true
     }
 }
+
 kapt {
     correctErrorTypes = true
 }
