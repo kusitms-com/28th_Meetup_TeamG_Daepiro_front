@@ -38,8 +38,8 @@ abstract class BaseFragment<T: ViewDataBinding>(
         view.clearFocus()
     }
 
-    protected fun initView() { }
-    protected fun subscribeUi() { }
+    protected open fun initView() { }
+    protected open fun subscribeUi() { }
 
     override fun onDestroyView() {
         _binding = null
