@@ -5,21 +5,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.example.numberoneproject.R
 import com.example.numberoneproject.databinding.FragmentFirstBinding
+import com.example.numberoneproject.presentation.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-class FirstFragment : Fragment() {
-    private var _binding: FragmentFirstBinding? = null
-    private val binding get() = _binding!!
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        _binding = FragmentFirstBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+@AndroidEntryPoint
+class FirstFragment : BaseFragment<FragmentFirstBinding>(R.layout.fragment_first) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.tvDefault.setOnClickListener {
+            val action = FirstFragmentDirections.actionFirstFragmentToSubFragment(number = 100)
+            findNavController().navigate(action)
+
+        }
+
 
     }
+
+    override fun initView() {
+
+    }
+
 
 }
