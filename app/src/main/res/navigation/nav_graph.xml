@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/firstFragment">
+
+    <fragment
+        android:id="@+id/firstFragment"
+        android:name="com.example.numberoneproject.presentation.view.FirstFragment"
+        android:label="FirstFragment" >
+        <action
+            android:id="@+id/action_firstFragment_to_subFragment"
+            app:destination="@id/subFragment">
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/secondFragment"
+        android:name="com.example.numberoneproject.presentation.view.SecondFragment"
+        android:label="SecondFragment" />
+    <fragment
+        android:id="@+id/thirdFragment"
+        android:name="com.example.numberoneproject.presentation.view.ThirdFragment"
+        android:label="ThirdFragment" />
+    <fragment
+        android:id="@+id/subFragment"
+        android:name="com.example.numberoneproject.presentation.view.SubFragment"
+        android:label="SubFragment">
+        <argument
+            android:name="number"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
+</navigation>

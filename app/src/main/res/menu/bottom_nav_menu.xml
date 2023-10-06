@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="홈"
+        android:enabled="true"
+        android:id="@+id/firstFragment"
+        android:icon="@drawable/ic_home" />
+    <item
+        android:title="검색"
+        android:enabled="true"
+        android:id="@+id/secondFragment"
+        android:icon="@drawable/ic_home" />
+    <item
+        android:title="내정보"
+        android:enabled="true"
+        android:id="@+id/thirdFragment"
+        android:icon="@drawable/ic_home" />
+</menu>
