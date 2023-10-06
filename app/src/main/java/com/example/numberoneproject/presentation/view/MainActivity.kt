@@ -22,6 +22,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         binding.viewmodel = viewmodel
 
         viewmodel.getSample()
+
     }
 
     override fun initView() {
