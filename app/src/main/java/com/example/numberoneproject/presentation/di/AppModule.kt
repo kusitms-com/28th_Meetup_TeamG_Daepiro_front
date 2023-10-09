@@ -3,7 +3,9 @@ package com.example.numberoneproject.presentation.di
 import com.example.numberoneproject.BuildConfig
 import com.example.numberoneproject.data.network.ApiResultCallAdapterFactory
 import com.example.numberoneproject.data.network.ApiService
+import com.example.numberoneproject.data.repositoryimpl.LoginRepositoryImpl
 import com.example.numberoneproject.data.repositoryimpl.SampleRepositoryImpl
+import com.example.numberoneproject.domain.repository.LoginRepository
 import com.example.numberoneproject.domain.repository.SampleRepository
 import dagger.Binds
 import dagger.Module
@@ -25,6 +27,11 @@ abstract class RepositoryModule {
         mainRepositoryImpl: SampleRepositoryImpl
     ): SampleRepository
 
+    @Singleton
+    @Binds
+    abstract fun bindLoginRepository(
+        loginRepositoryImpl: LoginRepositoryImpl
+    ): LoginRepository
 }
 
 @Module

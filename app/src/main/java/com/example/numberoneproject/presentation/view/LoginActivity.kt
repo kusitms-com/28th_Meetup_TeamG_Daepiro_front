@@ -3,17 +3,25 @@ package com.example.numberoneproject.presentation.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.viewModels
 import com.example.numberoneproject.BuildConfig
 import com.example.numberoneproject.R
+import com.example.numberoneproject.data.model.LoginBody
 import com.example.numberoneproject.databinding.ActivityLoginBinding
 import com.example.numberoneproject.presentation.base.BaseActivity
+import com.example.numberoneproject.presentation.viewmodel.LoginViewModel
+import com.example.numberoneproject.presentation.viewmodel.SampleViewModel
 import com.navercorp.nid.NaverIdLoginSDK
 import com.navercorp.nid.oauth.NidOAuthLogin
 import com.navercorp.nid.oauth.OAuthLoginCallback
 import com.navercorp.nid.profile.NidProfileCallback
 import com.navercorp.nid.profile.data.NidProfileResponse
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login) {
+    val loginVM by viewModels<LoginViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -34,6 +42,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                 val userId = response.profile?.id
                 binding.tvResult.text = "id: ${userId} \ntoken: ${naverToken}"
                 Toast.makeText(this@LoginActivity, "네이버 아이디 로그인 성공!", Toast.LENGTH_SHORT).show()
+
+                loginVM.userLogin(LoginBody(naverToken!!))
             }
             override fun onFailure(httpStatus: Int, message: String) {
                 val errorCode = NaverIdLoginSDK.getLastErrorCode().code
