@@ -11,6 +11,7 @@ import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
+import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login) {
@@ -19,14 +20,14 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         KakaoSdk.init(this,"0786b07056f57dd7e119842166e52498")
 
         binding.kakao.setOnClickListener{
-            startKaKaoLogin()
+            //startKaKaoLogin()
         }
     }
     fun startKaKaoLogin(){
         //카카오계정 로그인시 사용
         val callback: (OAuthToken?, Throwable?) -> Unit = {token, error->
             if(error != null){
-                Log.e("kakao", "계정 로그인 실패", error)
+                Log.e("kakao", "계정 로그인 실패${error}")
             }
             else if(token != null){
                 Log.i("kakao","계정 로그인 성공 ${token.accessToken}")
@@ -52,7 +53,9 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                 }
             }
         }else{
+            Log.e("log","is fail")
             UserApiClient.instance.loginWithKakaoAccount(this,callback = callback)
+
         }
     }
 }

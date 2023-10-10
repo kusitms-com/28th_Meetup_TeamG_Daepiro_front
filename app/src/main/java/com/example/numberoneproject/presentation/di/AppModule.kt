@@ -30,7 +30,7 @@ abstract class RepositoryModule {
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-    const val BASE_URL = BuildConfig.BASE_URL
+    val BASE_URL = BuildConfig.BASE_URL
 
     @Singleton
     @Provides
