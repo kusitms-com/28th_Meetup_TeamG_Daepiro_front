@@ -1,14 +1,17 @@
 package com.example.numberoneproject.presentation.view
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.example.numberoneproject.BuildConfig
 import com.example.numberoneproject.R
 import com.example.numberoneproject.databinding.ActivityLoginBinding
 import com.example.numberoneproject.presentation.base.BaseActivity
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.KakaoSdk
+import com.kakao.sdk.common.model.AuthErrorCause
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.common.util.Utility
@@ -17,10 +20,17 @@ import com.kakao.sdk.user.UserApiClient
 class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        KakaoSdk.init(this,"0786b07056f57dd7e119842166e52498")
-
         binding.kakao.setOnClickListener{
-            //startKaKaoLogin()
+            startKaKaoLogin()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        val uri = data?.data
+        val code = uri?.getQueryParameter("code") ?: "code not found"
+        Log.e("server",code)
+        if (code != "code not found") {
         }
     }
     fun startKaKaoLogin(){
@@ -48,14 +58,20 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                     UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
                 }else if(token != null){
                     Log.i("kakao", "카카오톡 로그인 성공${token.accessToken}")
-                    val intent= Intent(this,MainActivity::class.java)
+//                    val intent= Intent(this,MainActivity::class.java)
+//                    startActivity(intent)
+                    //val BASE_URL = BuildConfig.BASE_URL
+                    val redirectUri = "${BuildConfig.BASE_URL}"
+                    val clientId="0786b07056f57dd7e119842166e52498"
+                    val url = "https://kauth.kakao.com/oauth/authorize?client_id=$clientId&redirect_uri=$redirectUri&response_type=code"
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                     startActivity(intent)
                 }
             }
         }else{
             Log.e("log","is fail")
             UserApiClient.instance.loginWithKakaoAccount(this,callback = callback)
-
+            Log.e("log","is fail2")
         }
     }
 }
