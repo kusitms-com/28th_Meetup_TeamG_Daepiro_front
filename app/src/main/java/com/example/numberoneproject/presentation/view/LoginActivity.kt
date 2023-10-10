@@ -29,8 +29,10 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         super.onActivityResult(requestCode, resultCode, data)
         val uri = data?.data
         val code = uri?.getQueryParameter("code") ?: "code not found"
+        Log.e("server","sdfsdf")
         Log.e("server",code)
         if (code != "code not found") {
+            //인가코드 서버 전달
         }
     }
     fun startKaKaoLogin(){
@@ -62,16 +64,14 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
 //                    startActivity(intent)
                     //val BASE_URL = BuildConfig.BASE_URL
                     val redirectUri = "${BuildConfig.BASE_URL}"
-                    val clientId="0786b07056f57dd7e119842166e52498"
+                    val clientId="${BuildConfig.KAKAO}"
                     val url = "https://kauth.kakao.com/oauth/authorize?client_id=$clientId&redirect_uri=$redirectUri&response_type=code"
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                     startActivity(intent)
                 }
             }
         }else{
-            Log.e("log","is fail")
             UserApiClient.instance.loginWithKakaoAccount(this,callback = callback)
-            Log.e("log","is fail2")
         }
     }
 }
