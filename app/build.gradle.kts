@@ -82,6 +82,9 @@ dependencies {
     // Kakao Login
     implementation("com.kakao.sdk:v2-user:2.11.0")
 
+    // DataStore
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+
 
 
     implementation("androidx.core:core-ktx:1.9.0")
