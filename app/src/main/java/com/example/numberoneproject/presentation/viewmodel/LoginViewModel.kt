@@ -6,6 +6,7 @@ import com.example.numberoneproject.data.model.LoginBody
 import com.example.numberoneproject.data.network.onFailure
 import com.example.numberoneproject.data.network.onSuccess
 import com.example.numberoneproject.domain.usecase.LoginUseCase
+import com.example.numberoneproject.presentation.util.TokenManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.internal.wait
@@ -26,5 +27,12 @@ class LoginViewModel @Inject constructor(
 
                 }
         }
+    }
+
+    fun setLoginTokens(tokenManager: TokenManager) {
+        viewModelScope.launch {
+            tokenManager.setTokens("access test", "refresh test")
+        }
+
     }
 }
