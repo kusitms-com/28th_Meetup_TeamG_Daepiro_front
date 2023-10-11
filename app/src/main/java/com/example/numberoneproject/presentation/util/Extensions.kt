@@ -27,6 +27,6 @@ object Extensions {
     }
 
     fun Any.myLog(message: String) {
-        Log.d("taag", message)
+        Log.d("jongseok", message)
     }
 }

@@ -29,7 +29,7 @@ class FirstFragment : BaseFragment<FragmentFirstBinding>(R.layout.fragment_first
     }
 
     override fun initView() {
-        myLog("sdasd")
+        myLog("로그찍기")
     }
 
 }
