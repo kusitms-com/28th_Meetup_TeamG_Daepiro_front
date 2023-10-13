@@ -1,10 +1,8 @@
 package com.example.numberoneproject.presentation.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.datastore.dataStore
 import androidx.lifecycle.lifecycleScope
 import com.example.numberoneproject.BuildConfig
 import com.example.numberoneproject.R
@@ -12,21 +10,17 @@ import com.example.numberoneproject.data.model.LoginBody
 import com.example.numberoneproject.databinding.ActivityLoginBinding
 import com.example.numberoneproject.presentation.base.BaseActivity
 import com.example.numberoneproject.presentation.util.Extensions.myLog
-import com.example.numberoneproject.presentation.util.TokenManager
 import com.example.numberoneproject.presentation.viewmodel.LoginViewModel
-import com.example.numberoneproject.presentation.viewmodel.SampleViewModel
 import com.navercorp.nid.NaverIdLoginSDK
 import com.navercorp.nid.oauth.NidOAuthLogin
 import com.navercorp.nid.oauth.OAuthLoginCallback
 import com.navercorp.nid.profile.NidProfileCallback
 import com.navercorp.nid.profile.data.NidProfileResponse
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login) {
-    private lateinit var tokenManager: TokenManager
     val loginVM by viewModels<LoginViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,16 +34,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
             setupNaverLogin()
         }
 
-        loginVM.setLoginTokens(tokenManager)
-
-        lifecycleScope.launch {
-            myLog(tokenManager.accessToken.first())
-
-        }
-    }
-
-    override fun initView() {
-        tokenManager = TokenManager(this)
+        loginVM.setLoginTokens()
+        loginVM.getLoginTokens()
 
     }
 
@@ -60,6 +46,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
             override fun onSuccess(response: NidProfileResponse) {
                 val userId = response.profile?.id
                 binding.tvResult.text = "id: ${userId} \ntoken: ${naverToken}"
+                myLog(userId!!)
+                myLog(naverToken!!)
                 Toast.makeText(this@LoginActivity, "네이버 아이디 로그인 성공!", Toast.LENGTH_SHORT).show()
 
                 loginVM.userLogin(LoginBody(naverToken!!))
