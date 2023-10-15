@@ -4,9 +4,7 @@ import com.example.numberoneproject.BuildConfig
 import com.example.numberoneproject.data.network.ApiResultCallAdapterFactory
 import com.example.numberoneproject.data.network.ApiService
 import com.example.numberoneproject.data.repositoryimpl.LoginRepositoryImpl
-import com.example.numberoneproject.data.repositoryimpl.SampleRepositoryImpl
 import com.example.numberoneproject.domain.repository.LoginRepository
-import com.example.numberoneproject.domain.repository.SampleRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -21,12 +19,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class RepositoryModule {
-    @Singleton
-    @Binds
-    abstract fun bindMainRepository(
-        mainRepositoryImpl: SampleRepositoryImpl
-    ): SampleRepository
-
     @Singleton
     @Binds
     abstract fun bindLoginRepository(
