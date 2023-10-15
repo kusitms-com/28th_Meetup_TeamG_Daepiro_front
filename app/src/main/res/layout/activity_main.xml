@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable
-            name="viewmodel"
-            type="com.example.numberoneproject.presentation.viewmodel.SampleViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
