@@ -15,3 +15,4 @@ data class Data(
     val title: String = "",
     val updatedAt: String = ""
 )
+

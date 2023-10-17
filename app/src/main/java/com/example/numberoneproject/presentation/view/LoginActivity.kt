@@ -1,12 +1,14 @@
 package com.example.numberoneproject.presentation.view
 
 import android.content.Intent
+import android.media.MediaSession2.SessionCallback
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.example.numberoneproject.BuildConfig
 import com.example.numberoneproject.R
+import com.example.numberoneproject.data.network.ApiService
 import com.example.numberoneproject.databinding.ActivityLoginBinding
 import com.example.numberoneproject.presentation.base.BaseActivity
 import com.kakao.sdk.auth.model.OAuthToken
@@ -16,16 +18,21 @@ import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
-
+import retrofit2.Call
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.kakao.setOnClickListener{
             startKaKaoLogin()
         }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        Log.e("hey", "why")
         super.onActivityResult(requestCode, resultCode, data)
         val uri = data?.data
         val code = uri?.getQueryParameter("code") ?: "code not found"
@@ -33,6 +40,10 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         Log.e("server",code)
         if (code != "code not found") {
             //인가코드 서버 전달
+            Log.e("hey", "$code")
+        }
+        else{
+            Log.e("hey", "no")
         }
     }
     fun startKaKaoLogin(){
@@ -74,4 +85,17 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
             UserApiClient.instance.loginWithKakaoAccount(this,callback = callback)
         }
     }
+
+//    private fun kakaoUnlink() {
+//        UserApiClient.instance.unlink { error->
+//            if(error != null){
+//                Log.e("unlink", "shut down: ${error}")
+//            }
+//            else{
+//                Log.e("unlink", "sdk에서 토큰 삭제")
+//                val intent = Intent(this,LoginActivity::class.java)
+//                startActivity(intent)
+//            }
+//        }
+//    }
 }

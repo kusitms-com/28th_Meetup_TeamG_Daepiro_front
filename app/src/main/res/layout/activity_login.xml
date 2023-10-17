@@ -31,5 +31,7 @@
             android:textColor="#4CAF50"
             android:text="네이버 로그인" />
 
+
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>
