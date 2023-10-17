@@ -19,7 +19,10 @@ class TokenManager(private val context: Context) {
         const val TOKEN_DATA_STORE = "token_data_store"
     }
 
-    suspend fun setTokens(accessToken: String, refreshToken: String) {
+    suspend fun writeLoginTokens(
+        accessToken: String,
+        refreshToken: String
+    ) {
         context.tokenDataStore.edit {
             it[ACCESS_TOKEN] = accessToken
             it[REFRESH_TOKEN] = refreshToken

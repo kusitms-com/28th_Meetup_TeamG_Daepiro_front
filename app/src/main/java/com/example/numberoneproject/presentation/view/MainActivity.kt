@@ -21,13 +21,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     }
 
-    override fun initView() {
+    override fun setupInit() {
         initNavigation()
     }
 
-    override fun subscribeUi() {
-
-    }
 
     private fun initNavigation() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view) as NavHostFragment

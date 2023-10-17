@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="activity"
+            type="com.example.numberoneproject.presentation.view.LoginActivity" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -30,7 +32,8 @@
             android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="#4CAF50"
-            android:text="네이버 로그인" />
+            android:text="네이버 로그인"
+            android:onClick="@{(v) -> activity.setupNaverLogin(v)}"/>
 
         <TextView
             android:id="@+id/tv_result"

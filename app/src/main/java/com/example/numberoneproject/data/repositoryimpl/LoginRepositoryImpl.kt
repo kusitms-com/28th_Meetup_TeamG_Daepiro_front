@@ -1,7 +1,7 @@
 package com.example.numberoneproject.data.repositoryimpl
 
-import com.example.numberoneproject.data.model.LoginBody
-import com.example.numberoneproject.data.model.LoginResponse
+import com.example.numberoneproject.data.model.NaverLoginBody
+import com.example.numberoneproject.data.model.NaverLoginResponse
 import com.example.numberoneproject.data.network.ApiResult
 import com.example.numberoneproject.data.network.ApiService
 import com.example.numberoneproject.domain.repository.LoginRepository
@@ -12,7 +12,7 @@ import javax.inject.Singleton
 class LoginRepositoryImpl @Inject constructor(
     private val service: ApiService
 ): LoginRepository {
-    override suspend fun userLogin(loginBody: LoginBody): ApiResult<LoginResponse> {
-        return service.userLogin(loginBody)
+    override suspend fun userNaverLogin(naverLoginBody: NaverLoginBody): ApiResult<NaverLoginResponse> {
+        return service.userNaverLogin(naverLoginBody)
     }
 }
