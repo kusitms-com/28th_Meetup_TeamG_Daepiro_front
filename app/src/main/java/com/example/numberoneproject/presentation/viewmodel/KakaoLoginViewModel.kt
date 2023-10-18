@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.numberoneproject.data.model.TokenResponse
 import com.example.numberoneproject.data.network.ApiResult
+import com.example.numberoneproject.domain.usecase.CheckTokenValidityUseCase
 import com.example.numberoneproject.domain.usecase.KakaoLoginUseCase
 import com.example.numberoneproject.domain.usecase.TokenUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class KakaoLoginViewModel @Inject constructor(private val getTokenUseCase: KakaoLoginUseCase,
-    private val tokenUseCase: TokenUseCase)
+    private val tokenUseCase: TokenUseCase, private val checkTokenValidityUseCase: CheckTokenValidityUseCase)
     :ViewModel(){
     private val _tokenResponse = MutableStateFlow<ApiResult<TokenResponse>?>(null)
     val tokenResponse = _tokenResponse.asStateFlow()
@@ -55,12 +56,20 @@ class KakaoLoginViewModel @Inject constructor(private val getTokenUseCase: Kakao
             }
         }
     }
-    //지우
-    fun logStoredToken() {
-        viewModelScope.launch {
-            tokenUseCase.getToken().collect { tokens ->
-                Log.d("store", "Access Token: ${tokens.firstOrNull()}, Refresh Token: ${tokens.lastOrNull()}")
+
+    //이를 splash 화면에서 호출해 확인한다
+    fun checkTokenValidity(token:String) = viewModelScope.launch {
+        try{
+            val result = checkTokenValidityUseCase.execute(token)
+            if(result != null && result.email.isNotEmpty()){
+                //유효
+                tokenUseCase.setIsLogin(true)
             }
+            else{
+                tokenUseCase.setIsLogin(false)
+            }
+        }catch (e:Exception){
+            tokenUseCase.setIsLogin(false)
         }
     }
 }

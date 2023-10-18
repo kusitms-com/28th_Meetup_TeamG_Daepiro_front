@@ -14,4 +14,7 @@ class TokenUseCase @Inject constructor(private val tokenRepository: TokenReposit
     suspend fun getIsLogin():Flow<Boolean>{
         return tokenRepository.getIsLogin()
     }
+    suspend fun setIsLogin(isLogin:Boolean){
+        tokenRepository.setIsLogin(isLogin)
+    }
 }

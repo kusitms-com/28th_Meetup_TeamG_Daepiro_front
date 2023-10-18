@@ -19,5 +19,7 @@ data class Data(
 )
 
 data class TokenRequest(val token: String)
+
+data class CheckRequest(val email:String)
 data class TokenResponse(val accessToken:String, val refreshToken:String)
 

@@ -38,29 +38,29 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
     private val viewModel:KakaoLoginViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         checkAutoLogin()
         binding.kakao.setOnClickListener{
             startKaKaoLogin()
         }
         observeTokenResponse()
-        viewModel.logStoredToken()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        Log.e("hey", "why")
-        super.onActivityResult(requestCode, resultCode, data)
-        val uri = data?.data
-        val code = uri?.getQueryParameter("code") ?: "code not found"
-        Log.e("server","sdfsdf")
-        Log.e("server",code)
-        if (code != "code not found") {
-            //인가코드 서버 전달
-            Log.e("hey", "$code")
-        }
-        else{
-            Log.e("hey", "no")
-        }
-    }
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        Log.e("hey", "why")
+//        super.onActivityResult(requestCode, resultCode, data)
+//        val uri = data?.data
+//        val code = uri?.getQueryParameter("code") ?: "code not found"
+//        Log.e("server","sdfsdf")
+//        Log.e("server",code)
+//        if (code != "code not found") {
+//            //인가코드 서버 전달
+//            Log.e("hey", "$code")
+//        }
+//        else{
+//            Log.e("hey", "no")
+//        }
+//    }
 
     private fun observeTokenResponse(){
         //collect를 통한 데이터 수집

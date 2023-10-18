@@ -3,9 +3,11 @@ package com.example.numberoneproject.presentation.di
 import com.example.numberoneproject.BuildConfig
 import com.example.numberoneproject.data.network.ApiResultCallAdapterFactory
 import com.example.numberoneproject.data.network.ApiService
+import com.example.numberoneproject.data.repositoryimpl.CheckTokenRepositoryImpl
 import com.example.numberoneproject.data.repositoryimpl.KakaoLoginRepositoryImpl
 import com.example.numberoneproject.data.repositoryimpl.SampleRepositoryImpl
 import com.example.numberoneproject.data.repositoryimpl.TokenRepositoryImpl
+import com.example.numberoneproject.domain.repository.CheckTokenRepository
 import com.example.numberoneproject.domain.repository.KakaoLoginRepository
 import com.example.numberoneproject.domain.repository.SampleRepository
 import com.example.numberoneproject.domain.repository.TokenRepository
@@ -50,37 +52,47 @@ abstract class TokenRepositoryModule {
         tokenRepositoryImpl: TokenRepositoryImpl
     ): TokenRepository
 
-
     @Module
     @InstallIn(SingletonComponent::class)
-    object AppModule {
-        val BASE_URL = BuildConfig.BASE_URL
-
+    abstract class CheckTokenRepositoryModule {
         @Singleton
-        @Provides
-        fun provideOkHttpClient(): OkHttpClient {
-            val httpLoggingInterceptor = HttpLoggingInterceptor()
-                .setLevel(HttpLoggingInterceptor.Level.BODY)
-            return OkHttpClient.Builder()
-                .addInterceptor(httpLoggingInterceptor)
-                .build()
-        }
+        @Binds
+        abstract fun bindCheckTokenRepository(
+            checkTokenRepositoryImpl: CheckTokenRepositoryImpl
+        ): CheckTokenRepository
 
-        @Singleton
-        @Provides
-        fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
-            return Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .client(okHttpClient)
-                .addCallAdapterFactory(ApiResultCallAdapterFactory())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-        }
 
-        @Singleton
-        @Provides
-        fun provideService(retrofit: Retrofit): ApiService {
-            return retrofit.create(ApiService::class.java)
+        @Module
+        @InstallIn(SingletonComponent::class)
+        object AppModule {
+            val BASE_URL = BuildConfig.BASE_URL
+
+            @Singleton
+            @Provides
+            fun provideOkHttpClient(): OkHttpClient {
+                val httpLoggingInterceptor = HttpLoggingInterceptor()
+                    .setLevel(HttpLoggingInterceptor.Level.BODY)
+                return OkHttpClient.Builder()
+                    .addInterceptor(httpLoggingInterceptor)
+                    .build()
+            }
+
+            @Singleton
+            @Provides
+            fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+                return Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .client(okHttpClient)
+                    .addCallAdapterFactory(ApiResultCallAdapterFactory())
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build()
+            }
+
+            @Singleton
+            @Provides
+            fun provideService(retrofit: Retrofit): ApiService {
+                return retrofit.create(ApiService::class.java)
+            }
         }
     }
 }

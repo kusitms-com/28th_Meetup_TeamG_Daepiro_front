@@ -1,6 +1,7 @@
 package com.example.numberoneproject.data.repositoryimpl
 
 import android.content.Context
+import androidx.datastore.dataStore
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
@@ -13,6 +14,7 @@ import com.example.numberoneproject.domain.repository.TokenRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import java.io.IOException
 import javax.inject.Inject
@@ -62,5 +64,18 @@ class TokenRepositoryImpl @Inject constructor(@ApplicationContext private val co
             .map{prefs->
                 prefs[LOGIN_CHECK] ?: false
             }
+    }
+
+    suspend fun getRefreshToken():String{
+        val refreshToken = context.tokenDataStore.data.map{prefs->
+            prefs[PreferenceKeys.REFRESH_TOKEN] ?: ""
+        }
+        return refreshToken.first()
+    }
+
+    override suspend fun setIsLogin(isLogin:Boolean){
+        context.loginCheckDataStore.edit { prefs ->
+            prefs[LOGIN_CHECK] = isLogin
+        }
     }
 }

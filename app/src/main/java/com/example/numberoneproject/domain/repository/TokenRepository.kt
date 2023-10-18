@@ -12,4 +12,6 @@ interface TokenRepository {
     suspend fun getToken(): Flow<List<String>>
     suspend fun getIsLogin(): Flow<Boolean>
 
+    suspend fun setIsLogin(isLoggedIn: Boolean)
+
 }
