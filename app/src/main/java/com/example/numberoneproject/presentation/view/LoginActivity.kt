@@ -29,10 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+
 @AndroidEntryPoint
 class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login) {
     private val viewModel:KakaoLoginViewModel by viewModels()
@@ -46,22 +43,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         observeTokenResponse()
     }
 
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        Log.e("hey", "why")
-//        super.onActivityResult(requestCode, resultCode, data)
-//        val uri = data?.data
-//        val code = uri?.getQueryParameter("code") ?: "code not found"
-//        Log.e("server","sdfsdf")
-//        Log.e("server",code)
-//        if (code != "code not found") {
-//            //인가코드 서버 전달
-//            Log.e("hey", "$code")
-//        }
-//        else{
-//            Log.e("hey", "no")
-//        }
-//    }
-
     private fun observeTokenResponse(){
         //collect를 통한 데이터 수집
         repeatOnStarted{
@@ -69,9 +50,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                 when(result){
                     is ApiResult.Success->{
                         //토큰의 성공적 전송
-                        //추후 받은 토큰 관리 코드 처리
                         viewModel.saveToken(listOf("${result.data.accessToken}","${result.data.refreshToken}"))
-                        //Log.d("api", "accesstoken: ${result.data.accessToken} refreshtoken:${result.data.refreshToken}")
                         val intent = Intent(this@LoginActivity, MainActivity::class.java)
                         startActivity(intent)
                     }
@@ -105,10 +84,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                 Log.e("kakao", "계정 로그인 실패${error}")
             }
             else if(token != null){
-//                Log.i("kakao","계정 로그인 성공 ${token.accessToken}")
-//                val intent= Intent(this,MainActivity::class.java)
-//                startActivity(intent)
-                //서버에 보낸다
                 viewModel.postKakaoToken("${token.accessToken}")
             }
         }
@@ -124,13 +99,10 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                     //카카오톡 연결 카카오계정 없을때 카카오계정 로그인 시도
                     UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
                 }else if(token != null){
-                    Log.i("kakao", "카카오톡 로그인 성공${token.accessToken}")
-//                    val intent= Intent(this,MainActivity::class.java)
-//                    startActivity(intent)
-                    //val BASE_URL = BuildConfig.BASE_URL
                     val redirectUri = "${BuildConfig.BASE_URL}"
                     val clientId="${BuildConfig.KAKAO}"
                     val url = "https://kauth.kakao.com/oauth/authorize?client_id=$clientId&redirect_uri=$redirectUri&response_type=code"
+                    viewModel.postKakaoToken("${token.accessToken}")
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                     startActivity(intent)
                 }
