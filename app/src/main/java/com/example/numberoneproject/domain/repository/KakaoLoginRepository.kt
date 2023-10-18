@@ -1,7 +1,8 @@
 package com.example.numberoneproject.domain.repository
 
-import com.example.numberoneproject.data.model.TokenModel
+import com.example.numberoneproject.data.model.TokenResponse
+
 
 interface KakaoLoginRepository {
-    suspend fun sendToken(token:TokenModel):TokenModel?
+    suspend fun getToken(token:String):TokenResponse
 }

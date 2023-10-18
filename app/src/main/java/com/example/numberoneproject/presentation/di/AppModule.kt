@@ -3,7 +3,9 @@ package com.example.numberoneproject.presentation.di
 import com.example.numberoneproject.BuildConfig
 import com.example.numberoneproject.data.network.ApiResultCallAdapterFactory
 import com.example.numberoneproject.data.network.ApiService
+import com.example.numberoneproject.data.repositoryimpl.KakaoLoginRepositoryImpl
 import com.example.numberoneproject.data.repositoryimpl.SampleRepositoryImpl
+import com.example.numberoneproject.domain.repository.KakaoLoginRepository
 import com.example.numberoneproject.domain.repository.SampleRepository
 import dagger.Binds
 import dagger.Module
@@ -25,6 +27,16 @@ abstract class RepositoryModule {
         mainRepositoryImpl: SampleRepositoryImpl
     ): SampleRepository
 
+}
+
+@Module
+@InstallIn(SingletonComponent::class)
+abstract class KakaoTokenRepositoryModule{
+    @Singleton
+    @Binds
+    abstract  fun bindKakaoRepository(
+        kakaoRepositoryImpl: KakaoLoginRepositoryImpl
+    ): KakaoLoginRepository
 }
 
 @Module

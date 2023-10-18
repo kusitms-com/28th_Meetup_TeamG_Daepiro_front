@@ -1,5 +1,5 @@
 package com.example.numberoneproject.data.network
-
+//sealed는 주로 상태 또는 결과를 표현하는데 사용된다
 sealed interface ApiResult<out T> {
     data class Success<T>(val data: T) : ApiResult<T>
 

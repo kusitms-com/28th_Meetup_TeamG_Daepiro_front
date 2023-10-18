@@ -1,5 +1,7 @@
 package com.example.numberoneproject.data.model
 
+import com.example.numberoneproject.data.network.ApiResult
+
 data class SampleResponse(
     val data: List<Data> = emptyList(),
     val isSuccess: Boolean = false,
@@ -15,4 +17,7 @@ data class Data(
     val title: String = "",
     val updatedAt: String = ""
 )
+
+data class TokenRequest(val token: String)
+data class TokenResponse(val accessToken:String, val refreshToken:String)
 
