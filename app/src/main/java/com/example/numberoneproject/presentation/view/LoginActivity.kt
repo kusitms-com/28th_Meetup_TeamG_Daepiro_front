@@ -40,6 +40,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
             startKaKaoLogin()
         }
         observeTokenResponse()
+        viewModel.logStoredToken()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -66,6 +67,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                     is ApiResult.Success->{
                         //토큰의 성공적 전송
                         //추후 받은 토큰 관리 코드 처리
+                        viewModel.saveToken(listOf("${result.data.accessToken}","${result.data.refreshToken}"))
                         //Log.d("api", "accesstoken: ${result.data.accessToken} refreshtoken:${result.data.refreshToken}")
                         val intent = Intent(this@LoginActivity, MainActivity::class.java)
                         startActivity(intent)
@@ -93,7 +95,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
             }
         }
     }
-
     fun startKaKaoLogin(){
         //카카오계정 로그인시 사용
         val callback: (OAuthToken?, Throwable?) -> Unit = {token, error->
@@ -135,5 +136,4 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
             UserApiClient.instance.loginWithKakaoAccount(this,callback = callback)
         }
     }
-
 }
