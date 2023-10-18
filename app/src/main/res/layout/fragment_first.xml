@@ -9,11 +9,81 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
+        android:gravity="center"
         android:orientation="vertical">
+
         <TextView
-            android:id="@+id/tv_default"
+            android:id="@+id/tv_top"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="퍼스트 프래그먼트"/>
+            style="@style/headline1"
+            android:text="프리텐"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/headline2"
+            android:includeFontPadding="false"
+            android:text="Pretendard 프리텐다드"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/headline3"
+            android:text="Pretendard 프리텐다드"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/headline4"
+            android:text="Pretendard 프리텐다드"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/headline5"
+            android:text="Pretendard 프리텐다드"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/headline6"
+            android:text="Pretendard 프리텐다드"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/subtitle1"
+            android:text="Pretendard 프리텐다드"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/subtitle2"
+            android:text="Pretendard 프리텐다드"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/body1"
+            android:text="Pretendard 프리텐다드"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/body2"
+            android:text="Pretendard 프리텐다드"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/button"
+            android:text="Pretendard 프리텐다드"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/caption"
+            android:text="Pretendard 프리텐다드"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/overline"
+            android:text="Pretendard 프리텐다드"/>
+
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

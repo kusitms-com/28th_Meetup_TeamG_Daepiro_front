@@ -31,5 +31,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         val navController = navHostFragment.navController
 
         binding.bottomNavigationBar.setupWithNavController(navController)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id == R.id.firstFragment || destination.id == R.id.secondFragment
+                || destination.id == R.id.thirdFragment || destination.id == R.id.fourFragment) {
+                binding.bottomNavigationBar.visibility = View.VISIBLE
+
+            } else {
+                binding.bottomNavigationBar.visibility = View.GONE
+            }
+        }
     }
 }

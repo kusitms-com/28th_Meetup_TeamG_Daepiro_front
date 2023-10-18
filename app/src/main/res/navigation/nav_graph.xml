@@ -30,4 +30,8 @@
             app:argType="integer"
             android:defaultValue="-1" />
     </fragment>
+    <fragment
+        android:id="@+id/fourFragment"
+        android:name="com.example.numberoneproject.presentation.view.FourFragment"
+        android:label="FourFragment" />
 </navigation>
