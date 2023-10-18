@@ -27,6 +27,8 @@ import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -36,6 +38,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
     private val viewModel:KakaoLoginViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        checkAutoLogin()
         binding.kakao.setOnClickListener{
             startKaKaoLogin()
         }
@@ -134,6 +137,20 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
             }
         }else{
             UserApiClient.instance.loginWithKakaoAccount(this,callback = callback)
+        }
+    }
+
+    //자동로그인을 위한 체크
+    private fun checkAutoLogin(){
+        viewModel.checkIsLogin()
+        lifecycleScope.launch{
+            viewModel.isLogin.collectLatest { isLogin->
+                if(isLogin==true){
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+            }
         }
     }
 }
