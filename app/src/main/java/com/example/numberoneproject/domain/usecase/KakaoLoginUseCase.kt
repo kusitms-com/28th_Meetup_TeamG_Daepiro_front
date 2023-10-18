@@ -7,7 +7,7 @@ import com.example.numberoneproject.domain.repository.KakaoLoginRepository
 import retrofit2.HttpException
 import javax.inject.Inject
 //네트워크 호출의 예외 캐치하고 처리
-class GetTokenUseCase @Inject constructor(private val tokenRepository : KakaoLoginRepository){
+class KakaoLoginUseCase @Inject constructor(private val tokenRepository : KakaoLoginRepository){
     suspend fun postToken(token:String):ApiResult<TokenResponse>{
         return try{
             val result = tokenRepository.getToken(token)
