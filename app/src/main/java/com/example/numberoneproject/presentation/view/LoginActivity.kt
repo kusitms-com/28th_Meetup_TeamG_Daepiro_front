@@ -66,7 +66,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                     is ApiResult.Success->{
                         //토큰의 성공적 전송
                         //추후 받은 토큰 관리 코드 처리
-                        Log.d("api", "accesstoken: ${result.data.accessToken} refreshtoken:${result.data.refreshToken}")
+                        //Log.d("api", "accesstoken: ${result.data.accessToken} refreshtoken:${result.data.refreshToken}")
                         val intent = Intent(this@LoginActivity, MainActivity::class.java)
                         startActivity(intent)
                     }
