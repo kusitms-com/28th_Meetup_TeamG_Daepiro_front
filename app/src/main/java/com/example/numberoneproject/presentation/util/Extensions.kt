@@ -26,7 +26,4 @@ object Extensions {
         }
     }
 
-    fun Any.myLog(message: String) {
-        Log.d("jongseok", message)
-    }
 }
