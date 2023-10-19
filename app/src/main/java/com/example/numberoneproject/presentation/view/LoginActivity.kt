@@ -2,6 +2,7 @@ package com.example.numberoneproject.presentation.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import com.example.numberoneproject.BuildConfig
@@ -25,6 +26,7 @@ import kotlinx.coroutines.flow.collectLatest
 class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login) {
     val loginVM by viewModels<LoginViewModel>()
     var naverLoginToken :String? = ""
+    private lateinit var tokenManager : TokenManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +39,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         val naverClientSecret = BuildConfig.NAVER_CLIENT_SECRET
         NaverIdLoginSDK.initialize(this, naverClientId, naverClientSecret, "네이버 로그인")
 
+        tokenManager = TokenManager(this)
     }
 
     override fun subscribeUi() {
@@ -47,12 +50,12 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                        is ApiResult.Failure.HttpError -> {
                            when(it.code) {
                                403 -> {
-                                   showToast("403 에러 펑")
+                                   showToast("LoginActivity 403 에러 펑")
                                }
                                404 -> {
-                                   showToast("404 에러 펑")
+                                   showToast("LoginActivity 404 에러 펑")
                                }
-                               else -> { showToast("${it.code}번 에러 펑") }
+                               else -> { showToast("LoginActivity ${it.code}번 에러 펑") }
                            }
                        }
                        else -> showToast("네트워크 상태 확인")
@@ -62,10 +65,15 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         }
 
         repeatOnStarted {
-            TokenManager(this@LoginActivity).accessToken.collectLatest {
+            tokenManager.accessToken.collectLatest {
+                Log.d("taag accessToken", it)
                 if (it.isNotEmpty()) {
-                    startActivity(Intent(this@LoginActivity,MainActivity::class.java))
-                    finish()
+                    /** 이렇게 하니까 일단 두 번 MainActivity 가던 것 고쳐짐 **/
+                    val intent = Intent(this@LoginActivity,MainActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+
+                    Log.d("taag", "아직 LoginActivity collect 살아있음")
                 }
             }
         }

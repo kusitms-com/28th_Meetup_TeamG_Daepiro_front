@@ -41,20 +41,20 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                         is ApiResult.Failure.HttpError -> {
                             when(it.code) {
                                 403 -> {    // AccessToken이 만료된 경우
-                                    showToast("403 에러 펑")
+                                    showToast("MainActivity 403 에러 펑")
 
                                     loginVM.refreshAccessToken()
-                                    showToast("ㄱㅊ 갱신하고 다시 썼음")
+                                    Log.d("taag", "MainActivity에서 refresh로 갱신함")
+                                    showToast("MainActivity AccessToken, RefreshToken 갱신했음")
                                 }
                                 404 -> {    // RefreshToken이 만료된 경우
-                                    showToast("404 에러 펑")
-
+                                    showToast("MainActivity 404 에러 펑")
                                     tokenManager.writeLoginTokens("", "")
 
                                     startActivity(Intent(this@MainActivity, LoginActivity::class.java))
                                     finish()
                                 }
-                                else -> { showToast("${it.code}번 에러 펑") }
+                                else -> { showToast("MainActivity ${it.code}번 에러 펑") }
                             }
                         }
                         else -> showToast("네트워크 상태 확인")
