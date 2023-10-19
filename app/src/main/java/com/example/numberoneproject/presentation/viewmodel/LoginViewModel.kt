@@ -1,11 +1,8 @@
 package com.example.numberoneproject.presentation.viewmodel
 
-import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.numberoneproject.data.model.NaverLoginBody
-import com.example.numberoneproject.data.model.NaverLoginResponse
 import com.example.numberoneproject.data.model.TokenRequestBody
 import com.example.numberoneproject.data.network.ApiResult
 import com.example.numberoneproject.data.network.onFailure
@@ -23,28 +20,28 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    application: Application,
-    val naverLoginUseCase: NaverLoginUseCase,
-    val testLoginUseCase: TestUseCase,
-    val refreshAccessTokenUseCase: RefreshAccessTokenUseCase
-) : AndroidViewModel(application) {
-    private val tokenManager: TokenManager = TokenManager(application)
+    private val tokenManager: TokenManager,
+    private val naverLoginUseCase: NaverLoginUseCase,
+    private val testLoginUseCase: TestUseCase,
+    private val refreshAccessTokenUseCase: RefreshAccessTokenUseCase
+) : ViewModel() {
 
-    private val _errorState = MutableStateFlow<ApiResult.Failure?>(null)
-    val errorState = _errorState.asStateFlow()
+    private val _loginErrorState = MutableStateFlow<ApiResult.Failure?>(null)
+    val loginErrorState = _loginErrorState.asStateFlow()
 
-    fun userNaverLogin(loginBody: NaverLoginBody) {
+    fun userNaverLogin(loginBody: TokenRequestBody) {
         viewModelScope.launch {
             naverLoginUseCase(loginBody)
                 .onSuccess {
                     tokenManager.writeLoginTokens(it.accessToken, it.refreshToken)
                 }
                 .onFailure {
-                    _errorState.value = it
+                    _loginErrorState.value = it
                 }
         }
     }
 
+    /** loginTest 관련 코드는 지금은 테스트 용도고 금방 지워질 코드 **/
     fun loginTest() {
         viewModelScope.launch {
             val token = "Bearer ${tokenManager.accessToken.first()}"
@@ -54,7 +51,7 @@ class LoginViewModel @Inject constructor(
                     Log.d("taag", "1")
                 }
                 .onFailure {
-                    _errorState.value = it
+                    _loginErrorState.value = it
                     Log.d("taag", "2")
                 }
         }
@@ -66,11 +63,11 @@ class LoginViewModel @Inject constructor(
 
             refreshAccessTokenUseCase(TokenRequestBody(refreshToken))
                 .onSuccess {
-                    tokenManager.writeLoginTokens(accessToken = it.accessToken, refreshToken = refreshToken)
+                    tokenManager.writeLoginTokens(accessToken = it.accessToken, refreshToken = it.refreshToken)
                     Log.d("taag", "LoginViewModel에서 토큰은 새로 썼음")
                 }
                 .onFailure {
-                    _errorState.value = it
+                    _loginErrorState.value = it
                     Log.d("taag", "AccessToken Refresh 실패")
                 }
         }

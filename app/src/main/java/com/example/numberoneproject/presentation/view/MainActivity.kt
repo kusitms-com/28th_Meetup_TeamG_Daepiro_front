@@ -35,7 +35,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun subscribeUi() {
         repeatOnStarted {
-            loginVM.errorState.collectLatest { response ->
+            loginVM.loginErrorState.collectLatest { response ->
                 response?.let {
                     when(it) {
                         is ApiResult.Failure.HttpError -> {

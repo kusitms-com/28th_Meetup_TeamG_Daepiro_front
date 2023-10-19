@@ -2,12 +2,11 @@ package com.example.numberoneproject.presentation.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import com.example.numberoneproject.BuildConfig
 import com.example.numberoneproject.R
-import com.example.numberoneproject.data.model.NaverLoginBody
+import com.example.numberoneproject.data.model.TokenRequestBody
 import com.example.numberoneproject.data.network.ApiResult
 import com.example.numberoneproject.databinding.ActivityLoginBinding
 import com.example.numberoneproject.presentation.base.BaseActivity
@@ -21,7 +20,6 @@ import com.navercorp.nid.profile.NidProfileCallback
 import com.navercorp.nid.profile.data.NidProfileResponse
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.first
 
 @AndroidEntryPoint
 class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login) {
@@ -39,24 +37,11 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         val naverClientSecret = BuildConfig.NAVER_CLIENT_SECRET
         NaverIdLoginSDK.initialize(this, naverClientId, naverClientSecret, "네이버 로그인")
 
-        checkLoginState()
-
-    }
-
-    private fun checkLoginState() {
-        repeatOnStarted {
-            val naverLoginToken = TokenManager(this@LoginActivity).accessToken.first()
-
-            if (naverLoginToken.isNotEmpty()) {
-                startActivity(Intent(this@LoginActivity,MainActivity::class.java))
-                finish()
-            }
-        }
     }
 
     override fun subscribeUi() {
         repeatOnStarted {
-            loginVM.errorState.collectLatest { response ->
+            loginVM.loginErrorState.collectLatest { response ->
                 response?.let {
                    when(it) {
                        is ApiResult.Failure.HttpError -> {
@@ -75,14 +60,21 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                 }
             }
         }
+
+        repeatOnStarted {
+            TokenManager(this@LoginActivity).accessToken.collectLatest {
+                if (it.isNotEmpty()) {
+                    startActivity(Intent(this@LoginActivity,MainActivity::class.java))
+                    finish()
+                }
+            }
+        }
     }
 
     fun setupNaverLogin(view: View) {
         val profileCallback = object : NidProfileCallback<NidProfileResponse> {
             override fun onSuccess(response: NidProfileResponse) {
-                loginVM.userNaverLogin(NaverLoginBody(naverLoginToken!!))
-
-                checkLoginState()
+                loginVM.userNaverLogin(TokenRequestBody(naverLoginToken!!))
             }
             override fun onFailure(httpStatus: Int, message: String) {
 
