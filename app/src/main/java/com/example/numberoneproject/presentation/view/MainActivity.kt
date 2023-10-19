@@ -62,14 +62,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 }
             }
         }
-
-        repeatOnStarted {
-            tokenManager.accessToken.collectLatest {
-                Log.d("taag accessToken ", it)
-            }
-        }
     }
-
 
     private fun initNavigation() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view) as NavHostFragment
@@ -78,8 +71,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         binding.bottomNavigationBar.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.firstFragment || destination.id == R.id.secondFragment
-                || destination.id == R.id.thirdFragment || destination.id == R.id.fourFragment) {
+            if (destination.id == R.id.homeFragment || destination.id == R.id.newsFragment
+                || destination.id == R.id.fundingFragment || destination.id == R.id.mypageFragment) {
                 binding.bottomNavigationBar.visibility = View.VISIBLE
 
             } else {
