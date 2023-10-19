@@ -1,6 +1,6 @@
 package com.example.numberoneproject.data.model
 
-data class NaverLoginResponse(
+data class LoginTokenResponse(
     val accessToken: String = "",
     val refreshToken: String = ""
 )

@@ -1,8 +1,7 @@
 package com.example.numberoneproject.data.network
 
 import com.example.numberoneproject.data.model.LoginTestResponse
-import com.example.numberoneproject.data.model.NaverLoginBody
-import com.example.numberoneproject.data.model.NaverLoginResponse
+import com.example.numberoneproject.data.model.LoginTokenResponse
 import com.example.numberoneproject.data.model.TokenRequestBody
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -15,13 +14,13 @@ interface ApiService {
     @POST("/token/refresh")
     suspend fun refreshAccessToken(
         @Body body: TokenRequestBody
-    ): ApiResult<NaverLoginResponse>
+    ): ApiResult<LoginTokenResponse>
 
     // 네이버 로그인
     @POST("/token/naver")
     suspend fun userNaverLogin(
-        @Body body: NaverLoginBody
-    ): ApiResult<NaverLoginResponse>
+        @Body body: TokenRequestBody
+    ): ApiResult<LoginTokenResponse>
 
     // 로그인 테스트
     @GET("/api/logintest")
