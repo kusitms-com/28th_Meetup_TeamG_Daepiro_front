@@ -25,6 +25,8 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "BASE_URL", getBaseUrl("BASE_URL"))
+        buildConfigField("String", "NAVER_CLIENT_ID", getBaseUrl("NAVER_CLIENT_ID"))
+        buildConfigField("String", "NAVER_CLIENT_SECRET", getBaseUrl("NAVER_CLIENT_SECRET"))
     }
 
     buildTypes {
@@ -73,7 +75,17 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.6.0")
     implementation("androidx.navigation:navigation-ui-ktx:2.6.0")
 
+    // Naver Login
+    implementation("com.navercorp.nid:oauth-jdk8:5.1.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
+
+    // Kakao Login
     implementation("com.kakao.sdk:v2-user:2.11.0")
+
+    // DataStore
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+
+
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")

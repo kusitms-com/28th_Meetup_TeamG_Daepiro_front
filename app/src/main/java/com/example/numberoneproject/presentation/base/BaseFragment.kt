@@ -27,7 +27,7 @@ abstract class BaseFragment<T: ViewDataBinding>(
 
         binding.lifecycleOwner = viewLifecycleOwner
 
-        initView()
+        setupInit()
         subscribeUi()
     }
 
@@ -38,7 +38,7 @@ abstract class BaseFragment<T: ViewDataBinding>(
         view.clearFocus()
     }
 
-    protected open fun initView() { }
+    protected open fun setupInit() { }
     protected open fun subscribeUi() { }
 
     override fun onDestroyView() {

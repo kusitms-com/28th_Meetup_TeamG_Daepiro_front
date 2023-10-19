@@ -4,13 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="activity"
+            type="com.example.numberoneproject.presentation.view.LoginActivity" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:background="@color/white"
         android:gravity="center">
 
         <TextView
@@ -22,13 +25,22 @@
             android:text="카카오 로그인" />
 
         <TextView
+            android:id="@+id/btn_naver_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="44dp"
             android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="#4CAF50"
-            android:text="네이버 로그인" />
+            android:text="네이버 로그인"
+            android:onClick="@{(v) -> activity.setupNaverLogin(v)}"/>
+
+        <TextView
+            android:id="@+id/tv_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:textSize="20sp"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

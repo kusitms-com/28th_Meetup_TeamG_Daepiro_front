@@ -3,16 +3,21 @@
     <item
         android:title="홈"
         android:enabled="true"
-        android:id="@+id/firstFragment"
+        android:id="@+id/homeFragment"
         android:icon="@drawable/ic_home" />
     <item
-        android:title="검색"
+        android:title="뉴스"
         android:enabled="true"
-        android:id="@+id/secondFragment"
-        android:icon="@drawable/ic_home" />
+        android:id="@+id/newsFragment"
+        android:icon="@drawable/ic_news" />
     <item
-        android:title="내정보"
+        android:title="기부"
         android:enabled="true"
-        android:id="@+id/thirdFragment"
-        android:icon="@drawable/ic_home" />
+        android:id="@+id/fundingFragment"
+        android:icon="@drawable/ic_funding" />
+    <item
+        android:title="마이페이지"
+        android:enabled="true"
+        android:id="@+id/mypageFragment"
+        android:icon="@drawable/ic_mypage" />
 </menu>

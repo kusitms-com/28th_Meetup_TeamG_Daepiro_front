@@ -1,26 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/firstFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
-        android:id="@+id/firstFragment"
-        android:name="com.example.numberoneproject.presentation.view.FirstFragment"
-        android:label="FirstFragment" >
+        android:id="@+id/homeFragment"
+        android:name="com.example.numberoneproject.presentation.view.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_firstFragment_to_subFragment"
-            app:destination="@id/subFragment">
-        </action>
+            android:id="@+id/action_homeFragment_to_subFragment"
+            app:destination="@id/subFragment" />
     </fragment>
     <fragment
-        android:id="@+id/secondFragment"
-        android:name="com.example.numberoneproject.presentation.view.SecondFragment"
-        android:label="SecondFragment" />
+        android:id="@+id/newsFragment"
+        android:name="com.example.numberoneproject.presentation.view.NewsFragment"
+        android:label="NewsFragment" />
     <fragment
-        android:id="@+id/thirdFragment"
-        android:name="com.example.numberoneproject.presentation.view.ThirdFragment"
-        android:label="ThirdFragment" />
+        android:id="@+id/fundingFragment"
+        android:name="com.example.numberoneproject.presentation.view.FundingFragment"
+        android:label="FundingFragment" />
+    <fragment
+        android:id="@+id/mypageFragment"
+        android:name="com.example.numberoneproject.presentation.view.MypageFragment"
+        android:label="MypageFragment" />
     <fragment
         android:id="@+id/subFragment"
         android:name="com.example.numberoneproject.presentation.view.SubFragment"

@@ -20,11 +20,11 @@ abstract class BaseActivity<T: ViewDataBinding>(
         binding = DataBindingUtil.setContentView(this, layoutId)
         binding.lifecycleOwner = this
 
-        initView()
+        setupInit()
         subscribeUi()
     }
 
-    protected open fun initView() { }
+    protected open fun setupInit() { }
     protected open fun subscribeUi() { }
 
     // 키보드 숨기기

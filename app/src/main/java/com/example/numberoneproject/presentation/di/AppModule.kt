@@ -3,8 +3,9 @@ package com.example.numberoneproject.presentation.di
 import com.example.numberoneproject.BuildConfig
 import com.example.numberoneproject.data.network.ApiResultCallAdapterFactory
 import com.example.numberoneproject.data.network.ApiService
-import com.example.numberoneproject.data.repositoryimpl.SampleRepositoryImpl
-import com.example.numberoneproject.domain.repository.SampleRepository
+import com.example.numberoneproject.data.repositoryimpl.LoginRepositoryImpl
+import com.example.numberoneproject.domain.repository.LoginRepository
+import com.example.numberoneproject.presentation.util.TokenManager
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -21,16 +22,16 @@ import javax.inject.Singleton
 abstract class RepositoryModule {
     @Singleton
     @Binds
-    abstract fun bindMainRepository(
-        mainRepositoryImpl: SampleRepositoryImpl
-    ): SampleRepository
+    abstract fun bindLoginRepository(
+        loginRepositoryImpl: LoginRepositoryImpl
+    ): LoginRepository
 
 }
 
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-    const val BASE_URL = BuildConfig.BASE_URL
+    private const val BASE_URL = BuildConfig.BASE_URL
 
     @Singleton
     @Provides

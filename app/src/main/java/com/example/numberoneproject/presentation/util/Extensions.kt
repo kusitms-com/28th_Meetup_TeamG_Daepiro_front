@@ -1,6 +1,7 @@
 package com.example.numberoneproject.presentation.util
 
 import android.app.Activity
+import android.util.Log
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -24,4 +25,5 @@ object Extensions {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED, block)
         }
     }
+
 }
