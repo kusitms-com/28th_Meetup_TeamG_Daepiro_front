@@ -27,6 +27,8 @@ android {
         buildConfigField("String", "BASE_URL", getBaseUrl("BASE_URL"))
         buildConfigField("String", "NAVER_CLIENT_ID", getBaseUrl("NAVER_CLIENT_ID"))
         buildConfigField("String", "NAVER_CLIENT_SECRET", getBaseUrl("NAVER_CLIENT_SECRET"))
+        buildConfigField("String", "KAKAO_NATIVE_APP_KEY", "\"${getBaseUrl("KAKAO_NATIVE_APP_KEY")}\"")
+        manifestPlaceholders["kakaoKey"] = "kakao${getBaseUrl("KAKAO_NATIVE_APP_KEY")}"
     }
 
     buildTypes {
