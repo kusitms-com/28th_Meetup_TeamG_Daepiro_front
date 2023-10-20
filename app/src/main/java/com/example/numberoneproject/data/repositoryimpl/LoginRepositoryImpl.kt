@@ -22,6 +22,10 @@ class LoginRepositoryImpl @Inject constructor(
         return service.userNaverLogin(naverLoginBody)
     }
 
+    override suspend fun userKakaoLogin(kakaoLoginBody: TokenRequestBody): ApiResult<LoginTokenResponse>{
+        return service.userKakaoLogin(kakaoLoginBody)
+    }
+
     override suspend fun testLogin(token: String): ApiResult<LoginTestResponse> {
         return service.apiLoginTest(token)
     }

@@ -22,7 +22,8 @@
             android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="#FFEB3B"
-            android:text="카카오 로그인" />
+            android:text="카카오 로그인"
+            android:onClick="@{(v) -> activity.setupKakaoLogin(v)}"/>
 
         <TextView
             android:id="@+id/btn_naver_login"

@@ -4,7 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.example.numberoneproject.BuildConfig
 import com.example.numberoneproject.R
 import com.example.numberoneproject.data.model.TokenRequestBody
@@ -14,6 +16,10 @@ import com.example.numberoneproject.presentation.base.BaseActivity
 import com.example.numberoneproject.presentation.util.Extensions.repeatOnStarted
 import com.example.numberoneproject.presentation.util.TokenManager
 import com.example.numberoneproject.presentation.viewmodel.LoginViewModel
+import com.kakao.sdk.auth.model.OAuthToken
+import com.kakao.sdk.common.model.ClientError
+import com.kakao.sdk.common.model.ClientErrorCause
+import com.kakao.sdk.user.UserApiClient
 import com.navercorp.nid.NaverIdLoginSDK
 import com.navercorp.nid.oauth.NidOAuthLogin
 import com.navercorp.nid.oauth.OAuthLoginCallback
@@ -21,6 +27,8 @@ import com.navercorp.nid.profile.NidProfileCallback
 import com.navercorp.nid.profile.data.NidProfileResponse
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login) {
@@ -105,5 +113,34 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         }
 
         NaverIdLoginSDK.authenticate(this, oauthLoginCallback)
+    }
+
+    fun setupKakaoLogin(view:View){
+        //카카오 계정 로그인
+        val callback : (OAuthToken?, Throwable?) -> Unit = {token, error->
+            if(error != null){
+                Toast.makeText(this,"카카오계정 로그인 실패 ${error}",Toast.LENGTH_SHORT).show()
+            }
+            else if(token != null){
+                loginVM.userKakaoLogin(TokenRequestBody(token.accessToken))
+            }
+        }
+        //카카오톡 어플있다면 카카오톡 로그인 시도
+        if(UserApiClient.instance.isKakaoTalkLoginAvailable(this)){
+            UserApiClient.instance.loginWithKakaoTalk(this){token, error->
+                if(error != null){
+                    Toast.makeText(this,"카카오톡 로그인 실패 ${error}",Toast.LENGTH_SHORT).show()
+                    if(error is ClientError && error.reason == ClientErrorCause.Cancelled){
+                        return@loginWithKakaoTalk
+                    }
+                    UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
+                }else if(token != null){
+                    loginVM.userKakaoLogin(TokenRequestBody(token.accessToken))
+                }
+            }
+        }
+        else{
+            UserApiClient.instance.loginWithKakaoAccount(this, callback=callback)
+        }
     }
 }
