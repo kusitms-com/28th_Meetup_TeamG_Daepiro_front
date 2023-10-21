@@ -22,6 +22,12 @@ interface ApiService {
         @Body body: TokenRequestBody
     ): ApiResult<LoginTokenResponse>
 
+    //카카오 로그인
+    @POST("/token/kakao")
+    suspend fun userKakaoLogin(
+        @Body body: TokenRequestBody
+    ): ApiResult<LoginTokenResponse>
+
     // 로그인 테스트
     @GET("/api/logintest")
     suspend fun apiLoginTest(
