@@ -14,30 +14,33 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.example.numberoneproject.R
+import com.example.numberoneproject.databinding.ActivitySplashBinding
+import com.example.numberoneproject.presentation.base.BaseActivity
 import com.example.numberoneproject.presentation.util.Extensions.repeatOnStarted
 import com.example.numberoneproject.presentation.util.TokenManager
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SplashActivity : AppCompatActivity() {
+@AndroidEntryPoint
+class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_splash) {
     private val DURATION_TIME = 2000L    // 스플래시 화면 지연시간
-    private lateinit var cm2 : ConnectivityManager
-    private val tokenManager: TokenManager = TokenManager(this)
+    private lateinit var cm : ConnectivityManager
+    @Inject lateinit var tokenManager: TokenManager
 
     private val networkCallBack = object : ConnectivityManager.NetworkCallback() {
+        // 네트워크가 연결된 경우
         override fun onAvailable(network: Network) {
-            // 네트워크가 정상적인 경우
-            Toast.makeText(this@SplashActivity, "연결성공 $network", Toast.LENGTH_SHORT).show()
-            checkLogin()
             Handler(Looper.getMainLooper()).postDelayed({
-                //startActivity(Intent( this@SplashActivity,LoginActivity::class.java))
-                finish()
+                checkAutoLogin()
             }, DURATION_TIME)
         }
 
+        // 네트워크가 연결되지 않은 경우
         override fun onLost(network: Network) {
-            // 네트워크가 연결되지 않은 경우
-            Toast.makeText(this@SplashActivity,"연결실패", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@SplashActivity,"네트워크 연결 실패", Toast.LENGTH_SHORT).show()
+
         }
     }
 
@@ -45,32 +48,32 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-
         val builder = NetworkRequest.Builder()
-
-        cm2 = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        cm2.registerNetworkCallback(builder.build(),networkCallBack)
+        cm = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        cm.registerNetworkCallback(builder.build(),networkCallBack)
     }
 
-    //자동로그인 가능한지 확인
-    fun checkLogin(){
-        lifecycleScope.launch{
+    /** 자동로그인 가능한지 확인 **/
+    fun checkAutoLogin(){
+        repeatOnStarted {
             tokenManager.accessToken.collectLatest {
                 if(it.isNotEmpty()){
                     val intent = Intent(this@SplashActivity,MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
                 }
                 else{
                     val intent = Intent(this@SplashActivity,LoginActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
                 }
+                finish()
             }
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        cm2 = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        cm2.unregisterNetworkCallback(networkCallBack)
+        cm.unregisterNetworkCallback(networkCallBack)
     }
 }
