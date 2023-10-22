@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.numberoneproject.R
@@ -16,11 +17,13 @@ import com.example.numberoneproject.presentation.util.TokenManager
 import com.example.numberoneproject.presentation.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     val loginVM by viewModels<LoginViewModel>()
-    private val tokenManager: TokenManager = TokenManager(this)
+    @Inject lateinit var tokenManager: TokenManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,11 +44,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                         is ApiResult.Failure.HttpError -> {
                             when(it.code) {
                                 403 -> {    // AccessToken이 만료된 경우
-                                    showToast("MainActivity 403 에러 펑")
-
                                     loginVM.refreshAccessToken()
-                                    Log.d("taag", "MainActivity에서 refresh로 갱신함")
-                                    showToast("MainActivity AccessToken, RefreshToken 갱신했음")
+                                    showToast("403에러 MainActivity AccessToken, RefreshToken 갱신했음")
                                 }
                                 404 -> {    // RefreshToken이 만료된 경우
                                     showToast("MainActivity 404 에러 펑")
@@ -57,7 +57,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                                 else -> { showToast("MainActivity ${it.code}번 에러 펑") }
                             }
                         }
-                        else -> showToast("네트워크 상태 확인")
+                        else -> showToast("네트워크 상태를 확인하세요.")
                     }
                 }
             }

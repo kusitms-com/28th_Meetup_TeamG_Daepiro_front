@@ -29,12 +29,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login) {
     val loginVM by viewModels<LoginViewModel>()
     var naverLoginToken :String? = ""
-    private lateinit var tokenManager : TokenManager
+    @Inject lateinit var tokenManager : TokenManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +48,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         val naverClientSecret = BuildConfig.NAVER_CLIENT_SECRET
         NaverIdLoginSDK.initialize(this, naverClientId, naverClientSecret, "네이버 로그인")
 
-        tokenManager = TokenManager(this)
     }
 
     override fun subscribeUi() {
@@ -57,16 +57,12 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                    when(it) {
                        is ApiResult.Failure.HttpError -> {
                            when(it.code) {
-                               403 -> {
-                                   showToast("LoginActivity 403 에러 펑")
-                               }
-                               404 -> {
-                                   showToast("LoginActivity 404 에러 펑")
-                               }
-                               else -> { showToast("LoginActivity ${it.code}번 에러 펑") }
+                               403 -> Log.d("LoginActivity Error","LoginActivity 403 에러 펑")
+                               404 -> Log.d("LoginActivity Error","LoginActivity 404 에러 펑")
+                               else -> Log.d("LoginActivity Error","LoginActivity ${it.code}번 에러 펑")
                            }
                        }
-                       else -> showToast("네트워크 상태 확인")
+                       else -> Log.d("LoginActivity Error","네트워크 상태 확인")
                    }
                 }
             }
@@ -74,14 +70,9 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
 
         repeatOnStarted {
             tokenManager.accessToken.collectLatest {
-                Log.d("taag accessToken", it)
                 if (it.isNotEmpty()) {
-                    /** 이렇게 하니까 일단 두 번 MainActivity 가던 것 고쳐짐 **/
-                    val intent = Intent(this@LoginActivity,MainActivity::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-                    startActivity(intent)
-
-                    Log.d("taag", "아직 LoginActivity collect 살아있음")
+                    startActivity(Intent(this@LoginActivity,MainActivity::class.java))
+                    finish()
                 }
             }
         }
@@ -116,7 +107,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
     }
 
     fun setupKakaoLogin(view:View){
-        //카카오 계정 로그인
+        // 카카오 계정 로그인
         val callback : (OAuthToken?, Throwable?) -> Unit = {token, error->
             if(error != null){
                 Toast.makeText(this,"카카오계정 로그인 실패 ${error}",Toast.LENGTH_SHORT).show()
@@ -125,7 +116,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                 loginVM.userKakaoLogin(TokenRequestBody(token.accessToken))
             }
         }
-        //카카오톡 어플있다면 카카오톡 로그인 시도
+
+        // 카카오톡 어플있다면 카카오톡 로그인 시도
         if(UserApiClient.instance.isKakaoTalkLoginAvailable(this)){
             UserApiClient.instance.loginWithKakaoTalk(this){token, error->
                 if(error != null){
