@@ -7,7 +7,7 @@ import com.example.numberoneproject.data.model.TokenRequestBody
 import com.example.numberoneproject.data.network.ApiResult
 import com.example.numberoneproject.data.network.onFailure
 import com.example.numberoneproject.data.network.onSuccess
-import com.example.numberoneproject.domain.usecase.KakaoLoginUsecase
+import com.example.numberoneproject.domain.usecase.KakaoLoginUseCase
 import com.example.numberoneproject.domain.usecase.NaverLoginUseCase
 import com.example.numberoneproject.domain.usecase.RefreshAccessTokenUseCase
 import com.example.numberoneproject.domain.usecase.TestUseCase
@@ -23,7 +23,7 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     private val tokenManager: TokenManager,
     private val naverLoginUseCase: NaverLoginUseCase,
-    private val kakaoLoginUsecase: KakaoLoginUsecase,
+    private val kakaoLoginUseCase: KakaoLoginUseCase,
     private val testLoginUseCase: TestUseCase,
     private val refreshAccessTokenUseCase: RefreshAccessTokenUseCase
 ) : ViewModel() {
@@ -45,7 +45,7 @@ class LoginViewModel @Inject constructor(
 
     fun userKakaoLogin(loginBody: TokenRequestBody) {
         viewModelScope.launch {
-            kakaoLoginUsecase(loginBody)
+            kakaoLoginUseCase(loginBody)
                 .onSuccess {
                     tokenManager.writeLoginTokens(it.accessToken, it.refreshToken)
                 }
