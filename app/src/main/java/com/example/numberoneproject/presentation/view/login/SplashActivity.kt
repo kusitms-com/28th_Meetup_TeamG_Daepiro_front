@@ -1,4 +1,4 @@
-package com.example.numberoneproject.presentation.view
+package com.example.numberoneproject.presentation.view.login
 
 import android.content.Context
 import android.content.Intent
@@ -14,8 +14,8 @@ import com.example.numberoneproject.databinding.ActivitySplashBinding
 import com.example.numberoneproject.presentation.base.BaseActivity
 import com.example.numberoneproject.presentation.util.Extensions.repeatOnStarted
 import com.example.numberoneproject.presentation.util.TokenManager
+import com.example.numberoneproject.presentation.view.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
@@ -59,11 +59,11 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
 
             if (isNetworkAvailable) {      // 네트워크가 연결된 경우
                 if (accessToken.isNotEmpty()) {
-                    val intent = Intent(this@SplashActivity,MainActivity::class.java)
+                    val intent = Intent(this@SplashActivity, MainActivity::class.java)
                     startActivity(intent)
                     finish()
                 } else {
-                    val intent = Intent(this@SplashActivity,LoginActivity::class.java)
+                    val intent = Intent(this@SplashActivity, LoginActivity::class.java)
                     startActivity(intent)
                     finish()
                 }

@@ -1,4 +1,4 @@
-package com.example.numberoneproject.presentation.view
+package com.example.numberoneproject.presentation.view.login
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.lifecycle.lifecycleScope
 import com.example.numberoneproject.BuildConfig
 import com.example.numberoneproject.R
 import com.example.numberoneproject.data.model.TokenRequestBody
@@ -15,6 +14,7 @@ import com.example.numberoneproject.databinding.ActivityLoginBinding
 import com.example.numberoneproject.presentation.base.BaseActivity
 import com.example.numberoneproject.presentation.util.Extensions.repeatOnStarted
 import com.example.numberoneproject.presentation.util.TokenManager
+import com.example.numberoneproject.presentation.view.MainActivity
 import com.example.numberoneproject.presentation.viewmodel.LoginViewModel
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
@@ -27,8 +27,6 @@ import com.navercorp.nid.profile.NidProfileCallback
 import com.navercorp.nid.profile.data.NidProfileResponse
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -57,9 +55,9 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                    when(it) {
                        is ApiResult.Failure.HttpError -> {
                            when(it.code) {
-                               403 -> Log.d("LoginActivity Error","LoginActivity 403 에러 펑")
-                               404 -> Log.d("LoginActivity Error","LoginActivity 404 에러 펑")
-                               else -> Log.d("LoginActivity Error","LoginActivity ${it.code}번 에러 펑")
+                               403 -> Log.d("taag LoginActivity","LoginActivity 403 에러 펑")
+                               404 -> Log.d("taag LoginActivity","LoginActivity 404 에러 펑")
+                               else -> Log.d("taag LoginActivity","LoginActivity ${it.code}번 에러 펑")
                            }
                        }
                        else -> Log.d("LoginActivity Error","네트워크 상태 확인")
