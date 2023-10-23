@@ -6,7 +6,7 @@
     <data>
         <variable
             name="activity"
-            type="com.example.numberoneproject.presentation.view.LoginActivity" />
+            type="com.example.numberoneproject.presentation.view.login.LoginActivity" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat

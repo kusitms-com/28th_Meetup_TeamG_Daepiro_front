@@ -17,7 +17,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.view.SplashActivity"
+            android:name=".presentation.view.login.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,7 +25,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".presentation.view.LoginActivity"/>
+        <activity android:name=".presentation.view.login.LoginActivity"/>
         <activity android:name=".presentation.view.MainActivity"/>
 
         <activity
