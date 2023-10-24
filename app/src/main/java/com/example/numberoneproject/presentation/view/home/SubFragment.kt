@@ -1,9 +1,8 @@
-package com.example.numberoneproject.presentation.view
+package com.example.numberoneproject.presentation.view.home
 
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.numberoneproject.R
 import com.example.numberoneproject.databinding.FragmentSubBinding

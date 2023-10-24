@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.numberoneproject.presentation.view.HomeFragment"
+        android:name="com.example.numberoneproject.presentation.view.home.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home">
         <action
@@ -16,19 +16,19 @@
     </fragment>
     <fragment
         android:id="@+id/newsFragment"
-        android:name="com.example.numberoneproject.presentation.view.NewsFragment"
+        android:name="com.example.numberoneproject.presentation.view.news.NewsFragment"
         android:label="NewsFragment" />
     <fragment
         android:id="@+id/fundingFragment"
-        android:name="com.example.numberoneproject.presentation.view.FundingFragment"
+        android:name="com.example.numberoneproject.presentation.view.funding.FundingFragment"
         android:label="FundingFragment" />
     <fragment
         android:id="@+id/mypageFragment"
-        android:name="com.example.numberoneproject.presentation.view.MypageFragment"
+        android:name="com.example.numberoneproject.presentation.view.mypage.MypageFragment"
         android:label="MypageFragment" />
     <fragment
         android:id="@+id/subFragment"
-        android:name="com.example.numberoneproject.presentation.view.SubFragment"
+        android:name="com.example.numberoneproject.presentation.view.home.SubFragment"
         android:label="SubFragment">
         <argument
             android:name="number"

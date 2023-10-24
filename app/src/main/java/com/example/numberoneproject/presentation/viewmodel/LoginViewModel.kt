@@ -62,11 +62,10 @@ class LoginViewModel @Inject constructor(
 
             testLoginUseCase(token)
                 .onSuccess {
-                    Log.d("taag", "1")
+
                 }
                 .onFailure {
                     _loginErrorState.value = it
-                    Log.d("taag", "2")
                 }
         }
     }
@@ -78,7 +77,6 @@ class LoginViewModel @Inject constructor(
             refreshAccessTokenUseCase(TokenRequestBody(refreshToken))
                 .onSuccess {
                     tokenManager.writeLoginTokens(accessToken = it.accessToken, refreshToken = it.refreshToken)
-                    Log.d("taag", "LoginViewModel에서 토큰은 새로 썼음")
                 }
                 .onFailure {
                     _loginErrorState.value = it
