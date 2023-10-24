@@ -36,6 +36,8 @@
             app:itemIconTint="@drawable/nav_menu_select_color"
             app:itemTextColor="@drawable/nav_menu_select_color"
             app:itemActiveIndicatorStyle="@android:color/transparent"
+            app:itemBackground="@android:color/transparent"
+            app:itemRippleColor="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
