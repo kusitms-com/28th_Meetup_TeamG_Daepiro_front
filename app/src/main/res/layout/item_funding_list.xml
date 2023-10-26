@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@drawable/bg_radius_4"
+    android:backgroundTint="@color/white"
+    android:padding="20dp"
+    android:layout_marginBottom="10dp">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="76dp"
+            android:layout_height="76dp"
+            android:src="@drawable/ic_funding"
+            android:background="@drawable/bg_radius_4"
+            android:backgroundTint="@color/orange_300"
+            android:clipToOutline="true"/>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="16dp">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/caption"
+                    android:textColor="@color/secondary_50"
+                    android:paddingVertical="4dp"
+                    android:paddingHorizontal="12dp"
+                    android:background="@drawable/bg_radius_4"
+                    android:backgroundTint="@color/orange_500"
+                    android:text="지진"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/caption"
+                    android:textColor="@color/secondary_400"
+                    android:paddingVertical="4dp"
+                    android:paddingHorizontal="12dp"
+                    android:background="@drawable/bg_radius_4"
+                    android:backgroundTint="@color/secondary_50"
+                    android:layout_marginLeft="8dp"
+                    android:text="D-3"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/subtitle1"
+                android:textColor="@color/secondary_800"
+                android:text="후원 제목"
+                android:layout_marginTop="8dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/caption"
+                android:textColor="@color/secondary_400"
+                android:text="후원 설명 후원 설명 후원 설명 후원 설명"
+                android:layout_marginTop="2dp"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <ProgressBar
+        android:id="@+id/pb_funding"
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:progressBackgroundTint="@color/secondary_50"
+        android:progressTint="@color/orange_500"
+        android:layout_marginTop="12dp"
+        android:max="100"
+        android:progress="30"/>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/caption"
+            android:textColor="@color/secondary_300"
+            android:text="30%"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/caption"
+            android:textColor="@color/secondary_300"
+            android:text="모인토큰 : 20"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.appcompat.widget.LinearLayoutCompat>
