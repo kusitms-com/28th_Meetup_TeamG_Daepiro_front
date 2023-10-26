@@ -9,12 +9,14 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import androidx.fragment.app.FragmentManager
 import com.example.numberoneproject.R
 import com.example.numberoneproject.databinding.ActivitySplashBinding
 import com.example.numberoneproject.presentation.base.BaseActivity
 import com.example.numberoneproject.presentation.util.Extensions.repeatOnStarted
 import com.example.numberoneproject.presentation.util.TokenManager
 import com.example.numberoneproject.presentation.view.MainActivity
+import com.example.numberoneproject.presentation.view.networkerror.NetworkDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
@@ -69,8 +71,14 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
                 }
             } else {
                 showToast("네트워크 연결 상태를 확인하세요.")
+                showErrorDialog()
             }
         }
+    }
+
+    private fun showErrorDialog(){
+        val dialog = NetworkDialogFragment()
+        dialog.show(supportFragmentManager, "netWorkDialog")
     }
 
     override fun onDestroy() {

@@ -297,5 +297,11 @@
         <item>충주시</item>
     </string-array>
 
+    <string-array name="dong">
+        <item>노량진 1동</item>
+        <item>노량진 2동</item>
+        <item></item>
+    </string-array>
+
 
 </resources>
