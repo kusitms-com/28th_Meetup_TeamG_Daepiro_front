@@ -1,5 +1,7 @@
 package com.example.numberoneproject.presentation.view.networkerror
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableStringBuilder
@@ -12,6 +14,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.example.numberoneproject.R
 import com.example.numberoneproject.databinding.FragmentNetworkDialogBinding
 import com.example.numberoneproject.presentation.base.BaseDialogFragment
@@ -31,7 +36,9 @@ class NetworkDialogFragment : BaseDialogFragment<FragmentNetworkDialogBinding>(R
     override fun setupInit() {
         super.setupInit()
         binding.actionBtn.setOnClickListener{
-            //fragment전체 화면
+            val intent = Intent(context, BehaviorTipActivity::class.java)
+            startActivity(intent)
+            dismiss()
         }
         binding.shelterBtn.setOnClickListener{
             //또다른 dialog
