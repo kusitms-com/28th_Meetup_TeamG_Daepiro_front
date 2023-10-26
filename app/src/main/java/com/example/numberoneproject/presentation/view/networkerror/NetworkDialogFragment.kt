@@ -23,10 +23,10 @@ class NetworkDialogFragment : BaseDialogFragment<FragmentNetworkDialogBinding>(R
     override fun setupInit() {
         super.setupInit()
         binding.actionBtn.setOnClickListener{
-
+            //fragment전체 화면
         }
         binding.shelterBtn.setOnClickListener{
-
+            //또다른 dialog
         }
     }
 
