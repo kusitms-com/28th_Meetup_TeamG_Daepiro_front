@@ -15,6 +15,7 @@ class NetworkDialogFragment : BaseDialogFragment<FragmentNetworkDialogBinding>(R
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        isCancelable = false
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
