@@ -14,76 +14,28 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_top"
+            android:id="@+id/btn_naver_map"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/headline1"
-            android:text="프리텐"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/headline2"
-            android:includeFontPadding="false"
-            android:text="Pretendard 프리텐다드"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/headline3"
-            android:text="Pretendard 프리텐다드"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/headline4"
-            android:text="Pretendard 프리텐다드"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/headline5"
-            android:text="Pretendard 프리텐다드"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/headline6"
-            android:text="Pretendard 프리텐다드"/>
+            android:textSize="24sp"
+            android:text="네맵"
+            android:layout_marginTop="24dp"/>
 
         <TextView
+            android:id="@+id/btn_kakao_map"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/subtitle1"
-            android:text="Pretendard 프리텐다드"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/subtitle2"
-            android:text="Pretendard 프리텐다드"/>
+            android:textSize="24sp"
+            android:text="카맵"
+            android:layout_marginTop="24dp"/>
 
         <TextView
+            android:id="@+id/btn_t_map"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/body1"
-            android:text="Pretendard 프리텐다드"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/body2"
-            android:text="Pretendard 프리텐다드"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/button"
-            android:text="Pretendard 프리텐다드"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/caption"
-            android:text="Pretendard 프리텐다드"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/overline"
-            android:text="Pretendard 프리텐다드"/>
-
+            android:textSize="24sp"
+            android:text="티맵"
+            android:layout_marginTop="24dp"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>
