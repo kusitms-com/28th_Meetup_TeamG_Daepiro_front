@@ -6,4 +6,7 @@
     <string name="네트워크_상태_불안정">네트워크 상태가 불안정합니다.\n행동요령 및 대피소 조회 화면으로\n이동할 수 있습니다.</string>
     <string name="행동요령">행동요령</string>
     <string name="대피소_조회">대피소 조회</string>
+    <string name="비상대비">비상대비</string>
+    <string name="자연재난">자연재난</string>
+    <string name="기타">기타</string>
 </resources>
