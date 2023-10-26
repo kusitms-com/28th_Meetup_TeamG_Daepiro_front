@@ -24,4 +24,6 @@
     <color name="secondary_700">#1C2139</color>
     <color name="secondary_800">#151A2C</color>
     <color name="secondary_900">#101422</color>
+
+    <color name="divide_black_10">#1A000000</color>
 </resources>
