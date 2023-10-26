@@ -37,7 +37,7 @@
         <item name="android:fontFamily">@font/pretendard</item>
         <item name="android:textSize">20sp</item>
         <item name="android:lineSpacingExtra">4sp</item>
-        <item name="android:textFontWeight" tools:targetApi="p">500</item>
+        <item name="android:textFontWeight" tools:targetApi="p">600</item>
         <item name="android:includeFontPadding">false</item>
     </style>
 
