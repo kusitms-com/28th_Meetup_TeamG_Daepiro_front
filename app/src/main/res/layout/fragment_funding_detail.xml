@@ -150,12 +150,12 @@
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <TextView
-                    style="@style/caption"
+                    style="@style/body2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="8dp"
-                    android:text="모든 국민은 행위시의 법률에 의하여 범죄를 구성하지 아니하는 행위로 소추되지 아니하며, 동일한 범죄에 대하여 거듭 처벌받지 아니한다. 대법원장은 국회의 동의를 얻어 대통령이 임명한다.\n\n국정의 중요한 사항에 관한 대통령의 자문에 응하기 위하여 국가원로로 구성되는 국가원로자문회의를 둘 수 있다. 법률이 정하는 주요방위산업체에 종사하는 근로자의 단체행동권은 법률이 정하는 바에 의하여 이를 제한하거나 인정하지 아니할 수 있다.\n\n모든 국민은 행위시의 법률에 의하여 범죄를 구성하지 아니하는 행위로 소추되지 아니하며, 동일한 범죄에 대하여 거듭 처벌받지 아니한다. 대법원장은 국회의 동의를 얻어 대통령이 임명한다.\n\n국정의 중요한 사항에 관한 대통령의 자문에 응하기 위하여 국가원로로 구성되는 국가원로자문회의를 둘 수 있다. 법률이 정하는 주요방위산업체에 종사하는 근로자의 단체행동권은 법률이 정하는 바에 의하여 이를 제한하거나 인정하지 아니할 수 있다.\n\n모든 국민은 행위시의 법률에 의하여 범죄를 구성하지 아니하는 행위로 소추되지 아니하며, 동일한 범죄에 대하여 거듭 처벌받지 아니한다. 대법원장은 국회의 동의를 얻어 대통령이 임명한다.\n\n국정의 중요한 사항에 관한 대통령의 자문에 응하기 위하여 국가원로로 구성되는 국가원로자문회의를 둘 수 있다. 법률이 정하는 주요방위산업체에 종사하는 근로자의 단체행동권은 법률이 정하는 바에 의하여 이를 제한하거나 인정하지 아니할 수 있다."
+                    android:text="모든 국민은 행위시의 법률에 의하여 범죄를 구성하지 아니하는 행위로 소추되지 아니하며, 동일한 범죄에 대하여 거듭 처벌받지 아니한다. 대법원장은 국회의 동의를 얻어 대통령이 임명한다.\n\n국정의 중요한 사항에 관한 대통령의 자문에 응하기 위하여 국가원로로 구성되는 국가원로자문회의를 둘 수 있다. "
                     android:textColor="@color/secondary_300" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
@@ -166,16 +166,20 @@
                     android:orientation="vertical">
 
                     <TextView
-                        style="@style/subtitle2"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        style="@style/caption"
+                        android:paddingVertical="4dp"
+                        android:paddingHorizontal="12dp"
                         android:text="후원사 소개"
-                        android:textColor="@color/secondary_800" />
+                        android:background="@drawable/bg_radius_4"
+                        android:backgroundTint="@color/orange_50"
+                        android:textColor="@color/orange_400" />
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="10dp"
                         android:background="@drawable/bg_radius_4"
                         android:backgroundTint="#F4F5F6"
                         android:gravity="center_vertical"
