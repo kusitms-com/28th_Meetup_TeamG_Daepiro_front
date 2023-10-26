@@ -1,6 +1,7 @@
 package com.example.numberoneproject.presentation.view.networkerror
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Spannable
@@ -20,6 +21,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.numberoneproject.R
 import com.example.numberoneproject.databinding.FragmentNetworkDialogBinding
 import com.example.numberoneproject.presentation.base.BaseDialogFragment
+import org.json.JSONObject
+import java.io.InputStream
+import java.lang.Exception
 
 class NetworkDialogFragment : BaseDialogFragment<FragmentNetworkDialogBinding>(R.layout.fragment_network_dialog) {
 
@@ -31,6 +35,7 @@ class NetworkDialogFragment : BaseDialogFragment<FragmentNetworkDialogBinding>(R
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupInit()
+
     }
 
     override fun setupInit() {
@@ -41,7 +46,9 @@ class NetworkDialogFragment : BaseDialogFragment<FragmentNetworkDialogBinding>(R
             dismiss()
         }
         binding.shelterBtn.setOnClickListener{
-            //또다른 dialog
+            dismiss()
+            val dialog=LocationSettingDialogFragment()
+            dialog.show(parentFragmentManager, "LocationSelect")
         }
         setTextColor(binding.errorTxt, binding.errorTxt.text.toString(), listOf("행동요령", "대피소 조회"))
     }
@@ -72,5 +79,6 @@ class NetworkDialogFragment : BaseDialogFragment<FragmentNetworkDialogBinding>(R
         }
         textView.text = spannableStringBuilder
     }
+
 
 }

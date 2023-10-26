@@ -9,4 +9,9 @@
     <string name="비상대비">비상대비</string>
     <string name="자연재난">자연재난</string>
     <string name="기타">기타</string>
+    <string name="위치_설정">위치 설정</string>
+    <string name="시도">시/도</string>
+    <string name="구군">구/군</string>
+    <string name="동읍면">동/읍/면</string>
+    <string name="완료">완료</string>
 </resources>

@@ -1,18 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<FrameLayout
+<LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".presentation.view.networkerror.LocationSettingDialogFragment">
+    android:layout_height="wrap_content"
+    tools:context=".presentation.view.networkerror.LocationSettingDialogFragment"
+    android:orientation="vertical"
+    android:background="@drawable/bg_radius_4">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/secondary_50">
 
-</FrameLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            style="@style/subtitle1"
+            android:layout_weight="1"
+            android:text="@string/위치_설정"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:paddingTop="13dp"
+            android:paddingBottom="13dp"/>
+
+        <ImageView
+            android:id="@+id/closeBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/ic_close"
+            android:layout_marginRight="12dp"
+            android:paddingTop="13dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabRippleColor="@android:color/transparent"
+        app:tabSelectedTextColor="@color/secondary_900"
+        app:tabTextColor="@color/secondary_200"
+        app:tabIndicatorColor="@color/secondary_800"
+        app:tabIndicatorHeight="2dp"
+        app:tabGravity="fill"
+        app:tabIndicatorFullWidth="true">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/시도"
+            android:stateListAnimator="@null"
+            style="@style/caption"/>
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/구군"
+            android:stateListAnimator="@null"
+            style="@style/caption"/>
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/동읍면"
+            android:stateListAnimator="@null"
+            style="@style/caption"/>
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/listitem_location"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+    <TextView
+        android:id="@+id/complete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/완료"
+        android:gravity="center"
+        android:background="@color/secondary_50"
+        android:paddingBottom="14dp"
+        android:paddingTop="14dp"/>
+
+</LinearLayout>
 </layout>

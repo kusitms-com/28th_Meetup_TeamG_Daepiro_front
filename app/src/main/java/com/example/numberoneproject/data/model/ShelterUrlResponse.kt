@@ -1,4 +1,5 @@
 package com.example.numberoneproject.data.model
 
-class ShelterUrlResponse {
-}
+data class ShelterUrlResponse (
+    val link : String=""
+)
