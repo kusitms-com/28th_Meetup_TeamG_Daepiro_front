@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.numberoneproject.R
 import com.example.numberoneproject.databinding.FragmentFundingBinding
@@ -35,5 +36,12 @@ class FundingFragment : BaseFragment<FragmentFundingBinding>(R.layout.fragment_f
             adapter = fundingListAdapter
             setHasFixedSize(true)
         }
+
+        fundingListAdapter.setItemClickListener(object : FundingListAdapter.OnItemClickListener {
+            override fun onItemClick(v: View, position: Int) {
+                val action = FundingFragmentDirections.actionFundingFragmentToFundingDetailFragment()
+                findNavController().navigate(action)
+            }
+        })
     }
 }

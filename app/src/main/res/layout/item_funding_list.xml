@@ -17,9 +17,9 @@
         <ImageView
             android:layout_width="76dp"
             android:layout_height="76dp"
-            android:src="@drawable/ic_funding"
+            android:src="@drawable/image_sample"
             android:background="@drawable/bg_radius_4"
-            android:backgroundTint="@color/orange_300"
+            android:scaleType="fitXY"
             android:clipToOutline="true"/>
 
         <androidx.appcompat.widget.LinearLayoutCompat
