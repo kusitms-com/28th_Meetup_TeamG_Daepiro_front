@@ -35,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="후원정보"
+                android:text="@string/후원정보"
                 android:textColor="@color/secondary_400" />
         </FrameLayout>
 
@@ -184,7 +184,7 @@
                         android:backgroundTint="@color/orange_50"
                         android:paddingHorizontal="12dp"
                         android:paddingVertical="4dp"
-                        android:text="후원사 소개"
+                        android:text="@string/후원사_소개"
                         android:textColor="@color/orange_400" />
 
                     <androidx.appcompat.widget.LinearLayoutCompat
@@ -243,7 +243,7 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="후원하기"
+            android:text="@string/후원하기"
             android:gravity="center"
             android:textColor="@color/white"
             style="@style/button"

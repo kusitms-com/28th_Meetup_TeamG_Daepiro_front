@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             style="@style/caption"
             android:layout_marginTop="6dp"
-            android:text="전체" />
+            android:text="@string/전체" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>
