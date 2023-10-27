@@ -46,60 +46,27 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         val encodedStartAddress = encodeAddress(startLocationAddress?.get(0)?.getAddressLine(0).toString().replace("대한민국 ",""))
         val encodedEndAddress = encodeAddress(endLocationAddress?.get(0)?.getAddressLine(0).toString().replace("대한민국 ",""))
 
-        val url = "nmap://route/walk?slat=${startLocation.first}&slng=${startLocation.second}&sname=${encodedStartAddress}&dlat=${endLocation.first}&dlng=${endLocation.second}&dname=${encodedEndAddress}&appname=com.example.numberoneproject"
+        val url = "nmap://route/walk?slat=${startLocation.first}&slng=${startLocation.second}&sname=${encodedStartAddress}&dlat=${endLocation.first}&dlng=${endLocation.second}&dname=${encodedEndAddress}"
+        val storeUrl = "market://details?id=com.nhn.android.nmap"
 
-        val intent =  Intent(Intent.ACTION_VIEW, Uri.parse(url))
-        intent.addCategory(Intent.CATEGORY_BROWSABLE)
-
-        val installCheck = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            requireContext().packageManager.queryIntentActivities(
-                Intent(Intent.ACTION_MAIN, null).addCategory(Intent.CATEGORY_LAUNCHER),
-                PackageManager.ResolveInfoFlags.of(PackageManager.MATCH_DEFAULT_ONLY.toLong())
-            )
-        } else {
-            requireContext().packageManager.queryIntentActivities(
-                Intent(Intent.ACTION_MAIN, null).addCategory(Intent.CATEGORY_LAUNCHER),
-                PackageManager.GET_META_DATA
-            )
-        }
-
-        // 네이버맵이 설치되어 있다면 앱으로 연결, 설치되어 있지 않다면 스토어로 이동
-        if (installCheck.isEmpty()) {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.nhn.android.nmap")))
-        } else {
-            startActivity(intent)
-        }
+        searchUrlToLoadMap(url, storeUrl)
     }
 
     private fun searchLoadToKakaoMap() {
         val url ="kakaomap://route?sp=${startLocation.first},${startLocation.second}&ep=${endLocation.first},${endLocation.second}&by=FOOT"
+        val storeUrl = "market://details?id=net.daum.android.map"
 
-        val intent =  Intent(Intent.ACTION_VIEW, Uri.parse(url))
-        intent.addCategory(Intent.CATEGORY_BROWSABLE)
-
-        val installCheck = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            requireContext().packageManager.queryIntentActivities(
-                Intent(Intent.ACTION_MAIN, null).addCategory(Intent.CATEGORY_LAUNCHER),
-                PackageManager.ResolveInfoFlags.of(PackageManager.MATCH_DEFAULT_ONLY.toLong())
-            )
-        } else {
-            requireContext().packageManager.queryIntentActivities(
-                Intent(Intent.ACTION_MAIN, null).addCategory(Intent.CATEGORY_LAUNCHER),
-                PackageManager.GET_META_DATA
-            )
-        }
-
-        // 카카오맵이 설치되어 있다면 앱으로 연결, 설치되어 있지 않다면 스토어로 이동
-        if (installCheck.isEmpty()) {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=net.daum.android.map")))
-        } else {
-            startActivity(intent)
-        }
+        searchUrlToLoadMap(url, storeUrl)
     }
 
     private fun searchLoadToTMap() {
         val url = "tmap://route?startx=${startLocation.second}&starty=${startLocation.first}&goalx=${endLocation.second}&goaly=${endLocation.first}&reqCoordType=WGS84&resCoordType=WGS84"
+        val storeUrl = "market://details?id=com.skt.tmap.ku"
 
+        searchUrlToLoadMap(url, storeUrl)
+    }
+
+    private fun searchUrlToLoadMap(url: String, storeUrl: String) {
         val intent =  Intent(Intent.ACTION_VIEW, Uri.parse(url))
         intent.addCategory(Intent.CATEGORY_BROWSABLE)
 
@@ -115,9 +82,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             )
         }
 
-        // 티맵이 설치되어 있다면 앱으로 연결, 설치되어 있지 않다면 스토어로 이동
+        // 이동할 지도앱이 설치되어 있다면 앱으로 연결, 설치되어 있지 않다면 스토어로 이동
         if (installCheck.isEmpty()) {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.skt.tmap.ku")))
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(storeUrl)))
         } else {
             startActivity(intent)
         }
