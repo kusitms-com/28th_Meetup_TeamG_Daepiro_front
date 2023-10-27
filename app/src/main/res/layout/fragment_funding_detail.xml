@@ -127,20 +127,9 @@
                         android:paddingHorizontal="20dp"
                         android:paddingVertical="16dp">
 
-                        <ProgressBar
-                            android:id="@+id/pb_funding"
-                            style="@android:style/Widget.ProgressBar.Horizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="8dp"
-                            android:max="100"
-                            android:progress="30"
-                            android:progressBackgroundTint="@color/secondary_50"
-                            android:progressTint="@color/orange_500" />
-
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp">
+                            android:layout_height="wrap_content">
 
                             <TextView
                                 style="@style/button"
@@ -159,6 +148,17 @@
                                 android:text="모인토큰 : 20"
                                 android:textColor="@color/secondary_300" />
                         </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <ProgressBar
+                            android:id="@+id/pb_funding"
+                            style="@android:style/Widget.ProgressBar.Horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="8dp"
+                            android:max="100"
+                            android:progress="30"
+                            android:progressBackgroundTint="@color/secondary_50"
+                            android:progressTint="@color/orange_500"
+                            android:layout_marginTop="8dp"/>
                     </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
