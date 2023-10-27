@@ -36,6 +36,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         loginVM.loginTest()
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        loginVM.loginTest()
+    }
+
     override fun subscribeUi() {
         /** 유저 토큰정보 확인 용도 **/
         repeatOnStarted {
