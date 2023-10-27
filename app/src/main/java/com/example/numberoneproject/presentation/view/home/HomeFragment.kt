@@ -2,21 +2,25 @@ package com.example.numberoneproject.presentation.view.home
 
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.content.pm.ResolveInfo
+import android.location.Geocoder
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.example.numberoneproject.R
 import com.example.numberoneproject.databinding.FragmentHomeBinding
 import com.example.numberoneproject.presentation.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
+import java.util.Locale
 
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
-    private val startLocation = Pair(37.537229,37.4979502)      // 출발지 위도, 경도
-    private val endLocation = Pair(127.005515, 127.0276368)     // 도착지 위도, 경도
+    private val startLocation = Pair(37.549186395087, 127.07505567644)      // 출발지 위도, 경도
+    private val endLocation = Pair(37.42637222, 126.9898)     // 도착지 위도, 경도
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -36,7 +40,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     }
 
     private fun searchLoadToNaverMap() {
-        val url = "nmap://route/walk?slat=${startLocation.first}&slng=${startLocation.second}&dlat=${endLocation.first}&dlng=${endLocation.second}&appname=com.example.numberoneproject"
+        val geocoder = Geocoder(requireContext(), Locale.KOREAN)
+        val startLocationAddress = geocoder.getFromLocation(startLocation.first, startLocation.second, 1)
+        val endLocationAddress = geocoder.getFromLocation(endLocation.first, endLocation.second, 1)
+        val encodedStartAddress = encodeAddress(startLocationAddress?.get(0)?.getAddressLine(0).toString().replace("대한민국 ",""))
+        val encodedEndAddress = encodeAddress(endLocationAddress?.get(0)?.getAddressLine(0).toString().replace("대한민국 ",""))
+
+        val url = "nmap://route/walk?slat=${startLocation.first}&slng=${startLocation.second}&sname=${encodedStartAddress}&dlat=${endLocation.first}&dlng=${endLocation.second}&dname=${encodedEndAddress}&appname=com.example.numberoneproject"
 
         val intent =  Intent(Intent.ACTION_VIEW, Uri.parse(url))
         intent.addCategory(Intent.CATEGORY_BROWSABLE)
@@ -89,5 +99,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private fun searchLoadToTMap() {
 
+    }
+
+    private fun encodeAddress(address: String): String {
+        return URLEncoder.encode(address, StandardCharsets.UTF_8.toString())
     }
 }
