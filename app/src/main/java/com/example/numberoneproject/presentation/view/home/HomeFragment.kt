@@ -98,7 +98,29 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     }
 
     private fun searchLoadToTMap() {
+        val url = "tmap://route?startx=${startLocation.second}&starty=${startLocation.first}&goalx=${endLocation.second}&goaly=${endLocation.first}&reqCoordType=WGS84&resCoordType=WGS84"
 
+        val intent =  Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        intent.addCategory(Intent.CATEGORY_BROWSABLE)
+
+        val installCheck = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requireContext().packageManager.queryIntentActivities(
+                Intent(Intent.ACTION_MAIN, null).addCategory(Intent.CATEGORY_LAUNCHER),
+                PackageManager.ResolveInfoFlags.of(PackageManager.MATCH_DEFAULT_ONLY.toLong())
+            )
+        } else {
+            requireContext().packageManager.queryIntentActivities(
+                Intent(Intent.ACTION_MAIN, null).addCategory(Intent.CATEGORY_LAUNCHER),
+                PackageManager.GET_META_DATA
+            )
+        }
+
+        // 티맵이 설치되어 있다면 앱으로 연결, 설치되어 있지 않다면 스토어로 이동
+        if (installCheck.isEmpty()) {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.skt.tmap.ku")))
+        } else {
+            startActivity(intent)
+        }
     }
 
     private fun encodeAddress(address: String): String {
