@@ -3,7 +3,6 @@ package com.example.numberoneproject.presentation.view.funding
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView.OnItemClickListener
 import androidx.recyclerview.widget.RecyclerView
 import com.example.numberoneproject.databinding.ItemFundingListBinding
 
@@ -24,12 +23,12 @@ class FundingListAdapter: RecyclerView.Adapter<FundingListAdapter.CustomViewHold
         holder.bind(position)
 
         holder.itemView.setOnClickListener {
-            itemClickListener.onItemClick(it, position)
+            itemClickListener.onClickItem(it, position)
         }
     }
 
     interface OnItemClickListener {
-        fun onItemClick(v: View, position: Int)
+        fun onClickItem(v: View, position: Int)
     }
 
     fun setItemClickListener(onItemClickListener: OnItemClickListener) {
