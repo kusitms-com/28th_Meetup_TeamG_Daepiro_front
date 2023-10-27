@@ -42,7 +42,5 @@
         </activity>
 
         <meta-data android:name="com.kakao.sdk.AppKey" android:value="${kakaoKey}" />
-
     </application>
-
 </manifest>
