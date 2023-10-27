@@ -72,7 +72,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     }
 
     private fun searchLoadToKakaoMap() {
-        val url ="kakaomap://route?sp=${startLocation.first},${endLocation.first}&ep=${startLocation.second},${endLocation.second}&by=FOOT"
+        val url ="kakaomap://route?sp=${startLocation.first},${startLocation.second}&ep=${endLocation.first},${endLocation.second}&by=FOOT"
 
         val intent =  Intent(Intent.ACTION_VIEW, Uri.parse(url))
         intent.addCategory(Intent.CATEGORY_BROWSABLE)
