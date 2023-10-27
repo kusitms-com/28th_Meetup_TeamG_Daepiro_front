@@ -77,6 +77,7 @@ class LoginViewModel @Inject constructor(
             refreshAccessTokenUseCase(TokenRequestBody(refreshToken))
                 .onSuccess {
                     tokenManager.writeLoginTokens(accessToken = it.accessToken, refreshToken = it.refreshToken)
+                    _loginErrorState.value = null
                 }
                 .onFailure {
                     _loginErrorState.value = it
