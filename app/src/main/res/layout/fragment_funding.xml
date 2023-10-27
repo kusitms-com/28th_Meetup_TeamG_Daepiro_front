@@ -60,7 +60,7 @@
             android:id="@+id/rv_funding_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/secondary_50"
+            android:background="@color/surface"
             android:paddingHorizontal="20dp"
             android:paddingTop="20dp"
             android:clipToPadding="false"

@@ -74,7 +74,7 @@
     <ProgressBar
         android:id="@+id/pb_funding"
         android:layout_width="match_parent"
-        android:layout_height="6dp"
+        android:layout_height="8dp"
         style="@android:style/Widget.ProgressBar.Horizontal"
         android:progressBackgroundTint="@color/secondary_50"
         android:progressTint="@color/orange_500"
