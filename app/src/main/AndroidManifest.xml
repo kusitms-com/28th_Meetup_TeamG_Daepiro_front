@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <application
         android:name=".presentation.di.MyApplication"
@@ -36,14 +37,10 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
-                <data android:host="oauth"
-                    android:scheme="${kakaoKey}" />
+                <data android:host="oauth" android:scheme="${kakaoKey}" />
             </intent-filter>
         </activity>
 
-        <meta-data android:name="com.kakao.sdk.AppKey" android:value="${kakaoKey}"/>
-
+        <meta-data android:name="com.kakao.sdk.AppKey" android:value="${kakaoKey}" />
     </application>
-
 </manifest>

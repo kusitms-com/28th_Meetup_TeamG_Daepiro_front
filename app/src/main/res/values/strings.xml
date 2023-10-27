@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">NumberOneProject</string>
+    <string name="app_name">대피로</string>
+
+    <string name="홈">홈</string>
+    <string name="뉴스">뉴스</string>
+    <string name="후원">후원</string>
+    <string name="마이페이지">마이페이지</string>
 </resources>
