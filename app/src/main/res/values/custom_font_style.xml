@@ -51,7 +51,7 @@
     <style name="subtitle2">
         <item name="android:fontFamily">@font/pretendard</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:lineSpacingExtra">3sp</item>
+        <item name="android:lineSpacingExtra">6sp</item>
         <item name="android:textFontWeight" tools:targetApi="p">500</item>
         <item name="android:includeFontPadding">false</item>
     </style>
