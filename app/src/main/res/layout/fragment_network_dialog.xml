@@ -9,13 +9,7 @@
     tools:context=".presentation.view.networkerror.NetworkDialogFragment"
     android:orientation="vertical"
     android:background="@drawable/bg_radius_4">
-    
-<!--    <ImageView-->
-<!--        android:layout_width="80dp"-->
-<!--        android:layout_height="80dp"-->
-<!--        android:src="@drawable/deleteone"-->
-<!--        android:layout_marginTop="28dp"-->
-<!--        android:layout_gravity="center_horizontal"/>-->
+
 
     <com.airbnb.lottie.LottieAnimationView
         android:layout_width="80dp"
