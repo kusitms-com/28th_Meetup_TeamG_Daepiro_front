@@ -18,28 +18,45 @@
             android:layout_height="0dp"
             app:defaultNavHost="true"
             app:navGraph="@navigation/nav_graph"
-            app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_bar"
+            app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_box"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_navigation_bar"
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/bottom_navigation_box"
             android:layout_width="match_parent"
-            android:layout_height="66dp"
-            android:background="@android:color/transparent"
-            app:itemPaddingTop="10dp"
-            app:itemPaddingBottom="10dp"
-            android:paddingHorizontal="20dp"
-            app:menu="@menu/bottom_nav_menu"
-            app:labelVisibilityMode="labeled"
-            app:itemIconTint="@drawable/nav_menu_select_color"
-            app:itemTextColor="@drawable/nav_menu_select_color"
-            app:itemActiveIndicatorStyle="@android:color/transparent"
-            app:itemBackground="@android:color/transparent"
-            app:itemRippleColor="@android:color/transparent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divide_black_10"/>
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottom_navigation_bar"
+                android:layout_width="match_parent"
+                android:layout_height="66dp"
+                android:background="@android:color/transparent"
+                android:paddingHorizontal="20dp"
+                app:itemActiveIndicatorStyle="@android:color/transparent"
+                app:itemBackground="@android:color/transparent"
+                app:itemIconTint="@drawable/nav_menu_select_color"
+                app:itemPaddingBottom="12dp"
+                app:itemPaddingTop="12dp"
+                app:itemRippleColor="@android:color/transparent"
+                app:itemTextColor="@drawable/nav_menu_select_color"
+                app:labelVisibilityMode="labeled"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:menu="@menu/bottom_nav_menu" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

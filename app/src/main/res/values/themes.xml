@@ -3,7 +3,12 @@
     <style name="Base.Theme.NumberOneProject" parent="Theme.Material3.Light.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
+        <!-- Status bar color. -->
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:statusBarColor">#14212121</item>
     </style>
 
     <style name="Theme.NumberOneProject" parent="Base.Theme.NumberOneProject" />
+
 </resources>

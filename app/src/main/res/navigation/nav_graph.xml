@@ -21,7 +21,11 @@
     <fragment
         android:id="@+id/fundingFragment"
         android:name="com.example.numberoneproject.presentation.view.funding.FundingFragment"
-        android:label="FundingFragment" />
+        android:label="FundingFragment" >
+        <action
+            android:id="@+id/action_fundingFragment_to_fundingDetailFragment"
+            app:destination="@id/fundingDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/mypageFragment"
         android:name="com.example.numberoneproject.presentation.view.mypage.MypageFragment"
@@ -35,7 +39,8 @@
             app:argType="integer"
             android:defaultValue="-1" />
     </fragment>
-
-
-
+    <fragment
+        android:id="@+id/fundingDetailFragment"
+        android:name="com.example.numberoneproject.presentation.view.funding.FundingDetailFragment"
+        android:label="FundingDetailFragment" />
 </navigation>

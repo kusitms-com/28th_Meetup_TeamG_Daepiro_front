@@ -3,5 +3,9 @@
     <style name="Base.Theme.NumberOneProject" parent="Theme.Material3.Light.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+
+        <!-- Status bar color. -->
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:statusBarColor">#14212121</item>
     </style>
 </resources>
