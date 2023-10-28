@@ -2,12 +2,14 @@ package com.example.numberoneproject.data.network
 
 import com.example.numberoneproject.data.model.LoginTestResponse
 import com.example.numberoneproject.data.model.LoginTokenResponse
+import com.example.numberoneproject.data.model.ShelterData
 import com.example.numberoneproject.data.model.ShelterUrlResponse
 import com.example.numberoneproject.data.model.TokenRequestBody
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.Url
 
 interface ApiService {
 
@@ -40,4 +42,9 @@ interface ApiService {
     suspend fun getShelters(
         @Header("Authorization") token:String
     ): ApiResult<ShelterUrlResponse>
+
+    @GET
+    suspend fun getDataFromUrl(
+        @Url url:String
+    ):ApiResult<ShelterData>
 }

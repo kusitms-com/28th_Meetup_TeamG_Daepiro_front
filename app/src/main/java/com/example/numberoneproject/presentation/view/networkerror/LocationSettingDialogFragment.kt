@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.viewModels
 import com.example.numberoneproject.R
 import com.example.numberoneproject.databinding.FragmentLocationSettingDialogBinding
 import com.example.numberoneproject.presentation.base.BaseDialogFragment
