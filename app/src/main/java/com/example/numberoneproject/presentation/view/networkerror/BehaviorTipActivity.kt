@@ -24,9 +24,9 @@ class BehaviorTipActivity : BaseActivity<ActivityBehaviorTipBinding>(R.layout.ac
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 val fragmentTransaction = fragmentManager.beginTransaction()
                 when(tab?.position){
-                    0 -> fragmentTransaction.replace(R.id.fragmentContainer, BehaviorTabAFragment())
-                    1 -> fragmentTransaction.replace(R.id.fragmentContainer, BehaviorTabBFragment())
-                    2 -> fragmentTransaction.replace(R.id.fragmentContainer, BehaviorTabCFragment())
+                    0 -> fragmentTransaction.replace(R.id.fragmentContainer, BehaviorTabAFragment.newInstance())
+                    1 -> fragmentTransaction.replace(R.id.fragmentContainer, BehaviorTabBFragment.newInstance())
+                    2 -> fragmentTransaction.replace(R.id.fragmentContainer, BehaviorTabCFragment.newInstance())
                 }
                 fragmentTransaction.commit()
             }

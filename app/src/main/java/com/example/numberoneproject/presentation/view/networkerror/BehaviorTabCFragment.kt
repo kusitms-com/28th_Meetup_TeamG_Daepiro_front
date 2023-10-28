@@ -8,6 +8,15 @@ import android.view.ViewGroup
 import com.example.numberoneproject.R
 
 class BehaviorTabCFragment : Fragment() {
+    companion object{
+        private var instance: BehaviorTabCFragment? = null
+        fun newInstance(): BehaviorTabCFragment{
+            if(instance == null){
+                instance = BehaviorTabCFragment()
+            }
+            return instance!!
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
