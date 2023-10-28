@@ -2,6 +2,7 @@ package com.example.numberoneproject.data.network
 
 import com.example.numberoneproject.data.model.LoginTestResponse
 import com.example.numberoneproject.data.model.LoginTokenResponse
+import com.example.numberoneproject.data.model.ShelterUrlResponse
 import com.example.numberoneproject.data.model.TokenRequestBody
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -33,4 +34,10 @@ interface ApiService {
     suspend fun apiLoginTest(
         @Header("Authorization") token: String
     ): ApiResult<LoginTestResponse>
+
+    //대피소 전체 데이터 가져오기
+    @GET("/api/shelters/init")
+    suspend fun getShelters(
+        @Header("Authorization") token:String
+    ): ApiResult<ShelterUrlResponse>
 }
