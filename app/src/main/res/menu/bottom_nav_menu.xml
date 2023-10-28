@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:title="홈"
+        android:title="@string/홈"
         android:enabled="true"
         android:id="@+id/homeFragment"
         android:icon="@drawable/ic_home" />
     <item
-        android:title="뉴스"
+        android:title="@string/뉴스"
         android:enabled="true"
         android:id="@+id/newsFragment"
         android:icon="@drawable/ic_news" />
     <item
-        android:title="기부"
+        android:title="@string/후원"
         android:enabled="true"
         android:id="@+id/fundingFragment"
         android:icon="@drawable/ic_funding" />
     <item
-        android:title="마이페이지"
+        android:title="@string/마이페이지"
         android:enabled="true"
         android:id="@+id/mypageFragment"
         android:icon="@drawable/ic_mypage" />

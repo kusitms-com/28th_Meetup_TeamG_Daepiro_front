@@ -82,10 +82,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.id == R.id.homeFragment || destination.id == R.id.newsFragment
                 || destination.id == R.id.fundingFragment || destination.id == R.id.mypageFragment) {
-                binding.bottomNavigationBar.visibility = View.VISIBLE
+                binding.bottomNavigationBox.visibility = View.VISIBLE
 
             } else {
-                binding.bottomNavigationBar.visibility = View.GONE
+                binding.bottomNavigationBox.visibility = View.GONE
             }
         }
     }
