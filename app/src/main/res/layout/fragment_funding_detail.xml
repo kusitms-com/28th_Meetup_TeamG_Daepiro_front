@@ -4,7 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="fragment"
+            type="com.example.numberoneproject.presentation.view.funding.FundingDetailFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,11 +26,13 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
+                android:id="@+id/btn_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|start"
                 android:src="@drawable/ic_arrow_left"
-                app:tint="@color/secondary_200" />
+                app:tint="@color/secondary_200"
+                android:onClick="@{(v) -> fragment.onClickGoBack(v)}"/>
 
             <TextView
                 style="@style/subtitle1"
