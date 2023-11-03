@@ -3,12 +3,16 @@ package com.example.numberoneproject.presentation.view.home
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.numberoneproject.data.model.Shelter
 import com.example.numberoneproject.databinding.ItemAroundShelterBinding
 
 class AroundShelterAdapter: RecyclerView.Adapter<AroundShelterAdapter.CustomViewHolder>() {
-    inner class CustomViewHolder(val binding: ItemAroundShelterBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind() {
+    private var data = listOf<Shelter>()
 
+    inner class CustomViewHolder(val binding: ItemAroundShelterBinding): RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: Shelter) {
+            binding.tvTitle.text = item.facilityName
+            binding.tvAddress.text = item.latitude.toString()
         }
     }
 
@@ -18,8 +22,13 @@ class AroundShelterAdapter: RecyclerView.Adapter<AroundShelterAdapter.CustomView
     }
 
     override fun onBindViewHolder(holder: AroundShelterAdapter.CustomViewHolder, position: Int) {
-        holder.bind()
+        holder.bind(data[position])
     }
 
-    override fun getItemCount() = 5
+    fun setData(newData: List<Shelter>) {
+        data = newData
+        notifyDataSetChanged()
+    }
+
+    override fun getItemCount() = data.size
 }

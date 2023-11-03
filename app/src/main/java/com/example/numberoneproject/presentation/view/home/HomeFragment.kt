@@ -8,11 +8,16 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.MarginPageTransformer
 import com.example.numberoneproject.R
+import com.example.numberoneproject.data.model.ShelterRequestBody
 import com.example.numberoneproject.databinding.FragmentHomeBinding
 import com.example.numberoneproject.presentation.base.BaseFragment
+import com.example.numberoneproject.presentation.util.Extensions.repeatOnStarted
+import com.example.numberoneproject.presentation.viewmodel.ShelterViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import java.util.Locale
@@ -20,6 +25,8 @@ import java.util.Locale
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
+    val shelterVM by viewModels<ShelterViewModel>()
+    private lateinit var aroundShelterAdapter: AroundShelterAdapter
     private val startLocation = Pair(37.549186395087, 127.07505567644)      // 출발지 위도, 경도
     private val endLocation = Pair(37.42637222, 126.9898)     // 도착지 위도, 경도
 
@@ -38,12 +45,24 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             searchLoadToTMap()
         }
 
+        aroundShelterAdapter = AroundShelterAdapter()
+
         binding.vpShelter.apply {
             offscreenPageLimit = 1
-            adapter = AroundShelterAdapter()
+            adapter = aroundShelterAdapter
 
             setPageTransformer(MarginPageTransformer(32))
             setPadding(0,0,150,0)
+        }
+
+        shelterVM.getAroundSheltersList(ShelterRequestBody(37.5559, 126.9723, "민방위"))
+    }
+
+    override fun subscribeUi() {
+        repeatOnStarted {
+            shelterVM.sheltersList.collectLatest {
+                aroundShelterAdapter.setData(it.shelterList)
+            }
         }
     }
 
