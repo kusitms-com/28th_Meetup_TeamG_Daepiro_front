@@ -15,9 +15,10 @@
     <color name="orange_900">#6B2C11</color>
     
     <color name="secondary_50">#E9EAEE</color>
+    <color name="secondary_75">#DBDDE3</color>
     <color name="secondary_100">#BCBFC9</color>
     <color name="secondary_200">#9C9FAF</color>
-    <color name="secondary_300">#6E748A</color>
+    <color name="secondary_300">#7F8598</color>
     <color name="secondary_400">#525973</color>
     <color name="secondary_500">#272F50</color>
     <color name="secondary_600">#232B49</color>
@@ -26,5 +27,6 @@
     <color name="secondary_900">#101422</color>
 
     <color name="surface">#F4F5F6</color>
-    <color name="divide_black_10">#1A000000</color>
+    <color name="outline">#1A000000</color>
+    <color name="modal_background">#99000000</color>
 </resources>
