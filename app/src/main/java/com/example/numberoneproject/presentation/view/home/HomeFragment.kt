@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.viewpager2.widget.MarginPageTransformer
 import com.example.numberoneproject.R
 import com.example.numberoneproject.databinding.FragmentHomeBinding
 import com.example.numberoneproject.presentation.base.BaseFragment
@@ -37,6 +38,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             searchLoadToTMap()
         }
 
+        binding.vpShelter.apply {
+            offscreenPageLimit = 1
+            adapter = AroundShelterAdapter()
+
+            setPageTransformer(MarginPageTransformer(32))
+            setPadding(0,0,150,0)
+        }
     }
 
     private fun searchLoadToNaverMap() {
