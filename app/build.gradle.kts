@@ -90,7 +90,10 @@ dependencies {
     // Circle ImageView
     implementation("de.hdodenhof:circleimageview:3.1.0")
 
-    //lottie library
+    // Ted Permission
+    implementation("io.github.ParkSangGwon:tedpermission-normal:3.3.0")
+    
+    // lottie library
     implementation("com.airbnb.android:lottie:6.1.0")
 
 
