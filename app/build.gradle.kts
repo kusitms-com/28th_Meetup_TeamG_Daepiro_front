@@ -92,6 +92,9 @@ dependencies {
 
     // Ted Permission
     implementation("io.github.ParkSangGwon:tedpermission-normal:3.3.0")
+    
+    // lottie library
+    implementation("com.airbnb.android:lottie:6.1.0")
 
 
 
