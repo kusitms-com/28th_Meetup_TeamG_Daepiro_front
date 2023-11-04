@@ -2,12 +2,16 @@ package com.example.numberoneproject.data.network
 
 import com.example.numberoneproject.data.model.LoginTestResponse
 import com.example.numberoneproject.data.model.LoginTokenResponse
+import com.example.numberoneproject.data.model.ShelterData
+import com.example.numberoneproject.data.model.ShelterListResponse
+import com.example.numberoneproject.data.model.ShelterRequestBody
 import com.example.numberoneproject.data.model.ShelterUrlResponse
 import com.example.numberoneproject.data.model.TokenRequestBody
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.Url
 
 interface ApiService {
 
@@ -43,12 +47,13 @@ interface ApiService {
     ): ApiResult<ShelterListResponse>
 
 
-    //대피소 전체 데이터 가져오기
+    //대피소 전체 데이터 가진 링크 가져오기
     @GET("/api/shelters/init")
     suspend fun getShelters(
         @Header("Authorization") token:String
     ): ApiResult<ShelterUrlResponse>
 
+    //대피소 url로부터 파싱
     @GET
     suspend fun getDataFromUrl(
         @Url url:String

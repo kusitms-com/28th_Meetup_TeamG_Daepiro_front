@@ -10,7 +10,7 @@ import javax.inject.Inject
 class GetShelterRepositoryImpl @Inject constructor(
     private val service: ApiService,
 ): GetShelterRepository {
-    override suspend fun getShelter(token: String): ApiResult<ShelterUrlResponse>{
+    override suspend fun getShelterUrl(token: String): ApiResult<ShelterUrlResponse>{
         return service.getShelters(token)
     }
 

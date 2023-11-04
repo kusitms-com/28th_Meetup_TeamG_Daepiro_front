@@ -9,6 +9,6 @@ class GetShelterUseCase @Inject constructor(
     private val getShelterRepository: GetShelterRepository
 ) {
     suspend operator fun invoke(token:String): ApiResult<ShelterUrlResponse>{
-        return getShelterRepository.getShelter(token)
+        return getShelterRepository.getShelterUrl(token)
     }
 }

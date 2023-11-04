@@ -72,6 +72,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
                 if (it.isNotEmpty()) {
                     startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                     finish()
+                    //이때 링크 요청
                 }
             }
         }

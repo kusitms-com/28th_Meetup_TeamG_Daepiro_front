@@ -3,8 +3,10 @@ package com.example.numberoneproject.presentation.di
 import com.example.numberoneproject.BuildConfig
 import com.example.numberoneproject.data.network.ApiResultCallAdapterFactory
 import com.example.numberoneproject.data.network.ApiService
+import com.example.numberoneproject.data.repositoryimpl.GetShelterRepositoryImpl
 import com.example.numberoneproject.data.repositoryimpl.LoginRepositoryImpl
 import com.example.numberoneproject.data.repositoryimpl.ShelterRepositoryImpl
+import com.example.numberoneproject.domain.repository.GetShelterRepository
 import com.example.numberoneproject.domain.repository.LoginRepository
 import com.example.numberoneproject.domain.repository.ShelterRepository
 import com.example.numberoneproject.presentation.util.TokenManager
@@ -33,6 +35,13 @@ abstract class RepositoryModule {
     abstract fun bindShelterRepository(
         shelterRepositoryImpl: ShelterRepositoryImpl
     ): ShelterRepository
+
+    //shelter url
+    @Singleton
+    @Binds
+    abstract fun bindGetShelterRepository(
+        getShelterRepositoryImpl: GetShelterRepositoryImpl
+    ): GetShelterRepository
 
 }
 
@@ -67,4 +76,6 @@ object AppModule {
     fun provideService(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
     }
+
+
 }
