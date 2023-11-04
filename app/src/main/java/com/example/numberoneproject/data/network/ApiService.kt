@@ -57,5 +57,5 @@ interface ApiService {
     @GET
     suspend fun getDataFromUrl(
         @Url url:String
-    ):ApiResult<ShelterData>
+    ):ApiResult<List<ShelterData>>
 }

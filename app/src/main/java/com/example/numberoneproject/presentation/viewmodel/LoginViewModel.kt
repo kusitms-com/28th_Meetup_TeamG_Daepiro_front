@@ -1,12 +1,15 @@
 package com.example.numberoneproject.presentation.viewmodel
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.numberoneproject.data.model.TokenRequestBody
 import com.example.numberoneproject.data.network.ApiResult
 import com.example.numberoneproject.data.network.onFailure
 import com.example.numberoneproject.data.network.onSuccess
+import com.example.numberoneproject.domain.usecase.GetShelterFromurlUseCase
 import com.example.numberoneproject.domain.usecase.GetShelterUseCase
 import com.example.numberoneproject.domain.usecase.KakaoLoginUseCase
 import com.example.numberoneproject.domain.usecase.NaverLoginUseCase
@@ -18,6 +21,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -27,7 +31,9 @@ class LoginViewModel @Inject constructor(
     private val kakaoLoginUseCase: KakaoLoginUseCase,
     private val testLoginUseCase: TestUseCase,
     private val refreshAccessTokenUseCase: RefreshAccessTokenUseCase,
-    private val getShelterUseCase: GetShelterUseCase
+    private val getShelterUseCase: GetShelterUseCase,
+    private val getShelterFromurlUseCase: GetShelterFromurlUseCase,
+    private val filesDir: File,
 ) : ViewModel() {
 
     private val _loginErrorState = MutableStateFlow<ApiResult.Failure?>(null)
@@ -35,6 +41,9 @@ class LoginViewModel @Inject constructor(
 
     private val _url = MutableStateFlow<ApiResult.Failure?>(null)
     val url = _url.asStateFlow()
+
+    private val _shelterDataState = MutableLiveData<ApiResult<Unit>>()
+    val shelterDataState: LiveData<ApiResult<Unit>> = _shelterDataState
 
     fun userNaverLogin(loginBody: TokenRequestBody) {
         viewModelScope.launch {
@@ -99,9 +108,26 @@ class LoginViewModel @Inject constructor(
             getShelterUseCase(token)
                 .onSuccess {
                     Log.d("LoginViewModel", "${it.link}")
+                    val fileName = "shelter_data.json"
+                    val file = File(filesDir, fileName)
+                    saveToFile(it.link,file)
+                    Log.d("LoginViewModel", "실행?")
                 }
                 .onFailure {
                     _url.value = it
+                    Log.d("LoginViewModel", "${it}")
+                }
+        }
+    }
+
+    fun saveToFile(url:String, file: File){
+        viewModelScope.launch {
+            getShelterFromurlUseCase(url,file)
+                .onSuccess {
+                    Log.d("LoginViewModel", "저장 성공")
+                }
+                .onFailure {throwable->
+                    Log.d("LoginViewModel", "저장 실패 ${throwable}")
                 }
         }
     }

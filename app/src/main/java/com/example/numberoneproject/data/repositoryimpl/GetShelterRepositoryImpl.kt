@@ -14,7 +14,7 @@ class GetShelterRepositoryImpl @Inject constructor(
         return service.getShelters(token)
     }
 
-    override suspend fun fetchShelterFromUrl(url: String): ApiResult<ShelterData> {
+    override suspend fun fetchShelterFromUrl(url: String): ApiResult<List<ShelterData>> {
         return service.getDataFromUrl(url)
     }
 }
