@@ -10,12 +10,10 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class LocationSettingDialogFragment : BaseDialogFragment<FragmentLocationSettingDialogBinding>(R.layout.fragment_location_setting_dialog) {
-    val viewModel by viewModels<ShelterCheckViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         isCancelable = false
-        viewModel.getShelterUrl()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

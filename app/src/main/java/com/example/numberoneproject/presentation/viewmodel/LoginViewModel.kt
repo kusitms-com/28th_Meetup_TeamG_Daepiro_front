@@ -7,6 +7,7 @@ import com.example.numberoneproject.data.model.TokenRequestBody
 import com.example.numberoneproject.data.network.ApiResult
 import com.example.numberoneproject.data.network.onFailure
 import com.example.numberoneproject.data.network.onSuccess
+import com.example.numberoneproject.domain.usecase.GetShelterUseCase
 import com.example.numberoneproject.domain.usecase.KakaoLoginUseCase
 import com.example.numberoneproject.domain.usecase.NaverLoginUseCase
 import com.example.numberoneproject.domain.usecase.RefreshAccessTokenUseCase
@@ -25,11 +26,15 @@ class LoginViewModel @Inject constructor(
     private val naverLoginUseCase: NaverLoginUseCase,
     private val kakaoLoginUseCase: KakaoLoginUseCase,
     private val testLoginUseCase: TestUseCase,
-    private val refreshAccessTokenUseCase: RefreshAccessTokenUseCase
+    private val refreshAccessTokenUseCase: RefreshAccessTokenUseCase,
+    private val getShelterUseCase: GetShelterUseCase
 ) : ViewModel() {
 
     private val _loginErrorState = MutableStateFlow<ApiResult.Failure?>(null)
     val loginErrorState = _loginErrorState.asStateFlow()
+
+    private val _url = MutableStateFlow<ApiResult.Failure?>(null)
+    val url = _url.asStateFlow()
 
     fun userNaverLogin(loginBody: TokenRequestBody) {
         viewModelScope.launch {
@@ -82,6 +87,21 @@ class LoginViewModel @Inject constructor(
                 .onFailure {
                     _loginErrorState.value = it
                     Log.d("taag", "AccessToken Refresh 실패")
+                }
+        }
+    }
+
+
+    //대피소 조회 url얻기
+    fun getShelterUrl(){
+        viewModelScope.launch {
+            val token = "Bearer ${tokenManager.accessToken.first()}"
+            getShelterUseCase(token)
+                .onSuccess {
+                    Log.d("LoginViewModel", "${it.link}")
+                }
+                .onFailure {
+                    _url.value = it
                 }
         }
     }
