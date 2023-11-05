@@ -31,19 +31,11 @@ class LoginViewModel @Inject constructor(
     private val kakaoLoginUseCase: KakaoLoginUseCase,
     private val testLoginUseCase: TestUseCase,
     private val refreshAccessTokenUseCase: RefreshAccessTokenUseCase,
-    private val getShelterUseCase: GetShelterUseCase,
-    private val getShelterFromurlUseCase: GetShelterFromurlUseCase,
-    private val filesDir: File,
 ) : ViewModel() {
 
     private val _loginErrorState = MutableStateFlow<ApiResult.Failure?>(null)
     val loginErrorState = _loginErrorState.asStateFlow()
 
-    private val _url = MutableStateFlow<ApiResult.Failure?>(null)
-    val url = _url.asStateFlow()
-
-    private val _shelterDataState = MutableLiveData<ApiResult<Unit>>()
-    val shelterDataState: LiveData<ApiResult<Unit>> = _shelterDataState
 
     fun userNaverLogin(loginBody: TokenRequestBody) {
         viewModelScope.launch {
@@ -100,36 +92,4 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-
-    //대피소 조회 url얻기
-    fun getShelterUrl(){
-        viewModelScope.launch {
-            val token = "Bearer ${tokenManager.accessToken.first()}"
-            getShelterUseCase(token)
-                .onSuccess {
-                    Log.d("LoginViewModel", "${it.link}")
-                    val fileName = "shelter_data.json"
-                    val file = File(filesDir, fileName)
-                    Log.d("LoginViewModel", "실행전?")
-                    saveToFile(it.link,file)
-                    Log.d("LoginViewModel", "실행?")
-                }
-                .onFailure {
-                    _url.value = it
-                    Log.d("getshelterFromusecase", "${it}")
-                }
-        }
-    }
-
-    fun saveToFile(url:String, file: File){
-        viewModelScope.launch {
-            getShelterFromurlUseCase(url,file)
-                .onSuccess {
-                    Log.d("LoginViewModel", "저장 성공")
-                }
-                .onFailure {
-                    Log.d("LoginViewModel", "저장 실패")
-                }
-        }
-    }
 }

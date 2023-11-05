@@ -15,22 +15,30 @@ import javax.inject.Inject
 class GetShelterFromurlUseCase @Inject constructor(
     private val getShelterRepository: GetShelterRepository
 ) {
-    suspend operator fun invoke(url:String, file: File): ApiResult<List<ShelterData>>{
-        return getShelterRepository.fetchShelterFromUrl(url).onSuccess { data->
-            try {
-                //val typeOfShelterDataList = object : TypeToken<List<ShelterData>>() {}.type
-                //val shelterDataList: List<ShelterData> = Gson().fromJson(data, typeOfShelterDataList)
-                val json = Gson().toJson(data)
-                file.writeText(json)
-                Log.d("getshelterFromusecase", "저장성공")
-            }catch (ioException : IOException){
-                Log.d("getshelterFromusecase", "실패 $ioException")
-                return ApiResult.Failure.NetworkError(ioException)
+
+    suspend operator fun invoke(url: String, file: File): ApiResult<List<ShelterData>> {
+        return try {
+            val response = getShelterRepository.fetchShelterFromUrl(url)
+            response.onSuccess { data ->
+                try {
+                    val json = Gson().toJson(data)
+                    file.writeText(json)
+                    Log.d("GetShelterFromUrlUseCase", "저장 성공")
+                } catch (ioException: IOException) {
+                    Log.d("GetShelterFromUrlUseCase", "파일 쓰기 실패: $ioException")
+                    return ApiResult.Failure.NetworkError(ioException)
+                } catch (jsonSyntaxException: JsonSyntaxException) {
+                    Log.e("GetShelterFromUrlUseCase", "JSON 파싱 실패: $jsonSyntaxException")
+                    return ApiResult.Failure.UnknownApiError(jsonSyntaxException)
+
+                }
             }
-            catch (jsonSyntaxException:JsonSyntaxException){
-                Log.e("GetShelterFromUrlUseCase", "JSON parsing failed $jsonSyntaxException")
-            }
+            response
+        } catch (e: Exception) {
+            Log.e("GetShelterFromUrlUseCase", "예외 발생: $e")
+            ApiResult.Failure.UnknownApiError(e)
         }
     }
+
 
 }
