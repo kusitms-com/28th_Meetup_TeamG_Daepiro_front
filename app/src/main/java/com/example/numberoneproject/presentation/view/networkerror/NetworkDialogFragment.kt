@@ -34,9 +34,9 @@ class NetworkDialogFragment : BaseDialogFragment<FragmentNetworkDialogBinding>(R
             dismiss()
         }
         binding.shelterBtn.setOnClickListener{
+            val intent = Intent(context, CheckShelterActivity::class.java)
+            startActivity(intent)
             dismiss()
-            val dialog=LocationSettingDialogFragment()
-            dialog.show(parentFragmentManager, "LocationSelect")
         }
         setTextColor(binding.errorTxt, binding.errorTxt.text.toString(), listOf("행동요령", "대피소 조회"))
     }

@@ -110,12 +110,13 @@ class LoginViewModel @Inject constructor(
                     Log.d("LoginViewModel", "${it.link}")
                     val fileName = "shelter_data.json"
                     val file = File(filesDir, fileName)
+                    Log.d("LoginViewModel", "실행전?")
                     saveToFile(it.link,file)
                     Log.d("LoginViewModel", "실행?")
                 }
                 .onFailure {
                     _url.value = it
-                    Log.d("LoginViewModel", "${it}")
+                    Log.d("getshelterFromusecase", "${it}")
                 }
         }
     }
@@ -126,8 +127,8 @@ class LoginViewModel @Inject constructor(
                 .onSuccess {
                     Log.d("LoginViewModel", "저장 성공")
                 }
-                .onFailure {throwable->
-                    Log.d("LoginViewModel", "저장 실패 ${throwable}")
+                .onFailure {
+                    Log.d("LoginViewModel", "저장 실패")
                 }
         }
     }

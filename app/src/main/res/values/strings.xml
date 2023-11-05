@@ -25,4 +25,10 @@
     <string name="구군">구/군</string>
     <string name="동읍면">동/읍/면</string>
     <string name="완료">완료</string>
+    <string name="지진">지진</string>
+    <string name="수해">수해</string>
+    <string name="전쟁">전쟁</string>
+    <string name="복사">복사</string>
+    <string name="주소_복사가_완료">주소 복사가 완료되었습니다.</string>
+
 </resources>
