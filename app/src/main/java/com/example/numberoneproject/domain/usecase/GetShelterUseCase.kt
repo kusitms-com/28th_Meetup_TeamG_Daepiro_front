@@ -15,7 +15,6 @@ class GetShelterUseCase @Inject constructor(
     private val getShelterRepository: GetShelterRepository
 ) {
     suspend operator fun invoke(token:String, file: File): ApiResult<List<ShelterData>>{
-        //return getShelterRepository.getShelterDaraLocal(token)
         return try{
             val response = getShelterRepository.getShelterDaraLocal(token)
             response.onSuccess { data->
