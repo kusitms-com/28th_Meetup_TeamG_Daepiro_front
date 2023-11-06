@@ -4,7 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="disasterVM"
+            type="com.example.numberoneproject.presentation.viewmodel.DisasterViewModel" />
     </data>
 
     <ScrollView
@@ -28,7 +30,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/logo_main"
-                    app:tint="@color/secondary_200"/>
+                    app:tint="@color/secondary_300"/>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -37,236 +39,252 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_alarm"
-                    app:tint="@color/secondary_200"/>
+                    app:tint="@color/secondary_300"/>
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <androidx.appcompat.widget.LinearLayoutCompat
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/bg_bottom_left_right_radius_8"
-                android:backgroundTint="@color/orange_50"
-                android:paddingVertical="24dp"
-                android:paddingHorizontal="20dp">
+                android:layout_height="wrap_content">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical">
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:cardBackgroundColor="@color/orange_500"
-                        app:cardCornerRadius="4dp"
-                        app:cardElevation="0dp"
-                        android:layout_marginRight="10dp">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            style="@style/button"
-                            android:textColor="@color/orange_50"
-                            android:layout_marginHorizontal="16dp"
-                            android:layout_marginVertical="6dp"
-                            android:text="화재"/>
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:background="@drawable/bg_radius_4"
-                        android:backgroundTint="@color/white"
-                        android:paddingVertical="6dp"
-                        android:paddingHorizontal="8dp">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            style="@style/button"
-                            android:textColor="@color/orange_500"
-                            android:layout_marginEnd="8dp"
-                            android:text="심각도"/>
-                        <com.google.android.material.card.MaterialCardView
-                            android:layout_width="26dp"
-                            android:layout_height="10dp"
-                            android:layout_marginEnd="4dp"
-                            app:strokeWidth="0dp"
-                            app:cardBackgroundColor="@color/orange_500"
-                            app:cardCornerRadius="1dp"/>
-                        <com.google.android.material.card.MaterialCardView
-                            android:layout_width="26dp"
-                            android:layout_height="10dp"
-                            android:layout_marginEnd="4dp"
-                            app:strokeWidth="0dp"
-                            app:cardBackgroundColor="@color/secondary_50"
-                            app:cardCornerRadius="1dp"/>
-                        <com.google.android.material.card.MaterialCardView
-                            android:layout_width="26dp"
-                            android:layout_height="10dp"
-                            app:strokeWidth="0dp"
-                            app:cardBackgroundColor="@color/secondary_50"
-                            app:cardCornerRadius="1dp"/>
-                    </androidx.appcompat.widget.LinearLayoutCompat>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_weight="1"/>
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_refresh_and_text"
-                        app:tint="@color/secondary_300"/>
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/headline5"
-                    android:textColor="@color/secondary_800"
-                    android:text="서울특별시 강남구 동작동 화재발생"
-                    android:layout_marginTop="16dp"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/body2"
-                    android:textColor="@color/secondary_400"
-                    android:text="금일 10.23. 19:39경 소촌동 855 화재 발생, 인근주민은 안전유의 및 차량우회바랍니다. 960-8222"
-                    android:layout_marginTop="10dp"/>
-
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center_vertical">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_location"
-                        app:tint="@color/secondary_300"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        style="@style/caption"
-                        android:textColor="@color/secondary_300"
-                        android:text="서울특별시 강남구"/>
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_dot"
-                        app:tint="@color/secondary_300"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        style="@style/caption"
-                        android:textColor="@color/secondary_300"
-                        android:text="오후 2시 46분"/>
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_bottom_left_right_radius_8"
+                    android:backgroundTint="@color/orange_50"
                     android:orientation="vertical"
-                    android:layout_marginTop="20dp"
-                    android:padding="16dp"
-                    android:background="@drawable/bg_radius_8"
-                    android:backgroundTint="@color/white">
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="24dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical">
-                        <TextView
+
+                        <androidx.cardview.widget.CardView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            style="@style/subtitle1"
-                            android:textColor="@color/secondary_500"
-                            android:text="화재 행동요령 체크리스트"/>
-                        <TextView
+                            android:layout_marginRight="10dp"
+                            app:cardBackgroundColor="@color/orange_500"
+                            app:cardCornerRadius="4dp"
+                            app:cardElevation="0dp">
+
+                            <TextView
+                                style="@style/button"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="16dp"
+                                android:layout_marginVertical="6dp"
+                                android:text="@{disasterVM.disasterMessage.disasterType}"
+                                android:textColor="@color/orange_50" />
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_radius_4"
+                            android:backgroundTint="@color/white"
+                            android:gravity="center_vertical"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="6dp">
+
+                            <TextView
+                                style="@style/button"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="8dp"
+                                android:text="심각도"
+                                android:textColor="@color/orange_500" />
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/cv_disaster_level_1"
+                                android:layout_width="26dp"
+                                android:layout_height="10dp"
+                                android:layout_marginEnd="4dp"
+                                app:cardCornerRadius="1dp"
+                                app:setDisasterLevel="@{disasterVM.disasterMessage.severity}"
+                                app:strokeWidth="0dp" />
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/cv_disaster_level_2"
+                                android:layout_width="26dp"
+                                android:layout_height="10dp"
+                                android:layout_marginEnd="4dp"
+                                app:cardCornerRadius="1dp"
+                                app:setDisasterLevel="@{disasterVM.disasterMessage.severity}"
+                                app:strokeWidth="0dp" />
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/cv_disaster_level_3"
+                                android:layout_width="26dp"
+                                android:layout_height="10dp"
+                                app:cardCornerRadius="1dp"
+                                app:setDisasterLevel="@{disasterVM.disasterMessage.severity}"
+                                app:strokeWidth="0dp" />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
-                            android:layout_weight="1"/>
-                        <TextView
+                            android:layout_weight="1" />
+
+                        <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:src="@drawable/ic_refresh_and_text"
+                            app:tint="@color/secondary_300" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <TextView
+                        style="@style/headline5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@{disasterVM.disasterMessage.title}"
+                        android:textColor="@color/secondary_800" />
+
+                    <TextView
+                        style="@style/body2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@{disasterVM.disasterMessage.msg}"
+                        android:textColor="@color/secondary_400" />
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_location"
+                            app:tint="@color/secondary_300" />
+
+                        <TextView
                             style="@style/caption"
-                            android:textColor="@color/secondary_200"
-                            android:text="모두보기"/>
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{disasterVM.disasterMessage.info}"
+                            android:textColor="@color/secondary_300" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <com.google.android.material.chip.ChipGroup
-                            android:id="@+id/cg_check_list"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
-                            app:singleSelection="true"
-                            app:singleLine="true"
-                            app:chipSpacingHorizontal="7dp">
-                            <com.google.android.material.chip.Chip
-                                android:id="@+id/chip_check_list_1"
-                                style="@style/Widget.MaterialComponents.Chip.Choice"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:paddingHorizontal="16dp"
-                                android:paddingVertical="6dp"
-                                app:chipStrokeColor="@color/chip_check_stoke"
-                                app:chipStrokeWidth="1dp"
-                                app:chipBackgroundColor="@color/chip_check_bg"
-                                android:textColor="@color/chip_check_text"
-                                app:chipCornerRadius="48dp"
-                                app:chipMinTouchTargetSize="0dp"
-                                android:checked="true"
-                                android:text="실내"/>
-                            <com.google.android.material.chip.Chip
-                                android:id="@+id/chip_check_list_2"
-                                style="@style/Widget.MaterialComponents.Chip.Choice"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:paddingHorizontal="16dp"
-                                android:paddingVertical="6dp"
-                                app:chipStrokeColor="@color/chip_check_stoke"
-                                app:chipStrokeWidth="1dp"
-                                app:chipBackgroundColor="@color/chip_check_bg"
-                                android:textColor="@color/chip_check_text"
-                                app:chipMinTouchTargetSize="0dp"
-                                app:chipCornerRadius="48dp"
-                                android:text="실외"/>
-                            <com.google.android.material.chip.Chip
-                                android:id="@+id/chip_check_list_3"
-                                style="@style/Widget.MaterialComponents.Chip.Choice"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:paddingHorizontal="16dp"
-                                android:paddingVertical="6dp"
-                                app:chipStrokeColor="@color/chip_check_stoke"
-                                app:chipStrokeWidth="1dp"
-                                app:chipBackgroundColor="@color/chip_check_bg"
-                                android:textColor="@color/chip_check_text"
-                                app:chipMinTouchTargetSize="0dp"
-                                app:chipCornerRadius="48dp"
-                                android:text="기타"/>
-                        </com.google.android.material.chip.ChipGroup>
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/bg_radius_8"
+                        android:backgroundTint="@color/white"
+                        android:orientation="vertical"
+                        android:padding="16dp">
 
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp">
+                            android:gravity="center_vertical">
 
                             <TextView
+                                style="@style/subtitle1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="흐으으음"/>
+                                android:text="화재 행동요령 체크리스트"
+                                android:textColor="@color/secondary_500" />
 
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                style="@style/caption"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="모두보기"
+                                android:textColor="@color/secondary_200" />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.chip.ChipGroup
+                                android:id="@+id/cg_check_list"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                app:chipSpacingHorizontal="7dp"
+                                app:singleLine="true"
+                                app:singleSelection="true">
+
+                                <com.google.android.material.chip.Chip
+                                    android:id="@+id/chip_check_list_1"
+                                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:checked="true"
+                                    android:paddingHorizontal="16dp"
+                                    android:paddingVertical="6dp"
+                                    android:text="실내"
+                                    android:textColor="@color/chip_check_text"
+                                    app:chipBackgroundColor="@color/chip_check_bg"
+                                    app:chipCornerRadius="48dp"
+                                    app:chipMinTouchTargetSize="0dp"
+                                    app:chipStrokeColor="@color/chip_check_stoke"
+                                    app:chipStrokeWidth="1dp" />
+
+                                <com.google.android.material.chip.Chip
+                                    android:id="@+id/chip_check_list_2"
+                                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:paddingHorizontal="16dp"
+                                    android:paddingVertical="6dp"
+                                    android:text="실외"
+                                    android:textColor="@color/chip_check_text"
+                                    app:chipBackgroundColor="@color/chip_check_bg"
+                                    app:chipCornerRadius="48dp"
+                                    app:chipMinTouchTargetSize="0dp"
+                                    app:chipStrokeColor="@color/chip_check_stoke"
+                                    app:chipStrokeWidth="1dp" />
+
+                                <com.google.android.material.chip.Chip
+                                    android:id="@+id/chip_check_list_3"
+                                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:paddingHorizontal="16dp"
+                                    android:paddingVertical="6dp"
+                                    android:text="기타"
+                                    android:textColor="@color/chip_check_text"
+                                    app:chipBackgroundColor="@color/chip_check_bg"
+                                    app:chipCornerRadius="48dp"
+                                    app:chipMinTouchTargetSize="0dp"
+                                    app:chipStrokeColor="@color/chip_check_stoke"
+                                    app:chipStrokeWidth="1dp" />
+                            </com.google.android.material.chip.ChipGroup>
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="12dp">
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/rv_check_list"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    tools:listitem="@layout/item_disaster_check_list"
+                                    tools:itemCount="3"/>
+                            </androidx.appcompat.widget.LinearLayoutCompat>
                         </androidx.appcompat.widget.LinearLayoutCompat>
                     </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.appcompat.widget.LinearLayoutCompat>
-            </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
@@ -308,7 +326,9 @@
                         android:id="@+id/cg_around_shelter"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
                         android:layout_marginTop="16dp"
+                        app:selectionRequired="true"
                         app:singleSelection="true"
                         app:singleLine="true"
                         app:chipSpacingHorizontal="7dp">
@@ -326,6 +346,7 @@
                             app:chipCornerRadius="48dp"
                             app:chipMinTouchTargetSize="0dp"
                             android:checked="true"
+                            android:checkable="true"
                             android:text="지진"/>
                         <com.google.android.material.chip.Chip
                             android:id="@+id/chip_around_shelter_2"
@@ -340,6 +361,7 @@
                             android:textColor="@color/chip_check_text"
                             app:chipMinTouchTargetSize="0dp"
                             app:chipCornerRadius="48dp"
+                            android:checkable="true"
                             android:text="수해"/>
                         <com.google.android.material.chip.Chip
                             android:id="@+id/chip_around_shelter_3"
@@ -354,6 +376,7 @@
                             android:textColor="@color/chip_check_text"
                             app:chipMinTouchTargetSize="0dp"
                             app:chipCornerRadius="48dp"
+                            android:checkable="true"
                             android:text="전쟁"/>
                     </com.google.android.material.chip.ChipGroup>
 
@@ -367,31 +390,6 @@
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <TextView
-                android:id="@+id/btn_naver_map"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="24sp"
-                android:text="네맵"
-                android:visibility="invisible"
-                android:layout_marginTop="24dp"/>
-
-            <TextView
-                android:id="@+id/btn_kakao_map"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="24sp"
-                android:text="카맵"
-                android:layout_marginTop="24dp"/>
-
-            <TextView
-                android:id="@+id/btn_t_map"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="24sp"
-                android:text="티맵"
-                android:layout_marginTop="24dp"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
     </ScrollView>

@@ -29,16 +29,20 @@
                 <TextView
                     android:id="@+id/tv_title"
                     style="@style/body1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="강남구보건소 지하1층"
+                    android:text="강남구보건소 지하1층강남구보건소 지하1층강남구보건소 지하1층"
+                    android:maxLength="15"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:textColor="@color/secondary_800" />
 
                 <TextView
                     style="@style/caption"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="지진"
+                    android:singleLine="true"
                     android:layout_marginLeft="8dp"
                     android:textColor="@color/secondary_200" />
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -49,10 +53,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
+                android:singleLine="true"
                 android:text="서울특별시 강남구 선릉로 668, 강남구 보건소 (삼성동)"
                 android:textColor="@color/secondary_300" />
 
             <TextView
+                android:id="@+id/tv_distance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/caption"
@@ -70,6 +76,7 @@
             app:layout_constraintTop_toBottomOf="@id/ll_top">
 
             <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/btn_naver_map"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -95,6 +102,7 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/btn_kakao_map"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -119,6 +127,7 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/btn_t_map"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"

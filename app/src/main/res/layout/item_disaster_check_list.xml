@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="10dp"
+    android:paddingVertical="12dp"
+    android:background="@drawable/bg_radius_4"
+    android:backgroundTint="@color/white"
+    android:gravity="center_vertical">
+
+    <CheckBox
+        android:id="@+id/cb_check_list"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:button="@null"
+        android:background="@drawable/custom_check_box"/>
+
+    <TextView
+        android:id="@+id/tv_check_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/caption"
+        android:layout_marginLeft="12dp"
+        android:textColor="@color/secondary_300"
+        android:text="가스와 전깃불을 차단하고 문을 열어 출구를 확보하셨나요?"/>
+
+</androidx.appcompat.widget.LinearLayoutCompat>
