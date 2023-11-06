@@ -78,7 +78,7 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.6.0")
 
     // Naver Login
-    implementation("com.navercorp.nid:oauth-jdk8:5.1.0")
+    implementation("com.navercorp.nid:oauth-jdk8:5.4.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
 
     // Kakao Login
