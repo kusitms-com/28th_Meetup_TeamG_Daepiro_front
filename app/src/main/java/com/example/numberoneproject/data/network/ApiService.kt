@@ -1,5 +1,7 @@
 package com.example.numberoneproject.data.network
 
+import com.example.numberoneproject.data.model.DisasterRequestBody
+import com.example.numberoneproject.data.model.DisasterResponse
 import com.example.numberoneproject.data.model.LoginTestResponse
 import com.example.numberoneproject.data.model.LoginTokenResponse
 import com.example.numberoneproject.data.model.ShelterListResponse
@@ -43,5 +45,11 @@ interface ApiService {
         @Body body: ShelterRequestBody
     ): ApiResult<ShelterListResponse>
 
+    // 최근 재난문자 조회
+    @POST("/api/disaster/latest")
+    suspend fun getDisasterMessage(
+        @Header("Authorization") token: String,
+        @Body body: DisasterRequestBody
+    ): ApiResult<DisasterResponse>
 
 }

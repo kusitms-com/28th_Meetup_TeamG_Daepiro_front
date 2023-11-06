@@ -1,23 +1,37 @@
 package com.example.numberoneproject.presentation.view.home
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Geocoder
+import android.location.Location
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.MarginPageTransformer
 import com.example.numberoneproject.R
+import com.example.numberoneproject.data.model.DisasterRequestBody
 import com.example.numberoneproject.data.model.ShelterRequestBody
 import com.example.numberoneproject.databinding.FragmentHomeBinding
 import com.example.numberoneproject.presentation.base.BaseFragment
 import com.example.numberoneproject.presentation.util.Extensions.repeatOnStarted
+import com.example.numberoneproject.presentation.util.Extensions.showToast
+import com.example.numberoneproject.presentation.viewmodel.DisasterViewModel
 import com.example.numberoneproject.presentation.viewmodel.ShelterViewModel
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.gun0912.tedpermission.PermissionListener
+import com.gun0912.tedpermission.normal.TedPermission
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import java.util.Locale
@@ -26,27 +40,74 @@ import java.util.Locale
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     val shelterVM by viewModels<ShelterViewModel>()
+    val disasterVM by viewModels<DisasterViewModel>()
     private lateinit var aroundShelterAdapter: AroundShelterAdapter
-    private val startLocation = Pair(37.549186395087, 127.07505567644)      // 출발지 위도, 경도
-    private val endLocation = Pair(37.42637222, 126.9898)     // 도착지 위도, 경도
+    private lateinit var disasterCheckListAdapter: DisasterCheckListAdapter
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var userLocation: Pair<Double, Double>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.disasterVM = disasterVM
+    }
 
-        binding.btnNaverMap.setOnClickListener {
-            searchLoadToNaverMap()
+    override fun setupInit() {
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+        setupSheltersViewPager()
+
+        requestPermission()
+
+        disasterCheckListAdapter = DisasterCheckListAdapter()
+        binding.rvCheckList.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = disasterCheckListAdapter
         }
+    }
 
-        binding.btnKakaoMap.setOnClickListener {
-            searchLoadToKakaoMap()
+    private fun requestPermission() {
+        TedPermission.create()
+            .setPermissionListener(object : PermissionListener {
+                override fun onPermissionGranted() {
+                    getCurrentLocation()
+                }
+
+                override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
+                    showToast("위치 권한이 필수로 필요합니다.")
+                }
+            })
+            .setDeniedMessage("권한을 허용해주세요. [설정] > [앱 및 알림] > [고급] > [앱 권한]")
+            .setPermissions(android.Manifest.permission.ACCESS_FINE_LOCATION,android.Manifest.permission.ACCESS_COARSE_LOCATION)
+            .check()
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun getCurrentLocation() {
+        fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
+                if (location != null) {
+                    userLocation = Pair(location.latitude, location.longitude)
+
+                    /** 위치 확인되면 API 요청할 수 있도 이쪽에서 호출 **/
+                    disasterVM.getDisasterMessage(DisasterRequestBody(userLocation.first, userLocation.second))
+                    shelterVM.getAroundSheltersList(ShelterRequestBody(userLocation.first, userLocation.second, "지진"))
+                } else {
+                    showToast("위치 꺼져있음")
+                }
         }
+    }
 
-        binding.btnTMap.setOnClickListener {
-            searchLoadToTMap()
+    private fun setupSheltersViewPager() {
+        binding.cgAroundShelter.setOnCheckedStateChangeListener { group, checkedIds ->
+            if (R.id.chip_around_shelter_1 in checkedIds) {
+                shelterVM.getAroundSheltersList(ShelterRequestBody(userLocation.first, userLocation.second, "지진"))
+            } else if (R.id.chip_around_shelter_2 in checkedIds) {
+                shelterVM.getAroundSheltersList(ShelterRequestBody(userLocation.first, userLocation.second, "수해"))
+            } else if (R.id.chip_around_shelter_3 in checkedIds) {
+                shelterVM.getAroundSheltersList(ShelterRequestBody(userLocation.first, userLocation.second, "민방위"))
+            }
         }
 
         aroundShelterAdapter = AroundShelterAdapter()
-
         binding.vpShelter.apply {
             offscreenPageLimit = 1
             adapter = aroundShelterAdapter
@@ -55,7 +116,31 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             setPadding(0,0,150,0)
         }
 
-        shelterVM.getAroundSheltersList(ShelterRequestBody(37.5559, 126.9723, "민방위"))
+        aroundShelterAdapter.setItemClickListener(object : AroundShelterAdapter.OnItemClickListener {
+            override fun onClickNaverMap(v: View, position: Int) {
+                CoroutineScope(Dispatchers.Main).launch {
+                    val lat = shelterVM.sheltersList.first().shelterList[position].latitude
+                    val lng = shelterVM.sheltersList.first().shelterList[position].longitude
+                    searchLoadToNaverMap(lat,lng)
+                }
+            }
+
+            override fun onClickKakaoMap(v: View, position: Int) {
+                CoroutineScope(Dispatchers.Main).launch {
+                    val lat = shelterVM.sheltersList.first().shelterList[position].latitude
+                    val lng = shelterVM.sheltersList.first().shelterList[position].longitude
+                    searchLoadToKakaoMap(lat,lng)
+                }
+            }
+
+            override fun onClickTMap(v: View, position: Int) {
+                CoroutineScope(Dispatchers.Main).launch {
+                    val lat = shelterVM.sheltersList.first().shelterList[position].latitude
+                    val lng = shelterVM.sheltersList.first().shelterList[position].longitude
+                    searchLoadToTMap(lat,lng)
+                }
+            }
+        })
     }
 
     override fun subscribeUi() {
@@ -66,28 +151,28 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         }
     }
 
-    private fun searchLoadToNaverMap() {
+    private fun searchLoadToNaverMap(latitude: Double, longitude: Double) {
         val geocoder = Geocoder(requireContext(), Locale.KOREAN)
-        val startLocationAddress = geocoder.getFromLocation(startLocation.first, startLocation.second, 1)
-        val endLocationAddress = geocoder.getFromLocation(endLocation.first, endLocation.second, 1)
+        val startLocationAddress = geocoder.getFromLocation(userLocation.first, userLocation.second, 1)
+        val endLocationAddress = geocoder.getFromLocation(latitude, longitude, 1)
         val encodedStartAddress = encodeAddress(startLocationAddress?.get(0)?.getAddressLine(0).toString().replace("대한민국 ",""))
         val encodedEndAddress = encodeAddress(endLocationAddress?.get(0)?.getAddressLine(0).toString().replace("대한민국 ",""))
 
-        val url = "nmap://route/walk?slat=${startLocation.first}&slng=${startLocation.second}&sname=${encodedStartAddress}&dlat=${endLocation.first}&dlng=${endLocation.second}&dname=${encodedEndAddress}"
+        val url = "nmap://route/walk?slat=${userLocation.first}&slng=${userLocation.second}&sname=${encodedStartAddress}&dlat=${latitude}&dlng=${longitude}&dname=${encodedEndAddress}"
         val storeUrl = "market://details?id=com.nhn.android.nmap"
 
         searchUrlToLoadMap(url, storeUrl)
     }
 
-    private fun searchLoadToKakaoMap() {
-        val url ="kakaomap://route?sp=${startLocation.first},${startLocation.second}&ep=${endLocation.first},${endLocation.second}&by=FOOT"
+    private fun searchLoadToKakaoMap(latitude: Double, longitude: Double) {
+        val url ="kakaomap://route?sp=${userLocation.first},${userLocation.second}&ep=${latitude},${longitude}&by=FOOT"
         val storeUrl = "market://details?id=net.daum.android.map"
 
         searchUrlToLoadMap(url, storeUrl)
     }
 
-    private fun searchLoadToTMap() {
-        val url = "tmap://route?startx=${startLocation.second}&starty=${startLocation.first}&goalx=${endLocation.second}&goaly=${endLocation.first}&reqCoordType=WGS84&resCoordType=WGS84"
+    private fun searchLoadToTMap(latitude: Double, longitude: Double) {
+        val url = "tmap://route?startx=${userLocation.second}&starty=${userLocation.first}&goalx=${longitude}&goaly=${latitude}&reqCoordType=WGS84&resCoordType=WGS84"
         val storeUrl = "market://details?id=com.skt.tmap.ku"
 
         searchUrlToLoadMap(url, storeUrl)
