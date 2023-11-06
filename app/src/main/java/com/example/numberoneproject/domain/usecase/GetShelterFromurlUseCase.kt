@@ -15,7 +15,6 @@ import javax.inject.Inject
 class GetShelterFromurlUseCase @Inject constructor(
     private val getShelterRepository: GetShelterRepository
 ) {
-
     suspend operator fun invoke(url: String, file: File): ApiResult<List<ShelterData>> {
         return try {
             val response = getShelterRepository.fetchShelterFromUrl(url)
