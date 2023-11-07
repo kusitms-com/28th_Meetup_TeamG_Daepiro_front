@@ -17,8 +17,7 @@ class AroundShelterAdapter: RecyclerView.Adapter<AroundShelterAdapter.CustomView
             binding.tvTitle.text = item.facilityName
             binding.tvAddress.text = item.changeLatLogToAddress(itemView.context)
             binding.tvDistance.text = item.distance.split(".")[0] + "m"
-
-
+            
             binding.btnNaverMap.setOnClickListener {
                 itemClickListener.onClickNaverMap(it, adapterPosition)
             }

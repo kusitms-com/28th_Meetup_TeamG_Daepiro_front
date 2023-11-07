@@ -2,6 +2,7 @@ package com.example.numberoneproject.data.model
 
 import android.content.Context
 import android.location.Geocoder
+import android.util.Log
 import java.util.Locale
 
 data class ShelterListResponse(
@@ -20,6 +21,10 @@ data class Shelter(
         val geocoder = Geocoder(context, Locale.KOREAN)
         val address = geocoder.getFromLocation(latitude, longitude, 1)
 
-        return address?.get(0)?.getAddressLine(0).toString().replace("대한민국 ", "")
+        return if (address.isNullOrEmpty()) {
+            "주소 정보가 올바르지 않습니다."
+        } else {
+            address[0]?.getAddressLine(0).toString().replace("대한민국 ", "")
+        }
     }
 }
