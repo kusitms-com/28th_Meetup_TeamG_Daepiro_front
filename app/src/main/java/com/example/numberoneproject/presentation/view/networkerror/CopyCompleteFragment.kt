@@ -1,6 +1,7 @@
 package com.example.numberoneproject.presentation.view.networkerror
 
 import android.os.Bundle
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +21,17 @@ class CopyCompleteFragment : BaseDialogFragment<FragmentCopyCompleteBinding>(R.l
         super.onViewCreated(view, savedInstanceState)
         setupInit()
 
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val window = dialog?.window ?: return
+        val params = window.attributes
+
+        params.width = (resources.displayMetrics.widthPixels * 0.84).toInt()
+        window.attributes = params
+
+        window.setGravity(Gravity.CENTER)
     }
 
     override fun setupInit() {
