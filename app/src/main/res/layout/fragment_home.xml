@@ -87,50 +87,6 @@
                                 android:textColor="@color/orange_50" />
                         </androidx.cardview.widget.CardView>
 
-                        <androidx.appcompat.widget.LinearLayoutCompat
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/bg_radius_4"
-                            android:backgroundTint="@color/white"
-                            android:gravity="center_vertical"
-                            android:paddingHorizontal="8dp"
-                            android:paddingVertical="6dp">
-
-                            <TextView
-                                style="@style/button"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="8dp"
-                                android:text="심각도"
-                                android:textColor="@color/orange_500" />
-
-                            <com.google.android.material.card.MaterialCardView
-                                android:id="@+id/cv_disaster_level_1"
-                                android:layout_width="26dp"
-                                android:layout_height="10dp"
-                                android:layout_marginEnd="4dp"
-                                app:cardCornerRadius="1dp"
-                                app:setDisasterLevel="@{disasterVM.disasterMessage.severity}"
-                                app:strokeWidth="0dp" />
-
-                            <com.google.android.material.card.MaterialCardView
-                                android:id="@+id/cv_disaster_level_2"
-                                android:layout_width="26dp"
-                                android:layout_height="10dp"
-                                android:layout_marginEnd="4dp"
-                                app:cardCornerRadius="1dp"
-                                app:setDisasterLevel="@{disasterVM.disasterMessage.severity}"
-                                app:strokeWidth="0dp" />
-
-                            <com.google.android.material.card.MaterialCardView
-                                android:id="@+id/cv_disaster_level_3"
-                                android:layout_width="26dp"
-                                android:layout_height="10dp"
-                                app:cardCornerRadius="1dp"
-                                app:setDisasterLevel="@{disasterVM.disasterMessage.severity}"
-                                app:strokeWidth="0dp" />
-                        </androidx.appcompat.widget.LinearLayoutCompat>
-
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"

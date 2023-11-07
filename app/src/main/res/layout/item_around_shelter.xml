@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="model"
+            type="com.example.numberoneproject.data.model.Shelter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,10 +33,7 @@
                     style="@style/body1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="강남구보건소 지하1층강남구보건소 지하1층강남구보건소 지하1층"
-                    android:maxLength="15"
-                    android:maxLines="1"
-                    android:ellipsize="end"
+                    android:text="@{model.facilityName}"
                     android:textColor="@color/secondary_800" />
 
                 <TextView
@@ -54,7 +53,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:singleLine="true"
-                android:text="서울특별시 강남구 선릉로 668, 강남구 보건소 (삼성동)"
                 android:textColor="@color/secondary_300" />
 
             <TextView
@@ -64,7 +62,7 @@
                 style="@style/caption"
                 android:textColor="@color/orange_500"
                 android:layout_marginTop="16dp"
-                android:text="250dp" />
+                android:text="@{model.distanceToString()}" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat

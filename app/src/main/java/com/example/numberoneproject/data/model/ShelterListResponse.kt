@@ -2,7 +2,6 @@ package com.example.numberoneproject.data.model
 
 import android.content.Context
 import android.location.Geocoder
-import android.util.Log
 import java.util.Locale
 
 data class ShelterListResponse(
@@ -26,5 +25,9 @@ data class Shelter(
         } else {
             address[0]?.getAddressLine(0).toString().replace("대한민국 ", "")
         }
+    }
+
+    fun distanceToString(): String {
+        return this.distance.split(".")[0] + "m"
     }
 }

@@ -58,10 +58,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     override fun setupInit() {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+        requestPermission()
         setSheltersViewPager()
         setCheckListViewPager()
 
-        requestPermission()
+
+        binding
 
         binding.tvCheckListAll.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToCheckListDetailFragment("")

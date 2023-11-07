@@ -14,10 +14,9 @@ class AroundShelterAdapter: RecyclerView.Adapter<AroundShelterAdapter.CustomView
 
     inner class CustomViewHolder(val binding: ItemAroundShelterBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Shelter) {
-            binding.tvTitle.text = item.facilityName
+            binding.model = item
             binding.tvAddress.text = item.changeLatLogToAddress(itemView.context)
-            binding.tvDistance.text = item.distance.split(".")[0] + "m"
-            
+
             binding.btnNaverMap.setOnClickListener {
                 itemClickListener.onClickNaverMap(it, adapterPosition)
             }
