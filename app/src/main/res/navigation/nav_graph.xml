@@ -11,8 +11,8 @@
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_homeFragment_to_subFragment"
-            app:destination="@id/subFragment" />
+            android:id="@+id/action_homeFragment_to_checkListDetailFragment"
+            app:destination="@id/checkListDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/newsFragment"
@@ -31,16 +31,15 @@
         android:name="com.example.numberoneproject.presentation.view.mypage.MypageFragment"
         android:label="MypageFragment" />
     <fragment
-        android:id="@+id/subFragment"
-        android:name="com.example.numberoneproject.presentation.view.home.SubFragment"
-        android:label="SubFragment">
-        <argument
-            android:name="number"
-            app:argType="integer"
-            android:defaultValue="-1" />
-    </fragment>
-    <fragment
         android:id="@+id/fundingDetailFragment"
         android:name="com.example.numberoneproject.presentation.view.funding.FundingDetailFragment"
         android:label="FundingDetailFragment" />
+    <fragment
+        android:id="@+id/checkListDetailFragment"
+        android:name="com.example.numberoneproject.presentation.view.home.CheckListDetailFragment"
+        android:label="CheckListDetailFragment" >
+        <argument
+            android:name="type"
+            app:argType="string" />
+    </fragment>
 </navigation>
