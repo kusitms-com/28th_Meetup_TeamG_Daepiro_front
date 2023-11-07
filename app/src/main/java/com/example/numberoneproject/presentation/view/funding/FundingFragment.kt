@@ -39,6 +39,8 @@ class FundingFragment : BaseFragment<FragmentFundingBinding>(R.layout.fragment_f
 
             }
         }
+
+        SendTokenBottomSheet().show(parentFragmentManager, "")
     }
 
     private fun setCheerMessageBanner() {

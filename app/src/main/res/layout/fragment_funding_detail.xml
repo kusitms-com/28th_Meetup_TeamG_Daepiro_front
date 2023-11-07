@@ -119,7 +119,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="171dp"
-                        android:background="@drawable/bg_radius_4"
+                        android:background="@drawable/bg_top_left_right_radius_4"
                         android:clipToOutline="true"
                         android:scaleType="fitXY"
                         android:src="@drawable/image_sample" />
