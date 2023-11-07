@@ -13,10 +13,6 @@ import com.example.numberoneproject.R
 import com.example.numberoneproject.databinding.FragmentFundingBinding
 import com.example.numberoneproject.presentation.base.BaseFragment
 import com.example.numberoneproject.presentation.viewmodel.FundingViewModel
-import com.google.android.flexbox.FlexDirection
-import com.google.android.flexbox.FlexWrap
-import com.google.android.flexbox.FlexboxLayoutManager
-import com.google.android.flexbox.JustifyContent
 
 class FundingFragment : BaseFragment<FragmentFundingBinding>(R.layout.fragment_funding) {
     val fundingVM by viewModels<FundingViewModel>()
