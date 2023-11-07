@@ -131,11 +131,16 @@
                             android:layout_height="1dp"
                             android:layout_weight="1" />
 
-                        <ImageView
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_refresh_and_text"
-                            app:tint="@color/secondary_300" />
+                            style="@style/overline"
+                            android:textColor="@color/secondary_300"
+                            android:drawableLeft="@drawable/ic_refresh"
+                            android:drawableTint="@color/secondary_300"
+                            android:drawablePadding="2dp"
+                            android:gravity="center"
+                            android:text="새로고침"/>
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <TextView
