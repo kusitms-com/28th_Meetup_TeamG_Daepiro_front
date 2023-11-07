@@ -11,12 +11,7 @@ import com.example.numberoneproject.presentation.view.funding.FundingCategoryAda
 
 class DisasterCheckListAdapter: RecyclerView.Adapter<DisasterCheckListAdapter.CustomViewHolder>() {
     inner class CustomViewHolder(val binding: ItemDisasterCheckListBinding): RecyclerView.ViewHolder(binding.root) {
-        private var nowLine = 0
-
         fun bind() {
-            if (nowLine == adapterPosition) {
-
-            }
 
         }
     }

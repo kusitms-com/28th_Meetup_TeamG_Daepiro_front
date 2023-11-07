@@ -206,6 +206,7 @@
                                 android:layout_weight="1" />
 
                             <TextView
+                                android:id="@+id/tv_check_list_all"
                                 style="@style/caption"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -274,18 +275,13 @@
                                     app:chipStrokeWidth="1dp" />
                             </com.google.android.material.chip.ChipGroup>
 
-                            <androidx.appcompat.widget.LinearLayoutCompat
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rv_check_list"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="12dp">
-
-                                <androidx.recyclerview.widget.RecyclerView
-                                    android:id="@+id/rv_check_list"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    tools:listitem="@layout/item_disaster_check_list"
-                                    tools:itemCount="3"/>
-                            </androidx.appcompat.widget.LinearLayoutCompat>
+                                android:layout_height="120dp"
+                                android:layout_marginTop="12dp"
+                                tools:listitem="@layout/item_disaster_check_list"
+                                tools:itemCount="3"/>
                         </androidx.appcompat.widget.LinearLayoutCompat>
                     </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -338,7 +334,7 @@
                         app:singleLine="true"
                         app:chipSpacingHorizontal="7dp">
                         <com.google.android.material.chip.Chip
-                            android:id="@+id/chip_around_shelter_1"
+                            android:id="@+id/chip_around_shelter_all"
                             style="@style/Widget.MaterialComponents.Chip.Choice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -351,6 +347,21 @@
                             app:chipCornerRadius="48dp"
                             app:chipMinTouchTargetSize="0dp"
                             android:checked="true"
+                            android:checkable="true"
+                            android:text="전체"/>
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_around_shelter_1"
+                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="16dp"
+                            android:paddingVertical="6dp"
+                            app:chipStrokeColor="@color/chip_check_stoke"
+                            app:chipStrokeWidth="1dp"
+                            app:chipBackgroundColor="@color/chip_check_bg"
+                            android:textColor="@color/chip_check_text"
+                            app:chipCornerRadius="48dp"
+                            app:chipMinTouchTargetSize="0dp"
                             android:checkable="true"
                             android:text="지진"/>
                         <com.google.android.material.chip.Chip

@@ -11,8 +11,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.viewpager2.widget.MarginPageTransformer
+import androidx.viewpager2.widget.ViewPager2
 import com.example.numberoneproject.R
 import com.example.numberoneproject.data.model.DisasterRequestBody
 import com.example.numberoneproject.data.model.ShelterRequestBody
@@ -43,6 +46,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     val disasterVM by viewModels<DisasterViewModel>()
     private lateinit var aroundShelterAdapter: AroundShelterAdapter
     private lateinit var disasterCheckListAdapter: DisasterCheckListAdapter
+
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var userLocation: Pair<Double, Double>
 
@@ -53,15 +57,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     override fun setupInit() {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-        setupSheltersViewPager()
+        setSheltersViewPager()
+        setCheckListViewPager()
 
         requestPermission()
 
-        disasterCheckListAdapter = DisasterCheckListAdapter()
-        binding.rvCheckList.apply {
-            setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = disasterCheckListAdapter
+        binding.tvCheckListAll.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToCheckListDetailFragment("")
+            findNavController().navigate(action)
         }
     }
 
@@ -96,9 +99,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         }
     }
 
-    private fun setupSheltersViewPager() {
+    private fun setSheltersViewPager() {
         binding.cgAroundShelter.setOnCheckedStateChangeListener { group, checkedIds ->
-            if (R.id.chip_around_shelter_1 in checkedIds) {
+            if (R.id.chip_around_shelter_all in checkedIds) {
+//                shelterVM.getAroundSheltersList(ShelterRequestBody(userLocation.first, userLocation.second, "지진"))
+            } else if (R.id.chip_around_shelter_1 in checkedIds) {
                 shelterVM.getAroundSheltersList(ShelterRequestBody(userLocation.first, userLocation.second, "지진"))
             } else if (R.id.chip_around_shelter_2 in checkedIds) {
                 shelterVM.getAroundSheltersList(ShelterRequestBody(userLocation.first, userLocation.second, "수해"))
@@ -141,6 +146,24 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 }
             }
         })
+    }
+
+    private fun setCheckListViewPager() {
+        binding.cgCheckList.setOnCheckedStateChangeListener { group, checkedIds ->
+            if (R.id.chip_check_list_1 in checkedIds) {
+            } else if (R.id.chip_check_list_2 in checkedIds) {
+            } else if (R.id.chip_check_list_3 in checkedIds) {
+            }
+        }
+
+        disasterCheckListAdapter = DisasterCheckListAdapter()
+
+        binding.rvCheckList.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = disasterCheckListAdapter
+        }
+        val snapHelper = PagerSnapHelper()
+        snapHelper.attachToRecyclerView(binding.rvCheckList)
     }
 
     override fun subscribeUi() {
