@@ -13,6 +13,7 @@ import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.json.JSONArray
 import org.json.JSONObject
@@ -29,6 +30,9 @@ class CheckShelterViewModel : ViewModel() {
     //데이터 리스트를 담는 flow
     private val _currentList = MutableStateFlow<List<JSONObject>>(emptyList())
     val currentList : StateFlow<List<JSONObject>> = _currentList
+
+    //ui가시성 처리하기 위함
+    val isEmptyList: LiveData<Boolean> = _currentList.map {it.isEmpty()}.asLiveData()
     init {
         _isactive.value = false
     }
