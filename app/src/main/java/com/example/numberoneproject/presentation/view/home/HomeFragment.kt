@@ -53,6 +53,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.disasterVM = disasterVM
+        binding.shelterVM = shelterVM
     }
 
     override fun setupInit() {
@@ -92,7 +93,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
                     /** 위치 확인되면 API 요청할 수 있도 이쪽에서 호출 **/
                     disasterVM.getDisasterMessage(DisasterRequestBody(userLocation.first, userLocation.second))
-                    shelterVM.getAroundSheltersList(ShelterRequestBody(userLocation.first, userLocation.second, "지진"))
+                    shelterVM.getAroundSheltersList(ShelterRequestBody(userLocation.first, userLocation.second, "민방위"))
                 } else {
                     showToast("위치 꺼져있음")
                 }
@@ -101,8 +102,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private fun setSheltersViewPager() {
         binding.cgAroundShelter.setOnCheckedStateChangeListener { group, checkedIds ->
+            shelterVM.shelterLoadingState.value = true
+
             if (R.id.chip_around_shelter_all in checkedIds) {
-//                shelterVM.getAroundSheltersList(ShelterRequestBody(userLocation.first, userLocation.second, "지진"))
+                shelterVM.getAroundSheltersList(ShelterRequestBody(userLocation.first, userLocation.second, "민방위"))
             } else if (R.id.chip_around_shelter_1 in checkedIds) {
                 shelterVM.getAroundSheltersList(ShelterRequestBody(userLocation.first, userLocation.second, "지진"))
             } else if (R.id.chip_around_shelter_2 in checkedIds) {
@@ -162,6 +165,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = disasterCheckListAdapter
         }
+
         val snapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(binding.rvCheckList)
     }

@@ -4,9 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="disasterVM"
             type="com.example.numberoneproject.presentation.viewmodel.DisasterViewModel" />
+        <variable
+            name="shelterVM"
+            type="com.example.numberoneproject.presentation.viewmodel.ShelterViewModel" />
     </data>
 
     <ScrollView
@@ -47,6 +51,7 @@
                 android:layout_height="wrap_content">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/linearLayoutCompat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_bottom_left_right_radius_8"
@@ -132,15 +137,15 @@
                             android:layout_weight="1" />
 
                         <TextView
+                            style="@style/overline"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            style="@style/overline"
-                            android:textColor="@color/secondary_300"
                             android:drawableLeft="@drawable/ic_refresh"
-                            android:drawableTint="@color/secondary_300"
                             android:drawablePadding="2dp"
+                            android:drawableTint="@color/secondary_300"
                             android:gravity="center"
-                            android:text="새로고침"/>
+                            android:text="새로고침"
+                            android:textColor="@color/secondary_300" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <TextView
@@ -280,11 +285,24 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="120dp"
                                 android:layout_marginTop="12dp"
-                                tools:listitem="@layout/item_disaster_check_list"
-                                tools:itemCount="3"/>
+                                tools:itemCount="3"
+                                tools:listitem="@layout/item_disaster_check_list" />
                         </androidx.appcompat.widget.LinearLayoutCompat>
                     </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/lt_disaster_loading"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:layout_marginTop="80dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:visibility="@{disasterVM.disasterLoadingState ? View.VISIBLE : View.GONE}"
+                    app:lottie_rawRes="@raw/loading"
+                    app:lottie_loop="true"
+                    app:lottie_autoPlay="true"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -395,6 +413,17 @@
                             android:checkable="true"
                             android:text="전쟁"/>
                     </com.google.android.material.chip.ChipGroup>
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/lt_shelter_loading"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_gravity="center_horizontal"
+                        android:visibility="@{shelterVM.shelterLoadingState ? View.VISIBLE : View.GONE}"
+                        app:lottie_rawRes="@raw/loading"
+                        app:lottie_loop="true"
+                        app:lottie_autoPlay="true"/>
 
                     <androidx.viewpager2.widget.ViewPager2
                         android:id="@+id/vp_shelter"
