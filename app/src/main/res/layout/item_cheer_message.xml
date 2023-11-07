@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:paddingVertical="8dp"
+    android:paddingHorizontal="16dp"
+    android:layout_marginRight="6dp"
+    android:background="@drawable/bg_radius_24"
+    android:backgroundTint="@color/white">
+
+    <TextView
+        android:id="@+id/tv_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/caption"
+        android:textColor="@color/secondary_500"
+        android:text="응원메시지"/>
+</LinearLayout>
