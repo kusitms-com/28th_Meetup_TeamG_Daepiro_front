@@ -68,7 +68,7 @@
         <item>횡성군</item>
     </string-array>
 
-    <string-array name="kyonggi">
+    <string-array name="경기도">
         <item>가평군</item>
         <item>고양시</item>
         <item>과천시</item>
@@ -102,7 +102,7 @@
         <item>화성시</item>
     </string-array>
 
-    <string-array name="kyongnam">
+    <string-array name="경상남도">
         <item>거제시</item>
         <item>거창군</item>
         <item>고성군</item>
@@ -123,7 +123,7 @@
         <item>합천군</item>
     </string-array>
 
-    <string-array name="kyongbook">
+    <string-array name="경상북도">
         <item>경산시</item>
         <item>경주시</item>
         <item>고령군</item>
@@ -150,7 +150,7 @@
         <item>포항시</item>
     </string-array>
 
-    <string-array name="kwangju">
+    <string-array name="광주광역시">
         <item>광산구</item>
         <item>남구</item>
         <item>동구</item>
@@ -158,7 +158,7 @@
         <item>서구</item>
     </string-array>
 
-    <string-array name="daegu">
+    <string-array name="대구광역시">
         <item>군위군</item>
         <item>남구</item>
         <item>달서구</item>
@@ -170,7 +170,7 @@
         <item>중구</item>
     </string-array>
 
-    <string-array name="daejun">
+    <string-array name="대전광역시">
         <item>대덕구</item>
         <item>동구</item>
         <item>서구</item>
@@ -178,7 +178,7 @@
         <item>중구</item>
     </string-array>
 
-    <string-array name="busan">
+    <string-array name="부산광역시">
         <item>강서구</item>
         <item>금정구</item>
         <item>기장군</item>
@@ -197,7 +197,7 @@
         <item>해운대구</item>
     </string-array>
 
-    <string-array name="ulsan">
+    <string-array name="울산광역시">
         <item>남구</item>
         <item>동구</item>
         <item>북구</item>
@@ -205,7 +205,7 @@
         <item>중구</item>
     </string-array>
 
-    <string-array name="incheon">
+    <string-array name="인천광역시">
         <item>강화군</item>
         <item>계양구</item>
         <item>남동구</item>
@@ -218,7 +218,7 @@
         <item>중구</item>
     </string-array>
 
-    <string-array name="jeonnam">
+    <string-array name="전라남도">
         <item>강진군</item>
         <item>고흥군</item>
         <item>곡성군</item>
@@ -243,7 +243,7 @@
         <item>화순군</item>
     </string-array>
 
-    <string-array name="jeonbook">
+    <string-array name="전라북도">
         <item>고창군</item>
         <item>군산시</item>
         <item>김제시</item>
@@ -260,12 +260,12 @@
         <item>진안군</item>
     </string-array>
 
-    <string-array name="jeju">
+    <string-array name="제주특별자치도">
         <item>서귀포시</item>
         <item>제주시</item>
     </string-array>
 
-    <string-array name="choognam">
+    <string-array name="충청남도">
         <item>계룡시</item>
         <item>공주시</item>
         <item>금산군</item>
@@ -283,7 +283,7 @@
         <item>홍성군</item>
     </string-array>
 
-    <string-array name="choogbook">
+    <string-array name="충청북도">
         <item>괴산군</item>
         <item>단양군</item>
         <item>보은군</item>
@@ -297,7 +297,378 @@
         <item>충주시</item>
     </string-array>
 
-    <string-array name="서울특별시_종로구">
+    <string-array name="서울특별시강남구">
+        <item>압구정동</item>
+        <item>삼성동</item>
+        <item>신사동</item>
+        <item>논현동</item>
+        <item>역삼동</item>
+        <item>도곡동</item>
+        <item>개포동</item>
+        <item>세곡동</item>
+        <item>일원본동</item>
+        <item>일원동</item>
+        <item>수서동</item>
+    </string-array>
+
+    <string-array name="서울특별시강동구">
+        <item>강일동</item>
+        <item>상일동</item>
+        <item>고덕동</item>
+        <item>암사동</item>
+        <item>천호동</item>
+        <item>성내동</item>
+        <item>길동</item>
+        <item>둔촌동</item>
+        <item>명일동</item>
+    </string-array>
+
+    <string-array name="서울특별시강북구">
+        <item>미아동</item>
+        <item>번동</item>
+        <item>삼각산동</item>
+        <item>삼양동</item>
+        <item>송중동</item>
+        <item>송천동</item>
+        <item>수유동</item>
+        <item>우이동</item>
+        <item>인수동</item>
+    </string-array>
+
+    <string-array name="서울특별시강서구">
+        <item>가양동</item>
+        <item>개화동</item>
+        <item>공항동</item>
+        <item>과해동</item>
+        <item>내발산동</item>
+        <item>등촌동</item>
+        <item>마곡동</item>
+        <item>방화동</item>
+        <item>염창동</item>
+        <item>오곡동</item>
+        <item>오쇠동</item>
+        <item>외발산동</item>
+        <item>우장산동</item>
+        <item>화곡동</item>
+        <item>화곡본동</item>
+    </string-array>
+    <string-array name="서울특별시관악구">
+        <item>낙성대동</item>
+        <item>난곡동</item>
+        <item>난항동</item>
+        <item>남현동</item>
+        <item>대학동</item>
+        <item>미성동</item>
+        <item>보라매동</item>
+        <item>봉천동</item>
+        <item>삼성동</item>
+        <item>서림동</item>
+        <item>서원동</item>
+        <item>성현동</item>
+        <item>신림동</item>
+        <item>신사동</item>
+        <item>신원동</item>
+        <item>은천동</item>
+        <item>인헌동</item>
+        <item>조원동</item>
+        <item>중앙동</item>
+        <item>청룡동</item>
+        <item>청림동</item>
+        <item>행운동</item>
+    </string-array>
+
+    <string-array name="서울특별시광진구">
+        <item>광장동</item>
+        <item>구의동</item>
+        <item>군자동</item>
+        <item>능동</item>
+        <item>자양동</item>
+        <item>중곡동</item>
+        <item>화양동</item>
+    </string-array>
+    <string-array name="서울특별시구로구">
+        <item>가리봉동</item>
+        <item>개봉동</item>
+        <item>고척동</item>
+        <item>구로동</item>
+        <item>궁동</item>
+        <item>신도림동</item>
+        <item>오류동</item>
+        <item>온수동</item>
+        <item>천왕동</item>
+        <item>항동</item>
+    </string-array>
+    <string-array name="서울특별시금천구">
+        <item>가산동</item>
+        <item>독산동</item>
+        <item>시흥동</item>
+    </string-array>
+
+    <string-array name="서울특별시노원구">
+        <item>공릉동</item>
+        <item>상계동</item>
+        <item>월계동</item>
+        <item>중계동</item>
+        <item>하계동</item>
+    </string-array>
+
+    <string-array name="서울특별시도봉구">
+        <item>도봉동</item>
+        <item>방학동</item>
+        <item>쌍문동</item>
+        <item>창동</item>
+    </string-array>
+
+    <string-array name="서울특별시동대문구">
+        <item>답십리동</item>
+        <item>신설동</item>
+        <item>용두동</item>
+        <item>이문동</item>
+        <item>장안동</item>
+        <item>전농동</item>
+        <item>제기동</item>
+        <item>청량리동</item>
+        <item>회기동</item>
+        <item>휘경동</item>
+    </string-array>
+
+    <string-array name="서울특별시동작구">
+        <item>노량진동</item>
+        <item>대방동</item>
+        <item>동작동</item>
+        <item>본동</item>
+        <item>사당동</item>
+        <item>상도동</item>
+        <item>신대방동</item>
+        <item>흑석동</item>
+    </string-array>
+
+    <string-array name="서울특별시마포구">
+        <item>공덕동</item>
+        <item>구수동</item>
+        <item>노고산동</item>
+        <item>당인동</item>
+        <item>대흥동</item>
+        <item>도화동</item>
+        <item>마포동</item>
+        <item>망원동</item>
+        <item>상수동</item>
+        <item>상암동</item>
+        <item>서교동</item>
+        <item>성산동</item>
+        <item>신공덕동</item>
+        <item>신수동</item>
+        <item>신정동</item>
+        <item>아현동</item>
+        <item>연남동</item>
+        <item>염리동</item>
+        <item>중동</item>
+        <item>창전동</item>
+        <item>토정동</item>
+        <item>하중동</item>
+        <item>합정동</item>
+        <item>현석동</item>
+    </string-array>
+
+    <string-array name="서울특별시서대문구">
+        <item>남가좌동</item>
+        <item>냉천동</item>
+        <item>대신동</item>
+        <item>대현동</item>
+        <item>미근동</item>
+        <item>봉원동</item>
+        <item>북가좌동</item>
+        <item>북아현동</item>
+        <item>신촌동</item>
+        <item>연희동</item>
+        <item>영천동</item>
+        <item>옥천동</item>
+        <item>창천동</item>
+        <item>천연동</item>
+        <item>충현동</item>
+        <item>합동</item>
+        <item>현저동</item>
+        <item>홍은동</item>
+        <item>홍제동</item>
+    </string-array>
+
+    <string-array name="서울특별시서초구">
+        <item>양재동</item>
+        <item>염곡동</item>
+        <item>우면동</item>
+        <item>내곡동</item>
+        <item>반포동</item>
+        <item>방배동</item>
+        <item>서초동</item>
+        <item>신원동</item>
+        <item>원지동</item>
+        <item>잠원동</item>
+    </string-array>
+
+   구 <string-array name="서울특별시성동구">
+        <item>금호동</item>
+        <item>도선동</item>
+        <item>마장동</item>
+        <item>사근동</item>
+        <item>상왕십리동</item>
+        <item>성수동</item>
+        <item>송정동</item>
+        <item>옥수동</item>
+        <item>용답동</item>
+        <item>응봉동</item>
+        <item>하왕십리동</item>
+        <item>행당동</item>
+        <item>홍익동</item>
+    </string-array>
+
+    <string-array name="서울특별시성북구">
+        <item>길음동</item>
+        <item>돈암동</item>
+        <item>동선동</item>
+        <item>동소문동</item>
+        <item>보문동</item>
+        <item>삼선동</item>
+        <item>상월곡동</item>
+        <item>석관동</item>
+        <item>성북동</item>
+        <item>안암동</item>
+        <item>월곡동</item>
+        <item>장위동</item>
+        <item>정릉동</item>
+        <item>종암동</item>
+        <item>하월곡동</item>
+    </string-array>
+
+    <string-array name="서울특별시송파구">
+        <item>가락동</item>
+        <item>거여동</item>
+        <item>마천동</item>
+        <item>문정동</item>
+        <item>방이동</item>
+        <item>삼전동</item>
+        <item>석촌동</item>
+        <item>송파동</item>
+        <item>신천동</item>
+        <item>오금동</item>
+        <item>오륜동</item>
+        <item>위례동</item>
+        <item>잠실동</item>
+        <item>장지동</item>
+        <item>풍납동</item>
+    </string-array>
+
+    <string-array name="서울특별시양천구">
+        <item>목동</item>
+        <item>신월동</item>
+        <item>신정동</item>
+    </string-array>
+
+    <string-array name="서울특별시영등포구">
+        <item>당산동</item>
+        <item>대림동</item>
+        <item>도림동</item>
+        <item>문래동</item>
+        <item>신길동</item>
+        <item>양평동</item>
+        <item>양화동</item>
+        <item>여의도동</item>
+        <item>영등포동</item>
+    </string-array>
+
+    <string-array name="서울특별시용산구">
+        <item>갈월동</item>
+        <item>남영동</item>
+        <item>도원동</item>
+        <item>동빙고동</item>
+        <item>동자동</item>
+        <item>문배동</item>
+        <item>보광동</item>
+        <item>산천동</item>
+        <item>서계동</item>
+        <item>서빙고동</item>
+        <item>신계동</item>
+        <item>신창동</item>
+        <item>용문동</item>
+        <item>용산동</item>
+        <item>원효로</item>
+        <item>이촌동</item>
+        <item>이태원동</item>
+        <item>주성동</item>
+        <item>청암동</item>
+        <item>청파동</item>
+        <item>한강로</item>
+        <item>한남동</item>
+        <item>효창동</item>
+        <item>후암동</item>
+    </string-array>
+
+    <string-array name="서울특별시은평구">
+        <item>갈현동</item>
+        <item>구산동</item>
+        <item>녹번동</item>
+        <item>대조동</item>
+        <item>불광동</item>
+        <item>수색동</item>
+        <item>신사동</item>
+        <item>역촌동</item>
+        <item>응암동</item>
+        <item>증산동</item>
+        <item>진관동</item>
+    </string-array>
+
+    <string-array name="서울특별시중구">
+        <item>광희동</item>
+        <item>남대문로</item>
+        <item>남산동</item>
+        <item>남창동</item>
+        <item>남학동</item>
+        <item>다동</item>
+        <item>다산동</item>
+        <item>동화동</item>
+        <item>만리동</item>
+        <item>명동</item>
+        <item>무교동</item>
+        <item>무학동</item>
+        <item>묵정동</item>
+        <item>방산동</item>
+        <item>봉래동</item>
+        <item>북창동</item>
+        <item>산림동</item>
+        <item>삼각동</item>
+        <item>서소문동</item>
+        <item>소공동</item>
+        <item>수표동</item>
+        <item>수하동</item>
+        <item>순화동</item>
+        <item>신당동</item>
+        <item>쌍림동</item>
+        <item>약수동</item>
+        <item>예관동</item>
+        <item>예장동</item>
+        <item>오장동</item>
+        <item>을지로</item>
+        <item>의주로</item>
+        <item>인현동</item>
+        <item>입정동</item>
+        <item>장교동</item>
+        <item>장충동</item>
+        <item>저동</item>
+        <item>정동</item>
+        <item>주교동</item>
+        <item>주자동</item>
+        <item>중림동</item>
+        <item>청구동</item>
+        <item>초동</item>
+        <item>충무로</item>
+        <item>충정로</item>
+        <item>태평로</item>
+        <item>필동</item>
+        <item>황학동</item>
+        <item>회현동</item>
+        <item>흥인동</item>
+    </string-array>
+
+    <string-array name="서울특별시종로구">
         <item>청운동</item>
         <item>사직동</item>
         <item>삼청동</item>
@@ -315,8 +686,82 @@
         <item>이화동</item>
         <item>혜화동</item>
         <item>창신동</item>
-        <item></item>
-        <item></item>
+        <item>견지동</item>
+        <item>경운동</item>
+        <item>계동</item>
+        <item>공평동</item>
+        <item>관수동</item>
+        <item>관철동</item>
+        <item>관훈동</item>
+        <item>교북동</item>
+        <item>구기동</item>
+        <item>궁정동</item>
+        <item>권농동</item>
+        <item>낙원동</item>
+        <item>내수동</item>
+        <item>내자동</item>
+        <item>누상동</item>
+        <item>누하동</item>
+        <item>당주동</item>
+        <item>도렴동</item>
+        <item>돈의동</item>
+        <item>동숭동</item>
+        <item>명륜동</item>
+        <item>묘동</item>
+        <item>무악동</item>
+        <item>봉익동</item>
+        <item>사간동</item>
+        <item>서린동</item>
+        <item>세종로</item>
+        <item>소격동</item>
+        <item>송월동</item>
+        <item>송현동</item>
+        <item>수송동</item>
+        <item>숭인동</item>
+        <item>신교동</item>
+        <item>신문로</item>
+        <item>신영동</item>
+        <item>안국동</item>
+        <item>연견동</item>
+        <item>연지동</item>
+        <item>예지동</item>
+        <item>옥인동</item>
+        <item>와룡동</item>
+        <item>운니동</item>
+        <item>원남동</item>
+        <item>원서동</item>
+        <item>익선동</item>
+        <item>인사동</item>
+        <item>인의동</item>
+        <item>장사동</item>
+        <item>재동</item>
+        <item>적선동</item>
+        <item>중학동</item>
+        <item>창성동</item>
+        <item>청진동</item>
+        <item>체부동</item>
+        <item>충신동</item>
+        <item>통의동</item>
+        <item>통인동</item>
+        <item>팔판동</item>
+        <item>평동</item>
+        <item>필운동</item>
+        <item>행촌동</item>
+        <item>홍지동</item>
+        <item>홍파동</item>
+        <item>화동</item>
+        <item>효자동</item>
+        <item>효제동</item>
+        <item>훈정동</item>
+    </string-array>
+
+    <string-array name="서울특별시중랑구">
+        <item>망우동</item>
+        <item>면목동</item>
+        <item>묵동</item>
+        <item>상봉동</item>
+        <item>신내동</item>
+        <item>중화동</item>
     </string-array>
 
 

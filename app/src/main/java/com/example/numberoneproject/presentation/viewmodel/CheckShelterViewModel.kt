@@ -1,41 +1,59 @@
 package com.example.numberoneproject.presentation.viewmodel
 
 import android.content.Context
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.numberoneproject.data.model.ShelterData
 import com.example.numberoneproject.presentation.view.networkerror.LocationSettingDialogFragment
 import com.google.gson.Gson
+import com.google.gson.JsonObject
 import com.google.gson.reflect.TypeToken
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
+import org.json.JSONArray
+import org.json.JSONObject
 import java.io.File
 
 class CheckShelterViewModel : ViewModel() {
-    //데이터가 정제되지 않아 추출 할 수 없음...
-    fun extractData(file: File): List<ShelterData>?{
-        return try{
-            val json = file.readText()
-            val listType = object : TypeToken<List<ShelterData>>() {}.type
-            Gson().fromJson(json, listType)//json 리스트로 변환
-        }catch (e:Exception){
-            e.printStackTrace()
-            null
+        val _isactive = MutableLiveData<Boolean>()
+        val isactive:LiveData<Boolean> = _isactive
+
+        //주소 담는 flow
+        val _selectaddress = MutableLiveData<String>()
+        val selectaddress : LiveData<String> = _selectaddress
+
+    //데이터 리스트를 담는 flow
+    private val _currentList = MutableStateFlow<List<JSONObject>>(emptyList())
+    val currentList : StateFlow<List<JSONObject>> = _currentList
+    init {
+        _isactive.value = false
+    }
+
+    fun extractShelterFromLocal(context:Context, fileName:String, selectAddress:String, shelterType : String):List<JSONObject>{
+        val file = File(context.filesDir, fileName)
+        val jsonString = file.readText()
+        val jsonArray = JSONArray(jsonString)
+        val filteredList = mutableListOf<JSONObject>()
+        for(i in 0 until jsonArray.length()){
+            val jsonObject = jsonArray.getJSONObject(i)
+            val currentType = jsonObject.getString("shelterType")
+            val matchesType = shelterType.isEmpty() || currentType == shelterType
+            if(jsonObject.getString("fullAddress").contains(selectAddress) && matchesType){
+                filteredList.add(jsonObject)
+            }
+        }
+        return filteredList
+    }
+
+    fun updateShelterList(context:Context, fileName:String,selectAddress:String, shelterType : String){
+        viewModelScope.launch {
+            val newList = extractShelterFromLocal(context, fileName,selectAddress, shelterType)
+            _currentList.value = newList
         }
     }
 
-    fun getNameFromData(shelterDataList: List<ShelterData>): Triple<List<String>, List<String>, List<String>>{
-        val cities = shelterDataList.map{it.addressDetail.city}.distinct()
-        val districts = shelterDataList.map{it.addressDetail.district}.distinct()
-        val dongs = shelterDataList.map { it.addressDetail.dong }.distinct()
-
-        return Triple(cities, districts, dongs)
-    }
-
-    fun readFileGetData(context: Context): Triple<List<String>,List<String>,List<String>>{
-        val filePath = "/data/data/${context.packageName}/files/shelter_data.json"
-        val file= File(filePath)
-        val shelterDataList = extractData(file)
-        if(shelterDataList == null){
-            return Triple(emptyList(),emptyList(),emptyList())
-        }
-        return getNameFromData(shelterDataList)
-    }
 }

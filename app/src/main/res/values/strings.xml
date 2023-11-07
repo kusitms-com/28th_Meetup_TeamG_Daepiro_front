@@ -30,5 +30,8 @@
     <string name="전쟁">전쟁</string>
     <string name="복사">복사</string>
     <string name="주소_복사가_완료">주소 복사가 완료되었습니다.</string>
+    <string name="지역을_선택">지역을 선택해주세요</string>
+    <string name="현재_조회된">현재 조회된 대피소가 없습니다</string>
+    <string name="지역을_선택해">지역을 선택해주세요</string>
 
 </resources>

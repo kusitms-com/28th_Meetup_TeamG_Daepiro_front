@@ -9,7 +9,6 @@ import com.example.numberoneproject.data.model.TokenRequestBody
 import com.example.numberoneproject.data.network.ApiResult
 import com.example.numberoneproject.data.network.onFailure
 import com.example.numberoneproject.data.network.onSuccess
-import com.example.numberoneproject.domain.usecase.GetShelterFromurlUseCase
 import com.example.numberoneproject.domain.usecase.GetShelterUseCase
 import com.example.numberoneproject.domain.usecase.KakaoLoginUseCase
 import com.example.numberoneproject.domain.usecase.NaverLoginUseCase

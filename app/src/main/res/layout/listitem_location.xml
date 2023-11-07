@@ -7,13 +7,14 @@
 
     <TextView
         android:id="@+id/location_item"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="서울특별시"
-        android:layout_gravity="center"
+        android:gravity="center"
         android:paddingTop="12dp"
         android:paddingBottom="12dp"
         style="@style/body2"
+
         android:textColor="@color/secondary_900"/>
 
 </LinearLayout>

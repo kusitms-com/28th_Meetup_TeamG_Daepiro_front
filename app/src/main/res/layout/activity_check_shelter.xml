@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
+        <import type="android.view.View"/>
         <variable
             name="viewModel"
             type="com.example.numberoneproject.presentation.viewmodel.CheckShelterViewModel" />
@@ -16,6 +17,7 @@
     android:orientation="vertical">
 
     <include
+        android:id="@+id/include_app_bar"
         layout="@layout/include_app_bar"/>
 
     <LinearLayout
@@ -26,9 +28,10 @@
         android:clickable="true">
 
         <TextView
+            android:id="@+id/address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="서울특별시 강남구"
+            android:text="@{viewModel.selectaddress ?? @string/지역을_선택}"
             style="@style/subtitle2"
             android:textColor="@color/secondary_400"
             android:layout_marginLeft="20dp"
@@ -57,6 +60,12 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/전체"
+            android:stateListAnimator="@null"
+            style="@style/button"/>
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/지진"
             android:stateListAnimator="@null"
             style="@style/button"/>
@@ -74,13 +83,36 @@
             android:stateListAnimator="@null"/>
     </com.google.android.material.tabs.TabLayout>
 
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="0dp"
+       android:layout_weight="1"
+       android:gravity="center_vertical|center_horizontal"
+       android:orientation="vertical"
+       android:visibility="@{viewModel.selectaddress != null ? View.GONE : View.VISIBLE}">
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="@string/현재_조회된"
+           style="@style/headline6"
+           android:textColor="@color/secondary_800"/>
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="4dp"
+           android:text="@string/지역을_선택"
+           style="@style/subtitle2"
+           android:textColor="@color/secondary_800"/>
+   </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/listitem_shelter"
         android:orientation="vertical"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:visibility="@{viewModel.selectaddress != null ? View.VISIBLE : View.GONE}"/>
 
 </LinearLayout>
 </layout>
