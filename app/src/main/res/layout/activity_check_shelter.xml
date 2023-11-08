@@ -82,36 +82,39 @@
             style="@style/button"
             android:stateListAnimator="@null"/>
     </com.google.android.material.tabs.TabLayout>
+    <LinearLayout
+        android:id="@+id/no_address_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="vertical"
+        android:background="@color/surface"
+        android:visibility="@{viewModel.selectaddress != null ? View.GONE : View.VISIBLE}"
+        android:elevation="2dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/현재_조회된"
+            style="@style/headline6"
+            android:textColor="@color/secondary_800"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/지역을_선택"
+            style="@style/subtitle2"
+            android:textColor="@color/secondary_800"/>
+    </LinearLayout>
 
-   <LinearLayout
-       android:layout_width="match_parent"
-       android:layout_height="0dp"
-       android:layout_weight="1"
-       android:gravity="center_vertical|center_horizontal"
-       android:orientation="vertical"
-       android:visibility="@{viewModel.selectaddress != null ? View.GONE : View.VISIBLE}">
-       <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="@string/현재_조회된"
-           style="@style/headline6"
-           android:textColor="@color/secondary_800"/>
-       <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_marginTop="4dp"
-           android:text="@string/지역을_선택"
-           style="@style/subtitle2"
-           android:textColor="@color/secondary_800"/>
-   </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
         android:gravity="center_vertical|center_horizontal"
         android:orientation="vertical"
-        android:visibility="@{viewModel.isEmptyList() ? View.VISIBLE : View.GONE}">
+        android:background="@color/surface"
+        android:visibility="@{viewModel.isEmptyVisible ? View.VISIBLE : View.GONE}">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -134,7 +137,7 @@
         tools:listitem="@layout/listitem_shelter"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:visibility="@{viewModel.isEmptyList() ? View.GONE : View.VISIBLE}"/>
+        android:visibility="@{viewModel.isEmptyVisible ? View.GONE : View.VISIBLE}"/>
 
 </LinearLayout>
 </layout>

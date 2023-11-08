@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
@@ -29,14 +30,21 @@ class CheckShelterActivity : BaseActivity<ActivityCheckShelterBinding>(R.layout.
     private lateinit var adapter : ShelterListAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
         adapter = ShelterListAdapter()
         binding.recyclerList.adapter = adapter
-
-        binding.viewModel = viewModel
         binding.includeAppBar.appBarText.text = "대피소 조회"
 
-        val initialTabPosition = binding.tabLayout.selectedTabPosition.takeIf { it != -1 } ?: 0
-        updateShelterListBasedOnTab(initialTabPosition)
+        binding.includeAppBar.backBtn.setOnClickListener{
+            onBackPressed()
+        }
+
+//        viewModel.selectaddress.observe(this, Observer{selectAddress->
+//            Log.e("fuck","$selectAddress")
+//            binding.noAddressData.visibility= if(selectAddress != null) View.GONE else View.VISIBLE
+//        })
+
 
         setupTabLayout()
 
@@ -50,10 +58,7 @@ class CheckShelterActivity : BaseActivity<ActivityCheckShelterBinding>(R.layout.
             Log.d("checkshelter", "${viewModel.currentList}")
             adapter.updateShelters(shelterToList)
         })
-        //앱이 시작시 초기 데이터로딩
-        viewModel.selectaddress.value?.let{
-            viewModel.updateShelterList(this, "shelter_data.json",it,"")
-        }?:Log.e("checkshelter", "no load data")
+
         binding.touchContainer.setOnClickListener{
             setLocationSelect()
         }
@@ -62,11 +67,6 @@ class CheckShelterActivity : BaseActivity<ActivityCheckShelterBinding>(R.layout.
     private fun setupTabLayout(){
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
-//                val address = viewModel.selectaddress.value
-//                val shelterType = getShelterType(tab?.position)
-//                if(address!!.isNotEmpty()){
-//                    viewModel.updateShelterList(this@CheckShelterActivity,"shelter_data.json",address,shelterType)
-//                }
                 updateShelterListBasedOnTab(tab?.position)
             }
 
@@ -91,12 +91,10 @@ class CheckShelterActivity : BaseActivity<ActivityCheckShelterBinding>(R.layout.
         dialog.show(supportFragmentManager, "LocationSelect")
     }
 
-//    private fun updateShelterList(address:String, shelterType:String){
-//        viewModel.updateShelterList(this,"shelter_data.json",address,shelterType)
-//    }
     private fun updateShelterListBasedOnTab(tabPosition: Int?) {
-        val address = viewModel.selectaddress.value ?: ""
-        val shelterType = getShelterType(tabPosition)
-        viewModel.updateShelterList(this, "shelter_data.json", address, shelterType)
+        viewModel.selectaddress.value?.let{address->
+            val shelterType = getShelterType(tabPosition)
+            viewModel.updateShelterList(this, "shelter_data.json", address, shelterType)
+        }
     }
 }
