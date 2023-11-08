@@ -12,9 +12,12 @@ import com.example.numberoneproject.data.network.ApiResult
 import com.example.numberoneproject.databinding.ActivityMainBinding
 import com.example.numberoneproject.presentation.base.BaseActivity
 import com.example.numberoneproject.presentation.util.Extensions.repeatOnStarted
+import com.example.numberoneproject.presentation.util.MyFirebaseMessagingService
 import com.example.numberoneproject.presentation.util.TokenManager
 import com.example.numberoneproject.presentation.view.login.LoginActivity
 import com.example.numberoneproject.presentation.viewmodel.LoginViewModel
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.first
@@ -28,6 +31,21 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                return@OnCompleteListener
+            }
+
+            // Get new FCM registration token
+            val token = task.result
+
+            // Log and toast
+//            val msg = getString(R.string.msg_token_fmt, token)
+            Log.d("taag", token)
+//            Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
+        })
+
+//        Log.d("taag", FirebaseMessaging.getInstance().token.toString())
     }
 
     override fun setupInit() {
