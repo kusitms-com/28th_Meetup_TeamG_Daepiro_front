@@ -46,7 +46,7 @@
         <meta-data android:name="com.kakao.sdk.AppKey" android:value="${kakaoKey}" />
 
         <service
-            android:name=".MyFirebaseMessagingService"
+            android:name=".presentation.util.MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
