@@ -40,12 +40,6 @@ class CheckShelterActivity : BaseActivity<ActivityCheckShelterBinding>(R.layout.
             onBackPressed()
         }
 
-//        viewModel.selectaddress.observe(this, Observer{selectAddress->
-//            Log.e("fuck","$selectAddress")
-//            binding.noAddressData.visibility= if(selectAddress != null) View.GONE else View.VISIBLE
-//        })
-
-
         setupTabLayout()
 
         viewModel.currentList.asLiveData().observe(this, Observer { list->
@@ -58,6 +52,20 @@ class CheckShelterActivity : BaseActivity<ActivityCheckShelterBinding>(R.layout.
             Log.d("checkshelter", "${viewModel.currentList}")
             adapter.updateShelters(shelterToList)
         })
+
+//        viewModel.selectaddress.observe(this, Observer { address->
+//            address?.let {
+//                if(viewModel.setUpdate.value == true){
+//                    updateShelterListBasedOnTab(binding.tabLayout.selectedTabPosition)
+//                }
+//            }
+//        })
+        viewModel.shelterListUpdate.observe(this, Observer { shouldUpdate ->
+            if (shouldUpdate) {
+                updateShelterListBasedOnTab(binding.tabLayout.selectedTabPosition)
+            }
+        })
+
 
         binding.touchContainer.setOnClickListener{
             setLocationSelect()

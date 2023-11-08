@@ -28,6 +28,9 @@ class CheckShelterViewModel : ViewModel() {
         val _isactive = MutableLiveData<Boolean>()
         val isactive:LiveData<Boolean> = _isactive
 
+        val _setUpdate = MutableLiveData<Boolean>()
+        val setUpdate:LiveData<Boolean> = _setUpdate
+
         //주소 담는
         val _selectaddress = MutableLiveData<String?>()
         val selectaddress : LiveData<String?> = _selectaddress
@@ -47,11 +50,21 @@ class CheckShelterViewModel : ViewModel() {
     private fun updateVisibility():Boolean{
         return selectaddress.value != null && currentList.value.isNullOrEmpty()
     }
-
+    fun setSelectedAddress(address:String){
+        _selectaddress.value=address
+    }
+    val shelterListUpdate = MediatorLiveData<Boolean>().apply{
+        addSource(selectaddress){value = checkUpdateAvail()}
+        addSource(setUpdate){value = checkUpdateAvail()}
+    }
+    fun checkUpdateAvail():Boolean{
+        return selectaddress != null && setUpdate.value==true
+    }
 
     init {
         _isactive.value = false
         _selectaddress.value = null
+        //_setUpdate.value = false
     }
 
     fun extractShelterFromLocal(context:Context, fileName:String, selectAddress:String, shelterType : String):List<JSONObject>{

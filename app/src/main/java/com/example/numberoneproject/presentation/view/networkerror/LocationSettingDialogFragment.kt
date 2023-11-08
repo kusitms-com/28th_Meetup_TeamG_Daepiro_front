@@ -19,6 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class LocationSettingDialogFragment : BaseDialogFragment<FragmentLocationSettingDialogBinding>(R.layout.fragment_location_setting_dialog) {
     private val viewModel: CheckShelterViewModel by activityViewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         isCancelable = false
@@ -41,6 +42,7 @@ class LocationSettingDialogFragment : BaseDialogFragment<FragmentLocationSetting
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
+        var locationString:String=""
         setupInit()
         val recyclerview = binding.recyclerList
         val adapter = LocationAdapter(emptyList())
@@ -79,9 +81,14 @@ class LocationSettingDialogFragment : BaseDialogFragment<FragmentLocationSetting
             //마지막 탭 아이템 선택시
             else{
                 viewModel._isactive.value = true
-                val locationString = selectedItems.joinToString(separator = " ")
+                locationString = selectedItems.joinToString(separator = " ")
                 viewModel._selectaddress.value = locationString
             }
+        }
+        binding.complete.setOnClickListener{
+            (activity as? CheckShelterActivity)?.viewModel?.setSelectedAddress(locationString)
+            viewModel._setUpdate.value = true
+            dismiss()
         }
     }
 
@@ -90,9 +97,7 @@ class LocationSettingDialogFragment : BaseDialogFragment<FragmentLocationSetting
         binding.closeBtn.setOnClickListener{
             dismiss()
         }
-        binding.complete.setOnClickListener{
-            dismiss()
-        }
+
     }
 
     private fun setList(resourceId:Int){
