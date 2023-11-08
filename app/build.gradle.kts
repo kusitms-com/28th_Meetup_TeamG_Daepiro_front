@@ -6,6 +6,7 @@ plugins {
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
     id("androidx.navigation.safeargs.kotlin")
+    id("com.google.gms.google-services")
 }
 
 fun getBaseUrl(propertyBaseUrl : String): String {
@@ -71,6 +72,7 @@ dependencies {
 
     // Hilt kotlin 1.9.0에서는 hilt 2.48
     implementation("com.google.dagger:hilt-android:2.48")
+    implementation("com.google.firebase:firebase-messaging-ktx:23.3.1")
     kapt("com.google.dagger:hilt-android-compiler:2.48")
 
     // Jetpack Navigation
@@ -92,6 +94,9 @@ dependencies {
 
     // lottie library
     implementation("com.airbnb.android:lottie:6.1.0")
+
+    // Firebase
+    implementation(platform("com.google.firebase:firebase-bom:32.5.0"))
 
 
 

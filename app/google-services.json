@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "737475390838",
+    "project_id": "number-one-daepiro",
+    "storage_bucket": "number-one-daepiro.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:737475390838:android:dc4b6f9e0c33719bd5de57",
+        "android_client_info": {
+          "package_name": "com.example.numberoneproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPkvQTEqLmCDM05NtnTtYr7By2jTxkc7Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
