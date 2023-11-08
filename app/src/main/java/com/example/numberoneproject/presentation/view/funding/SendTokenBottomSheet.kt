@@ -26,5 +26,9 @@ class SendTokenBottomSheet: BottomSheetDialogFragment() {
         binding.ivClose.setOnClickListener {
             this.dismiss()
         }
+
+        binding.btnFunding.setOnClickListener {
+            CheerDialogFragment().show(parentFragmentManager, "")
+        }
     }
 }

@@ -170,6 +170,7 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <TextView
+                android:id="@+id/btn_funding"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/button"
