@@ -39,7 +39,6 @@ import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import java.util.Locale
 
-
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     val shelterVM by viewModels<ShelterViewModel>()
@@ -63,8 +62,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         setCheckListViewPager()
 
 
-        binding
-
         binding.tvCheckListAll.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToCheckListDetailFragment("")
             findNavController().navigate(action)
@@ -79,11 +76,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 }
 
                 override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
-                    showToast("위치 권한이 필수로 필요합니다.")
+                    showToast("위치 권한과 알림 권한은 필수로 필요합니다.")
                 }
             })
             .setDeniedMessage("권한을 허용해주세요. [설정] > [앱 및 알림] > [고급] > [앱 권한]")
-            .setPermissions(android.Manifest.permission.ACCESS_FINE_LOCATION,android.Manifest.permission.ACCESS_COARSE_LOCATION)
+            .setPermissions(
+                android.Manifest.permission.ACCESS_FINE_LOCATION,
+                android.Manifest.permission.POST_NOTIFICATIONS
+            )
             .check()
     }
 
