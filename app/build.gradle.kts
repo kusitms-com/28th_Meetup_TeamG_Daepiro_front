@@ -72,7 +72,6 @@ dependencies {
 
     // Hilt kotlin 1.9.0에서는 hilt 2.48
     implementation("com.google.dagger:hilt-android:2.48")
-    implementation("com.google.firebase:firebase-messaging-ktx:23.3.1")
     kapt("com.google.dagger:hilt-android-compiler:2.48")
 
     // Jetpack Navigation
@@ -80,7 +79,7 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.6.0")
 
     // Naver Login
-    implementation("com.navercorp.nid:oauth-jdk8:5.1.0")
+    implementation("com.navercorp.nid:oauth-jdk8:5.4.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
 
     // Kakao Login
@@ -92,12 +91,23 @@ dependencies {
     // Circle ImageView
     implementation("de.hdodenhof:circleimageview:3.1.0")
 
+    // Ted Permission
+    implementation("io.github.ParkSangGwon:tedpermission-normal:3.3.0")
+
     // lottie library
     implementation("com.airbnb.android:lottie:6.1.0")
 
     // Firebase
     implementation(platform("com.google.firebase:firebase-bom:32.5.0"))
+    implementation("com.google.firebase:firebase-messaging-ktx:23.3.1")
 
+    // 현재 위치, GPS 추적
+    implementation("com.google.android.gms:play-services-maps:18.0.0")
+    implementation("com.google.android.gms:play-services-location:19.0.0")
+
+    // Glide
+    implementation("com.github.bumptech.glide:glide:4.12.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
 
 
     implementation("androidx.core:core-ktx:1.9.0")

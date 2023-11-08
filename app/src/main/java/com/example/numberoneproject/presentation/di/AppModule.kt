@@ -3,8 +3,12 @@ package com.example.numberoneproject.presentation.di
 import com.example.numberoneproject.BuildConfig
 import com.example.numberoneproject.data.network.ApiResultCallAdapterFactory
 import com.example.numberoneproject.data.network.ApiService
+import com.example.numberoneproject.data.repositoryimpl.DisasterRepositoryImpl
 import com.example.numberoneproject.data.repositoryimpl.LoginRepositoryImpl
+import com.example.numberoneproject.data.repositoryimpl.ShelterRepositoryImpl
+import com.example.numberoneproject.domain.repository.DisasterRepository
 import com.example.numberoneproject.domain.repository.LoginRepository
+import com.example.numberoneproject.domain.repository.ShelterRepository
 import com.example.numberoneproject.presentation.util.TokenManager
 import dagger.Binds
 import dagger.Module
@@ -26,6 +30,17 @@ abstract class RepositoryModule {
         loginRepositoryImpl: LoginRepositoryImpl
     ): LoginRepository
 
+    @Singleton
+    @Binds
+    abstract fun bindShelterRepository(
+        shelterRepositoryImpl: ShelterRepositoryImpl
+    ): ShelterRepository
+
+    @Singleton
+    @Binds
+    abstract fun bindDisasterRepository(
+        disasterRepositoryImpl: DisasterRepositoryImpl
+    ): DisasterRepository
 }
 
 @Module
