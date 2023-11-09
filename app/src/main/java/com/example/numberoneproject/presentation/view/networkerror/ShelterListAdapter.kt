@@ -5,6 +5,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -36,6 +37,18 @@ class ShelterListAdapter : RecyclerView.Adapter<ShelterListAdapter.ViewHolder>()
     override fun onBindViewHolder(holder: ShelterListAdapter.ViewHolder, position: Int) {
         val shelterData = shelters[position]
         holder.bind(shelterData)
+
+        holder.itemView.setOnTouchListener{v,event->
+            when(event.action){
+                MotionEvent.ACTION_DOWN->{
+                    v.isSelected = true
+                }
+                MotionEvent.ACTION_UP->{
+                    v.isSelected = false
+                }
+            }
+            return@setOnTouchListener true
+        }
 
         holder.itemView.findViewById<TextView>(R.id.copy_btn).setOnClickListener{
             val clipboard = holder.itemView.context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager

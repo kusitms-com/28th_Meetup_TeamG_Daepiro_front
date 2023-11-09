@@ -297,7 +297,7 @@
         <item>충주시</item>
     </string-array>
 
-    <string-array name="서울특별시강남구">
+    <string-array name="서울특별시_강남구">
         <item>압구정동</item>
         <item>삼성동</item>
         <item>신사동</item>
@@ -311,7 +311,7 @@
         <item>수서동</item>
     </string-array>
 
-    <string-array name="서울특별시강동구">
+    <string-array name="서울특별시_강동구">
         <item>강일동</item>
         <item>상일동</item>
         <item>고덕동</item>
@@ -323,7 +323,7 @@
         <item>명일동</item>
     </string-array>
 
-    <string-array name="서울특별시강북구">
+    <string-array name="서울특별시_강북구">
         <item>미아동</item>
         <item>번동</item>
         <item>삼각산동</item>
@@ -335,7 +335,7 @@
         <item>인수동</item>
     </string-array>
 
-    <string-array name="서울특별시강서구">
+    <string-array name="서울특별시_강서구">
         <item>가양동</item>
         <item>개화동</item>
         <item>공항동</item>
@@ -352,7 +352,7 @@
         <item>화곡동</item>
         <item>화곡본동</item>
     </string-array>
-    <string-array name="서울특별시관악구">
+    <string-array name="서울특별시_관악구">
         <item>낙성대동</item>
         <item>난곡동</item>
         <item>난항동</item>
@@ -377,7 +377,7 @@
         <item>행운동</item>
     </string-array>
 
-    <string-array name="서울특별시광진구">
+    <string-array name="서울특별시_광진구">
         <item>광장동</item>
         <item>구의동</item>
         <item>군자동</item>
@@ -386,7 +386,7 @@
         <item>중곡동</item>
         <item>화양동</item>
     </string-array>
-    <string-array name="서울특별시구로구">
+    <string-array name="서울특별시_구로구">
         <item>가리봉동</item>
         <item>개봉동</item>
         <item>고척동</item>
@@ -398,13 +398,13 @@
         <item>천왕동</item>
         <item>항동</item>
     </string-array>
-    <string-array name="서울특별시금천구">
+    <string-array name="서울특별시_금천구">
         <item>가산동</item>
         <item>독산동</item>
         <item>시흥동</item>
     </string-array>
 
-    <string-array name="서울특별시노원구">
+    <string-array name="서울특별시_노원구">
         <item>공릉동</item>
         <item>상계동</item>
         <item>월계동</item>
@@ -412,14 +412,14 @@
         <item>하계동</item>
     </string-array>
 
-    <string-array name="서울특별시도봉구">
+    <string-array name="서울특별시_도봉구">
         <item>도봉동</item>
         <item>방학동</item>
         <item>쌍문동</item>
         <item>창동</item>
     </string-array>
 
-    <string-array name="서울특별시동대문구">
+    <string-array name="서울특별시_동대문구">
         <item>답십리동</item>
         <item>신설동</item>
         <item>용두동</item>
@@ -432,7 +432,7 @@
         <item>휘경동</item>
     </string-array>
 
-    <string-array name="서울특별시동작구">
+    <string-array name="서울특별시_동작구">
         <item>노량진동</item>
         <item>대방동</item>
         <item>동작동</item>
@@ -443,7 +443,7 @@
         <item>흑석동</item>
     </string-array>
 
-    <string-array name="서울특별시마포구">
+    <string-array name="서울특별시_마포구">
         <item>공덕동</item>
         <item>구수동</item>
         <item>노고산동</item>
@@ -470,7 +470,7 @@
         <item>현석동</item>
     </string-array>
 
-    <string-array name="서울특별시서대문구">
+    <string-array name="서울특별시_서대문구">
         <item>남가좌동</item>
         <item>냉천동</item>
         <item>대신동</item>
@@ -492,7 +492,7 @@
         <item>홍제동</item>
     </string-array>
 
-    <string-array name="서울특별시서초구">
+    <string-array name="서울특별시_서초구">
         <item>양재동</item>
         <item>염곡동</item>
         <item>우면동</item>
@@ -505,7 +505,7 @@
         <item>잠원동</item>
     </string-array>
 
-   구 <string-array name="서울특별시성동구">
+   구 <string-array name="서울특별시_성동구">
         <item>금호동</item>
         <item>도선동</item>
         <item>마장동</item>
@@ -521,7 +521,7 @@
         <item>홍익동</item>
     </string-array>
 
-    <string-array name="서울특별시성북구">
+    <string-array name="서울특별시_성북구">
         <item>길음동</item>
         <item>돈암동</item>
         <item>동선동</item>
@@ -539,7 +539,7 @@
         <item>하월곡동</item>
     </string-array>
 
-    <string-array name="서울특별시송파구">
+    <string-array name="서울특별시_송파구">
         <item>가락동</item>
         <item>거여동</item>
         <item>마천동</item>
@@ -557,13 +557,13 @@
         <item>풍납동</item>
     </string-array>
 
-    <string-array name="서울특별시양천구">
+    <string-array name="서울특별시_양천구">
         <item>목동</item>
         <item>신월동</item>
         <item>신정동</item>
     </string-array>
 
-    <string-array name="서울특별시영등포구">
+    <string-array name="서울특별시_영등포구">
         <item>당산동</item>
         <item>대림동</item>
         <item>도림동</item>
@@ -575,7 +575,7 @@
         <item>영등포동</item>
     </string-array>
 
-    <string-array name="서울특별시용산구">
+    <string-array name="서울특별시_용산구">
         <item>갈월동</item>
         <item>남영동</item>
         <item>도원동</item>
@@ -602,7 +602,7 @@
         <item>후암동</item>
     </string-array>
 
-    <string-array name="서울특별시은평구">
+    <string-array name="서울특별시_은평구">
         <item>갈현동</item>
         <item>구산동</item>
         <item>녹번동</item>
@@ -616,7 +616,7 @@
         <item>진관동</item>
     </string-array>
 
-    <string-array name="서울특별시중구">
+    <string-array name="서울특별시_중구">
         <item>광희동</item>
         <item>남대문로</item>
         <item>남산동</item>
@@ -668,7 +668,7 @@
         <item>흥인동</item>
     </string-array>
 
-    <string-array name="서울특별시종로구">
+    <string-array name="서울특별시_종로구">
         <item>청운동</item>
         <item>사직동</item>
         <item>삼청동</item>
@@ -755,7 +755,7 @@
         <item>훈정동</item>
     </string-array>
 
-    <string-array name="서울특별시중랑구">
+    <string-array name="서울특별시_중랑구">
         <item>망우동</item>
         <item>면목동</item>
         <item>묵동</item>

@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.example.numberoneproject.R
@@ -38,57 +39,78 @@ class LocationSettingDialogFragment : BaseDialogFragment<FragmentLocationSetting
             }
         }
     }
-
+    //선택된 아이템 저장 리스트
+    var selectedItems = mutableMapOf<Int,String>()
+    val selectedPosition = HashMap<Int,Int>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
-        var locationString:String=""
         setupInit()
         val recyclerview = binding.recyclerList
         val adapter = LocationAdapter(emptyList())
         recyclerview.adapter= adapter
         setList(R.array.all)
-        val tabLayout = binding.tabLayout
-        //선택된 아이템 저장 리스트
-        val selectedItems = mutableListOf<String>()
-        val selectedPosition = HashMap<Int,Int>()
+
+
+
+        binding.tabLayout.addOnTabSelectedListener(object :TabLayout.OnTabSelectedListener{
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                tab?.let{selectTab->
+//                    val resourceName = selectedItems[it.position] ?: if(it.position ==0) "all" else ""
+//                    val resourceId = resources.getIdentifier(resourceName,"array",requireContext().packageName)
+//                    if(resourceId >0){
+//                        setList(resourceId)
+//                    }
+//                    for(i in it.position +1 until binding.tabLayout.tabCount){
+//                        //val isTabAble = selectedItems.containsKey(i)
+//                        binding.tabLayout.getTabAt(i)?.view?.isClickable = selectedItems.containsKey(i)
+//                    }
+                    val resourceName = when(selectTab.position){
+                        0-> "all"
+                        1-> selectedItems[0] ?: "all"
+                        else->{
+                            (0 until selectTab.position)
+                                .mapNotNull { selectedItems[it] }
+                                .joinToString (separator = "_")
+                        }
+                    }
+                    val resourceId = resources.getIdentifier(resourceName,"array",requireContext().packageName)
+                    if(resourceId >0){
+                        setList(resourceId)
+                    }else{
+                        Log.e("onTabSelected","invalid resource id")
+                    }
+                    for(i in selectTab.position +1 until binding.tabLayout.tabCount){
+                        val isTabAble = selectedItems.containsKey(i-1)
+                        binding.tabLayout.getTabAt(i)?.view?.isClickable = isTabAble
+                    }
+                }
+                Log.d("onViewCreated","$selectedItems")
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+                tab?.let{
+                    val previousTabIndex = it.position-1
+                    if(previousTabIndex >=0){
+                        updateListForSelectedTab(previousTabIndex)
+                    }else{
+                        setList(R.array.all)
+                    }
+                }
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+            }
+
+        })
 
         adapter.itemClickListener = {position, value ->
             //현재 탭의 위치 얻음
-            val currentTabPosition = tabLayout.selectedTabPosition
-            if(selectedItems.size > currentTabPosition){
-                selectedItems[currentTabPosition] = value
-            }
-            else{
-                selectedItems.add(value)
-            }
+            val currentTabPosition = binding.tabLayout.selectedTabPosition
+            selectedItems[currentTabPosition] = value
             selectedPosition[currentTabPosition] = position
-            adapter.selectItem(position)
-            //아이템 선택시 다음탭으로 이동
-            if(currentTabPosition < tabLayout.tabCount -1){
-                val resourceName = selectedItems.joinToString(separator = "")
-                val nextTab = tabLayout.getTabAt(currentTabPosition+1)
-                nextTab?.select()
-                val resourceId = resources.getIdentifier(resourceName, "array", requireContext().packageName)
-                if(resourceId >0){
-                    Log.d("LocationSetting","${viewModel.isactive.value}")
-                    setList(resourceId)
-                    val nextTabPosition = currentTabPosition +1
-                    val selectedPositionInNextTab = selectedPosition[nextTabPosition] ?: -1
-                    adapter.selectItem(selectedPositionInNextTab)
-                }
-            }
-            //마지막 탭 아이템 선택시
-            else{
-                viewModel._isactive.value = true
-                locationString = selectedItems.joinToString(separator = " ")
-                viewModel._selectaddress.value = locationString
-            }
-        }
-        binding.complete.setOnClickListener{
-            (activity as? CheckShelterActivity)?.viewModel?.setSelectedAddress(locationString)
-            viewModel._setUpdate.value = true
-            dismiss()
+            updateListForSelectedTab(currentTabPosition)
+            moveToNextTab(currentTabPosition,value)
         }
     }
 
@@ -97,11 +119,59 @@ class LocationSettingDialogFragment : BaseDialogFragment<FragmentLocationSetting
         binding.closeBtn.setOnClickListener{
             dismiss()
         }
-
+        binding.complete.setOnClickListener{
+            viewModel._setUpdate.value = true
+            selectedItems.clear()
+            viewModel._isactive.value = false
+            dismiss()
+        }
     }
 
     private fun setList(resourceId:Int){
         val localList = resources.getStringArray(resourceId).toList()
         (binding.recyclerList.adapter as LocationAdapter).updateList(localList)
     }
+    private fun moveToNextTab(currentTab:Int,value:String){
+        selectedItems[currentTab] = value
+        updateListForSelectedTab(currentTab)
+        if(currentTab < binding.tabLayout.tabCount-1){
+            binding.tabLayout.getTabAt(currentTab +1)?.apply {
+                view?.isClickable = true
+                select()
+            }
+        }
+        else{
+            //마지막 선택시
+            var locationString = selectedItems.toSortedMap().values.joinToString(separator = " ")
+            viewModel._selectaddress.value = locationString
+            viewModel._isactive.value = true
+        }
+    }
+    private fun updateListForSelectedTab(position:Int){
+        val resourceNameBuilder = StringBuilder()
+        for(i in 0..position){
+            selectedItems[i]?.let{
+                if(resourceNameBuilder.isNotEmpty()){
+                    resourceNameBuilder.append(it)
+                }else{
+                    resourceNameBuilder.append(it)
+                }
+            }
+        }
+        val resourceName=resourceNameBuilder.toString()
+        val resourceId = if(resourceName.isNotEmpty()){
+            resources.getIdentifier(resourceName, "array", requireContext().packageName)
+        }else{
+            //못넘어가도록 해야함
+            R.array.all
+        }
+        if(resourceId != 0){
+            setList(resourceId)
+        }else{
+            Log.e("updateListForSelectedTab","$resourceName")
+            Log.e("updateListForSelectedTab", "invalid resource id")
+        }
+    }
 }
+
+

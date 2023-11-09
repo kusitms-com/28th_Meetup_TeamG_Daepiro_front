@@ -3,8 +3,11 @@ package com.example.numberoneproject.presentation.view.networkerror
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
@@ -53,13 +56,6 @@ class CheckShelterActivity : BaseActivity<ActivityCheckShelterBinding>(R.layout.
             adapter.updateShelters(shelterToList)
         })
 
-//        viewModel.selectaddress.observe(this, Observer { address->
-//            address?.let {
-//                if(viewModel.setUpdate.value == true){
-//                    updateShelterListBasedOnTab(binding.tabLayout.selectedTabPosition)
-//                }
-//            }
-//        })
         viewModel.shelterListUpdate.observe(this, Observer { shouldUpdate ->
             if (shouldUpdate) {
                 updateShelterListBasedOnTab(binding.tabLayout.selectedTabPosition)
@@ -71,12 +67,13 @@ class CheckShelterActivity : BaseActivity<ActivityCheckShelterBinding>(R.layout.
             setLocationSelect()
         }
     }
-
+    private var previousIndex = 0
     private fun setupTabLayout(){
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 updateShelterListBasedOnTab(tab?.position)
             }
+
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
             }
@@ -105,4 +102,11 @@ class CheckShelterActivity : BaseActivity<ActivityCheckShelterBinding>(R.layout.
             viewModel.updateShelterList(this, "shelter_data.json", address, shelterType)
         }
     }
+
+    private fun checkForSelection(): Boolean {
+        // 현재 탭에서 선택된 아이템이 있는지 검사하는 로직 구현
+        // 예를 들어, 선택된 아이템을 관리하는 리스트가 비어있지 않은지 확인
+        return viewModel.selectaddress.value?.isNotEmpty() ?: false
+    }
+
 }
