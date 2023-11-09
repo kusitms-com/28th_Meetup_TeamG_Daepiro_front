@@ -96,6 +96,9 @@ dependencies {
     // lottie library
     implementation("com.airbnb.android:lottie:6.1.0")
 
+    //LiveData
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
+
 
 
     implementation("androidx.core:core-ktx:1.9.0")

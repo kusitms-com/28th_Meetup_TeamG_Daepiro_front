@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:name=".presentation.di.MyApplication"
@@ -18,31 +18,39 @@
         android:theme="@style/Theme.NumberOneProject"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
+        <activity
+            android:name=".presentation.view.networkerror.CheckShelterActivity"
+            android:exported="false" />
         <activity
             android:name=".presentation.view.login.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:host="oauth" android:scheme="${kakaoKey}" />
+
+                <data
+                    android:host="oauth"
+                    android:scheme="${kakaoKey}" />
             </intent-filter>
         </activity>
-
         <activity android:name=".presentation.view.login.LoginActivity" />
         <activity android:name=".presentation.view.MainActivity" />
         <activity android:name=".presentation.view.networkerror.BehaviorTipActivity" />
 
-        <meta-data android:name="com.kakao.sdk.AppKey" android:value="${kakaoKey}" />
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="${kakaoKey}" />
     </application>
+
 </manifest>
