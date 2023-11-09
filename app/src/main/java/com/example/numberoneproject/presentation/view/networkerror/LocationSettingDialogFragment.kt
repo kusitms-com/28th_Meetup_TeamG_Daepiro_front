@@ -58,10 +58,6 @@ class LocationSettingDialogFragment : BaseDialogFragment<FragmentLocationSetting
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 //먼저 아이템 선택되었는지 확인
                 if(tab != null && tab.position !=0 && selectedItems[0].isNullOrEmpty()){
-//                    for(i in selectTab.position +1 until binding.tabLayout.tabCount){
-//                        val isTabAble = selectedItems.containsKey(i-1)
-//                        binding.tabLayout.getTabAt(i)?.view?.isClickable = isTabAble
-//                    }
                     binding.tabLayout.getTabAt(0)?.select()
                     return
                 }

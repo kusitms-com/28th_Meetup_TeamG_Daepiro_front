@@ -103,10 +103,5 @@ class CheckShelterActivity : BaseActivity<ActivityCheckShelterBinding>(R.layout.
         }
     }
 
-    private fun checkForSelection(): Boolean {
-        // 현재 탭에서 선택된 아이템이 있는지 검사하는 로직 구현
-        // 예를 들어, 선택된 아이템을 관리하는 리스트가 비어있지 않은지 확인
-        return viewModel.selectaddress.value?.isNotEmpty() ?: false
-    }
 
 }

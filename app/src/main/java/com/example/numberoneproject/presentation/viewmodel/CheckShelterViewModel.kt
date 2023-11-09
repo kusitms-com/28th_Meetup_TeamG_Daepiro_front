@@ -65,7 +65,6 @@ class CheckShelterViewModel : ViewModel() {
     init {
         _isactive.value = false
         _selectaddress.value = null
-        //_setUpdate.value = false
     }
 
     fun extractShelterFromLocal(context:Context, fileName:String, selectAddress:String, shelterType : String):List<JSONObject>{

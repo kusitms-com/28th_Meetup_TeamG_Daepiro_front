@@ -62,21 +62,5 @@ class LocationAdapter(private var items: List<String>): RecyclerView.Adapter<Loc
             notifyItemChanged(position)
         }
     }
-    fun getSelectedText():String?{
-        return if(selectedPosition != RecyclerView.NO_POSITION){
-            items[selectedPosition]
-        }
-        else{
-            null
-        }
-    }
-    fun getSelectedPosition():Int{
-        return selectedPosition
-    }
-    fun resetSelection(){
-        if(selectedPosition != -1){
-            notifyItemChanged(selectedPosition)
-            selectedPosition = -1
-        }
-    }
+
 }
