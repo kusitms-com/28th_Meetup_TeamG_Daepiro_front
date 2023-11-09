@@ -143,7 +143,7 @@ class LocationSettingDialogFragment : BaseDialogFragment<FragmentLocationSetting
         }
         else{
             //마지막 선택시
-            var locationString = selectedItems.toSortedMap().values.joinToString(separator = " ")
+            var locationString = listOfNotNull(selectedItems[0],selectedItems[1]).joinToString(separator = " ")
             viewModel._selectaddress.value = locationString
             viewModel._isactive.value = true
         }
