@@ -34,7 +34,7 @@ class CheckShelterViewModel : ViewModel() {
         //주소 담는
     val _selectaddress = MutableLiveData<String?>()
     val selectaddress : LiveData<String?> = _selectaddress
-    
+
 
     //데이터 리스트를 담는 flow
     private val _currentList = MutableStateFlow<List<JSONObject>>(emptyList())

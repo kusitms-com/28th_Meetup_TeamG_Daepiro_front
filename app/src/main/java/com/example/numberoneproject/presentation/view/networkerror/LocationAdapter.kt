@@ -33,20 +33,10 @@ class LocationAdapter(private var items: List<String>): RecyclerView.Adapter<Loc
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val list = items[position]
         holder.location.text = list
-        //holder.itemView.isSelected = position == selectedPosition
-//        if(position==selectedPosition){
-//            holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.secondary_50))
-//        }
-//        else{
-//            holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.white))
-//        }
-        holder.itemView.setBackgroundColor(
-            if(position == selectedPosition){
-                ContextCompat.getColor(holder.itemView.context, R.color.secondary_50)
-            }
-            else{
-                ContextCompat.getColor(holder.itemView.context, R.color.white)
-            }
+
+        holder.itemView.setBackgroundResource(
+            if(position == selectedPosition) R.drawable.bg_location_select
+            else R.drawable.bg_location_normal
         )
     }
 
