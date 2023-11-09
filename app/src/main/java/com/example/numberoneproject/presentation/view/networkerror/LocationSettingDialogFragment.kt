@@ -8,6 +8,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.core.view.get
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.example.numberoneproject.R
@@ -55,16 +56,16 @@ class LocationSettingDialogFragment : BaseDialogFragment<FragmentLocationSetting
 
         binding.tabLayout.addOnTabSelectedListener(object :TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
+                //먼저 아이템 선택되었는지 확인
+                if(tab != null && tab.position !=0 && selectedItems[0].isNullOrEmpty()){
+//                    for(i in selectTab.position +1 until binding.tabLayout.tabCount){
+//                        val isTabAble = selectedItems.containsKey(i-1)
+//                        binding.tabLayout.getTabAt(i)?.view?.isClickable = isTabAble
+//                    }
+                    binding.tabLayout.getTabAt(0)?.select()
+                    return
+                }
                 tab?.let{selectTab->
-//                    val resourceName = selectedItems[it.position] ?: if(it.position ==0) "all" else ""
-//                    val resourceId = resources.getIdentifier(resourceName,"array",requireContext().packageName)
-//                    if(resourceId >0){
-//                        setList(resourceId)
-//                    }
-//                    for(i in it.position +1 until binding.tabLayout.tabCount){
-//                        //val isTabAble = selectedItems.containsKey(i)
-//                        binding.tabLayout.getTabAt(i)?.view?.isClickable = selectedItems.containsKey(i)
-//                    }
                     val resourceName = when(selectTab.position){
                         0-> "all"
                         1-> selectedItems[0] ?: "all"

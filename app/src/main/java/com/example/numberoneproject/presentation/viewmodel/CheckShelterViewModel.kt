@@ -25,15 +25,16 @@ import java.io.File
 
 
 class CheckShelterViewModel : ViewModel() {
-        val _isactive = MutableLiveData<Boolean>()
-        val isactive:LiveData<Boolean> = _isactive
+    val _isactive = MutableLiveData<Boolean>()
+    val isactive:LiveData<Boolean> = _isactive
 
-        val _setUpdate = MutableLiveData<Boolean>()
-        val setUpdate:LiveData<Boolean> = _setUpdate
+    val _setUpdate = MutableLiveData<Boolean>()
+    val setUpdate:LiveData<Boolean> = _setUpdate
 
         //주소 담는
-        val _selectaddress = MutableLiveData<String?>()
-        val selectaddress : LiveData<String?> = _selectaddress
+    val _selectaddress = MutableLiveData<String?>()
+    val selectaddress : LiveData<String?> = _selectaddress
+    
 
     //데이터 리스트를 담는 flow
     private val _currentList = MutableStateFlow<List<JSONObject>>(emptyList())
