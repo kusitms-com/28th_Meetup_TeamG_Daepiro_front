@@ -37,9 +37,8 @@
         android:layout_gravity="center"
         android:layout_marginTop="26dp"
         android:layout_marginBottom="57dp"
-        android:fontFamily="@font/pretendard"
-        android:textColor="@color/secondary_900"
-        android:textSize="14sp"/>
+        style="@style/body2"
+        android:textColor="@color/secondary_900" />
 
 </LinearLayout>
 </layout>

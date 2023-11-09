@@ -43,7 +43,8 @@
             app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/ic_close"
             android:layout_marginRight="12dp"
-            android:paddingTop="13dp" />
+            app:tint="@color/secondary_600"
+            android:paddingTop="12dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -53,7 +54,7 @@
         android:layout_height="wrap_content"
         app:tabRippleColor="@android:color/transparent"
         app:tabSelectedTextColor="@color/secondary_900"
-        app:tabTextColor="@color/secondary_200"
+        app:tabTextColor="@color/secondary_900"
         app:tabIndicatorColor="@color/secondary_800"
         app:tabIndicatorHeight="2dp"
         app:tabGravity="fill"
@@ -64,19 +65,19 @@
             android:layout_height="wrap_content"
             android:text="@string/시도"
             android:stateListAnimator="@null"
-            style="@style/caption"/>
+            style="@style/button"/>
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/구군"
             android:stateListAnimator="@null"
-            style="@style/caption"/>
+            style="@style/button"/>
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/동읍면"
             android:stateListAnimator="@null"
-            style="@style/caption"/>
+            style="@style/button"/>
 
     </com.google.android.material.tabs.TabLayout>
 

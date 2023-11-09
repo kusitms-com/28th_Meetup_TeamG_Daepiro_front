@@ -37,7 +37,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:textStyle="bold"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="13dp"
         android:layout_gravity="center"
         android:text="@string/행동요령" />
 
