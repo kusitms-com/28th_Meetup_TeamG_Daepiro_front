@@ -43,4 +43,8 @@
         android:id="@+id/fundingDetailFragment"
         android:name="com.example.numberoneproject.presentation.view.funding.FundingDetailFragment"
         android:label="FundingDetailFragment" />
+    <fragment
+        android:id="@+id/communityFragment"
+        android:name="com.example.numberoneproject.presentation.view.community.CommunityFragment"
+        android:label="CommunityFragment" />
 </navigation>
