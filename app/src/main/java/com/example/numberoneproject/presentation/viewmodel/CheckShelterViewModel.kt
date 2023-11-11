@@ -55,9 +55,9 @@ class CheckShelterViewModel : ViewModel() {
     private fun updateVisibility():Boolean{
         return selectaddress.value != null && currentList.value.isNullOrEmpty()
     }
-    fun setSelectedAddress(address:String){
-        _selectaddress.value=address
-    }
+//    fun setSelectedAddress(address:String){
+//        _selectaddress.value=address
+//    }
     val shelterListUpdate = MediatorLiveData<Boolean>().apply{
         addSource(selectaddress){value = checkUpdateAvail()}
         addSource(setUpdate){value = checkUpdateAvail()}

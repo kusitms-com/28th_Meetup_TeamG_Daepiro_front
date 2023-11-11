@@ -23,7 +23,12 @@ class LocationSettingDialogFragment : BaseDialogFragment<FragmentLocationSetting
     private val viewModel: CheckShelterViewModel by activityViewModels()
 
     interface OnItemSelectedListener{
-        fun onItemSelected()
+        fun onItemSelected(sendItems: String)
+    }
+    private var listener: OnItemSelectedListener? = null
+
+    fun setOnItemSelectedListener(listener: OnItemSelectedListener){
+        this.listener = listener
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -120,12 +125,7 @@ class LocationSettingDialogFragment : BaseDialogFragment<FragmentLocationSetting
         binding.closeBtn.setOnClickListener{
             dismiss()
         }
-        binding.complete.setOnClickListener{
-            viewModel._setUpdate.value = true
-            selectedItems.clear()
-            viewModel._isactive.value = false
-            dismiss()
-        }
+
     }
 
     private fun setList(resourceId:Int){
@@ -141,15 +141,19 @@ class LocationSettingDialogFragment : BaseDialogFragment<FragmentLocationSetting
                 select()
             }
         }
-        else{
-            //마지막 선택시
+        else{ //마지막 선택시
             var locationString = listOfNotNull(selectedItems[0],selectedItems[1],selectedItems[2]).joinToString(separator = " ")
             var locationOnScreen = listOfNotNull(selectedItems[0],selectedItems[1]).joinToString(separator = " ")
-            Log.d("moveToNextTab","$locationString")
-            Log.d("moveToNextTab","$locationOnScreen")
             viewModel._selectaddress.value = locationString
             viewModel._onScreenAddress.value = locationOnScreen
             viewModel._isactive.value = true
+            binding.complete.setOnClickListener{
+                viewModel._setUpdate.value = true
+                selectedItems.clear()
+                viewModel._isactive.value = false
+                listener?.onItemSelected(locationString)
+                dismiss()
+            }
         }
     }
     private fun updateListForSelectedTab(position:Int){
@@ -173,7 +177,6 @@ class LocationSettingDialogFragment : BaseDialogFragment<FragmentLocationSetting
         if(resourceId != 0){
             setList(resourceId)
         }else{
-            Log.e("updateListForSelectedTab","$resourceName")
             Log.e("updateListForSelectedTab", "invalid resource id")
         }
     }
