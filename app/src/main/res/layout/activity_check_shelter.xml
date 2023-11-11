@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.example.numberoneproject.presentation.viewmodel.CheckShelterViewModel" />
+    </data>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.view.networkerror.CheckShelterActivity"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/include_app_bar"
+        layout="@layout/include_app_bar"/>
+
+    <LinearLayout
+        android:id="@+id/touch_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:clickable="true">
+
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.selectaddress ?? @string/지역을_선택}"
+            style="@style/button"
+            android:textColor="@color/secondary_400"
+            android:layout_marginLeft="20dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow_down"
+            app:tint="@color/secondary_400"
+            android:layout_gravity="center_vertical"/>
+    </LinearLayout>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabRippleColor="@android:color/transparent"
+        app:tabSelectedTextColor="@color/secondary_900"
+        app:tabTextColor="@color/secondary_200"
+        app:tabIndicatorColor="@color/secondary_800"
+        app:tabIndicatorHeight="2dp"
+        app:tabGravity="fill"
+        app:tabIndicatorFullWidth="true">
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/전체"
+            android:stateListAnimator="@null"
+            style="@style/button"/>
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/지진"
+            android:stateListAnimator="@null"
+            style="@style/button"/>
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/수해"
+            style="@style/button"
+            android:stateListAnimator="@null"/>
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/전쟁"
+            style="@style/button"
+            android:stateListAnimator="@null"/>
+    </com.google.android.material.tabs.TabLayout>
+    <LinearLayout
+        android:id="@+id/no_address_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="vertical"
+        android:background="@color/surface"
+        android:visibility="@{viewModel.selectaddress != null ? View.GONE : View.VISIBLE}"
+        android:elevation="2dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/현재_조회된"
+            style="@style/headline6"
+            android:textColor="@color/secondary_800"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/지역을_선택"
+            style="@style/subtitle2"
+            android:textColor="@color/secondary_800"/>
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="vertical"
+        android:background="@color/surface"
+        android:visibility="@{viewModel.isEmptyVisible ? View.VISIBLE : View.GONE}">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/주변_800m"
+            style="@style/headline6"
+            android:textColor="@color/secondary_800"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/전체_대피소로"
+            style="@style/subtitle2"
+            android:textColor="@color/secondary_800"/>
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/listitem_shelter"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:visibility="@{viewModel.isEmptyVisible ? View.GONE : View.VISIBLE}"/>
+
+</LinearLayout>
+</layout>

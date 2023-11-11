@@ -71,6 +71,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
             tokenManager.accessToken.collectLatest {
                 if (it.isNotEmpty()) {
                     startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                    //추후 json파일 받아온적 있는지 여부 검사후 요청
                     finish()
                 }
             }
