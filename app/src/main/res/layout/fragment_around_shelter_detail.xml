@@ -31,7 +31,7 @@
                 style="@style/subtitle1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="주변 대피소 조회"
+                android:text="@string/주변_대피소_조회"
                 android:textColor="@color/secondary_400"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_back"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -72,22 +72,22 @@
                 android:id="@+id/tab_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="전체"/>
+                android:text="@string/전체"/>
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/tab_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="지진"/>
+                android:text="@string/지진"/>
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/tab_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="수해"/>
+                android:text="@string/수해"/>
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/tab_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="전쟁"/>
+                android:text="@string/전쟁"/>
         </com.google.android.material.tabs.TabLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout

@@ -55,7 +55,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_bottom_left_right_radius_8"
-                    android:backgroundTint="@color/orange_50"
+                    android:backgroundTint="@color/surface"
                     android:orientation="vertical"
                     android:paddingHorizontal="20dp"
                     android:paddingVertical="24dp"
@@ -103,7 +103,7 @@
                             style="@style/button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="새로고침"
+                            android:text="@string/새로고침"
                             android:textColor="@color/secondary_300" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -161,7 +161,7 @@
                                 style="@style/headline6"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="화재 행동요령 체크리스트"
+                                android:text="@string/화재_행동요령_체크리스트"
                                 android:textColor="@color/secondary_500" />
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -188,7 +188,7 @@
                                     android:checked="true"
                                     android:paddingHorizontal="16dp"
                                     android:paddingVertical="6dp"
-                                    android:text="실내"
+                                    android:text="@string/실내"
                                     android:textColor="@color/chip_check_text"
                                     app:chipBackgroundColor="@color/chip_check_bg"
                                     app:chipCornerRadius="48dp"
@@ -203,7 +203,7 @@
                                     android:layout_height="wrap_content"
                                     android:paddingHorizontal="16dp"
                                     android:paddingVertical="6dp"
-                                    android:text="실외"
+                                    android:text="@string/실외"
                                     android:textColor="@color/chip_check_text"
                                     app:chipBackgroundColor="@color/chip_check_bg"
                                     app:chipCornerRadius="48dp"
@@ -218,7 +218,7 @@
                                     android:layout_height="wrap_content"
                                     android:paddingHorizontal="16dp"
                                     android:paddingVertical="6dp"
-                                    android:text="기타"
+                                    android:text="@string/기타"
                                     android:textColor="@color/chip_check_text"
                                     app:chipBackgroundColor="@color/chip_check_bg"
                                     app:chipCornerRadius="48dp"
@@ -278,7 +278,7 @@
                         android:layout_height="wrap_content"
                         style="@style/headline6"
                         android:textColor="@color/secondary_800"
-                        android:text="주변 대피소"/>
+                        android:text="@string/주변_대피소"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
@@ -289,7 +289,7 @@
                         android:layout_height="wrap_content"
                         style="@style/caption"
                         android:textColor="@color/secondary_200"
-                        android:text="모두보기"/>
+                        android:text="@string/모두보기"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
@@ -322,7 +322,7 @@
                             app:chipMinTouchTargetSize="0dp"
                             android:checked="true"
                             android:checkable="true"
-                            android:text="전체"/>
+                            android:text="@string/전체"/>
                         <com.google.android.material.chip.Chip
                             android:id="@+id/chip_around_shelter_1"
                             style="@style/Widget.MaterialComponents.Chip.Choice"
@@ -337,7 +337,7 @@
                             app:chipCornerRadius="48dp"
                             app:chipMinTouchTargetSize="0dp"
                             android:checkable="true"
-                            android:text="지진"/>
+                            android:text="@string/지진"/>
                         <com.google.android.material.chip.Chip
                             android:id="@+id/chip_around_shelter_2"
                             style="@style/Widget.MaterialComponents.Chip.Choice"
@@ -352,7 +352,7 @@
                             app:chipMinTouchTargetSize="0dp"
                             app:chipCornerRadius="48dp"
                             android:checkable="true"
-                            android:text="수해"/>
+                            android:text="@string/수해"/>
                         <com.google.android.material.chip.Chip
                             android:id="@+id/chip_around_shelter_3"
                             style="@style/Widget.MaterialComponents.Chip.Choice"
@@ -367,7 +367,7 @@
                             app:chipMinTouchTargetSize="0dp"
                             app:chipCornerRadius="48dp"
                             android:checkable="true"
-                            android:text="전쟁"/>
+                            android:text="@string/전쟁"/>
                     </com.google.android.material.chip.ChipGroup>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -401,10 +401,6 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.appcompat.widget.LinearLayoutCompat>
