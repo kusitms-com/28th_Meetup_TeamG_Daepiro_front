@@ -78,7 +78,7 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.6.0")
 
     // Naver Login
-    implementation("com.navercorp.nid:oauth-jdk8:5.1.0")
+    implementation("com.navercorp.nid:oauth-jdk8:5.4.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
 
     // Kakao Login
@@ -96,6 +96,14 @@ dependencies {
     // lottie library
     implementation("com.airbnb.android:lottie:6.1.0")
 
+    // 현재 위치, GPS 추적
+    implementation("com.google.android.gms:play-services-maps:18.0.0")
+    implementation("com.google.android.gms:play-services-location:19.0.0")
+
+    // Glide
+    implementation("com.github.bumptech.glide:glide:4.12.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
+    
     //LiveData
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
 
