@@ -22,6 +22,10 @@ import dagger.hilt.android.AndroidEntryPoint
 class LocationSettingDialogFragment : BaseDialogFragment<FragmentLocationSettingDialogBinding>(R.layout.fragment_location_setting_dialog) {
     private val viewModel: CheckShelterViewModel by activityViewModels()
 
+    interface OnItemSelectedListener{
+        fun onItemSelected()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         isCancelable = false
@@ -139,7 +143,8 @@ class LocationSettingDialogFragment : BaseDialogFragment<FragmentLocationSetting
         }
         else{
             //마지막 선택시
-            var locationString = listOfNotNull(selectedItems[0],selectedItems[1]).joinToString(separator = " ")
+            var locationString = listOfNotNull(selectedItems[0],selectedItems[1],selectedItems[2]).joinToString(separator = " ")
+            Log.d("moveToNextTab","$locationString")
             viewModel._selectaddress.value = locationString
             viewModel._isactive.value = true
         }
