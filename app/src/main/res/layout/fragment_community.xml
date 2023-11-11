@@ -7,6 +7,7 @@
     </data>
 
 <LinearLayout
+    android:id="@+id/tab2_appbar"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -30,6 +31,12 @@
             android:layout_gravity="center"
             android:layout_marginRight="20dp"/>
     </LinearLayout>
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/include_firsttab_appbar"
+        android:visibility="gone"/>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tablayout"
