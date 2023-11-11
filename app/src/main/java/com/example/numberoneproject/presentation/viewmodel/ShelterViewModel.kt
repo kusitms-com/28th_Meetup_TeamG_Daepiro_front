@@ -34,6 +34,8 @@ class ShelterViewModel @Inject constructor(
     private val _sheltersList = MutableStateFlow(ShelterListResponse())
     val sheltersList = _sheltersList.asStateFlow()
 
+    val shelterLoadingState = MutableStateFlow(true)
+    
     private val _url = MutableStateFlow<ApiResult.Failure?>(null)
     val url = _url.asStateFlow()
 
@@ -47,9 +49,10 @@ class ShelterViewModel @Inject constructor(
             aroundShelterUseCase(token, shelterRequestBody)
                 .onSuccess {
                     _sheltersList.value = it
+                    shelterLoadingState.emit(false)
                 }
                 .onFailure {
-                    Log.d("taag", it.toString())
+
                 }
         }
     }

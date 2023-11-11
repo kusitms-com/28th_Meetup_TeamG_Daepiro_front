@@ -11,8 +11,8 @@
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_homeFragment_to_subFragment"
-            app:destination="@id/subFragment" />
+            android:id="@+id/action_homeFragment_to_aroundShelterDetailFragment"
+            app:destination="@id/aroundShelterDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/newsFragment"
@@ -31,16 +31,23 @@
         android:name="com.example.numberoneproject.presentation.view.mypage.MypageFragment"
         android:label="MypageFragment" />
     <fragment
-        android:id="@+id/subFragment"
-        android:name="com.example.numberoneproject.presentation.view.home.SubFragment"
-        android:label="SubFragment">
-        <argument
-            android:name="number"
-            app:argType="integer"
-            android:defaultValue="-1" />
-    </fragment>
-    <fragment
         android:id="@+id/fundingDetailFragment"
         android:name="com.example.numberoneproject.presentation.view.funding.FundingDetailFragment"
         android:label="FundingDetailFragment" />
+    <fragment
+        android:id="@+id/aroundShelterDetailFragment"
+        android:name="com.example.numberoneproject.presentation.view.home.AroundShelterDetailFragment"
+        android:label="AroundShelterDetailFragment"
+        tools:layout="@layout/fragment_around_shelter_detail">
+        <argument
+            android:name="latitude"
+            app:argType="float" />
+        <argument
+            android:name="longitude"
+            app:argType="float" />
+        <argument
+            android:name="address"
+            app:argType="string" />
+    </fragment>
+
 </navigation>

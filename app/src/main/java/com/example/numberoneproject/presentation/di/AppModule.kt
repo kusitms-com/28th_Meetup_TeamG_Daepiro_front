@@ -4,6 +4,10 @@ import android.content.Context
 import com.example.numberoneproject.BuildConfig
 import com.example.numberoneproject.data.network.ApiResultCallAdapterFactory
 import com.example.numberoneproject.data.network.ApiService
+import com.example.numberoneproject.data.repositoryimpl.DisasterRepositoryImpl
+import com.example.numberoneproject.data.repositoryimpl.LoginRepositoryImpl
+import com.example.numberoneproject.data.repositoryimpl.ShelterRepositoryImpl
+import com.example.numberoneproject.domain.repository.DisasterRepository
 import com.example.numberoneproject.data.repositoryimpl.GetShelterRepositoryImpl
 import com.example.numberoneproject.data.repositoryimpl.LoginRepositoryImpl
 import com.example.numberoneproject.data.repositoryimpl.ShelterRepositoryImpl
@@ -39,6 +43,12 @@ abstract class RepositoryModule {
         shelterRepositoryImpl: ShelterRepositoryImpl
     ): ShelterRepository
 
+    @Singleton
+    @Binds
+    abstract fun bindDisasterRepository(
+        disasterRepositoryImpl: DisasterRepositoryImpl
+    ): DisasterRepository
+  
     //shelter url
     @Singleton
     @Binds
