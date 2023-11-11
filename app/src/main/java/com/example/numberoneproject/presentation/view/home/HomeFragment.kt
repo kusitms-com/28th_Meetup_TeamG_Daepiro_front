@@ -8,6 +8,7 @@ import android.location.Location
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -26,6 +27,9 @@ import com.example.numberoneproject.presentation.util.Extensions.showToast
 import com.example.numberoneproject.presentation.viewmodel.DisasterViewModel
 import com.example.numberoneproject.presentation.viewmodel.ShelterViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.normal.TedPermission
@@ -44,38 +48,45 @@ import java.util.Locale
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     val shelterVM by viewModels<ShelterViewModel>()
     val disasterVM by viewModels<DisasterViewModel>()
+
     private lateinit var aroundShelterAdapter: AroundShelterAdapter
     private lateinit var disasterCheckListAdapter: DisasterCheckListAdapter
 
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private var mFusedLocationProviderClient: FusedLocationProviderClient? = null
+    private lateinit var mLocationRequest: LocationRequest //
+    lateinit var mLastLocation: Location
     private lateinit var userLocation: Pair<Double, Double>
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.disasterVM = disasterVM
         binding.shelterVM = shelterVM
+
+        mLocationRequest =  LocationRequest.create().apply {
+            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        }
+
+
     }
 
     override fun setupInit() {
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         requestPermission()
         setSheltersViewPager()
         setCheckListViewPager()
-
-
-        binding
 
         binding.tvCheckListAll.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeFragmentToCheckListDetailFragment("")
             findNavController().navigate(action)
         }
+
     }
 
     private fun requestPermission() {
         TedPermission.create()
             .setPermissionListener(object : PermissionListener {
                 override fun onPermissionGranted() {
-                    getCurrentLocation()
+                    startLocationUpdates()
                 }
 
                 override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
@@ -87,19 +98,30 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             .check()
     }
 
-    @SuppressLint("MissingPermission")
-    private fun getCurrentLocation() {
-        fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
-                if (location != null) {
-                    userLocation = Pair(location.latitude, location.longitude)
-
-                    /** 위치 확인되면 API 요청할 수 있도 이쪽에서 호출 **/
-                    disasterVM.getDisasterMessage(DisasterRequestBody(userLocation.first, userLocation.second))
-                    shelterVM.getAroundSheltersList(ShelterRequestBody(userLocation.first, userLocation.second, "민방위"))
-                } else {
-                    showToast("위치 꺼져있음")
-                }
+    private val mLocationCallback = object : LocationCallback() {
+        override fun onLocationResult(locationResult: LocationResult) {
+            // 시스템에서 받은 location 정보를 onLocationChanged()에 전달
+            locationResult.lastLocation
+            onLocationChanged(locationResult.lastLocation)
         }
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun startLocationUpdates() {
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
+
+        Looper.myLooper()?.let {
+            mFusedLocationProviderClient!!.requestLocationUpdates(mLocationRequest, mLocationCallback, it)
+        }
+    }
+
+    // 시스템으로 부터 받은 위치 정보를 화면에 갱신해주는 메소드
+    fun onLocationChanged(location: Location) {
+        mLastLocation = location
+        userLocation = Pair(mLastLocation.latitude, mLastLocation.longitude) // 갱신 된 위도
+
+        disasterVM.getDisasterMessage(DisasterRequestBody(userLocation.first, userLocation.second))
+        shelterVM.getAroundSheltersList(ShelterRequestBody(userLocation.first, userLocation.second, "민방위"))
     }
 
     private fun setSheltersViewPager() {
