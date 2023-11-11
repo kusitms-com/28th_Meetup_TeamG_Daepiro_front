@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="12dp"
+    android:background="@drawable/bg_radius_4"
+    android:backgroundTint="@color/white">
+
+    <CheckBox
+        android:id="@+id/cb_check_list"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@drawable/custom_check_box"
+        android:button="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_check_list"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_check_list" />
+
+    <TextView
+        android:id="@+id/tv_check_list"
+        style="@style/body2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:text="가스와 전깃불을 차단하고 문을 열어 출구를 확보하셨나요?"
+        android:textColor="@color/secondary_600"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cb_check_list"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
