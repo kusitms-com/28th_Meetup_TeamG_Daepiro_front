@@ -36,4 +36,7 @@
     <string name="주변_800m">주변 800m내에 대피소가 없습니다</string>
     <string name="전체_대피소로">전체 대피소로 조회해 주세요</string>
 
+    <string name="재난상황">재난상황</string>
+    <string name="동네생활">동네생활</string>
+
 </resources>
