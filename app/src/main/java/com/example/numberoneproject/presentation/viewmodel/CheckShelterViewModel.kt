@@ -35,6 +35,10 @@ class CheckShelterViewModel : ViewModel() {
     val _selectaddress = MutableLiveData<String?>()
     val selectaddress : LiveData<String?> = _selectaddress
 
+    //보여지는 주소
+    val _onScreenAddress = MutableLiveData<String?>()
+    val onScreenAddress:LiveData<String?> = _onScreenAddress
+
 
     //데이터 리스트를 담는 flow
     private val _currentList = MutableStateFlow<List<JSONObject>>(emptyList())

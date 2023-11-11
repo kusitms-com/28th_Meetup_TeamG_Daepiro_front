@@ -144,8 +144,11 @@ class LocationSettingDialogFragment : BaseDialogFragment<FragmentLocationSetting
         else{
             //마지막 선택시
             var locationString = listOfNotNull(selectedItems[0],selectedItems[1],selectedItems[2]).joinToString(separator = " ")
+            var locationOnScreen = listOfNotNull(selectedItems[0],selectedItems[1]).joinToString(separator = " ")
             Log.d("moveToNextTab","$locationString")
+            Log.d("moveToNextTab","$locationOnScreen")
             viewModel._selectaddress.value = locationString
+            viewModel._onScreenAddress.value = locationOnScreen
             viewModel._isactive.value = true
         }
     }

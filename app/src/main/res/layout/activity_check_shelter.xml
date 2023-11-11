@@ -31,7 +31,7 @@
             android:id="@+id/address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.selectaddress ?? @string/지역을_선택}"
+            android:text="@{viewModel.onScreenAddress ?? @string/지역을_선택}"
             style="@style/button"
             android:textColor="@color/secondary_400"
             android:layout_marginLeft="20dp"
