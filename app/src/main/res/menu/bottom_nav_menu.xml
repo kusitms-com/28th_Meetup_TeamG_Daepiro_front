@@ -6,6 +6,11 @@
         android:id="@+id/homeFragment"
         android:icon="@drawable/ic_home" />
     <item
+        android:title="커뮤니티"
+        android:enabled="true"
+        android:id="@+id/communityFragment"
+        android:icon="@drawable/ic_community"/>
+    <item
         android:title="@string/뉴스"
         android:enabled="true"
         android:id="@+id/newsFragment"

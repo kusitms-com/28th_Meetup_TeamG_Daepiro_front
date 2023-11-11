@@ -107,6 +107,9 @@ dependencies {
     //LiveData
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
 
+    //flexbox
+    implementation("com.google.android.flexbox:flexbox:3.0.0")
+
 
 
     implementation("androidx.core:core-ktx:1.9.0")

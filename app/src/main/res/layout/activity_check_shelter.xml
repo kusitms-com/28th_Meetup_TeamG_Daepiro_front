@@ -134,7 +134,7 @@
         android:id="@+id/recycler_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/listitem_shelter"
+        tools:listitem="@layout/item_shelter"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:visibility="@{viewModel.isEmptyVisible ? View.GONE : View.VISIBLE}"/>

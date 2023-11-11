@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.numberoneproject.R
 
@@ -26,7 +25,7 @@ class LocationAdapter(private var items: List<String>): RecyclerView.Adapter<Loc
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.listitem_location,parent,false)
+            .inflate(R.layout.item_location,parent,false)
         return ViewHolder(view)
     }
 
