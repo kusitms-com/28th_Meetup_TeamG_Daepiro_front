@@ -4,14 +4,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="disasterVM"
             type="com.example.numberoneproject.presentation.viewmodel.DisasterViewModel" />
+        <variable
+            name="shelterVM"
+            type="com.example.numberoneproject.presentation.viewmodel.ShelterViewModel" />
     </data>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:overScrollMode="never">
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -23,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:paddingVertical="12dp"
+                android:paddingVertical="16dp"
                 android:paddingStart="20dp"
                 android:paddingEnd="16dp">
                 <ImageView
@@ -50,7 +55,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_bottom_left_right_radius_8"
-                    android:backgroundTint="@color/orange_50"
+                    android:backgroundTint="@color/surface"
                     android:orientation="vertical"
                     android:paddingHorizontal="20dp"
                     android:paddingVertical="24dp"
@@ -82,60 +87,24 @@
                                 android:textColor="@color/orange_50" />
                         </androidx.cardview.widget.CardView>
 
-                        <androidx.appcompat.widget.LinearLayoutCompat
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/bg_radius_4"
-                            android:backgroundTint="@color/white"
-                            android:gravity="center_vertical"
-                            android:paddingHorizontal="8dp"
-                            android:paddingVertical="6dp">
-
-                            <TextView
-                                style="@style/button"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginEnd="8dp"
-                                android:text="심각도"
-                                android:textColor="@color/orange_500" />
-
-                            <com.google.android.material.card.MaterialCardView
-                                android:id="@+id/cv_disaster_level_1"
-                                android:layout_width="26dp"
-                                android:layout_height="10dp"
-                                android:layout_marginEnd="4dp"
-                                app:cardCornerRadius="1dp"
-                                app:setDisasterLevel="@{disasterVM.disasterMessage.severity}"
-                                app:strokeWidth="0dp" />
-
-                            <com.google.android.material.card.MaterialCardView
-                                android:id="@+id/cv_disaster_level_2"
-                                android:layout_width="26dp"
-                                android:layout_height="10dp"
-                                android:layout_marginEnd="4dp"
-                                app:cardCornerRadius="1dp"
-                                app:setDisasterLevel="@{disasterVM.disasterMessage.severity}"
-                                app:strokeWidth="0dp" />
-
-                            <com.google.android.material.card.MaterialCardView
-                                android:id="@+id/cv_disaster_level_3"
-                                android:layout_width="26dp"
-                                android:layout_height="10dp"
-                                app:cardCornerRadius="1dp"
-                                app:setDisasterLevel="@{disasterVM.disasterMessage.severity}"
-                                app:strokeWidth="0dp" />
-                        </androidx.appcompat.widget.LinearLayoutCompat>
-
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:layout_weight="1" />
 
                         <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_refresh"
+                            android:paddingEnd="2dp"
+                            app:tint="@color/secondary_300"/>
+
+                        <TextView
+                            style="@style/button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_refresh_and_text"
-                            app:tint="@color/secondary_300" />
+                            android:text="@string/새로고침"
+                            android:textColor="@color/secondary_300" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <TextView
@@ -189,23 +158,11 @@
                             android:gravity="center_vertical">
 
                             <TextView
-                                style="@style/subtitle1"
+                                style="@style/headline6"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="화재 행동요령 체크리스트"
+                                android:text="@string/화재_행동요령_체크리스트"
                                 android:textColor="@color/secondary_500" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_weight="1" />
-
-                            <TextView
-                                style="@style/caption"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="모두보기"
-                                android:textColor="@color/secondary_200" />
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
                         <androidx.appcompat.widget.LinearLayoutCompat
@@ -220,7 +177,8 @@
                                 android:layout_marginTop="16dp"
                                 app:chipSpacingHorizontal="7dp"
                                 app:singleLine="true"
-                                app:singleSelection="true">
+                                app:singleSelection="true"
+                                app:selectionRequired="true">
 
                                 <com.google.android.material.chip.Chip
                                     android:id="@+id/chip_check_list_1"
@@ -230,7 +188,7 @@
                                     android:checked="true"
                                     android:paddingHorizontal="16dp"
                                     android:paddingVertical="6dp"
-                                    android:text="실내"
+                                    android:text="@string/실내"
                                     android:textColor="@color/chip_check_text"
                                     app:chipBackgroundColor="@color/chip_check_bg"
                                     app:chipCornerRadius="48dp"
@@ -245,7 +203,7 @@
                                     android:layout_height="wrap_content"
                                     android:paddingHorizontal="16dp"
                                     android:paddingVertical="6dp"
-                                    android:text="실외"
+                                    android:text="@string/실외"
                                     android:textColor="@color/chip_check_text"
                                     app:chipBackgroundColor="@color/chip_check_bg"
                                     app:chipCornerRadius="48dp"
@@ -260,7 +218,7 @@
                                     android:layout_height="wrap_content"
                                     android:paddingHorizontal="16dp"
                                     android:paddingVertical="6dp"
-                                    android:text="기타"
+                                    android:text="@string/기타"
                                     android:textColor="@color/chip_check_text"
                                     app:chipBackgroundColor="@color/chip_check_bg"
                                     app:chipCornerRadius="48dp"
@@ -269,21 +227,37 @@
                                     app:chipStrokeWidth="1dp" />
                             </com.google.android.material.chip.ChipGroup>
 
-                            <androidx.appcompat.widget.LinearLayoutCompat
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rv_check_list"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="12dp">
+                                android:layout_marginTop="12dp"
+                                tools:itemCount="3"
+                                tools:listitem="@layout/item_disaster_check_list" />
 
-                                <androidx.recyclerview.widget.RecyclerView
-                                    android:id="@+id/rv_check_list"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    tools:listitem="@layout/item_disaster_check_list"
-                                    tools:itemCount="3"/>
-                            </androidx.appcompat.widget.LinearLayoutCompat>
+                            <ImageView
+                                android:id="@+id/iv_expand"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_arrow_down"
+                                app:tint="@color/orange_500"
+                                android:paddingVertical="6dp"/>
                         </androidx.appcompat.widget.LinearLayoutCompat>
                     </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/lt_disaster_loading"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:layout_marginTop="80dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:visibility="@{disasterVM.disasterLoadingState ? View.VISIBLE : View.GONE}"
+                    app:lottie_rawRes="@raw/loading"
+                    app:lottie_loop="true"
+                    app:lottie_autoPlay="true"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -304,17 +278,18 @@
                         android:layout_height="wrap_content"
                         style="@style/headline6"
                         android:textColor="@color/secondary_800"
-                        android:text="주변 대피소"/>
+                        android:text="@string/주변_대피소"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_weight="1"/>
                     <TextView
+                        android:id="@+id/tv_shelter_all"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/caption"
                         android:textColor="@color/secondary_200"
-                        android:text="모두보기"/>
+                        android:text="@string/모두보기"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
@@ -333,7 +308,7 @@
                         app:singleLine="true"
                         app:chipSpacingHorizontal="7dp">
                         <com.google.android.material.chip.Chip
-                            android:id="@+id/chip_around_shelter_1"
+                            android:id="@+id/chip_around_shelter_all"
                             style="@style/Widget.MaterialComponents.Chip.Choice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -347,7 +322,22 @@
                             app:chipMinTouchTargetSize="0dp"
                             android:checked="true"
                             android:checkable="true"
-                            android:text="지진"/>
+                            android:text="@string/전체"/>
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_around_shelter_1"
+                            style="@style/Widget.MaterialComponents.Chip.Choice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="16dp"
+                            android:paddingVertical="6dp"
+                            app:chipStrokeColor="@color/chip_check_stoke"
+                            app:chipStrokeWidth="1dp"
+                            app:chipBackgroundColor="@color/chip_check_bg"
+                            android:textColor="@color/chip_check_text"
+                            app:chipCornerRadius="48dp"
+                            app:chipMinTouchTargetSize="0dp"
+                            android:checkable="true"
+                            android:text="@string/지진"/>
                         <com.google.android.material.chip.Chip
                             android:id="@+id/chip_around_shelter_2"
                             style="@style/Widget.MaterialComponents.Chip.Choice"
@@ -362,7 +352,7 @@
                             app:chipMinTouchTargetSize="0dp"
                             app:chipCornerRadius="48dp"
                             android:checkable="true"
-                            android:text="수해"/>
+                            android:text="@string/수해"/>
                         <com.google.android.material.chip.Chip
                             android:id="@+id/chip_around_shelter_3"
                             style="@style/Widget.MaterialComponents.Chip.Choice"
@@ -377,16 +367,40 @@
                             app:chipMinTouchTargetSize="0dp"
                             app:chipCornerRadius="48dp"
                             android:checkable="true"
-                            android:text="전쟁"/>
+                            android:text="@string/전쟁"/>
                     </com.google.android.material.chip.ChipGroup>
 
-                    <androidx.viewpager2.widget.ViewPager2
-                        android:id="@+id/vp_shelter"
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:clipToPadding="false"
-                        android:clipChildren="false" />
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="12dp">
+
+                        <com.airbnb.lottie.LottieAnimationView
+                            android:id="@+id/lt_shelter_loading"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:layout_gravity="center_horizontal"
+                            android:visibility="@{shelterVM.shelterLoadingState ? View.VISIBLE : View.GONE}"
+                            app:layout_constraintBottom_toBottomOf="@+id/vp_shelter"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/vp_shelter"
+                            app:lottie_autoPlay="true"
+                            app:lottie_loop="true"
+                            app:lottie_rawRes="@raw/loading" />
+
+                        <androidx.viewpager2.widget.ViewPager2
+                            android:id="@+id/vp_shelter"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:clipChildren="false"
+                            android:clipToPadding="false"
+                            android:visibility="@{shelterVM.shelterLoadingState ? View.INVISIBLE : View.VISIBLE}"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.appcompat.widget.LinearLayoutCompat>

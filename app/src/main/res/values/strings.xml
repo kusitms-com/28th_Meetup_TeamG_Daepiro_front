@@ -25,4 +25,22 @@
     <string name="구군">구/군</string>
     <string name="동읍면">동/읍/면</string>
     <string name="완료">완료</string>
+    <string name="새로고침">새로고침</string>
+    <string name="화재_행동요령_체크리스트">화재 행동요령 체크리스트</string>
+    <string name="실내">실내</string>
+    <string name="실외">실외</string>
+    <string name="주변_대피소">주변 대피소</string>
+    <string name="모두보기">모두보기</string>
+    <string name="지진">지진</string>
+    <string name="수해">수해</string>
+    <string name="전쟁">전쟁</string>
+    <string name="주변_대피소_조회">주변 대피소 조회</string>
+    <string name="복사">복사</string>
+    <string name="주소_복사가_완료">주소 복사가 완료되었습니다.</string>
+    <string name="지역을_선택">지역을 선택해주세요</string>
+    <string name="현재_조회된">현재 조회된 대피소가 없습니다</string>
+    <string name="지역을_선택해">지역을 선택해주세요</string>
+    <string name="주변_800m">주변 800m내에 대피소가 없습니다</string>
+    <string name="전체_대피소로">전체 대피소로 조회해 주세요</string>
+
 </resources>

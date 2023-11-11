@@ -10,13 +10,9 @@ import com.example.numberoneproject.databinding.ItemDisasterCheckListBinding
 import com.example.numberoneproject.presentation.view.funding.FundingCategoryAdapter
 
 class DisasterCheckListAdapter: RecyclerView.Adapter<DisasterCheckListAdapter.CustomViewHolder>() {
+    private var checkList = listOf<String>()
     inner class CustomViewHolder(val binding: ItemDisasterCheckListBinding): RecyclerView.ViewHolder(binding.root) {
-        private var nowLine = 0
-
         fun bind() {
-            if (nowLine == adapterPosition) {
-
-            }
 
         }
     }
@@ -28,7 +24,13 @@ class DisasterCheckListAdapter: RecyclerView.Adapter<DisasterCheckListAdapter.Cu
 
     override fun onBindViewHolder(holder: DisasterCheckListAdapter.CustomViewHolder, position: Int) {
         holder.bind()
+
     }
 
-    override fun getItemCount() = 5
+    fun setData(newData: List<String>) {
+        checkList = newData
+        notifyDataSetChanged()
+    }
+
+    override fun getItemCount() = checkList.size
 }

@@ -20,6 +20,14 @@ data class Shelter(
         val geocoder = Geocoder(context, Locale.KOREAN)
         val address = geocoder.getFromLocation(latitude, longitude, 1)
 
-        return address?.get(0)?.getAddressLine(0).toString().replace("대한민국 ", "")
+        return if (address.isNullOrEmpty()) {
+            "주소 정보가 올바르지 않습니다."
+        } else {
+            address[0]?.getAddressLine(0).toString().replace("대한민국 ", "")
+        }
+    }
+
+    fun distanceToString(): String {
+        return this.distance.split(".")[0] + "m"
     }
 }

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:clickable="true"
+    android:background="@drawable/bg_location_select">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginRight="24dp"
+        android:layout_weight="1">
+        <TextView
+            android:id="@+id/fullName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="강남구보건소 지하1층"
+            style="@style/body1"
+            android:textColor="@color/secondary_800"/>
+        <TextView
+            android:id="@+id/fullAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="서울특별시 강남구 선릉로 668"
+            android:layout_marginTop="2dp"
+            style="@style/caption"
+            android:textColor="@color/secondary_300"
+            android:paddingBottom="18dp"/>
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/copy_btn"
+        style="@style/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_radius_4"
+        android:backgroundTint="@color/secondary_50"
+        android:paddingLeft="16dp"
+        android:paddingTop="4dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="4dp"
+        android:text="@string/복사"
+        android:textColor="@color/secondary_400"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="20dp"/>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/outline"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"/>
+
+</LinearLayout>
