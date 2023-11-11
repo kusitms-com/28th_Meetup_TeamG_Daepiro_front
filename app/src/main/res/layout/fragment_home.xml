@@ -15,7 +15,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:overScrollMode="never">
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:paddingVertical="12dp"
+                android:paddingVertical="16dp"
                 android:paddingStart="20dp"
                 android:paddingEnd="16dp">
                 <ImageView
@@ -92,14 +93,17 @@
                             android:layout_height="1dp"
                             android:layout_weight="1" />
 
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_refresh"
+                            android:paddingEnd="2dp"
+                            app:tint="@color/secondary_300"/>
+
                         <TextView
-                            style="@style/overline"
+                            style="@style/button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:drawableLeft="@drawable/ic_refresh"
-                            android:drawablePadding="2dp"
-                            android:drawableTint="@color/secondary_300"
-                            android:gravity="center"
                             android:text="새로고침"
                             android:textColor="@color/secondary_300" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -155,24 +159,11 @@
                             android:gravity="center_vertical">
 
                             <TextView
-                                style="@style/subtitle1"
+                                style="@style/headline6"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="화재 행동요령 체크리스트"
                                 android:textColor="@color/secondary_500" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_weight="1" />
-
-                            <TextView
-                                android:id="@+id/tv_check_list_all"
-                                style="@style/caption"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="모두보기"
-                                android:textColor="@color/secondary_200" />
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
                         <androidx.appcompat.widget.LinearLayoutCompat
@@ -239,10 +230,18 @@
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/rv_check_list"
                                 android:layout_width="match_parent"
-                                android:layout_height="120dp"
+                                android:layout_height="wrap_content"
                                 android:layout_marginTop="12dp"
                                 tools:itemCount="3"
                                 tools:listitem="@layout/item_disaster_check_list" />
+
+                            <ImageView
+                                android:id="@+id/iv_expand"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_arrow_down"
+                                app:tint="@color/orange_500"
+                                android:paddingVertical="6dp"/>
                         </androidx.appcompat.widget.LinearLayoutCompat>
                     </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -370,24 +369,41 @@
                             android:text="전쟁"/>
                     </com.google.android.material.chip.ChipGroup>
 
-                    <com.airbnb.lottie.LottieAnimationView
-                        android:id="@+id/lt_shelter_loading"
-                        android:layout_width="72dp"
-                        android:layout_height="72dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_gravity="center_horizontal"
-                        android:visibility="@{shelterVM.shelterLoadingState ? View.VISIBLE : View.GONE}"
-                        app:lottie_rawRes="@raw/loading"
-                        app:lottie_loop="true"
-                        app:lottie_autoPlay="true"/>
-
-                    <androidx.viewpager2.widget.ViewPager2
-                        android:id="@+id/vp_shelter"
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:clipToPadding="false"
-                        android:clipChildren="false" />
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="12dp">
+
+                        <com.airbnb.lottie.LottieAnimationView
+                            android:id="@+id/lt_shelter_loading"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:layout_gravity="center_horizontal"
+                            android:visibility="@{shelterVM.shelterLoadingState ? View.VISIBLE : View.GONE}"
+                            app:layout_constraintBottom_toBottomOf="@+id/vp_shelter"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/vp_shelter"
+                            app:lottie_autoPlay="true"
+                            app:lottie_loop="true"
+                            app:lottie_rawRes="@raw/loading" />
+
+                        <androidx.viewpager2.widget.ViewPager2
+                            android:id="@+id/vp_shelter"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:clipChildren="false"
+                            android:clipToPadding="false"
+                            android:visibility="@{shelterVM.shelterLoadingState ? View.INVISIBLE : View.VISIBLE}"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.appcompat.widget.LinearLayoutCompat>

@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
 import com.example.numberoneproject.R
 import com.example.numberoneproject.data.model.DisasterRequestBody
 import com.example.numberoneproject.data.model.ShelterRequestBody
@@ -51,6 +52,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private lateinit var aroundShelterAdapter: AroundShelterAdapter
     private lateinit var disasterCheckListAdapter: DisasterCheckListAdapter
+    private var checkListIsExpanded = false
+    private val checkList = listOf("1","2","3","4","5")
 
     private var mFusedLocationProviderClient: FusedLocationProviderClient? = null
     private lateinit var mLocationRequest: LocationRequest //
@@ -67,6 +70,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         }
 
+        binding.ivExpand.setOnClickListener {
+            disasterVM.changeExpandedState()
+        }
+
 
     }
 
@@ -74,11 +81,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         requestPermission()
         setSheltersViewPager()
         setCheckListViewPager()
-
-        binding.tvCheckListAll.setOnClickListener {
-            val action = HomeFragmentDirections.actionHomeFragmentToCheckListDetailFragment("")
-            findNavController().navigate(action)
-        }
 
     }
 
@@ -198,6 +200,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         repeatOnStarted {
             shelterVM.sheltersList.collectLatest {
                 aroundShelterAdapter.setData(it.shelterList)
+            }
+        }
+
+        repeatOnStarted {
+            disasterVM.checkListIsExpanded.collectLatest {
+                if (it) {
+                    disasterCheckListAdapter.setData(checkList)
+                    binding.ivExpand.setImageDrawable(requireContext().getDrawable(R.drawable.ic_arrow_top))
+                } else {
+                    disasterCheckListAdapter.setData(checkList.subList(0,3))
+                    binding.ivExpand.setImageDrawable(requireContext().getDrawable(R.drawable.ic_arrow_down))
+                }
             }
         }
     }
