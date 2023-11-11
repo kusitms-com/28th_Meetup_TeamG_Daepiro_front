@@ -11,8 +11,8 @@
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_homeFragment_to_checkListDetailFragment"
-            app:destination="@id/checkListDetailFragment" />
+            android:id="@+id/action_homeFragment_to_aroundShelterDetailFragment"
+            app:destination="@id/aroundShelterDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/newsFragment"
@@ -35,11 +35,19 @@
         android:name="com.example.numberoneproject.presentation.view.funding.FundingDetailFragment"
         android:label="FundingDetailFragment" />
     <fragment
-        android:id="@+id/checkListDetailFragment"
-        android:name="com.example.numberoneproject.presentation.view.home.CheckListDetailFragment"
-        android:label="CheckListDetailFragment" >
+        android:id="@+id/aroundShelterDetailFragment"
+        android:name="com.example.numberoneproject.presentation.view.home.AroundShelterDetailFragment"
+        android:label="AroundShelterDetailFragment"
+        tools:layout="@layout/fragment_around_shelter_detail">
         <argument
-            android:name="type"
+            android:name="latitude"
+            app:argType="float" />
+        <argument
+            android:name="longitude"
+            app:argType="float" />
+        <argument
+            android:name="address"
             app:argType="string" />
     </fragment>
+
 </navigation>

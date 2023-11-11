@@ -52,7 +52,6 @@
                 android:layout_height="wrap_content">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
-                    android:id="@+id/linearLayoutCompat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_bottom_left_right_radius_8"
@@ -178,7 +177,8 @@
                                 android:layout_marginTop="16dp"
                                 app:chipSpacingHorizontal="7dp"
                                 app:singleLine="true"
-                                app:singleSelection="true">
+                                app:singleSelection="true"
+                                app:selectionRequired="true">
 
                                 <com.google.android.material.chip.Chip
                                     android:id="@+id/chip_check_list_1"
@@ -284,6 +284,7 @@
                         android:layout_height="1dp"
                         android:layout_weight="1"/>
                     <TextView
+                        android:id="@+id/tv_shelter_all"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/caption"

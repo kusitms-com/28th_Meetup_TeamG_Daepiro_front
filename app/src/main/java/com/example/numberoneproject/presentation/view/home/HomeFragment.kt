@@ -52,13 +52,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private lateinit var aroundShelterAdapter: AroundShelterAdapter
     private lateinit var disasterCheckListAdapter: DisasterCheckListAdapter
-    private var checkListIsExpanded = false
     private val checkList = listOf("1","2","3","4","5")
 
     private var mFusedLocationProviderClient: FusedLocationProviderClient? = null
     private lateinit var mLocationRequest: LocationRequest //
     lateinit var mLastLocation: Location
     private lateinit var userLocation: Pair<Double, Double>
+    private var userAddress = ""
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -74,7 +74,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             disasterVM.changeExpandedState()
         }
 
-
+        binding.tvShelterAll.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToAroundShelterDetailFragment(
+                latitude = userLocation.first.toFloat(),
+                longitude = userLocation.second.toFloat(),
+                address = userAddress
+            )
+            findNavController().navigate(action)
+        }
     }
 
     override fun setupInit() {
@@ -212,6 +219,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                     disasterCheckListAdapter.setData(checkList.subList(0,3))
                     binding.ivExpand.setImageDrawable(requireContext().getDrawable(R.drawable.ic_arrow_down))
                 }
+            }
+        }
+
+        repeatOnStarted {
+            disasterVM.disasterMessage.collectLatest {
+                userAddress = it.info.split(" ・")[0]
             }
         }
     }
