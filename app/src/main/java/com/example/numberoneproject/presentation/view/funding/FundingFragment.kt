@@ -12,8 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.numberoneproject.R
 import com.example.numberoneproject.databinding.FragmentFundingBinding
 import com.example.numberoneproject.presentation.base.BaseFragment
+import com.example.numberoneproject.presentation.util.Extensions.repeatOnStarted
 import com.example.numberoneproject.presentation.viewmodel.FundingViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
 class FundingFragment : BaseFragment<FragmentFundingBinding>(R.layout.fragment_funding) {
@@ -34,14 +36,19 @@ class FundingFragment : BaseFragment<FragmentFundingBinding>(R.layout.fragment_f
         setCheerMessageBanner()
         setFundingList()
 
+
         binding.cgFundingCategory.setOnCheckedStateChangeListener { group, checkedIds ->
             if (R.id.chip_funding_latest in checkedIds) {
-
+                fundingVM.getFundingList("latest")
             } else if (R.id.chip_funding_poopular in checkedIds) {
-
+                fundingVM.getFundingList("popular")
             }
         }
 
+    }
+
+    override fun setupInit() {
+        fundingVM.getFundingList("latest")
     }
 
     private fun setCheerMessageBanner() {
@@ -82,11 +89,19 @@ class FundingFragment : BaseFragment<FragmentFundingBinding>(R.layout.fragment_f
         }
 
         fundingListAdapter.setItemClickListener(object : FundingListAdapter.OnItemClickListener {
-            override fun onClickItem(v: View, position: Int) {
-                val action = FundingFragmentDirections.actionFundingFragmentToFundingDetailFragment()
+            override fun onClickItem(v: View, position: Int, sponsorId: Int) {
+                val action = FundingFragmentDirections.actionFundingFragmentToFundingDetailFragment(sponsorId = sponsorId)
                 findNavController().navigate(action)
             }
         })
+    }
+
+    override fun subscribeUi() {
+        repeatOnStarted {
+            fundingVM.fundingList.collectLatest {
+                fundingListAdapter.setData(it.sponsors)
+            }
+        }
     }
 
     inner class AutoScrollRunnable(

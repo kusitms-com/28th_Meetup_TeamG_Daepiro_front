@@ -11,14 +11,17 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.doOnDetach
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.numberoneproject.R
 import com.example.numberoneproject.databinding.FragmentFundingDetailBinding
 import com.example.numberoneproject.presentation.base.BaseFragment
+import com.example.numberoneproject.presentation.view.home.AroundShelterDetailFragmentArgs
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.roundToInt
 
 @AndroidEntryPoint
 class FundingDetailFragment : BaseFragment<FragmentFundingDetailBinding>(R.layout.fragment_funding_detail) {
+    private val args by navArgs<FundingDetailFragmentArgs>()
     var globalListener: ViewTreeObserver.OnGlobalLayoutListener? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

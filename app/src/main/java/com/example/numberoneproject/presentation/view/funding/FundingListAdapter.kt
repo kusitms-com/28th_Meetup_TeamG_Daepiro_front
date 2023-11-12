@@ -9,14 +9,17 @@ import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.widget.FrameLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.example.numberoneproject.data.model.FundingInfo
 import com.example.numberoneproject.databinding.ItemFundingListBinding
 import kotlin.math.roundToInt
 
 class FundingListAdapter: RecyclerView.Adapter<FundingListAdapter.CustomViewHolder>() {
     private lateinit var itemClickListener: OnItemClickListener
+    private var fundingList = listOf<FundingInfo>()
 
     inner class CustomViewHolder(private val binding: ItemFundingListBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Any) {
+        fun bind(item: FundingInfo) {
+            binding.tvTitle.text = item.title
             var progressBarWidth = 0
 
             binding.pbFunding.viewTreeObserver.addOnGlobalLayoutListener {
@@ -38,20 +41,25 @@ class FundingListAdapter: RecyclerView.Adapter<FundingListAdapter.CustomViewHold
     }
 
     override fun onBindViewHolder(holder: FundingListAdapter.CustomViewHolder, position: Int) {
-        holder.bind(position)
+        holder.bind(fundingList[position])
 
         holder.itemView.setOnClickListener {
-            itemClickListener.onClickItem(it, position)
+            itemClickListener.onClickItem(it, position, fundingList[position].id)
         }
     }
 
+    fun setData(newData: List<FundingInfo>) {
+        fundingList = newData
+        notifyDataSetChanged()
+    }
+
     interface OnItemClickListener {
-        fun onClickItem(v: View, position: Int)
+        fun onClickItem(v: View, position: Int, sponsorId: Int)
     }
 
     fun setItemClickListener(onItemClickListener: OnItemClickListener) {
         this.itemClickListener = onItemClickListener
     }
 
-    override fun getItemCount() = 7
+    override fun getItemCount() = fundingList.size
 }
