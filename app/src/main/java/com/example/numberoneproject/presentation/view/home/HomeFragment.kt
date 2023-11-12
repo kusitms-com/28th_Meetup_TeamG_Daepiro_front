@@ -227,7 +227,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
         repeatOnStarted {
             disasterVM.disasterMessage.collectLatest {
-                userAddress = it.info.split(" ・")[0]
+                //userAddress = it.info.split(" ・")[0]
             }
         }
     }
