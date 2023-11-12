@@ -23,7 +23,7 @@
         android:id="@+id/error_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/네트워크_상태_불안정"
+        android:text="@string/네트워크_상태가_불안정합니다_행동요령_및_대피소_조회_화면으로_이동할_수_있습니다_"
         android:textAlignment="center"
         android:layout_marginTop="4dp"
         android:layout_gravity="center_horizontal"

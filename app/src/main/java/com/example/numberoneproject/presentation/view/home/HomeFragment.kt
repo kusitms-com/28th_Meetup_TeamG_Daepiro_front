@@ -1,14 +1,17 @@
 package com.example.numberoneproject.presentation.view.home
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
+import android.location.LocationManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Looper
+import android.provider.Settings
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -44,7 +47,6 @@ import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import java.util.Locale
 
-
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     val shelterVM by viewModels<ShelterViewModel>()
@@ -56,7 +58,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private var mFusedLocationProviderClient: FusedLocationProviderClient? = null
     private lateinit var mLocationRequest: LocationRequest //
-    lateinit var mLastLocation: Location
+    private lateinit var mLastLocation: Location
     private lateinit var userLocation: Pair<Double, Double>
     private var userAddress = ""
 
@@ -106,14 +108,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 }
             })
             .setDeniedMessage("권한을 허용해주세요. [설정] > [앱 및 알림] > [고급] > [앱 권한]")
-            .setPermissions(android.Manifest.permission.ACCESS_FINE_LOCATION,android.Manifest.permission.ACCESS_COARSE_LOCATION)
+            .setPermissions(android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION)
             .check()
     }
 
     private val mLocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
             // 시스템에서 받은 location 정보를 onLocationChanged()에 전달
-            locationResult.lastLocation
+
             onLocationChanged(locationResult.lastLocation)
         }
     }
@@ -122,8 +124,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private fun startLocationUpdates() {
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
 
-        Looper.myLooper()?.let {
-            mFusedLocationProviderClient!!.requestLocationUpdates(mLocationRequest, mLocationCallback, it)
+        if (isEnableLocationSystem()) {
+            Looper.myLooper()?.let {
+                mFusedLocationProviderClient!!.requestLocationUpdates(mLocationRequest, mLocationCallback, it)
+            }
+        } else {
+            LocationOffDialogFragment().show(parentFragmentManager, "")
         }
     }
 
@@ -134,6 +140,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
         disasterVM.getDisasterMessage(DisasterRequestBody(userLocation.first, userLocation.second))
         shelterVM.getAroundSheltersList(ShelterRequestBody(userLocation.first, userLocation.second, "민방위"))
+    }
+
+    private fun isEnableLocationSystem(): Boolean {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            val locationManager = requireContext().getSystemService(Context.LOCATION_SERVICE) as? LocationManager
+            locationManager?.isLocationEnabled!!
+        } else{
+            val mode = Settings.Secure.getInt(requireContext().contentResolver, Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_OFF)
+            mode != Settings.Secure.LOCATION_MODE_OFF
+        }
     }
 
     private fun setSheltersViewPager() {

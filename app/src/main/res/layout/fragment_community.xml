@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.numberoneproject.presentation.viewmodel.CommunityViewModel" />
+    </data>
+
+<LinearLayout
+    android:id="@+id/tab2_appbar"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.view.community.CommunityFragment"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal">
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_alarm"
+            app:tint="@color/secondary_300"
+            android:layout_gravity="center"
+            android:layout_marginRight="20dp"/>
+    </LinearLayout>
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/include_firsttab_appbar"
+        android:visibility="gone"/>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tablayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabRippleColor="@android:color/transparent"
+        app:tabSelectedTextColor="@color/secondary_900"
+        app:tabTextColor="@color/secondary_200"
+        app:tabIndicatorColor="@color/secondary_800"
+        app:tabGravity="fill"
+        app:tabIndicatorFullWidth="true"
+        app:tabIndicatorHeight="2dp">
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/재난상황"
+            android:stateListAnimator="@null"
+            style="@style/button"/>
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/동네생활"
+            android:stateListAnimator="@null"
+            style="@style/button"/>
+
+    </com.google.android.material.tabs.TabLayout>
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+</LinearLayout>
+</layout>

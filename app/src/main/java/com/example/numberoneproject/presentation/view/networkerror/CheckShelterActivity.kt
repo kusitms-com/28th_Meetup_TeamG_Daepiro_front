@@ -29,6 +29,7 @@ import java.io.File
 
 @AndroidEntryPoint
 class CheckShelterActivity : BaseActivity<ActivityCheckShelterBinding>(R.layout.activity_check_shelter) {
+    private val locationSettingDialogFragment = LocationSettingDialogFragment()
     val viewModel by viewModels<CheckShelterViewModel>()
     private lateinit var adapter : ShelterListAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,6 +67,18 @@ class CheckShelterActivity : BaseActivity<ActivityCheckShelterBinding>(R.layout.
         binding.touchContainer.setOnClickListener{
             setLocationSelect()
         }
+
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        locationSettingDialogFragment.setOnItemSelectedListener(object : LocationSettingDialogFragment.OnItemSelectedListener{
+            override fun onItemSelected(sendItems: String) {
+                Log.d("CheckShelterActivity", "$sendItems")
+            }
+
+        })
     }
     private var previousIndex = 0
     private fun setupTabLayout(){
@@ -92,7 +105,7 @@ class CheckShelterActivity : BaseActivity<ActivityCheckShelterBinding>(R.layout.
         }
     }
     fun setLocationSelect(){
-        val dialog = LocationSettingDialogFragment()
+        val dialog = locationSettingDialogFragment
         dialog.show(supportFragmentManager, "LocationSelect")
     }
 

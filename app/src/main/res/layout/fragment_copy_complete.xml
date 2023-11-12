@@ -33,7 +33,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/주소_복사가_완료"
+        android:text="@string/주소_복사가_완료되었습니다_"
         android:layout_gravity="center"
         android:layout_marginTop="26dp"
         android:layout_marginBottom="57dp"

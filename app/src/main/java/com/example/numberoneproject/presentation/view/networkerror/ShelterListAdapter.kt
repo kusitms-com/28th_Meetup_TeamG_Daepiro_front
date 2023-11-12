@@ -3,7 +3,6 @@ package com.example.numberoneproject.presentation.view.networkerror
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -12,7 +11,6 @@ import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.numberoneproject.R
-import com.example.numberoneproject.data.model.ShelterData
 import com.example.numberoneproject.data.model.ShelterRecyclerList
 
 class ShelterListAdapter : RecyclerView.Adapter<ShelterListAdapter.ViewHolder>() {
@@ -30,7 +28,7 @@ class ShelterListAdapter : RecyclerView.Adapter<ShelterListAdapter.ViewHolder>()
         parent: ViewGroup,
         viewType: Int
     ): ShelterListAdapter.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.listitem_shelter,parent,false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_shelter,parent,false)
         return ViewHolder(view)
     }
 
