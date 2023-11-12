@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 style="@style/subtitle1"
                 android:textColor="@color/secondary_800"
-                android:text="기부를 하는, 기부를 받는 모두에게\n힘이 나는 메시지를 남겨주세요."/>
+                android:text="위치가 켜져있어야 해요 켜러가기"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -66,25 +66,6 @@
                 android:textColor="@color/secondary_200"
                 android:layout_marginTop="4dp"
                 android:text="메시지는 후원 페이지 상단에 노출돼요!"/>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/bg_radius_4"
-                android:backgroundTint="@color/orange_50"
-                android:paddingVertical="15dp"
-                android:paddingHorizontal="12dp">
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/caption"
-                    android:textColorHint="@color/orange_300"
-                    android:hint="여러분의 메시지를 전해보세요. (최대 10자)"
-                    android:textColor="@color/orange_500"
-                    android:background="@null"/>
-            </FrameLayout>
 
             <TextView
                 android:id="@+id/tv_go"
