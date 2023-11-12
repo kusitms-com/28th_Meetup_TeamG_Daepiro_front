@@ -4,72 +4,172 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <import type="android.view.View"/>
+        <variable
+            name="fundingVM"
+            type="com.example.numberoneproject.presentation.viewmodel.FundingViewModel" />
     </data>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        android:orientation="vertical">
+        android:background="@color/white">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingVertical="12dp"
-            android:paddingHorizontal="16dp">
-            <TextView
-                android:layout_width="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/subtitle1"
-                android:textColor="@color/secondary_400"
-                android:textSize="16sp"
-                android:text="@string/후원" />
+                android:paddingVertical="12dp"
+                android:paddingHorizontal="16dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/subtitle1"
+                    android:textColor="@color/secondary_400"
+                    android:textSize="16sp"
+                    android:text="@string/후원" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/outline"/>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="12dp"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_logo"
+                    android:layout_marginRight="4dp"
+                    app:tint="@color/orange_500"/>
+                <TextView
+                    android:id="@+id/tv_supporter_cnt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/body2"
+                    android:textColor="@color/secondary_500" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/orange_50"
+                android:gravity="center_horizontal"
+                android:paddingTop="24dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/headline6"
+                    android:textColor="@color/secondary_800"
+                    android:layout_marginHorizontal="20dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_cheer_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="6dp"
+                    tools:listitem="@layout/item_cheer_message"
+                    tools:itemCount="1"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_cheer_message2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    tools:listitem="@layout/item_cheer_message"
+                    tools:itemCount="1"/>
+            </LinearLayout>
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/cg_funding_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                app:chipSpacingHorizontal="8dp"
+                app:selectionRequired="true"
+                app:singleLine="true"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_funding_latest"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/body2"
+                    android:checked="true"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="6dp"
+                    android:text="@string/최신순"
+                    android:textColor="@color/chip_check_text"
+                    app:chipBackgroundColor="@color/chip_check_bg"
+                    app:chipCornerRadius="48dp"
+                    app:chipMinTouchTargetSize="0dp"
+                    app:chipStrokeColor="@color/chip_check_stoke"
+                    app:chipStrokeWidth="1dp" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_funding_poopular"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/body2"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="6dp"
+                    android:text="@string/인기순"
+                    android:textColor="@color/chip_check_text"
+                    app:chipBackgroundColor="@color/chip_check_bg"
+                    app:chipCornerRadius="48dp"
+                    app:chipMinTouchTargetSize="0dp"
+                    app:chipStrokeColor="@color/chip_check_stoke"
+                    app:chipStrokeWidth="1dp" />
+            </com.google.android.material.chip.ChipGroup>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="20dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="16dp">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:visibility="@{fundingVM.fundingListLoadingState ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/loading" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_funding_list"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:overScrollMode="never"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/item_funding_list" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
         </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_funding_category"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="8dp"
-            android:paddingLeft="20dp"
-            android:clipToPadding="false"
-            tools:listitem="@layout/item_funding_category"
-            tools:itemCount="1"/>
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingHorizontal="20dp"
-            android:paddingVertical="10dp"
-            android:gravity="center_vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/caption"
-                android:textColor="@color/secondary_400"
-                android:text="@string/마감임박순"/>
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_arrow_down"
-                android:layout_marginLeft="4dp"
-                app:tint="@color/secondary_400"/>
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_funding_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/surface"
-            android:paddingHorizontal="20dp"
-            android:paddingBottom="10dp"
-            android:paddingTop="20dp"
-            android:clipToPadding="false"
-            tools:listitem="@layout/item_funding_list"
-            tools:itemCount="5"/>
-
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.core.widget.NestedScrollView>
 </layout>

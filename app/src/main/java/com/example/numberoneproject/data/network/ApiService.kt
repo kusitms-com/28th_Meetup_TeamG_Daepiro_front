@@ -2,6 +2,8 @@ package com.example.numberoneproject.data.network
 
 import com.example.numberoneproject.data.model.DisasterRequestBody
 import com.example.numberoneproject.data.model.DisasterResponse
+import com.example.numberoneproject.data.model.FundingDetailResponse
+import com.example.numberoneproject.data.model.FundingListResponse
 import com.example.numberoneproject.data.model.LoginTestResponse
 import com.example.numberoneproject.data.model.LoginTokenResponse
 import com.example.numberoneproject.data.model.ShelterData
@@ -12,6 +14,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface ApiService {
 
@@ -64,4 +67,23 @@ interface ApiService {
 //    suspend fun getDataFromUrl(
 //        @Url url:String
 //    ):ApiResult<List<ShelterData>>
+
+    // 후원 목록 최신순 조회
+    @GET("/api/sponsor/latest")
+    suspend fun getFundingListByLatest(
+        @Header("Authorization") token:String
+    ): ApiResult<FundingListResponse>
+
+    // 후원 목록 인기순 조회
+    @GET("/api/sponsor/popular")
+    suspend fun getFundingListByPopular(
+        @Header("Authorization") token:String
+    ): ApiResult<FundingListResponse>
+
+    // 후원 상세정보 조회
+    @GET("/api/sponsor/{sponsorId}")
+    suspend fun getFundingDetail(
+        @Header("Authorization") token:String,
+        @Path("sponsorId") sponsorId: Int
+    ): ApiResult<FundingDetailResponse>
 }

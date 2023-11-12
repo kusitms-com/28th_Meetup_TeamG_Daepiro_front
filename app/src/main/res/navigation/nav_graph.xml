@@ -21,7 +21,8 @@
     <fragment
         android:id="@+id/fundingFragment"
         android:name="com.example.numberoneproject.presentation.view.funding.FundingFragment"
-        android:label="FundingFragment" >
+        android:label="FundingFragment"
+        tools:layout="@layout/fragment_funding">
         <action
             android:id="@+id/action_fundingFragment_to_fundingDetailFragment"
             app:destination="@id/fundingDetailFragment" />
@@ -33,7 +34,13 @@
     <fragment
         android:id="@+id/fundingDetailFragment"
         android:name="com.example.numberoneproject.presentation.view.funding.FundingDetailFragment"
-        android:label="FundingDetailFragment" />
+        android:label="FundingDetailFragment"
+        tools:layout="@layout/fragment_funding_detail">
+        <argument
+            android:name="sponsorId"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
     <fragment
         android:id="@+id/aroundShelterDetailFragment"
         android:name="com.example.numberoneproject.presentation.view.home.AroundShelterDetailFragment"

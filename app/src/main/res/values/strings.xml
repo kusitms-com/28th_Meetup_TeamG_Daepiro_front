@@ -36,6 +36,17 @@
     <string name="전쟁">전쟁</string>
     <string name="주변_대피소_조회">주변 대피소 조회</string>
     <string name="복사">복사</string>
+    <string name="주소_복사가_완료">주소 복사가 완료되었습니다.</string>
+    <string name="지역을_선택">지역을 선택해주세요</string>
+    <string name="현재_조회된">현재 조회된 대피소가 없습니다</string>
+    <string name="지역을_선택해">지역을 선택해주세요</string>
+    <string name="주변_800m">주변 800m내에 대피소가 없습니다</string>
+    <string name="전체_대피소로">전체 대피소로 조회해 주세요</string>
+    <string name="대피로와_함께_명이_후원에_참여했어요_">대피로와 함께 %s명이 후원에 참여했어요.</string>
+    <string name="_님의_가치있는_후원_대피로와_함께하세요_">%s님의\n가치있는 후원, 대피로와 <함께></함께>하세요!</string>
+    <string name="_님이_참여중인_후원이에요_">%s님이 참여중인 후원이에요.</string>
+    <string name="인기순">인기순</string>
+    <string name="최신순">최신순</string>
     <string name="주소_복사가_완료되었습니다_">주소 복사가 완료되었습니다.</string>
     <string name="지역을_선택해주세요">지역을 선택해주세요</string>
     <string name="현재_조회된_대피소가_없습니다">현재 조회된 대피소가 없습니다</string>
