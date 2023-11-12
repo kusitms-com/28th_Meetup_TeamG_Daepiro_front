@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal">
     <View
         android:layout_width="2dp"
@@ -53,12 +53,26 @@
                 android:layout_marginTop="4dp"
                 style="@style/body2"
                 android:textColor="@color/secondary_800"/>
-            <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:src="@drawable/ic_heart"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:orientation="horizontal"
                 android:layout_marginTop="4dp"
-                android:layout_marginLeft="10dp"/>
+                android:gravity="center_horizontal">
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:src="@drawable/ic_good"
+                    app:tint="@color/secondary_300"
+                    android:layout_marginBottom="12dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/caption"
+                    android:textColor="@color/orange_500"
+                    android:text="2"/>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
