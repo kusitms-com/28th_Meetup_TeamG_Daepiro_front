@@ -13,11 +13,12 @@ fun getBaseUrl(propertyBaseUrl : String): String {
 }
 
 android {
-    namespace = "com.example.numberoneproject"
+    namespace = "com.daepiro.numberoneproject"
     compileSdk = 33
 
+
     defaultConfig {
-        applicationId = "com.example.numberoneproject"
+        applicationId = "com.daepiro.numberoneproject"
         minSdk = 24
         targetSdk = 33
         versionCode = 1

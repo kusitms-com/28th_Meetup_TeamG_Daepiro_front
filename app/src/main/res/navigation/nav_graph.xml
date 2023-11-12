@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.numberoneproject.presentation.view.home.HomeFragment"
+        android:name="com.daepiro.numberoneproject.presentation.view.home.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home">
         <action
@@ -16,11 +16,11 @@
     </fragment>
     <fragment
         android:id="@+id/newsFragment"
-        android:name="com.example.numberoneproject.presentation.view.news.NewsFragment"
+        android:name="com.daepiro.numberoneproject.presentation.view.news.NewsFragment"
         android:label="NewsFragment" />
     <fragment
         android:id="@+id/fundingFragment"
-        android:name="com.example.numberoneproject.presentation.view.funding.FundingFragment"
+        android:name="com.daepiro.numberoneproject.presentation.view.funding.FundingFragment"
         android:label="FundingFragment"
         tools:layout="@layout/fragment_funding">
         <action
@@ -29,11 +29,11 @@
     </fragment>
     <fragment
         android:id="@+id/mypageFragment"
-        android:name="com.example.numberoneproject.presentation.view.mypage.MypageFragment"
+        android:name="com.daepiro.numberoneproject.presentation.view.mypage.MypageFragment"
         android:label="MypageFragment" />
     <fragment
         android:id="@+id/fundingDetailFragment"
-        android:name="com.example.numberoneproject.presentation.view.funding.FundingDetailFragment"
+        android:name="com.daepiro.numberoneproject.presentation.view.funding.FundingDetailFragment"
         android:label="FundingDetailFragment"
         tools:layout="@layout/fragment_funding_detail">
         <argument
@@ -43,7 +43,7 @@
     </fragment>
     <fragment
         android:id="@+id/aroundShelterDetailFragment"
-        android:name="com.example.numberoneproject.presentation.view.home.AroundShelterDetailFragment"
+        android:name="com.daepiro.numberoneproject.presentation.view.home.AroundShelterDetailFragment"
         android:label="AroundShelterDetailFragment"
         tools:layout="@layout/fragment_around_shelter_detail">
         <argument
@@ -59,6 +59,6 @@
 
     <fragment
         android:id="@+id/communityFragment"
-        android:name="com.example.numberoneproject.presentation.view.community.CommunityFragment"
+        android:name="com.daepiro.numberoneproject.presentation.view.community.CommunityFragment"
         android:label="CommunityFragment" />
 </navigation>

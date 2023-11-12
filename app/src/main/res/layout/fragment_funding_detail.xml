@@ -6,7 +6,7 @@
     <data>
         <variable
             name="fundingVM"
-            type="com.example.numberoneproject.presentation.viewmodel.FundingViewModel" />
+            type="com.daepiro.numberoneproject.presentation.viewmodel.FundingViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

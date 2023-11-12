@@ -7,10 +7,10 @@
         <import type="android.view.View"/>
         <variable
             name="disasterVM"
-            type="com.example.numberoneproject.presentation.viewmodel.DisasterViewModel" />
+            type="com.daepiro.numberoneproject.presentation.viewmodel.DisasterViewModel" />
         <variable
             name="shelterVM"
-            type="com.example.numberoneproject.presentation.viewmodel.ShelterViewModel" />
+            type="com.daepiro.numberoneproject.presentation.viewmodel.ShelterViewModel" />
     </data>
 
     <ScrollView
@@ -190,6 +190,7 @@
                                     android:paddingVertical="6dp"
                                     android:text="@string/실내"
                                     android:textColor="@color/chip_check_text"
+                                    android:textAppearance="@style/body2"
                                     app:chipBackgroundColor="@color/chip_check_bg"
                                     app:chipCornerRadius="48dp"
                                     app:chipMinTouchTargetSize="0dp"
@@ -205,6 +206,7 @@
                                     android:paddingVertical="6dp"
                                     android:text="@string/실외"
                                     android:textColor="@color/chip_check_text"
+                                    android:textAppearance="@style/body2"
                                     app:chipBackgroundColor="@color/chip_check_bg"
                                     app:chipCornerRadius="48dp"
                                     app:chipMinTouchTargetSize="0dp"
@@ -220,6 +222,7 @@
                                     android:paddingVertical="6dp"
                                     android:text="@string/기타"
                                     android:textColor="@color/chip_check_text"
+                                    android:textAppearance="@style/body2"
                                     app:chipBackgroundColor="@color/chip_check_bg"
                                     app:chipCornerRadius="48dp"
                                     app:chipMinTouchTargetSize="0dp"
@@ -316,6 +319,7 @@
                             android:paddingVertical="6dp"
                             app:chipStrokeColor="@color/chip_check_stoke"
                             app:chipStrokeWidth="1dp"
+                            android:textAppearance="@style/body2"
                             app:chipBackgroundColor="@color/chip_check_bg"
                             android:textColor="@color/chip_check_text"
                             app:chipCornerRadius="48dp"
@@ -332,6 +336,7 @@
                             android:paddingVertical="6dp"
                             app:chipStrokeColor="@color/chip_check_stoke"
                             app:chipStrokeWidth="1dp"
+                            android:textAppearance="@style/body2"
                             app:chipBackgroundColor="@color/chip_check_bg"
                             android:textColor="@color/chip_check_text"
                             app:chipCornerRadius="48dp"
@@ -348,6 +353,7 @@
                             app:chipStrokeColor="@color/chip_check_stoke"
                             app:chipStrokeWidth="1dp"
                             app:chipBackgroundColor="@color/chip_check_bg"
+                            android:textAppearance="@style/body2"
                             android:textColor="@color/chip_check_text"
                             app:chipMinTouchTargetSize="0dp"
                             app:chipCornerRadius="48dp"
@@ -362,6 +368,7 @@
                             android:paddingVertical="6dp"
                             app:chipStrokeColor="@color/chip_check_stoke"
                             app:chipStrokeWidth="1dp"
+                            android:textAppearance="@style/body2"
                             app:chipBackgroundColor="@color/chip_check_bg"
                             android:textColor="@color/chip_check_text"
                             app:chipMinTouchTargetSize="0dp"

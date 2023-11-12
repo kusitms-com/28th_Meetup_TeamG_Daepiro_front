@@ -7,7 +7,7 @@
         <import type="android.view.View"/>
         <variable
             name="model"
-            type="com.example.numberoneproject.data.model.FundingInfo" />
+            type="com.daepiro.numberoneproject.data.model.FundingInfo" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
