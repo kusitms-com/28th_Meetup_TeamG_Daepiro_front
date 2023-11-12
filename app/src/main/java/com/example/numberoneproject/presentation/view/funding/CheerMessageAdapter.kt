@@ -7,7 +7,7 @@ import com.example.numberoneproject.databinding.ItemCheerMessageBinding
 import com.example.numberoneproject.databinding.ItemFundingCategoryBinding
 
 class CheerMessageAdapter: RecyclerView.Adapter<CheerMessageAdapter.CustomViewHolder>() {
-    private var messageList =  listOf<String>()
+    private var messageList =  emptyList<String>()
     inner class CustomViewHolder(private val binding: ItemCheerMessageBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: String) {
             binding.tvMessage.text = item
@@ -20,9 +20,11 @@ class CheerMessageAdapter: RecyclerView.Adapter<CheerMessageAdapter.CustomViewHo
     }
 
     override fun onBindViewHolder(holder: CheerMessageAdapter.CustomViewHolder, position: Int) {
-        val adjustedPosition = position % messageList.size // 무한 스크롤을 위한 인덱스 조절
-        val item = messageList[adjustedPosition]
-        holder.bind(item)
+        if (messageList.isNotEmpty()) {
+            val adjustedPosition = position % messageList.size
+            val item = messageList[adjustedPosition]
+            holder.bind(item)
+        }
     }
 
     fun setData(newData: List<String>) {

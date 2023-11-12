@@ -4,7 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <import type="android.view.View"/>
+        <variable
+            name="fundingVM"
+            type="com.example.numberoneproject.presentation.viewmodel.FundingViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -48,11 +51,11 @@
                     android:layout_marginRight="4dp"
                     app:tint="@color/orange_500"/>
                 <TextView
+                    android:id="@+id/tv_supporter_cnt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/body2"
-                    android:textColor="@color/secondary_500"
-                    android:text="대피로와 함께 1,000명이 후원에 참여했어요."/>
+                    android:textColor="@color/secondary_500" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <LinearLayout
@@ -64,12 +67,12 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/headline6"
                     android:textColor="@color/secondary_800"
-                    android:layout_marginHorizontal="20dp"
-                    android:text="삐용님의\n가치있는 후원, 대피로와 함께하세요!"/>
+                    android:layout_marginHorizontal="20dp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_cheer_message"
@@ -95,6 +98,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="20dp"
                 app:chipSpacingHorizontal="8dp"
+                app:selectionRequired="true"
                 app:singleLine="true"
                 app:singleSelection="true">
 
@@ -107,7 +111,7 @@
                     android:checked="true"
                     android:paddingHorizontal="16dp"
                     android:paddingVertical="6dp"
-                    android:text="최신순"
+                    android:text="@string/최신순"
                     android:textColor="@color/chip_check_text"
                     app:chipBackgroundColor="@color/chip_check_bg"
                     app:chipCornerRadius="48dp"
@@ -122,7 +126,7 @@
                     android:textAppearance="@style/body2"
                     android:paddingHorizontal="16dp"
                     android:paddingVertical="6dp"
-                    android:text="인기순"
+                    android:text="@string/인기순"
                     android:textColor="@color/chip_check_text"
                     app:chipBackgroundColor="@color/chip_check_bg"
                     app:chipCornerRadius="48dp"
@@ -131,16 +135,39 @@
                     app:chipStrokeWidth="1dp" />
             </com.google.android.material.chip.ChipGroup>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_funding_list"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:paddingHorizontal="20dp"
                 android:paddingBottom="10dp"
-                android:paddingTop="16dp"
-                android:overScrollMode="never"
-                tools:listitem="@layout/item_funding_list"
-                tools:itemCount="5"/>
+                android:paddingTop="16dp">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:visibility="@{fundingVM.fundingListLoadingState ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/loading" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_funding_list"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:overScrollMode="never"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/item_funding_list" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>

@@ -4,7 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="fundingVM"
+            type="com.example.numberoneproject.presentation.viewmodel.FundingViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -82,7 +84,7 @@
                         android:backgroundTint="@color/orange_500"
                         android:paddingHorizontal="12dp"
                         android:paddingVertical="4dp"
-                        android:text="지진"
+                        android:text="@{fundingVM.fundingDetail.disasterType}"
                         android:textColor="@color/secondary_50" />
                     <TextView
                         style="@style/caption"
@@ -93,7 +95,7 @@
                         android:backgroundTint="@color/secondary_50"
                         android:paddingHorizontal="12dp"
                         android:paddingVertical="4dp"
-                        android:text="D-3"
+                        android:text="@{fundingVM.fundingDetail.dday}"
                         android:textColor="@color/secondary_400" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -102,7 +104,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="후원 제목"
+                    android:text="@{fundingVM.fundingDetail.title}"
                     android:textColor="@color/secondary_800" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
@@ -140,8 +142,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="8dp"
                                 android:layout_gravity="center_vertical"
-                                android:max="100"
-                                android:progress="66"
+                                android:max="@{fundingVM.fundingDetail.targetHeart}"
+                                android:progress="@{fundingVM.fundingDetail.currentHeart}"
                                 android:progressBackgroundTint="@color/secondary_50"
                                 android:progressTint="@color/orange_500"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -167,6 +169,7 @@
                             android:layout_marginTop="8dp">
 
                             <TextView
+                                android:id="@+id/tv_progress"
                                 style="@style/subtitle1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -180,7 +183,7 @@
                                 style="@style/caption"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="모인토큰 : 20"
+                                android:text="@{`모인 토큰 : ` + fundingVM.fundingDetail.currentHeart}"
                                 android:textColor="@color/secondary_300" />
                         </androidx.appcompat.widget.LinearLayoutCompat>
                     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -191,7 +194,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:text="모든 국민은 행위시의 법률에 의하여 범죄를 구성하지 아니하는 행위로 소추되지 아니하며, 동일한 범죄에 대하여 거듭 처벌받지 아니한다. 대법원장은 국회의 동의를 얻어 대통령이 임명한다.\n\n국정의 중요한 사항에 관한 대통령의 자문에 응하기 위하여 국가원로로 구성되는 국가원로자문회의를 둘 수 있다.\n\n모든 국민은 행위시의 법률에 의하여 범죄를 구성하지 아니하는 행위로 소추되지 아니하며, 동일한 범죄에 대하여 거듭 처벌받지 아니한다. 대법원장은 국회의 동의를 얻어 대통령이 임명한다.\n\n국정의 중요한 사항에 관한 대통령의 자문에 응하기 위하여 국가원로로 구성되는 국가원로자문회의를 둘 수 있다."
+                    android:text="@{fundingVM.fundingDetail.content}"
                     android:textColor="@color/secondary_300" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
@@ -240,7 +243,7 @@
                                 android:id="@+id/tv_sponsor_link"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="후원사 링크"
+                                android:text="@{fundingVM.fundingDetail.sponsorName}"
                                 style="@style/body2"
                                 android:textColor="@color/secondary_600"/>
                         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -264,7 +267,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="2023. 08. 18 ~ 2023. 11. 05"
+                                android:text="@{fundingVM.fundingDetail.period}"
                                 style="@style/body2"
                                 android:textColor="@color/secondary_600"/>
                         </androidx.appcompat.widget.LinearLayoutCompat>

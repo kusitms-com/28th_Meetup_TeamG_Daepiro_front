@@ -1,151 +1,168 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@drawable/bg_stoke_outline_radius_4"
-    android:padding="20dp"
-    android:layout_marginBottom="10dp">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_heart"
-        android:drawablePadding="4dp"
-        android:textColor="@color/secondary_600"
-        style="@style/body2"
-        android:layout_marginBottom="12dp"
-        android:text="삐용님이 참여중인 후원이에요."/>
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="model"
+            type="com.example.numberoneproject.data.model.FundingInfo" />
+    </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:background="@drawable/bg_stoke_outline_radius_4"
+        android:padding="20dp"
+        android:layout_marginBottom="10dp">
 
-        <ImageView
-            android:layout_width="86dp"
-            android:layout_height="86dp"
-            android:src="@drawable/image_sample"
-            android:background="@drawable/bg_radius_4"
-            android:scaleType="fitXY"
-            android:clipToOutline="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_heart"
+            android:drawablePadding="4dp"
+            android:textColor="@color/secondary_600"
+            android:visibility="@{model.isSupported ? View.VISIBLE : View.GONE}"
+            style="@style/body2"
+            android:layout_marginBottom="12dp"
+            android:text="삐용님이 참여중인 후원이에요." />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginLeft="16dp">
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="86dp"
+                android:layout_height="86dp"
+                android:src="@drawable/image_sample"
+                android:background="@drawable/bg_radius_4"
+                android:scaleType="fitXY"
+                android:clipToOutline="true" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="16dp">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/caption"
+                        android:textColor="@color/white"
+                        android:paddingVertical="4dp"
+                        android:paddingHorizontal="12dp"
+                        android:background="@drawable/bg_radius_4"
+                        android:backgroundTint="@color/orange_500"
+                        android:text="@{model.disasterType}" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/caption"
+                        android:textColor="@color/secondary_400"
+                        android:paddingVertical="4dp"
+                        android:paddingHorizontal="12dp"
+                        android:background="@drawable/bg_radius_4"
+                        android:backgroundTint="@color/secondary_50"
+                        android:layout_marginLeft="8dp"
+                        android:text="@{model.dday}" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/subtitle1"
+                    android:textColor="@color/secondary_800"
+                    android:singleLine="true"
+                    android:text="@{model.title}"
+                    android:layout_marginTop="8dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/caption"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:textColor="@color/secondary_400"
+                    android:text="@{model.subtitle}"
+                    android:layout_marginTop="2dp" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <!--    <SeekBar-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:layout_marginTop="20dp"-->
+        <!--        android:thumb="@drawable/character_progress"-->
+        <!--        android:progressDrawable="@drawable/custom_funding_seekbar"-->
+        <!--        android:max="100"-->
+        <!--        android:progress="30"/>-->
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <ProgressBar
+                android:id="@+id/pb_funding"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_gravity="center_vertical"
+                android:max="@{model.targetHeart}"
+                android:progress="@{model.currentHeart}"
+                android:progressBackgroundTint="@color/secondary_50"
+                android:progressTint="@color/orange_500"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_char"
+                android:layout_width="36dp"
+                android:layout_height="34dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/character_progress"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:id="@+id/tv_progress"
+                style="@style/subtitle1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/caption"
-                    android:textColor="@color/white"
-                    android:paddingVertical="4dp"
-                    android:paddingHorizontal="12dp"
-                    android:background="@drawable/bg_radius_4"
-                    android:backgroundTint="@color/orange_500"
-                    android:text="지진"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/caption"
-                    android:textColor="@color/secondary_400"
-                    android:paddingVertical="4dp"
-                    android:paddingHorizontal="12dp"
-                    android:background="@drawable/bg_radius_4"
-                    android:backgroundTint="@color/secondary_50"
-                    android:layout_marginLeft="8dp"
-                    android:text="D-3"/>
-            </androidx.appcompat.widget.LinearLayoutCompat>
-            <TextView
-                android:id="@+id/tv_title"
+                android:text="30%"
+                android:textColor="@color/orange_500" />
+
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/subtitle1"
-                android:textColor="@color/secondary_800"
-                android:text="후원 제목"
-                android:layout_marginTop="8dp"/>
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 style="@style/caption"
-                android:maxLines="2"
-                android:ellipsize="end"
-                android:textColor="@color/secondary_400"
-                android:text="후원 설명 후원 설명 후원 설명 후원 설명후원 설명 후원 설명 후원 설명 후원 설명"
-                android:layout_marginTop="2dp"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`모인 토큰 : ` + model.currentHeart}"
+                android:textColor="@color/secondary_300" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>
-
-<!--    <SeekBar-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="20dp"-->
-<!--        android:thumb="@drawable/character_progress"-->
-<!--        android:progressDrawable="@drawable/custom_funding_seekbar"-->
-<!--        android:max="100"-->
-<!--        android:progress="30"/>-->
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
-
-        <ProgressBar
-            android:id="@+id/pb_funding"
-            style="@android:style/Widget.ProgressBar.Horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="8dp"
-            android:layout_gravity="center_vertical"
-            android:max="100"
-            android:progress="9"
-            android:progressBackgroundTint="@color/secondary_50"
-            android:progressTint="@color/orange_500"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/iv_char"
-            android:layout_width="36dp"
-            android:layout_height="34dp"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/character_progress"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp">
-
-        <TextView
-            android:id="@+id/tv_progress"
-            style="@style/subtitle1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="30%"
-            android:textColor="@color/orange_500" />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_weight="1" />
-        <TextView
-            style="@style/caption"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="모인토큰 : 20"
-            android:textColor="@color/secondary_300" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
-</androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

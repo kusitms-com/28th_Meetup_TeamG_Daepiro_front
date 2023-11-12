@@ -9,25 +9,30 @@ import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.doOnDetach
+import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.numberoneproject.R
 import com.example.numberoneproject.databinding.FragmentFundingDetailBinding
 import com.example.numberoneproject.presentation.base.BaseFragment
+import com.example.numberoneproject.presentation.util.Extensions.repeatOnStarted
 import com.example.numberoneproject.presentation.view.home.AroundShelterDetailFragmentArgs
+import com.example.numberoneproject.presentation.viewmodel.FundingViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlin.math.roundToInt
 
 @AndroidEntryPoint
 class FundingDetailFragment : BaseFragment<FragmentFundingDetailBinding>(R.layout.fragment_funding_detail) {
     private val args by navArgs<FundingDetailFragmentArgs>()
+    val fundingVM by viewModels<FundingViewModel>()
     var globalListener: ViewTreeObserver.OnGlobalLayoutListener? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        setFundingPb()
+        binding.fundingVM = fundingVM
+        fundingVM.getFundingDetail(args.sponsorId)
 
 
         binding.btnFunding.setOnClickListener {
@@ -41,8 +46,18 @@ class FundingDetailFragment : BaseFragment<FragmentFundingDetailBinding>(R.layou
 
     override fun setupInit() {
         binding.tvSponsorLink.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+        setFundingPb()
 
 
+    }
+
+    override fun subscribeUi() {
+        repeatOnStarted {
+            fundingVM.fundingDetail.collectLatest {
+                binding.tvProgress.text = "${(it.currentHeart * 100 / it.targetHeart)}%"
+
+            }
+        }
     }
 
     private fun setFundingPb() {

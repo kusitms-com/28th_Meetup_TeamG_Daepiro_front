@@ -10,6 +10,6 @@ data class FundingDetailResponse(
     val period: String = "",
     val sponsorName: String = "",
     val subtitle: String = "",
-    val targetHeart: Int = 0,
+    val targetHeart: Int = 1,
     val title: String = ""
 )

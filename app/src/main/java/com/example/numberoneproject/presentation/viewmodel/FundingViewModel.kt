@@ -3,6 +3,7 @@ package com.example.numberoneproject.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.numberoneproject.data.model.DisasterResponse
+import com.example.numberoneproject.data.model.FundingDetailResponse
 import com.example.numberoneproject.data.model.FundingListResponse
 import com.example.numberoneproject.data.network.onFailure
 import com.example.numberoneproject.data.network.onSuccess
@@ -26,7 +27,11 @@ class FundingViewModel @Inject constructor(
     private val _fundingList = MutableStateFlow(FundingListResponse())
     val fundingList = _fundingList.asStateFlow()
 
+    private val _fundingDetail = MutableStateFlow(FundingDetailResponse())
+    val fundingDetail = _fundingDetail.asStateFlow()
+
     val fundingListLoadingState = MutableStateFlow(true)
+    val fundingDetailLoadingState = MutableStateFlow(true)
 
     fun getFundingList(sortType: String) {
         viewModelScope.launch {
@@ -36,6 +41,21 @@ class FundingViewModel @Inject constructor(
                 .onSuccess {
                     fundingListLoadingState.emit(false)
                     _fundingList.value = it
+                }
+                .onFailure {
+
+                }
+        }
+    }
+
+    fun getFundingDetail(sponsorId: Int) {
+        viewModelScope.launch {
+            val token = "Bearer ${tokenManager.accessToken.first()}"
+
+            getFundingDetailUseCase(token, sponsorId)
+                .onSuccess {
+                    fundingDetailLoadingState.emit(false)
+                    _fundingDetail.value = it
                 }
                 .onFailure {
 
