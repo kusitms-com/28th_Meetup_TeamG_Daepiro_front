@@ -38,8 +38,5 @@ class BehaviorTipActivity : BaseActivity<ActivityBehaviorTipBinding>(R.layout.ac
             }
         })
 
-        binding.backBtn.setOnClickListener{
-            finish()
-        }
     }
 }

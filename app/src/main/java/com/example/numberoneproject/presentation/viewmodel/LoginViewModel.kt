@@ -1,12 +1,15 @@
 package com.example.numberoneproject.presentation.viewmodel
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.numberoneproject.data.model.TokenRequestBody
 import com.example.numberoneproject.data.network.ApiResult
 import com.example.numberoneproject.data.network.onFailure
 import com.example.numberoneproject.data.network.onSuccess
+import com.example.numberoneproject.domain.usecase.GetShelterUseCase
 import com.example.numberoneproject.domain.usecase.KakaoLoginUseCase
 import com.example.numberoneproject.domain.usecase.NaverLoginUseCase
 import com.example.numberoneproject.domain.usecase.RefreshAccessTokenUseCase
@@ -17,6 +20,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,11 +29,12 @@ class LoginViewModel @Inject constructor(
     private val naverLoginUseCase: NaverLoginUseCase,
     private val kakaoLoginUseCase: KakaoLoginUseCase,
     private val testLoginUseCase: TestUseCase,
-    private val refreshAccessTokenUseCase: RefreshAccessTokenUseCase
+    private val refreshAccessTokenUseCase: RefreshAccessTokenUseCase,
 ) : ViewModel() {
 
     private val _loginErrorState = MutableStateFlow<ApiResult.Failure?>(null)
     val loginErrorState = _loginErrorState.asStateFlow()
+
 
     fun userNaverLogin(loginBody: TokenRequestBody) {
         viewModelScope.launch {
@@ -85,4 +90,5 @@ class LoginViewModel @Inject constructor(
                 }
         }
     }
+
 }

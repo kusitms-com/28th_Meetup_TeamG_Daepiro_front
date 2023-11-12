@@ -67,6 +67,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
         binding.disasterVM = disasterVM
         binding.shelterVM = shelterVM
+      
+        //로컬에 대피소 저장하기 위해 호출
+        shelterVM.getSheltersetLocal()
 
         mLocationRequest =  LocationRequest.create().apply {
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
