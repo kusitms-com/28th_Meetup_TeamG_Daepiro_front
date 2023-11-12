@@ -1,24 +1,44 @@
 package com.example.numberoneproject.presentation.view.funding
 
+import android.graphics.Paint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.doOnDetach
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.numberoneproject.R
 import com.example.numberoneproject.databinding.FragmentFundingDetailBinding
 import com.example.numberoneproject.presentation.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
+import kotlin.math.roundToInt
 
+@AndroidEntryPoint
 class FundingDetailFragment : BaseFragment<FragmentFundingDetailBinding>(R.layout.fragment_funding_detail) {
+    var globalListener: ViewTreeObserver.OnGlobalLayoutListener? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setFundingPb()
+
+
+        binding.btnFunding.setOnClickListener {
+            SendTokenBottomSheet().show(parentFragmentManager, "")
+        }
+
+        binding.btnBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 
     override fun setupInit() {
-        binding.fragment = this@FundingDetailFragment
+        binding.tvSponsorLink.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+
 
     }
 

@@ -13,7 +13,9 @@ import com.example.numberoneproject.R
 import com.example.numberoneproject.databinding.FragmentFundingBinding
 import com.example.numberoneproject.presentation.base.BaseFragment
 import com.example.numberoneproject.presentation.viewmodel.FundingViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FundingFragment : BaseFragment<FragmentFundingBinding>(R.layout.fragment_funding) {
     val fundingVM by viewModels<FundingViewModel>()
     private lateinit var cheerMessageAdapterFirst: CheerMessageAdapter
@@ -40,7 +42,6 @@ class FundingFragment : BaseFragment<FragmentFundingBinding>(R.layout.fragment_f
             }
         }
 
-        SendTokenBottomSheet().show(parentFragmentManager, "")
     }
 
     private fun setCheerMessageBanner() {

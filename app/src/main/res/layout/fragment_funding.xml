@@ -103,6 +103,7 @@
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textAppearance="@style/body2"
                     android:checked="true"
                     android:paddingHorizontal="16dp"
                     android:paddingVertical="6dp"
@@ -118,6 +119,7 @@
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textAppearance="@style/body2"
                     android:paddingHorizontal="16dp"
                     android:paddingVertical="6dp"
                     android:text="인기순"
@@ -136,6 +138,7 @@
                 android:paddingHorizontal="20dp"
                 android:paddingBottom="10dp"
                 android:paddingTop="16dp"
+                android:overScrollMode="never"
                 tools:listitem="@layout/item_funding_list"
                 tools:itemCount="5"/>
 
