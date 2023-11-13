@@ -1,5 +1,7 @@
 package com.daepiro.numberoneproject.data.network
 
+import com.daepiro.numberoneproject.data.model.CommunityArticleModel
+import com.daepiro.numberoneproject.data.model.CommunityTownInfoModel
 import com.daepiro.numberoneproject.data.model.DisasterRequestBody
 import com.daepiro.numberoneproject.data.model.DisasterResponse
 import com.daepiro.numberoneproject.data.model.FundingDetailResponse
@@ -15,6 +17,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
 
@@ -86,4 +89,15 @@ interface ApiService {
         @Header("Authorization") token:String,
         @Path("sponsorId") sponsorId: Int
     ): ApiResult<FundingDetailResponse>
+
+    //커뮤니티 동네생활 게시글 리스트 조회
+    @GET("/api/articles")
+    suspend fun getTownInfoArticle(
+        @Header("Authorization") token:String,
+        @Query("tag") tag:String?,
+        @Query("lastArticleId") lastArticleId:Int?,
+        @Query("page") page: Int,
+        @Query("size") size: Int,
+        @Query("sort") sort: String?,
+    ):ApiResult<CommunityArticleModel>
 }

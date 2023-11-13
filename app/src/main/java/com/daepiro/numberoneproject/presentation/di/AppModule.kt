@@ -4,11 +4,13 @@ import android.content.Context
 import com.daepiro.numberoneproject.BuildConfig
 import com.daepiro.numberoneproject.data.network.ApiResultCallAdapterFactory
 import com.daepiro.numberoneproject.data.network.ApiService
+import com.daepiro.numberoneproject.data.repositoryimpl.CommunityRepositoryImpl
 import com.daepiro.numberoneproject.data.repositoryimpl.DisasterRepositoryImpl
 import com.daepiro.numberoneproject.data.repositoryimpl.FundingRepositoryImpl
 import com.daepiro.numberoneproject.data.repositoryimpl.GetShelterRepositoryImpl
 import com.daepiro.numberoneproject.data.repositoryimpl.LoginRepositoryImpl
 import com.daepiro.numberoneproject.data.repositoryimpl.ShelterRepositoryImpl
+import com.daepiro.numberoneproject.domain.repository.CommunityRepository
 import com.daepiro.numberoneproject.domain.repository.DisasterRepository
 import com.daepiro.numberoneproject.domain.repository.FundingRepository
 import com.daepiro.numberoneproject.domain.repository.GetShelterRepository
@@ -60,6 +62,12 @@ abstract class RepositoryModule {
     abstract fun bindFundingRepository(
         fundingRepositoryImpl: FundingRepositoryImpl
     ): FundingRepository
+
+    @Singleton
+    @Binds
+    abstract fun bindCommunityRepository(
+        communityRepositoryImpl: CommunityRepositoryImpl
+    ):CommunityRepository
 
 }
 

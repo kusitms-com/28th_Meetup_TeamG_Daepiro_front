@@ -7,7 +7,6 @@ import androidx.fragment.app.viewModels
 import com.daepiro.numberoneproject.R
 import com.daepiro.numberoneproject.databinding.FragmentCommunityBinding
 import com.daepiro.numberoneproject.presentation.base.BaseFragment
-import com.daepiro.numberoneproject.presentation.viewmodel.CommunityViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 
