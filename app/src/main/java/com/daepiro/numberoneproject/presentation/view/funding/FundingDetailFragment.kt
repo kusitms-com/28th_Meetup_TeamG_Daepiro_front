@@ -31,7 +31,7 @@ class FundingDetailFragment : BaseFragment<FragmentFundingDetailBinding>(R.layou
 
 
         binding.btnFunding.setOnClickListener {
-            SendTokenBottomSheet().show(parentFragmentManager, "")
+            SendHeartBottomSheet().show(parentFragmentManager, "")
         }
 
         binding.btnBack.setOnClickListener {

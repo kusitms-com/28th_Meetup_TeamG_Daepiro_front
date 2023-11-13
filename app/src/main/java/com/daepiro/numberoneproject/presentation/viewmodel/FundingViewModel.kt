@@ -22,14 +22,20 @@ class FundingViewModel @Inject constructor(
     private val getFundingListUseCase: GetFundingListUseCase,
     private val getFundingDetailUseCase: GetFundingDetailUseCase
 ): ViewModel() {
+    // 후원 목록
     private val _fundingList = MutableStateFlow(FundingListResponse())
     val fundingList = _fundingList.asStateFlow()
 
+    // 후원 상세정보
     private val _fundingDetail = MutableStateFlow(FundingDetailResponse())
     val fundingDetail = _fundingDetail.asStateFlow()
 
+    // 후원 관련 화면 로딩상태
     val fundingListLoadingState = MutableStateFlow(true)
     val fundingDetailLoadingState = MutableStateFlow(true)
+
+    // 후원 바텀싯
+    val selectedHeartCount = MutableStateFlow(0)
 
     fun getFundingList(sortType: String) {
         viewModelScope.launch {
