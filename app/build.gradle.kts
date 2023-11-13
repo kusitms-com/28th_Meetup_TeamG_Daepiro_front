@@ -21,8 +21,8 @@ android {
         applicationId = "com.daepiro.numberoneproject"
         minSdk = 24
         targetSdk = 33
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 4
+        versionName = "1.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "BASE_URL", getBaseUrl("BASE_URL"))
@@ -110,6 +110,9 @@ dependencies {
 
     //flexbox
     implementation("com.google.android.flexbox:flexbox:3.0.0")
+
+    // 인앱결제
+    implementation("com.android.billingclient:billing:6.0.1")
 
 
 
