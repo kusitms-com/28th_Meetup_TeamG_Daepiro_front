@@ -18,5 +18,6 @@ data class FundingInfo(
     val sponsorName: String = "",
     val subtitle: String = "",
     val targetHeart: Int = 0,
-    val title: String = ""
+    val title: String = "",
+    val thumbnailUrl: String? = ""
 )
