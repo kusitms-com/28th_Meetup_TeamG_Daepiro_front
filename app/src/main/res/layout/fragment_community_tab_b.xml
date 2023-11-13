@@ -2,11 +2,11 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-<!--    <data>-->
-<!--        <variable-->
-<!--            name="viewModel"-->
-<!--            type="com.daepiro.numberoneproject.presentation.viewmodel.CommunityForTownViewModel" />-->
-<!--    </data>-->
+    <data>
+        <variable
+            name="communityVM"
+            type="com.daepiro.numberoneproject.presentation.viewmodel.CommunityForTownViewModel" />
+    </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"

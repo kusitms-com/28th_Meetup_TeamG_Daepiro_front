@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-/*
+
 @HiltViewModel
 class CommunityForTownViewModel @Inject constructor(
     private val tokenManager: TokenManager,
@@ -30,4 +30,4 @@ class CommunityForTownViewModel @Inject constructor(
                 }
         }
     }
-}*/
+}
