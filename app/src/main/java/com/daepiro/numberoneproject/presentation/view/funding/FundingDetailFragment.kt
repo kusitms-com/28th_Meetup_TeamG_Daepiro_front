@@ -1,5 +1,6 @@
 package com.daepiro.numberoneproject.presentation.view.funding
 
+import android.content.Intent
 import android.graphics.Paint
 import android.os.Bundle
 import android.view.View
@@ -29,6 +30,12 @@ class FundingDetailFragment : BaseFragment<FragmentFundingDetailBinding>(R.layou
         binding.fundingVM = fundingVM
         fundingVM.getFundingDetail(args.sponsorId)
 
+
+        binding.tvSponsorLink.setOnClickListener {
+            val intent = Intent(requireContext(), WebViewActivity::class.java)
+            intent.putExtra("url", fundingVM.fundingDetail.value.sponsorUrl)
+            startActivity(intent)
+        }
 
         binding.btnFunding.setOnClickListener {
             SendHeartBottomSheet().show(parentFragmentManager, "")

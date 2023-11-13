@@ -37,7 +37,7 @@
             <ImageView
                 android:layout_width="86dp"
                 android:layout_height="86dp"
-                android:src="@drawable/image_sample"
+                loadImage="@{model.thumbnailUrl}"
                 android:background="@drawable/bg_radius_4"
                 android:scaleType="fitXY"
                 android:clipToOutline="true" />
