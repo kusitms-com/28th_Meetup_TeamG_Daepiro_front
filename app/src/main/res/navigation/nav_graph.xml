@@ -40,6 +40,9 @@
             android:name="sponsorId"
             app:argType="integer"
             android:defaultValue="0" />
+        <action
+            android:id="@+id/action_fundingDetailFragment_to_heartChargeFragment"
+            app:destination="@id/heartChargeFragment" />
     </fragment>
     <fragment
         android:id="@+id/aroundShelterDetailFragment"
@@ -61,4 +64,18 @@
         android:id="@+id/communityFragment"
         android:name="com.daepiro.numberoneproject.presentation.view.community.CommunityFragment"
         android:label="CommunityFragment" />
+    <dialog
+        android:id="@+id/sendHeartBottomSheet"
+        android:name="com.daepiro.numberoneproject.presentation.view.funding.detail.SendHeartBottomSheet"
+        android:label="SendHeartBottomSheet"
+        tools:layout="@layout/fragment_send_heart_bottom_sheet">
+        <action
+            android:id="@+id/action_sendHeartBottomSheet_to_heartChargeFragment"
+            app:destination="@id/heartChargeFragment" />
+    </dialog>
+    <fragment
+        android:id="@+id/heartChargeFragment"
+        android:name="com.daepiro.numberoneproject.presentation.view.funding.detail.HeartChargeFragment"
+        android:label="HeartChargeFragment"
+        tools:layout="@layout/fragment_heart_charge"/>
 </navigation>

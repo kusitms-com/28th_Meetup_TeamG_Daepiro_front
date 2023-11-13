@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="fragment"
+            type="com.daepiro.numberoneproject.presentation.view.funding.detail.HeartChargeFragment" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="12dp">
+
+            <ImageView
+                android:id="@+id/btn_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|start"
+                android:src="@drawable/ic_arrow_left"
+                app:tint="@color/secondary_200" />
+
+            <TextView
+                style="@style/subtitle1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/마음충전"
+                android:textColor="@color/secondary_400" />
+        </FrameLayout>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/charge_heart_banner"
+            android:paddingTop="24dp"
+            android:paddingStart="20dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/headline5"
+                android:textColor="@color/orange_500"
+                android:layout_marginBottom="6dp"
+                android:text="@string/마음이란_"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/body2"
+                android:textColor="@color/orange_300"
+                android:text="@string/대피로에서_재난_후원을_할_때에_필요한_전용_결제_수단입니다."/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="18dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/subtitle1"
+                android:textColor="@color/secondary_600"
+                android:layout_marginRight="8dp"
+                android:text="@string/보유_마음"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/subtitle1"
+                android:textColor="@color/orange_500"
+                android:text="1개"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp">
+
+            <include layout="@layout/item_charge_haert"
+                android:id="@+id/ll_charge_10"
+                app:heartCount="@{`마음 10개`}"
+                app:heartPrice="@{`1,000원`}"
+                android:onClick="@{(v) -> fragment.onClickView(v)}"/>
+            <include layout="@layout/item_charge_haert"
+                android:id="@+id/ll_charge_30"
+                app:heartCount="@{`마음 30개`}"
+                app:heartPrice="@{`3,000원`}"
+                android:onClick="@{(v) -> fragment.onClickView(v)}"/>
+            <include layout="@layout/item_charge_haert"
+                android:id="@+id/ll_charge_50"
+                app:heartCount="@{`마음 50개`}"
+                app:heartPrice="@{`5,000원`}"
+                android:onClick="@{(v) -> fragment.onClickView(v)}"/>
+            <include layout="@layout/item_charge_haert"
+                android:id="@+id/ll_charge_100"
+                app:heartCount="@{`마음 100개`}"
+                app:heartPrice="@{`10,000원`}"
+                android:onClick="@{(v) -> fragment.onClickView(v)}"/>
+            <include layout="@layout/item_charge_haert"
+                android:id="@+id/ll_charge_500"
+                app:heartCount="@{`마음 500개`}"
+                app:heartPrice="@{`50,000원`}"
+                android:onClick="@{(v) -> fragment.onClickView(v)}"/>
+            <include layout="@layout/item_charge_haert"
+                android:id="@+id/ll_charge_1000"
+                app:heartCount="@{`마음 1,000개`}"
+                app:heartPrice="@{`100,000원`}"
+                android:onClick="@{(v) -> fragment.onClickView(v)}"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

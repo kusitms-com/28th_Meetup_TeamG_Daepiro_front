@@ -58,4 +58,8 @@
     <string name="커뮤니티">커뮤니티</string>
     <string name="댓글">댓글</string>
 
+    <string name="마음충전">마음충전</string>
+    <string name="마음이란_">마음이란?</string>
+    <string name="대피로에서_재난_후원을_할_때에_필요한_전용_결제_수단입니다.">대피로에서 재난 후원을 할 때에 필요한\n전용 결제 수단입니다.</string>
+    <string name="보유_마음">보유 마음</string>
 </resources>
