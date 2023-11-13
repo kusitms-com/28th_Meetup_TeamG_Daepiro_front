@@ -1,4 +1,4 @@
-package com.daepiro.numberoneproject.presentation.view.funding
+package com.daepiro.numberoneproject.presentation.view.funding.main
 
 import android.os.Bundle
 import android.os.Handler

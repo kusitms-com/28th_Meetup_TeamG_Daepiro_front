@@ -46,7 +46,7 @@
         <activity android:name=".presentation.view.MainActivity" />
         <activity android:name=".presentation.view.networkerror.BehaviorTipActivity" />
         <activity android:name=".presentation.view.networkerror.CheckShelterActivity" />
-        <activity android:name=".presentation.view.funding.WebViewActivity" />
+        <activity android:name=".presentation.view.funding.detail.WebViewActivity" />
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"

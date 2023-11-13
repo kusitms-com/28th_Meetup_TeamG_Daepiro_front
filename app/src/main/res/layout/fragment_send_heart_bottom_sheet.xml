@@ -9,7 +9,7 @@
             type="com.daepiro.numberoneproject.presentation.viewmodel.FundingViewModel" />
         <variable
             name="sheet"
-            type="com.daepiro.numberoneproject.presentation.view.funding.SendHeartBottomSheet" />
+            type="com.daepiro.numberoneproject.presentation.view.funding.detail.SendHeartBottomSheet" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat

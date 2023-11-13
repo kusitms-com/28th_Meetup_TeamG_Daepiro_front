@@ -1,4 +1,4 @@
-package com.daepiro.numberoneproject.presentation.view.funding
+package com.daepiro.numberoneproject.presentation.view.funding.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -13,12 +13,12 @@ class CheerMessageAdapter: RecyclerView.Adapter<CheerMessageAdapter.CustomViewHo
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CheerMessageAdapter.CustomViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         val view = ItemCheerMessageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return CustomViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: CheerMessageAdapter.CustomViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         if (messageList.isNotEmpty()) {
             val adjustedPosition = position % messageList.size
             val item = messageList[adjustedPosition]

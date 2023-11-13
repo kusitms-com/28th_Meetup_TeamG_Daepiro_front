@@ -1,4 +1,4 @@
-package com.daepiro.numberoneproject.presentation.view.funding
+package com.daepiro.numberoneproject.presentation.view.funding.detail
 
 import android.content.Intent
 import android.graphics.Paint

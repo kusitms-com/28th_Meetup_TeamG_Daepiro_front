@@ -20,7 +20,7 @@
         android:label="NewsFragment" />
     <fragment
         android:id="@+id/fundingFragment"
-        android:name="com.daepiro.numberoneproject.presentation.view.funding.FundingFragment"
+        android:name="com.daepiro.numberoneproject.presentation.view.funding.main.FundingFragment"
         android:label="FundingFragment"
         tools:layout="@layout/fragment_funding">
         <action
@@ -33,7 +33,7 @@
         android:label="MypageFragment" />
     <fragment
         android:id="@+id/fundingDetailFragment"
-        android:name="com.daepiro.numberoneproject.presentation.view.funding.FundingDetailFragment"
+        android:name="com.daepiro.numberoneproject.presentation.view.funding.detail.FundingDetailFragment"
         android:label="FundingDetailFragment"
         tools:layout="@layout/fragment_funding_detail">
         <argument

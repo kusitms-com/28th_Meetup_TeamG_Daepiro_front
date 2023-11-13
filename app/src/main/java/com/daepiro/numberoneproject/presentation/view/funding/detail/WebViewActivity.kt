@@ -1,4 +1,4 @@
-package com.daepiro.numberoneproject.presentation.view.funding
+package com.daepiro.numberoneproject.presentation.view.funding.detail
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

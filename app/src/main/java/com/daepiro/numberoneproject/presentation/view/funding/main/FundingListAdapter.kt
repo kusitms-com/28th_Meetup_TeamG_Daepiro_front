@@ -1,4 +1,4 @@
-package com.daepiro.numberoneproject.presentation.view.funding
+package com.daepiro.numberoneproject.presentation.view.funding.main
 
 import android.view.LayoutInflater
 import android.view.View
@@ -46,12 +46,12 @@ class FundingListAdapter: RecyclerView.Adapter<FundingListAdapter.CustomViewHold
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FundingListAdapter.CustomViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
         val view = ItemFundingListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return CustomViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: FundingListAdapter.CustomViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         holder.bind(fundingList[position])
 
         holder.itemView.setOnClickListener {
