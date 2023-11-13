@@ -4,7 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="fundingVM"
+            type="com.daepiro.numberoneproject.presentation.viewmodel.FundingViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,6 +26,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
+                android:id="@+id/btn_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|start"
@@ -55,7 +58,8 @@
             android:paddingHorizontal="20dp"
             android:paddingTop="24dp"
             android:scrollbars="none"
-            app:layout_constraintBottom_toTopOf="@+id/textView"
+            android:overScrollMode="never"
+            app:layout_constraintBottom_toTopOf="@+id/btn_funding"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -80,7 +84,7 @@
                         android:backgroundTint="@color/orange_500"
                         android:paddingHorizontal="12dp"
                         android:paddingVertical="4dp"
-                        android:text="지진"
+                        android:text="@{fundingVM.fundingDetail.disasterType}"
                         android:textColor="@color/secondary_50" />
                     <TextView
                         style="@style/caption"
@@ -91,7 +95,7 @@
                         android:backgroundTint="@color/secondary_50"
                         android:paddingHorizontal="12dp"
                         android:paddingVertical="4dp"
-                        android:text="D-3"
+                        android:text="@{fundingVM.fundingDetail.dday}"
                         android:textColor="@color/secondary_400" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -100,7 +104,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="후원 제목"
+                    android:text="@{fundingVM.fundingDetail.title}"
                     android:textColor="@color/secondary_800" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
@@ -109,13 +113,13 @@
                     android:layout_marginHorizontal="4dp"
                     android:layout_marginTop="24dp"
                     android:background="@drawable/bg_solid_white_radius_4"
-                    android:elevation="4dp"
+                    android:elevation="2dp"
                     android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="171dp"
-                        android:background="@drawable/bg_radius_4"
+                        android:background="@drawable/bg_top_left_right_radius_4"
                         android:clipToOutline="true"
                         android:scaleType="fitXY"
                         android:src="@drawable/image_sample" />
@@ -125,25 +129,48 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:paddingHorizontal="20dp"
-                        android:paddingVertical="16dp">
+                        android:paddingBottom="16dp">
 
-                        <ProgressBar
-                            android:id="@+id/pb_funding"
-                            style="@android:style/Widget.ProgressBar.Horizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="8dp"
-                            android:max="100"
-                            android:progress="30"
-                            android:progressBackgroundTint="@color/secondary_50"
-                            android:progressTint="@color/orange_500"/>
-
-                        <androidx.appcompat.widget.LinearLayoutCompat
+                        <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp">
 
+                            <ProgressBar
+                                android:id="@+id/pb_funding"
+                                style="@android:style/Widget.ProgressBar.Horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="8dp"
+                                android:layout_gravity="center_vertical"
+                                android:max="@{fundingVM.fundingDetail.targetHeart}"
+                                android:progress="@{fundingVM.fundingDetail.currentHeart}"
+                                android:progressBackgroundTint="@color/secondary_50"
+                                android:progressTint="@color/orange_500"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:id="@+id/iv_char"
+                                android:layout_width="36dp"
+                                android:layout_height="34dp"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/character_progress"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:layout_marginTop="8dp">
+
                             <TextView
-                                style="@style/button"
+                                android:id="@+id/tv_progress"
+                                style="@style/subtitle1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="30%"
@@ -156,7 +183,7 @@
                                 style="@style/caption"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="모인토큰 : 20"
+                                android:text="@{`모인 토큰 : ` + fundingVM.fundingDetail.currentHeart}"
                                 android:textColor="@color/secondary_300" />
                         </androidx.appcompat.widget.LinearLayoutCompat>
                     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -167,7 +194,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:text="모든 국민은 행위시의 법률에 의하여 범죄를 구성하지 아니하는 행위로 소추되지 아니하며, 동일한 범죄에 대하여 거듭 처벌받지 아니한다. 대법원장은 국회의 동의를 얻어 대통령이 임명한다.\n\n국정의 중요한 사항에 관한 대통령의 자문에 응하기 위하여 국가원로로 구성되는 국가원로자문회의를 둘 수 있다.\n\n모든 국민은 행위시의 법률에 의하여 범죄를 구성하지 아니하는 행위로 소추되지 아니하며, 동일한 범죄에 대하여 거듭 처벌받지 아니한다. 대법원장은 국회의 동의를 얻어 대통령이 임명한다.\n\n국정의 중요한 사항에 관한 대통령의 자문에 응하기 위하여 국가원로로 구성되는 국가원로자문회의를 둘 수 있다."
+                    android:text="@{fundingVM.fundingDetail.content}"
                     android:textColor="@color/secondary_300" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
@@ -177,70 +204,81 @@
                     android:orientation="vertical">
 
                     <TextView
-                        style="@style/caption"
+                        style="@style/button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_radius_4"
                         android:backgroundTint="@color/orange_50"
-                        android:paddingHorizontal="12dp"
-                        android:paddingVertical="4dp"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="6dp"
                         android:text="@string/후원사_소개"
                         android:textColor="@color/orange_400" />
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:orientation="vertical"
                         android:background="@drawable/bg_radius_4"
                         android:backgroundTint="@color/surface"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingHorizontal="20dp"
-                        android:paddingVertical="16dp"
+                        android:layout_marginTop="10dp"
+                        android:padding="16dp"
                         android:layout_marginBottom="24dp">
 
-                        <ImageView
-                            android:layout_width="44dp"
-                            android:layout_height="44dp"
-                            android:background="@drawable/bg_radius_4"
-                            android:clipToOutline="true"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/image_sample" />
-
                         <androidx.appcompat.widget.LinearLayoutCompat
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="12dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
+                            android:gravity="center_vertical">
 
                             <TextView
-                                style="@style/subtitle1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="후원사명"
-                                android:textColor="@color/secondary_800" />
+                                android:text="후원사"
+                                style="@style/body2"
+                                android:textColor="@color/secondary_600"/>
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_weight="1"/>
                             <TextView
-                                style="@style/caption"
+                                android:id="@+id/tv_sponsor_link"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
-                                android:text="회사설명 회사설명 회사설명 회사설명"
-                                android:textColor="@color/secondary_400" />
+                                android:text="@{fundingVM.fundingDetail.sponsorName}"
+                                style="@style/body2"
+                                android:textColor="@color/secondary_600"/>
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
-                        <ImageView
-                            android:layout_width="wrap_content"
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_arrow_right"
-                            app:tint="@color/orange_500" />
+                            android:gravity="center_vertical"
+                            android:layout_marginTop="10dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="후원기간"
+                                style="@style/body2"
+                                android:textColor="@color/secondary_600"/>
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_weight="1"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@{fundingVM.fundingDetail.period}"
+                                style="@style/body2"
+                                android:textColor="@color/secondary_600"/>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
                     </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.appcompat.widget.LinearLayoutCompat>
         </ScrollView>
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/btn_funding"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/후원하기"

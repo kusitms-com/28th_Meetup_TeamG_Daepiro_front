@@ -7,7 +7,7 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="com.example.numberoneproject.presentation.viewmodel.CheckShelterViewModel" />
+            type="com.daepiro.numberoneproject.presentation.viewmodel.CheckShelterViewModel" />
     </data>
 
 <LinearLayout

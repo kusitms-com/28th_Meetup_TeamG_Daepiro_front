@@ -6,7 +6,7 @@
     <data>
         <variable
             name="model"
-            type="com.example.numberoneproject.data.model.Shelter" />
+            type="com.daepiro.numberoneproject.data.model.Shelter" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat

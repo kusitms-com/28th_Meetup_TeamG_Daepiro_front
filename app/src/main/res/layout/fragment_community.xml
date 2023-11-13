@@ -3,7 +3,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.numberoneproject.presentation.viewmodel.CommunityViewModel" />
+            type="com.daepiro.numberoneproject.presentation.viewmodel.CommunityViewModel" />
     </data>
 
 <LinearLayout
