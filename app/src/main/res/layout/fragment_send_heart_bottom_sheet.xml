@@ -189,19 +189,41 @@
                     android:onClick="@{(v) -> sheet.onClickView(v)}"/>
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <TextView
-                android:id="@+id/btn_heart_send"
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/button"
-                android:layout_marginTop="26dp"
-                android:paddingVertical="10dp"
-                android:gravity="center"
-                android:background="@drawable/bg_radius_4"
-                android:backgroundTint="@color/orange_500"
-                android:textColor="@color/white"
-                android:text="후원하기"
-                android:onClick="@{(v) -> sheet.onClickView(v)}"/>
+                android:layout_marginTop="26dp">
+                <TextView
+                    android:id="@+id/btn_heart_charge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="@style/button"
+                    android:paddingVertical="10dp"
+                    android:gravity="center"
+                    android:background="@drawable/bg_radius_4"
+                    android:backgroundTint="@color/secondary_50"
+                    android:textColor="@color/secondary_400"
+                    android:text="후원하기"
+                    android:onClick="@{(v) -> sheet.onClickView(v)}"/>
+                <View
+                    android:layout_width="8dp"
+                    android:layout_height="1dp"/>
+                <TextView
+                    android:id="@+id/btn_heart_send"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="@style/button"
+                    android:paddingVertical="10dp"
+                    android:gravity="center"
+                    android:background="@drawable/bg_radius_4"
+                    android:backgroundTint="@color/orange_500"
+                    android:textColor="@color/white"
+                    android:text="후원하기"
+                    android:onClick="@{(v) -> sheet.onClickView(v)}"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
         </androidx.appcompat.widget.LinearLayoutCompat>
 
 
