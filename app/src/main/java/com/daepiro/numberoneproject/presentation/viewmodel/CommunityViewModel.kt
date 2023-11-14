@@ -23,14 +23,13 @@ class CommunityViewModel @Inject constructor(
 
     private val _data = MutableLiveData<CommunityTownListModel>()
     val data: LiveData<CommunityTownListModel> = _data
-    fun getTownCommentList(){
+    fun getTownCommentList(tag:String?,lastArticleId:Int?,size:Int){
         viewModelScope.launch {
             val token = "Bearer ${tokenManager.accessToken.first()}"
             communityTownListUseCase(token,null,null,5)
                 .onSuccess {datalist->
                     _data.postValue(datalist)
                     Log.d("CommunityForTownViewModel","성공")
-//                    Log.d("CommunityForTownViewModelsuccess","${_data.value}")
                 }
                 .onFailure {
                     Log.e("CommunityForTownViewModel","$it")

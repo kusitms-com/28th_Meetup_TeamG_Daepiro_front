@@ -16,15 +16,29 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layout.fragment_community_tab_b) {
     val viewModel by viewModels<CommunityViewModel>()
+    private lateinit var adapter : TownCommentListAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
-        viewModel.getTownCommentList()
+        adapter = TownCommentListAdapter(emptyList(), object :TownCommentListAdapter.onItemClickListener{
+            override fun onItemClick(id: Int) {
+
+            }
+
+        })
+        binding.recycler.adapter = adapter
+
+        viewModel.getTownCommentList(null,null,5)
 
         viewModel.data.observe(viewLifecycleOwner){data->
             Log.d("CommunityForTownViewModelsuccess","${data}")
+            adapter.updateList(data.content)
         }
+        binding.all.setOnClickListener{
+            binding.all.isSelected = !binding.all.isSelected
+        }
+
     }
 
 }
