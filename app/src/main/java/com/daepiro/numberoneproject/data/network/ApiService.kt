@@ -97,4 +97,11 @@ interface ApiService {
         @Query("tag") tag:String?,
         @Query("lastArticleId") lastArticleId:Int?
     ):ApiResult<CommunityTownListModel>
+
+    //커뮤니티 동네생활 게시글 상세 조회
+    @GET("/api/articles/{articleid}")
+    suspend fun getTownCommentDetail(
+        @Header("Authorization") token:String,
+        @Path("articleid") articleid:Int
+    )
 }
