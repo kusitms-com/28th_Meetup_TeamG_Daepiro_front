@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingVertical="16dp"
+        android:gravity="center_vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="12dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:src="@drawable/image_sample"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@color/warning"
+                app:civ_border_width="2dp"
+                app:civ_border_color="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingVertical="3dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/button"
+                android:textColor="@color/secondary_600"
+                android:layout_marginBottom="4dp"
+                android:text="이름"/>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="4dp"
+                android:paddingStart="6dp"
+                android:paddingEnd="8dp"
+                android:backgroundTint="@color/orange_50"
+                android:background="@drawable/bg_radius_4"
+                android:gravity="center_vertical">
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/ic_warning"
+                    app:tint="@color/warning"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/overline"
+                    android:textColor="@color/warning"
+                    android:layout_marginLeft="4dp"
+                    android:text="이름"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_send"
+            app:tint="@color/orange_500"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>
