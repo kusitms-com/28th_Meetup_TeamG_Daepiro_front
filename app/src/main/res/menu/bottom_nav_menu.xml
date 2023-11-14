@@ -11,10 +11,10 @@
         android:id="@+id/communityFragment"
         android:icon="@drawable/ic_community"/>
     <item
-        android:title="@string/뉴스"
+        android:title="@string/가족"
         android:enabled="true"
-        android:id="@+id/newsFragment"
-        android:icon="@drawable/ic_news" />
+        android:id="@+id/familyFragment"
+        android:icon="@drawable/ic_family" />
     <item
         android:title="@string/후원"
         android:enabled="true"
