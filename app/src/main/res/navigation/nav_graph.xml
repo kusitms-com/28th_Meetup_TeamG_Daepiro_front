@@ -15,9 +15,10 @@
             app:destination="@id/aroundShelterDetailFragment" />
     </fragment>
     <fragment
-        android:id="@+id/newsFragment"
-        android:name="com.daepiro.numberoneproject.presentation.view.news.NewsFragment"
-        android:label="NewsFragment" />
+        android:id="@+id/familyFragment"
+        android:name="com.daepiro.numberoneproject.presentation.view.family.FamilyFragment"
+        android:label="FamilyFragment"
+        tools:layout="@layout/fragment_family"/>
     <fragment
         android:id="@+id/fundingFragment"
         android:name="com.daepiro.numberoneproject.presentation.view.funding.main.FundingFragment"
