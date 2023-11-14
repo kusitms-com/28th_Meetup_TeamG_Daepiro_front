@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.daepiro.numberoneproject.R
 import com.daepiro.numberoneproject.databinding.FragmentFamilyBinding
 import com.daepiro.numberoneproject.presentation.base.BaseFragment
+import com.daepiro.numberoneproject.presentation.view.funding.detail.CheerDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -28,5 +29,12 @@ class FamilyFragment : BaseFragment<FragmentFamilyBinding>(R.layout.fragment_fam
             layoutManager = LinearLayoutManager(requireContext())
             adapter = familyListAdapter
         }
+
+        familyListAdapter.setItemClickListener(object : FamilyListAdapter.OnItemClickListener {
+            override fun onClickItem(v: View, position: Int) {
+                SafetySendDialogFragment().show(parentFragmentManager, "")
+            }
+
+        })
     }
 }

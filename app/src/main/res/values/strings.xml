@@ -64,4 +64,7 @@
     <string name="보유_마음">보유 마음</string>
     <string name="관리">관리</string>
     <string name="가족_초대하기">가족 초대하기</string>
+    <string name="닫기">닫기</string>
+    <string name="현재_위험_지역에_있어요_안부를_물어보세요_">현재 위험 지역에 있어요. 안부를 물어보세요!</string>
+    <string name="안부묻기">안부묻기</string>
 </resources>
