@@ -2,7 +2,7 @@
     <string name="app_name">대피로</string>
 
     <string name="홈">홈</string>
-    <string name="뉴스">뉴스</string>
+    <string name="가족">가족</string>
     <string name="후원">후원</string>
     <string name="마이페이지">마이페이지</string>
 
@@ -62,4 +62,6 @@
     <string name="마음이란_">마음이란?</string>
     <string name="대피로에서_재난_후원을_할_때에_필요한_전용_결제_수단입니다.">대피로에서 재난 후원을 할 때에 필요한\n전용 결제 수단입니다.</string>
     <string name="보유_마음">보유 마음</string>
+    <string name="관리">관리</string>
+    <string name="가족_초대하기">가족 초대하기</string>
 </resources>
