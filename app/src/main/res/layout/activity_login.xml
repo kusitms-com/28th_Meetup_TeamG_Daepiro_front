@@ -9,39 +9,41 @@
             type="com.daepiro.numberoneproject.presentation.view.login.LoginActivity" />
     </data>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/white"
+        android:background="@color/secondary_800"
         android:gravity="center">
 
-        <TextView
+        <ImageView
+            android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="#FFEB3B"
-            android:text="카카오 로그인"
+            android:layout_marginTop="264dp"
+            android:src="@drawable/img_login"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/img_login_kakao"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@id/btn_naver_login"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             android:onClick="@{(v) -> activity.setupKakaoLogin(v)}"/>
 
-        <TextView
+        <ImageView
             android:id="@+id/btn_naver_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="44dp"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="#4CAF50"
-            android:text="네이버 로그인"
+            android:src="@drawable/img_login_naver"
+            android:layout_marginBottom="166dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             android:onClick="@{(v) -> activity.setupNaverLogin(v)}"/>
-
-        <TextView
-            android:id="@+id/tv_result"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:textSize="20sp"/>
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -7,6 +7,9 @@
         <variable
             name="fragment"
             type="com.daepiro.numberoneproject.presentation.view.funding.detail.HeartChargeFragment" />
+        <variable
+            name="viewmodel"
+            type="com.daepiro.numberoneproject.presentation.viewmodel.FundingViewModel" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -74,11 +77,12 @@
                 android:layout_marginRight="8dp"
                 android:text="@string/보유_마음"/>
             <TextView
+                android:id="@+id/tv_heart_cnt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/subtitle1"
                 android:textColor="@color/orange_500"
-                android:text="1개"/>
+                android:text="@{Integer.toString(viewmodel.heartCnt) + `개`}"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat

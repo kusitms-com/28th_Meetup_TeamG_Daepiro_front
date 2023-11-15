@@ -3,10 +3,12 @@ package com.daepiro.numberoneproject.presentation.view.funding.detail
 import android.content.Intent
 import android.graphics.Paint
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewTreeObserver
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.doOnDetach
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -28,8 +30,8 @@ class FundingDetailFragment : BaseFragment<FragmentFundingDetailBinding>(R.layou
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.fundingVM = fundingVM
-        fundingVM.getFundingDetail(args.sponsorId)
 
+        fundingVM.getFundingDetail(args.sponsorId)
 
         binding.tvSponsorLink.setOnClickListener {
             val intent = Intent(requireContext(), WebViewActivity::class.java)
@@ -38,7 +40,7 @@ class FundingDetailFragment : BaseFragment<FragmentFundingDetailBinding>(R.layou
         }
 
         binding.btnFunding.setOnClickListener {
-            SendHeartBottomSheet().show(parentFragmentManager, "")
+            SendHeartBottomSheet(args.sponsorId, fundingVM.fundingDetail.value.title).show(parentFragmentManager, "")
         }
 
         binding.btnBack.setOnClickListener {
@@ -50,14 +52,12 @@ class FundingDetailFragment : BaseFragment<FragmentFundingDetailBinding>(R.layou
         binding.tvSponsorLink.paintFlags = Paint.UNDERLINE_TEXT_FLAG
         setFundingPb()
 
-
     }
 
     override fun subscribeUi() {
         repeatOnStarted {
             fundingVM.fundingDetail.collectLatest {
                 binding.tvProgress.text = "${(it.currentHeart * 100 / it.targetHeart)}%"
-
             }
         }
     }
@@ -70,7 +70,14 @@ class FundingDetailFragment : BaseFragment<FragmentFundingDetailBinding>(R.layou
 
             val newMarginLeft = (binding.pbFunding.progress * progressBarWidth / binding.pbFunding.max).toFloat()
             val params = binding.ivChar.layoutParams as ConstraintLayout.LayoutParams
-            params.leftMargin = if (newMarginLeft <10) newMarginLeft.roundToInt() else newMarginLeft.roundToInt() - 20
+
+            params.leftMargin = if (newMarginLeft < 100) {
+                newMarginLeft.roundToInt()
+            } else if (newMarginLeft > 800) {
+                newMarginLeft.roundToInt() - 90
+            } else {
+                newMarginLeft.roundToInt() - 25
+            }
             binding.ivChar.layoutParams = params
         }
 
@@ -83,5 +90,10 @@ class FundingDetailFragment : BaseFragment<FragmentFundingDetailBinding>(R.layou
             }
             globalListener = null
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        fundingVM.getFundingDetail(args.sponsorId)
     }
 }
