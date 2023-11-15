@@ -23,7 +23,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_splash) {
-    private val DURATION_TIME = 1000L    // 스플래시 화면 지연시간
+    private val DURATION_TIME = 2300L    // 스플래시 화면 지연시간
     private lateinit var cm : ConnectivityManager
     @Inject lateinit var tokenManager: TokenManager
     private var isNetworkAvailable = false
@@ -48,6 +48,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
         cm.registerNetworkCallback(builder.build(),networkCallBack)
 
         Handler(Looper.getMainLooper()).postDelayed({
+            binding.ltSplash.cancelAnimation()
             checkAutoLogin()
         }, DURATION_TIME)
     }
