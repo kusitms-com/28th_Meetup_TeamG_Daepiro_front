@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 style="@style/subtitle1"
                 android:layout_marginVertical="13dp"
-                android:text="응원의 한마디"
+                android:text="@string/응원의_한마디"
                 android:textColor="@color/orange_500"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -48,14 +48,14 @@
                 android:layout_height="wrap_content"
                 style="@style/subtitle1"
                 android:textColor="@color/secondary_800"
-                android:text="기부를 하는, 기부를 받는 모두에게\n힘이 나는 메시지를 남겨주세요."/>
+                android:text="@string/기부를_하는_기부를_받는_"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/caption"
                 android:textColor="@color/secondary_200"
                 android:layout_marginTop="4dp"
-                android:text="메시지는 후원 페이지 상단에 노출돼요!"/>
+                android:text="@string/메시지는_후원_페이지_상단에_노출돼요_"/>
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -73,9 +73,9 @@
                     style="@style/caption"
                     android:textColorHint="@color/orange_300"
                     android:singleLine="true"
-                    android:maxLength="10"
-                    android:maxEms="10"
-                    android:hint="여러분의 메시지를 전해보세요. (최대 10자)"
+                    android:maxLength="15"
+                    android:maxEms="15"
+                    android:hint="@string/여러분의_메시지를_전해보세요_"
                     android:textColor="@color/orange_500"
                     android:background="@null"/>
             </FrameLayout>
@@ -96,7 +96,7 @@
                     android:background="@drawable/bg_radius_4"
                     android:backgroundTint="@color/secondary_50"
                     android:layout_marginRight="8dp"
-                    android:text="건너뛰기"/>
+                    android:text="@string/건너뛰기"/>
                 <TextView
                     android:id="@+id/btn_complete"
                     android:layout_width="match_parent"
@@ -108,7 +108,7 @@
                     android:paddingVertical="8dp"
                     android:background="@drawable/bg_radius_4"
                     android:backgroundTint="@color/orange_500"
-                    android:text="의견남기기"/>
+                    android:text="@string/의견남기기"/>
             </androidx.appcompat.widget.LinearLayoutCompat>
 
         </androidx.appcompat.widget.LinearLayoutCompat>

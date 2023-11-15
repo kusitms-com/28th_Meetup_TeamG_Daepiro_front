@@ -52,14 +52,12 @@ class FundingDetailFragment : BaseFragment<FragmentFundingDetailBinding>(R.layou
         binding.tvSponsorLink.paintFlags = Paint.UNDERLINE_TEXT_FLAG
         setFundingPb()
 
-
     }
 
     override fun subscribeUi() {
         repeatOnStarted {
             fundingVM.fundingDetail.collectLatest {
                 binding.tvProgress.text = "${(it.currentHeart * 100 / it.targetHeart)}%"
-
             }
         }
     }

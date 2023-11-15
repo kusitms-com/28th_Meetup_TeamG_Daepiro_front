@@ -203,7 +203,7 @@
                     android:background="@drawable/bg_radius_4"
                     android:backgroundTint="@color/secondary_50"
                     android:textColor="@color/secondary_400"
-                    android:text="충전하기"
+                    android:text="@string/충전하기"
                     android:onClick="@{(v) -> sheet.onClickView(v)}"/>
                 <View
                     android:layout_width="8dp"
@@ -219,7 +219,7 @@
                     android:background="@drawable/bg_radius_4"
                     android:backgroundTint="@color/orange_500"
                     android:textColor="@color/white"
-                    android:text="후원하기"
+                    android:text="@string/후원하기"
                     android:onClick="@{(v) -> sheet.onClickView(v)}"/>
             </androidx.appcompat.widget.LinearLayoutCompat>
 

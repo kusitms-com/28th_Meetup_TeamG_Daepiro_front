@@ -30,6 +30,9 @@ class HeartChargeFragment: BaseFragment<FragmentHeartChargeBinding>(R.layout.fra
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.fragment = this
+        binding.viewmodel = fundingVM
+
+        fundingVM.getUserHeartCnt()
 
         billingConnector = BillingConnector(requireContext(), "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkf/GZH9R2T1j9EQ1fiHXwGEJ5LmoISGAk4KUsEn/+qTIBlUlC0qi7z9Z7X+VT8lIgW15cJir/hEsZvne8Fy+NZJXvNbbjOYee2mbw63aMLEMOfkrHtOF071y9N9tdPFuche9TSV1z5ZBH0f2GVLEw90aHVzfQE6h99rhtBgPd9L7QBCn8sVvp6H1xVX+prMB5tbb18ji4kkZBmHVfV6MqIQ3lM6yXLn1sq8LgBjpbDnGhc20PDOutWbbCQdGW6QnIgGMJe0BymSGAdoKGDacAuTQt3Ia4QczXjxBRgP9/PMU32Om/2E62X2buf66v8W/SRiOWItFt5F7MQykQCItoQIDAQAB")
             .setConsumableIds(listOf("heart_1000","heart_3000","heart_5000","heart_10000","heart_50000","heart_100000"))
