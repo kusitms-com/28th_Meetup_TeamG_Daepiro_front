@@ -1,5 +1,6 @@
 package com.daepiro.numberoneproject.presentation.view.funding.main
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,14 +32,21 @@ class FundingListAdapter: RecyclerView.Adapter<FundingListAdapter.CustomViewHold
 //            binding.tv.text = spannableString
 
             binding.tvProgress.text = "${(item.currentHeart * 100 / item.targetHeart)}%"
-            var progressBarWidth = 0
 
+            var progressBarWidth = 0
             binding.pbFunding.viewTreeObserver.addOnGlobalLayoutListener {
                 progressBarWidth = binding.pbFunding.width
 
                 val newMarginLeft = (binding.pbFunding.progress * progressBarWidth / binding.pbFunding.max).toFloat()
                 val params = binding.ivChar.layoutParams as ConstraintLayout.LayoutParams
-                params.leftMargin = if (newMarginLeft <10) newMarginLeft.roundToInt() else newMarginLeft.roundToInt() - 20
+
+                params.leftMargin = if (newMarginLeft < 100) {
+                    newMarginLeft.roundToInt()
+                } else if (newMarginLeft > 800) {
+                    newMarginLeft.roundToInt() - 90
+                } else {
+                    newMarginLeft.roundToInt() - 25
+                }
                 binding.ivChar.layoutParams = params
             }
 

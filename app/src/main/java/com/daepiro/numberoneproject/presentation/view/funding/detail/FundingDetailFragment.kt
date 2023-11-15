@@ -3,6 +3,7 @@ package com.daepiro.numberoneproject.presentation.view.funding.detail
 import android.content.Intent
 import android.graphics.Paint
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewTreeObserver
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -71,7 +72,14 @@ class FundingDetailFragment : BaseFragment<FragmentFundingDetailBinding>(R.layou
 
             val newMarginLeft = (binding.pbFunding.progress * progressBarWidth / binding.pbFunding.max).toFloat()
             val params = binding.ivChar.layoutParams as ConstraintLayout.LayoutParams
-            params.leftMargin = if (newMarginLeft <10) newMarginLeft.roundToInt() else newMarginLeft.roundToInt() - 20
+
+            params.leftMargin = if (newMarginLeft < 100) {
+                newMarginLeft.roundToInt()
+            } else if (newMarginLeft > 800) {
+                newMarginLeft.roundToInt() - 90
+            } else {
+                newMarginLeft.roundToInt() - 25
+            }
             binding.ivChar.layoutParams = params
         }
 
