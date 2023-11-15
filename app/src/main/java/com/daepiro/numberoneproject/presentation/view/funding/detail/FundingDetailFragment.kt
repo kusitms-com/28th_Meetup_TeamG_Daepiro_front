@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewTreeObserver
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.doOnDetach
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -38,7 +39,7 @@ class FundingDetailFragment : BaseFragment<FragmentFundingDetailBinding>(R.layou
         }
 
         binding.btnFunding.setOnClickListener {
-            SendHeartBottomSheet().show(parentFragmentManager, "")
+            SendHeartBottomSheet(args.sponsorId, fundingVM.fundingDetail.value.title).show(parentFragmentManager, "")
         }
 
         binding.btnBack.setOnClickListener {

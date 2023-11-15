@@ -1,15 +1,21 @@
 package com.daepiro.numberoneproject.presentation.view.funding.detail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.daepiro.numberoneproject.R
+import com.daepiro.numberoneproject.data.model.SupportRequest
 import com.daepiro.numberoneproject.databinding.FragmentSendHeartBottomSheetBinding
+import com.daepiro.numberoneproject.presentation.util.Extensions.repeatOnStarted
+import com.daepiro.numberoneproject.presentation.util.Extensions.showToast
 import com.daepiro.numberoneproject.presentation.viewmodel.FundingViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,9 +25,14 @@ import games.moisoni.google_iab.enums.ProductType
 import games.moisoni.google_iab.models.BillingResponse
 import games.moisoni.google_iab.models.ProductInfo
 import games.moisoni.google_iab.models.PurchaseInfo
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
-class SendHeartBottomSheet: BottomSheetDialogFragment() {
+class SendHeartBottomSheet(
+    private val sponsorId: Int,
+    private val title: String
+): BottomSheetDialogFragment() {
     private lateinit var binding: FragmentSendHeartBottomSheetBinding
     val fundingVM by viewModels<FundingViewModel>()
 
@@ -37,11 +48,34 @@ class SendHeartBottomSheet: BottomSheetDialogFragment() {
         binding.lifecycleOwner = this
         this.isCancelable = false
 
+        initView()
 
         binding.ivClose.setOnClickListener {
             this.dismiss()
         }
 
+        repeatOnStarted {
+            fundingVM.supportResult.collectLatest {
+                if (it != -1) {
+                    this@SendHeartBottomSheet.dismiss()
+                    showToast("후원이 완료되었습니다.")
+
+                    val cheerDialog = CheerDialogFragment()
+                    cheerDialog.apply {
+                        val bundle = Bundle()
+                        bundle.putInt("supportId", it)
+                        this.arguments = bundle
+                    }
+                    cheerDialog.show(parentFragmentManager, "")
+                }
+            }
+        }
+    }
+
+    private fun initView() {
+        binding.tvTitle.text = title
+
+        fundingVM.getUserHeartCnt()
     }
 
     fun onClickView(view: View) {
@@ -53,7 +87,7 @@ class SendHeartBottomSheet: BottomSheetDialogFragment() {
             R.id.tv_heart_5 -> fundingVM.selectedHeartCount.value = fundingVM.selectedHeartCount.value + 5
             R.id.tv_heart_10 -> fundingVM.selectedHeartCount.value = fundingVM.selectedHeartCount.value + 10
             R.id.tv_heart_20 -> fundingVM.selectedHeartCount.value = fundingVM.selectedHeartCount.value + 20
-            R.id.tv_heart_all -> fundingVM.selectedHeartCount.value = 0
+            R.id.tv_heart_all -> fundingVM.selectedHeartCount.value = fundingVM.heartCnt.value
 
             R.id.btn_heart_charge -> {
                 this@SendHeartBottomSheet.dismiss()
@@ -62,7 +96,17 @@ class SendHeartBottomSheet: BottomSheetDialogFragment() {
                 findNavController().navigate(action)
             }
 
-            R.id.btn_heart_send -> CheerDialogFragment().show(parentFragmentManager, "")
+            R.id.btn_heart_send -> {
+                if (fundingVM.heartCnt.value < fundingVM.selectedHeartCount.value) {
+                    showToast("보유 마음 갯수가 부족합니다.")
+                } else {
+                    if (fundingVM.selectedHeartCount.value == 0) {
+                        showToast("후원할 마음 갯수를 선택해주세요.")
+                    } else {
+                        fundingVM.postSupport(SupportRequest(sponsorId, fundingVM.selectedHeartCount.value))
+                    }
+                }
+            }
 
         }
     }
