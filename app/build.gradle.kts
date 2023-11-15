@@ -21,8 +21,9 @@ android {
         applicationId = "com.daepiro.numberoneproject"
         minSdk = 24
         targetSdk = 33
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 4
+        versionName = "1.3"
+        multiDexEnabled = true
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "BASE_URL", getBaseUrl("BASE_URL"))
@@ -42,12 +43,20 @@ android {
         }
     }
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
+
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
+    dependencies {
+        coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
+    }
+
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
     buildFeatures {
         viewBinding = true
         dataBinding = true
@@ -111,6 +120,9 @@ dependencies {
     //flexbox
     implementation("com.google.android.flexbox:flexbox:3.0.0")
 
+    // 인앱결제
+    implementation("com.android.billingclient:billing:6.0.1")
+    implementation("com.github.moisoni97:google-inapp-billing:1.1.3")
 
 
     implementation("androidx.core:core-ktx:1.9.0")

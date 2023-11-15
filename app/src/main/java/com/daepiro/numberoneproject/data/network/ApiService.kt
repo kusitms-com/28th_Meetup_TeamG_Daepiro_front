@@ -1,5 +1,6 @@
 package com.daepiro.numberoneproject.data.network
 
+import com.daepiro.numberoneproject.data.model.CheerMessageRequest
 import com.daepiro.numberoneproject.data.model.DisasterRequestBody
 import com.daepiro.numberoneproject.data.model.DisasterResponse
 import com.daepiro.numberoneproject.data.model.FundingDetailResponse
@@ -9,7 +10,10 @@ import com.daepiro.numberoneproject.data.model.LoginTokenResponse
 import com.daepiro.numberoneproject.data.model.ShelterData
 import com.daepiro.numberoneproject.data.model.ShelterListResponse
 import com.daepiro.numberoneproject.data.model.ShelterRequestBody
+import com.daepiro.numberoneproject.data.model.SupportRequest
+import com.daepiro.numberoneproject.data.model.SupportResponse
 import com.daepiro.numberoneproject.data.model.TokenRequestBody
+import com.daepiro.numberoneproject.data.model.UserHeartResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -86,4 +90,32 @@ interface ApiService {
         @Header("Authorization") token:String,
         @Path("sponsorId") sponsorId: Int
     ): ApiResult<FundingDetailResponse>
+
+    // 후원하기
+    @POST("/api/support")
+    suspend fun postSupport(
+        @Header("Authorization") token:String,
+        @Body body: SupportRequest
+    ): ApiResult<SupportResponse>
+
+    // 유저 마음 갯수 조회
+    @GET("/api/members/heart")
+    suspend fun getUserHeartCnt(
+        @Header("Authorization") token:String
+    ): ApiResult<UserHeartResponse>
+
+    // 마음 구매
+    @POST("/api/members/heart")
+    suspend fun postBuyHeart(
+        @Header("Authorization") token:String,
+        @Body body: UserHeartResponse
+    ): ApiResult<UserHeartResponse>
+
+    // 응원메시지 보내기
+    @POST("/api/support/{supportId}")
+    suspend fun postCheerMessage(
+        @Header("Authorization") token:String,
+        @Path("supportId") supportId: Int,
+        @Body body: CheerMessageRequest
+    ): ApiResult<Any>
 }

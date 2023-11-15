@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.daepiro.numberoneproject.presentation.viewmodel.FundingViewModel" />
+        <variable
+            name="sheet"
+            type="com.daepiro.numberoneproject.presentation.view.funding.detail.SendHeartBottomSheet" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/bg_send_token_bottom_sheet"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/subtitle1"
+                android:layout_marginVertical="13dp"
+                android:textColor="@color/secondary_600"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/iv_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_close"
+                app:tint="@color/secondary_600"
+                android:layout_marginEnd="12dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_title" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/outline"/>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:padding="20dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/caption"
+                android:background="@drawable/bg_radius_4"
+                android:backgroundTint="@color/surface"
+                android:paddingVertical="4dp"
+                android:paddingHorizontal="8dp"
+                android:textColor="@color/secondary_400"
+                android:text="@{`보유마음 ` + Integer.toString(viewmodel.heartCnt) + `개`}"/>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center">
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/btn_plus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="48dp"
+                    app:strokeColor="@color/outline"
+                    app:strokeWidth="1dp"
+                    app:contentPadding="8dp"
+                    android:onClick="@{(v) -> sheet.onClickView(v)}">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:tint="@color/secondary_300"
+                        android:src="@drawable/ic_plus"/>
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:id="@+id/tv_send_heart_cnt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/headline4"
+                    android:textColor="@color/secondary_400"
+                    android:text="@{Integer.toString(viewmodel.selectedHeartCount) + `개`}"
+                    android:layout_marginHorizontal="20dp"/>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/btn_minus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="48dp"
+                    app:strokeColor="@color/outline"
+                    app:strokeWidth="1dp"
+                    app:contentPadding="8dp"
+                    android:onClick="@{(v) -> sheet.onClickView(v)}">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:tint="@color/secondary_300"
+                        android:src="@drawable/ic_minus"/>
+                </com.google.android.material.card.MaterialCardView>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:id="@+id/tv_reset"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/caption"
+                    android:text="초기화"
+                    android:layout_marginRight="8dp"
+                    android:paddingVertical="4dp"
+                    android:paddingHorizontal="9dp"
+                    android:background="@drawable/bg_radius_4"
+                    android:backgroundTint="@color/orange_50"
+                    android:textColor="@color/orange_500"
+                    android:onClick="@{(v) -> sheet.onClickView(v)}"/>
+                <TextView
+                    android:id="@+id/tv_heart_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/caption"
+                    android:text="+5개"
+                    android:layout_marginRight="8dp"
+                    android:paddingVertical="4dp"
+                    android:paddingHorizontal="9dp"
+                    android:background="@drawable/bg_radius_4"
+                    android:backgroundTint="@color/orange_50"
+                    android:textColor="@color/orange_500"
+                    android:onClick="@{(v) -> sheet.onClickView(v)}"/>
+                <TextView
+                    android:id="@+id/tv_heart_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/caption"
+                    android:text="+10개"
+                    android:layout_marginRight="8dp"
+                    android:paddingVertical="4dp"
+                    android:paddingHorizontal="9dp"
+                    android:background="@drawable/bg_radius_4"
+                    android:backgroundTint="@color/orange_50"
+                    android:textColor="@color/orange_500"
+                    android:onClick="@{(v) -> sheet.onClickView(v)}"/>
+                <TextView
+                    android:id="@+id/tv_heart_20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/caption"
+                    android:text="+20개"
+                    android:layout_marginRight="8dp"
+                    android:paddingVertical="4dp"
+                    android:paddingHorizontal="9dp"
+                    android:background="@drawable/bg_radius_4"
+                    android:backgroundTint="@color/orange_50"
+                    android:textColor="@color/orange_500"
+                    android:onClick="@{(v) -> sheet.onClickView(v)}"/>
+                <TextView
+                    android:id="@+id/tv_heart_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/caption"
+                    android:text="모두"
+                    android:paddingVertical="4dp"
+                    android:paddingHorizontal="9dp"
+                    android:background="@drawable/bg_radius_4"
+                    android:backgroundTint="@color/orange_50"
+                    android:textColor="@color/orange_500"
+                    android:onClick="@{(v) -> sheet.onClickView(v)}"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="26dp">
+                <TextView
+                    android:id="@+id/btn_heart_charge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="@style/button"
+                    android:paddingVertical="10dp"
+                    android:gravity="center"
+                    android:background="@drawable/bg_radius_4"
+                    android:backgroundTint="@color/secondary_50"
+                    android:textColor="@color/secondary_400"
+                    android:text="@string/충전하기"
+                    android:onClick="@{(v) -> sheet.onClickView(v)}"/>
+                <View
+                    android:layout_width="8dp"
+                    android:layout_height="1dp"/>
+                <TextView
+                    android:id="@+id/btn_heart_send"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="@style/button"
+                    android:paddingVertical="10dp"
+                    android:gravity="center"
+                    android:background="@drawable/bg_radius_4"
+                    android:backgroundTint="@color/orange_500"
+                    android:textColor="@color/white"
+                    android:text="@string/후원하기"
+                    android:onClick="@{(v) -> sheet.onClickView(v)}"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

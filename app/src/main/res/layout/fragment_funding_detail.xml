@@ -122,6 +122,7 @@
                         android:background="@drawable/bg_top_left_right_radius_4"
                         android:clipToOutline="true"
                         android:scaleType="fitXY"
+                        app:loadImage="@{fundingVM.fundingDetail.imageUrl}"
                         android:src="@drawable/image_sample" />
 
                     <androidx.appcompat.widget.LinearLayoutCompat

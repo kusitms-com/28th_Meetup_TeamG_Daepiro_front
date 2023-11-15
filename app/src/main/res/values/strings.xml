@@ -58,4 +58,17 @@
     <string name="커뮤니티">커뮤니티</string>
     <string name="댓글">댓글</string>
 
+    <string name="마음충전">마음충전</string>
+    <string name="마음이란_">마음이란?</string>
+    <string name="대피로에서_재난_후원을_할_때에_필요한_전용_결제_수단입니다.">대피로에서 재난 후원을 할 때에 필요한\n전용 결제 수단입니다.</string>
+    <string name="보유_마음">보유 마음</string>
+    <string name="건너뛰기">건너뛰기</string>
+    <string name="의견남기기">의견남기기</string>
+    <string name="응원의_한마디">응원의 한마디</string>
+    <string name="충전하기">충전하기</string>
+
+    <string name="기부를_하는_기부를_받는_">기부를 하는, 기부를 받는 모두에게\n힘이 나는 메시지를 남겨주세요.</string>
+    <string name="메시지는_후원_페이지_상단에_노출돼요_">메시지는 후원 페이지 상단에 노출돼요!</string>
+    <string name="여러분의_메시지를_전해보세요_">여러분의 메시지를 전해보세요. (최대 15자)</string>
+
 </resources>
