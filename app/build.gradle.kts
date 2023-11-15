@@ -21,8 +21,8 @@ android {
         applicationId = "com.daepiro.numberoneproject"
         minSdk = 24
         targetSdk = 33
-        versionCode = 4
-        versionName = "1.3"
+        versionCode = 5
+        versionName = "1.4"
         multiDexEnabled = true
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -93,6 +93,7 @@ dependencies {
 
     // Kakao Login
     implementation("com.kakao.sdk:v2-user:2.11.0")
+    implementation("com.kakao.sdk:v2-share:2.11.0")
 
     // DataStore
     implementation("androidx.datastore:datastore-preferences:1.0.0")
