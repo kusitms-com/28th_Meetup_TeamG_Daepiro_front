@@ -15,11 +15,11 @@
         android:backgroundTint="@color/white"
         android:gravity="center_horizontal">
 
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/subtitle1"
+            android:gravity="center"
             android:textColor="@color/secondary_800"
             android:layout_marginTop="36dp"
             android:text="@string/대피로에서_제공하는_서비스를_이용하기_위해_"/>
@@ -28,6 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/caption"
+            android:gravity="center"
             android:textColor="@color/secondary_200"
             android:layout_marginBottom="16dp"
             android:layout_marginTop="8dp"
