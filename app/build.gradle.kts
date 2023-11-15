@@ -124,6 +124,10 @@ dependencies {
     implementation("com.android.billingclient:billing:6.0.1")
     implementation("com.github.moisoni97:google-inapp-billing:1.1.3")
 
+    // WorkManager
+    implementation("androidx.work:work-runtime-ktx:2.8.1")
+    implementation("androidx.hilt:hilt-work:1.0.0")
+
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")

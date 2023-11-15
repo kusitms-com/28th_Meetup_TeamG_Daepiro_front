@@ -12,12 +12,16 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.viewpager2.widget.MarginPageTransformer
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import com.daepiro.numberoneproject.R
 import com.daepiro.numberoneproject.data.model.DisasterRequestBody
 import com.daepiro.numberoneproject.data.model.ShelterRequestBody
@@ -25,7 +29,9 @@ import com.daepiro.numberoneproject.databinding.FragmentHomeBinding
 import com.daepiro.numberoneproject.presentation.base.BaseFragment
 import com.daepiro.numberoneproject.presentation.util.Extensions.repeatOnStarted
 import com.daepiro.numberoneproject.presentation.util.Extensions.showToast
+import com.daepiro.numberoneproject.presentation.util.SomeWorker
 import com.daepiro.numberoneproject.presentation.viewmodel.DisasterViewModel
+import com.daepiro.numberoneproject.presentation.viewmodel.LocationViewModel
 import com.daepiro.numberoneproject.presentation.viewmodel.ShelterViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
@@ -43,11 +49,13 @@ import kotlinx.coroutines.launch
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import java.util.Locale
+import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     val shelterVM by viewModels<ShelterViewModel>()
     val disasterVM by viewModels<DisasterViewModel>()
+    val locationVM by viewModels<LocationViewModel>()
 
     private lateinit var aroundShelterAdapter: AroundShelterAdapter
     private lateinit var disasterCheckListAdapter: DisasterCheckListAdapter
@@ -59,17 +67,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private lateinit var userLocation: Pair<Double, Double>
     private var userAddress = ""
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.disasterVM = disasterVM
         binding.shelterVM = shelterVM
       
-        //로컬에 대피소 저장하기 위해 호출
-        shelterVM.getSheltersetLocal()
+
+        testWorkManager()
 
         mLocationRequest =  LocationRequest.create().apply {
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+            interval = 5
+            fastestInterval = 5
         }
 
         binding.ivExpand.setOnClickListener {
@@ -86,7 +95,30 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         }
     }
 
+    private fun testWorkManager() {
+        locationVM.postMyLocation()
+//        // PeriodicWorkRequest
+//        val periodicWorkRequest = PeriodicWorkRequestBuilder<SomeWorker>(15, TimeUnit.MINUTES).build()
+//
+//        val workManager = WorkManager.getInstance(requireContext())
+//
+//        workManager.enqueue(periodicWorkRequest)
+//
+//        workManager.getWorkInfoByIdLiveData(periodicWorkRequest.id).observe(viewLifecycleOwner) {
+//            if (it.state.isFinished) {
+//                Log.d("taag", "워크매니저 Finish")
+//            } else {
+//                Log.d("taag", "워크매니저 작동 중")
+//            }
+//        }
+
+
+
+    }
+
     override fun setupInit() {
+        shelterVM.getSheltersetLocal()
+
         requestPermission()
         setSheltersViewPager()
         setCheckListViewPager()
