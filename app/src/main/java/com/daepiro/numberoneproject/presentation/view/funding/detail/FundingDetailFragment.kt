@@ -30,8 +30,8 @@ class FundingDetailFragment : BaseFragment<FragmentFundingDetailBinding>(R.layou
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.fundingVM = fundingVM
-        fundingVM.getFundingDetail(args.sponsorId)
 
+        fundingVM.getFundingDetail(args.sponsorId)
 
         binding.tvSponsorLink.setOnClickListener {
             val intent = Intent(requireContext(), WebViewActivity::class.java)
@@ -92,5 +92,10 @@ class FundingDetailFragment : BaseFragment<FragmentFundingDetailBinding>(R.layou
             }
             globalListener = null
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        fundingVM.getFundingDetail(args.sponsorId)
     }
 }
