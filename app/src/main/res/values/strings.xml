@@ -58,4 +58,8 @@
     <string name="커뮤니티">커뮤니티</string>
     <string name="댓글">댓글</string>
 
+    <string name="일상">일상</string>
+    <string name="교통">교통</string>
+    <string name="치안">치안</string>
+
 </resources>

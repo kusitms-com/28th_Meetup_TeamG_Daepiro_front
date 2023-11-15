@@ -1,5 +1,6 @@
 package com.daepiro.numberoneproject.data.repositoryimpl
 
+import com.daepiro.numberoneproject.data.model.CommunityTownDetailData
 import com.daepiro.numberoneproject.data.model.CommunityTownListModel
 import com.daepiro.numberoneproject.data.network.ApiResult
 import com.daepiro.numberoneproject.data.network.ApiService
@@ -18,5 +19,9 @@ class CommunityRepositoryImpl @Inject constructor(
         lastArticleId:Int?
     ):ApiResult<CommunityTownListModel>{
         return service.getTownCommentList(token,size,tag,lastArticleId)
+    }
+
+    override suspend fun getTownCommentDetail(token:String,articleId:Int):ApiResult<CommunityTownDetailData>{
+        return service.getTownCommentDetail(token,articleId)
     }
 }

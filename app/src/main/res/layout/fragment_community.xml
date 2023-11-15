@@ -43,9 +43,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabRippleColor="@android:color/transparent"
-        app:tabSelectedTextColor="@color/secondary_900"
+        app:tabSelectedTextColor="@color/orange_500"
         app:tabTextColor="@color/secondary_200"
-        app:tabIndicatorColor="@color/secondary_800"
+        app:tabIndicatorColor="@color/orange_500"
         app:tabGravity="fill"
         app:tabIndicatorFullWidth="true"
         app:tabIndicatorHeight="2dp">

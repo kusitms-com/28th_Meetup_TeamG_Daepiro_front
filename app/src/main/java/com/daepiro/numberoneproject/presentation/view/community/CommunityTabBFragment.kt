@@ -6,39 +6,125 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.daepiro.numberoneproject.R
 import com.daepiro.numberoneproject.databinding.FragmentCommunityTabBBinding
 import com.daepiro.numberoneproject.presentation.base.BaseFragment
+import com.daepiro.numberoneproject.presentation.util.Extensions.repeatOnStarted
 import com.daepiro.numberoneproject.presentation.viewmodel.CommunityViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import org.w3c.dom.Text
 
 @AndroidEntryPoint
 class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layout.fragment_community_tab_b) {
     val viewModel by viewModels<CommunityViewModel>()
     private lateinit var adapter : TownCommentListAdapter
+    private var lastItemId:Int? = null
+    private var isLoading = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUpRecyclerView()
         binding.viewModel = viewModel
-        adapter = TownCommentListAdapter(emptyList(), object :TownCommentListAdapter.onItemClickListener{
-            override fun onItemClick(id: Int) {
+        binding.all.isSelected = true
 
+
+        viewModel.getTownCommentList(5,null,null)
+        collectTownCommentList()
+        setInfiniteScroll(null)
+
+        //카테고리 tag들
+        val tags = listOf(binding.all, binding.traffic, binding.safety, binding.life)
+        tags.forEach{textview->
+            textview.setOnClickListener{
+                selectTags(textview,tags)
+                Log.d("tags","${textview.isSelected}")
             }
-
-        })
-        binding.recycler.adapter = adapter
-
-        viewModel.getTownCommentList(null,null,5)
-
-        viewModel.data.observe(viewLifecycleOwner){data->
-            Log.d("CommunityForTownViewModelsuccess","${data}")
-            adapter.updateList(data.content)
-        }
-        binding.all.setOnClickListener{
-            binding.all.isSelected = !binding.all.isSelected
         }
 
     }
+    private fun collectTownCommentList(){
+        repeatOnStarted {
+            viewModel.townCommentList.collect {response->
+                if(response.empty){
+                    isLoading = false
+                    return@collect
+                }
+                adapter.updateList(response.content)
+                lastItemId = response.content.lastOrNull()?.id
+                isLoading = false
+                Log.d("collectTownCommentList","${response.content}")
+            }
+        }
+    }
+    private fun setUpRecyclerView(){
+        adapter = TownCommentListAdapter(emptyList(),object :TownCommentListAdapter.onItemClickListener{
+            override fun onItemClick(id: Int) {
+                viewModel.getTownDetail(id)
+            }
+        })
+        binding.recycler.adapter = adapter
+    }
+
+    private fun setInfiniteScroll(tag:String?) {
+        binding.recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (isLoading || dy <= 0) return // 이미 로딩 중이거나 위로 스크롤하는 경우 무시
+
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val totalItemCount = layoutManager.itemCount
+                val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
+
+                // 목록의 마지막 아이템에 도달했을 때 API 호출
+                if (totalItemCount - 1 == lastVisibleItemPosition) {
+                    isLoading = true
+                    val token = "Your_Authorization_Token" // 적절한 토큰 값
+                    viewModel.getTownCommentList(5, tag, lastItemId) // lastItemId를 API 호출에 포함
+                }
+            }
+        })
+    }
+
+    private fun clearUpdateData(tag:String?){
+        adapter.clearData()
+        viewModel.getTownCommentList(5,tag,null)
+        collectTownCommentList()
+        setInfiniteScroll(tag)
+    }
+
+    private fun selectTags(selectedTag: TextView, textviews:List<TextView>){
+        textviews.forEach{
+            it.isSelected = textviews == selectedTag
+            //updateTextColor(it)
+        }
+        when(selectedTag){
+            binding.all ->{
+                binding.all.isSelected = !binding.all.isSelected
+                clearUpdateData(null)
+
+            }
+            binding.life -> {
+                binding.life.isSelected = !binding.life.isSelected
+                clearUpdateData("LIFE")
+            }
+            binding.safety -> {
+                binding.safety.isSelected = !binding.safety.isSelected
+                clearUpdateData("SAFETY")
+            }
+            binding.traffic -> {
+                binding.traffic.isSelected = !binding.traffic.isSelected
+                clearUpdateData("TRAFFIC")
+            }
+        }
+    }
+
+
 
 }

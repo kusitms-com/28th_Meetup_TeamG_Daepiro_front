@@ -1,5 +1,6 @@
 package com.daepiro.numberoneproject.data.network
 
+import com.daepiro.numberoneproject.data.model.CommunityTownDetailData
 import com.daepiro.numberoneproject.data.model.CommunityTownListModel
 import com.daepiro.numberoneproject.data.model.DisasterRequestBody
 import com.daepiro.numberoneproject.data.model.DisasterResponse
@@ -103,5 +104,5 @@ interface ApiService {
     suspend fun getTownCommentDetail(
         @Header("Authorization") token:String,
         @Path("articleid") articleid:Int
-    )
+    ):ApiResult<CommunityTownDetailData>
 }

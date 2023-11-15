@@ -12,7 +12,7 @@ import com.daepiro.numberoneproject.data.model.CommunityTownListModel
 import com.daepiro.numberoneproject.data.model.Content
 
 class TownCommentListAdapter(
-    private var items: List<Content>,
+    private var items: List<Content> = listOf(),
     private val listener: onItemClickListener
 ):RecyclerView.Adapter<TownCommentListAdapter.ViewHolder>() {
     interface onItemClickListener{
@@ -24,6 +24,9 @@ class TownCommentListAdapter(
         val content:TextView = itemView.findViewById(R.id.content)
         val image : ImageView =itemView.findViewById(R.id.image)
         val writerInfo:TextView = itemView.findViewById(R.id.writer_info)
+        val likenum:TextView = itemView.findViewById(R.id.like_num)
+        val replynum:TextView = itemView.findViewById(R.id.reply_num)
+
 
     }
 
@@ -46,10 +49,20 @@ class TownCommentListAdapter(
             Glide.with(holder.itemView.context)
                 .load(item.thumbNailImageUrl)
                 .into(holder.image)
+            holder.likenum.text = item.articleLikeCount.toString()
+            holder.replynum.text = item.commentCount.toString()
+            holder.itemView.setOnClickListener{
+                listener.onItemClick(item.id)
+            }
         }
     }
     fun updateList(newData:List<Content>){
-        this.items = newData
+        val startIndox = items.size
+        items = items + newData
+        notifyItemRangeChanged(startIndox,newData.size)
+    }
+    fun clearData(){
+        items = listOf()
         notifyDataSetChanged()
     }
 
