@@ -38,20 +38,20 @@ class FamilyFragment : BaseFragment<FragmentFamilyBinding>(R.layout.fragment_fam
         val defaultFeed = FeedTemplate(
             content = Content(
                 title = "대피로로 돔황챠 ~~~",
-                description = "#지진 #수해 #전쟁 #칼부림 #기획 #디자인",
+                description = "가족 맺기를 수락하면 서로의 안전 상태를 확인할 수 있어요. ",
                 imageUrl = "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FAFCSa%2FbtsAqzzFseG%2FtD5dchJEDuJ4k4C6JT038k%2Fimg.png",
                 link = Link(
                     mobileWebUrl = "https://play.google.com/store/apps"
                 )
             ),
             social = Social(
-                likeCount = 286,
-                commentCount = 45,
-                sharedCount = 845
+                likeCount = 18,
+                commentCount = 18,
+                sharedCount = 28
             ),
             buttons = listOf(
                 Button(
-                    "앱으로 보기",
+                    "초대 수락하기",
                     Link(
                         androidExecutionParams = mapOf(
                             "key1" to "value1",
