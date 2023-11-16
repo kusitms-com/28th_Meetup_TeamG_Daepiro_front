@@ -1,6 +1,8 @@
 package com.daepiro.numberoneproject.presentation.viewmodel
 
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,9 +16,17 @@ import com.daepiro.numberoneproject.domain.usecase.GetCommunityTownListUseCase
 import com.daepiro.numberoneproject.presentation.util.TokenManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import java.time.Duration
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,14 +36,17 @@ class CommunityViewModel @Inject constructor(
     private val getCommunityTownDetailUseCase: GetCommunityTownDetailUseCase
 ) : ViewModel() {
 
-//    private val _data = MutableLiveData<CommunityTownListModel>()
-//    val data: LiveData<CommunityTownListModel> = _data
-
     private val _townCommentList = MutableStateFlow(CommunityTownListModel())
     val townCommentList=_townCommentList.asStateFlow()
 
     private val _townDetail = MutableStateFlow(CommunityTownDetailData())
     val townDetail=_townDetail.asStateFlow()
+
+    val _isVisible = MutableLiveData<Boolean>()
+    val isVisible:LiveData<Boolean> = _isVisible
+
+    private val _createdTime = MutableStateFlow<String>("")
+
 
     fun getTownCommentList(size:Int,tag:String?,lastArticleId:Int?){
         viewModelScope.launch {
@@ -54,11 +67,59 @@ class CommunityViewModel @Inject constructor(
             getCommunityTownDetailUseCase(token,articleId)
                 .onSuccess {deatilData->
                     _townDetail.value = deatilData
-                    Log.d("getTownDetail","성공")
                 }
                 .onFailure {
                     Log.e("getTownDetail","$it")
                 }
         }
     }
+
+    val tagText: StateFlow<String> = townDetail
+        .map { detail -> tagTextForDetail(detail.articleTag) }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(),
+            initialValue = ""
+        )
+    @RequiresApi(Build.VERSION_CODES.O)
+    val detailTime:StateFlow<String> = townDetail
+        .map { detail -> getTimeDifference(detail.createdAt) }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(),
+            initialValue = ""
+        )
+
+
+    private fun tagTextForDetail(articleTag:String):String{
+        return when(articleTag){
+            "SAFETY" -> "안전"
+            "LIFE" -> "일상"
+            else -> "교통"
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun getTimeDifference(createdTime: String): String {
+        if (createdTime.isBlank()) {
+            return "기본값 또는 오류 메시지"
+        }
+
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS")
+        try {
+            val createdDateTime = LocalDateTime.parse(createdTime, formatter)
+            val currentDateTime = LocalDateTime.now()
+            val duration = Duration.between(createdDateTime, currentDateTime)
+
+            return when {
+                duration.toHours() < 1 -> "${duration.toMinutes()}분 전"
+                duration.toDays() < 1 -> String.format("%02d:%02d",createdDateTime.hour,createdDateTime.minute)
+                else -> "${createdDateTime.monthValue}/${createdDateTime.dayOfMonth}"
+            }
+        } catch (e: DateTimeParseException) {
+            Log.e("getTimeDifference", "$e")
+            return "파싱 오류"
+        }
+    }
 }
+

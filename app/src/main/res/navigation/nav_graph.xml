@@ -60,5 +60,19 @@
     <fragment
         android:id="@+id/communityFragment"
         android:name="com.daepiro.numberoneproject.presentation.view.community.CommunityFragment"
-        android:label="CommunityFragment" />
+        android:label="CommunityFragment"
+        tools:layout="@layout/fragment_community">
+        <action
+            android:id="@+id/action_communityFragment_to_communityTownDetailFragment"
+            app:destination="@id/communityTownDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/communityTownDetailFragment"
+        android:name="com.daepiro.numberoneproject.presentation.view.community.CommunityTownDetailFragment"
+        android:label="fragment_community_town_detail"
+        tools:layout="@layout/fragment_community_town_detail" >
+        <action
+            android:id="@+id/communirt_detailFragment"
+            app:destination="@id/communirt_detailFragment"/>
+    </fragment>
 </navigation>

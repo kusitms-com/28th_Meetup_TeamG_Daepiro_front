@@ -5,7 +5,7 @@ data class CommunityTownDetailData(
     val articleId: Int =0,
     val articleTag:String="",
     val content: String="",
-    val createdAt: String="",
+    var createdAt: String="",
     val imageUrls: List<String>? = null,
     val likeCount: Int=0,
     val ownerName: String="",

@@ -8,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.daepiro.numberoneproject.R
@@ -23,7 +25,7 @@ import org.w3c.dom.Text
 
 @AndroidEntryPoint
 class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layout.fragment_community_tab_b) {
-    val viewModel by viewModels<CommunityViewModel>()
+    val viewModel by activityViewModels<CommunityViewModel>()
     private lateinit var adapter : TownCommentListAdapter
     private var lastItemId:Int? = null
     private var isLoading = false
@@ -35,7 +37,7 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
         binding.all.isSelected = true
 
 
-        viewModel.getTownCommentList(5,null,null)
+        viewModel.getTownCommentList(10,null,null)
         collectTownCommentList()
         setInfiniteScroll(null)
 
@@ -67,6 +69,7 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
         adapter = TownCommentListAdapter(emptyList(),object :TownCommentListAdapter.onItemClickListener{
             override fun onItemClick(id: Int) {
                 viewModel.getTownDetail(id)
+                findNavController().navigate(R.id.action_communityFragment_to_communityTownDetailFragment)
             }
         })
         binding.recycler.adapter = adapter
@@ -76,7 +79,8 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
         binding.recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if (isLoading || dy <= 0) return // 이미 로딩 중이거나 위로 스크롤하는 경우 무시
+                // 이미 로딩 중이거나 위로 스크롤하는 경우 무시
+                if (isLoading || dy <= 0) return
 
                 val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                 val totalItemCount = layoutManager.itemCount
@@ -85,8 +89,7 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
                 // 목록의 마지막 아이템에 도달했을 때 API 호출
                 if (totalItemCount - 1 == lastVisibleItemPosition) {
                     isLoading = true
-                    val token = "Your_Authorization_Token" // 적절한 토큰 값
-                    viewModel.getTownCommentList(5, tag, lastItemId) // lastItemId를 API 호출에 포함
+                    viewModel.getTownCommentList(10, tag, lastItemId) // lastItemId를 API 호출에 포함
                 }
             }
         })
@@ -94,7 +97,7 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
 
     private fun clearUpdateData(tag:String?){
         adapter.clearData()
-        viewModel.getTownCommentList(5,tag,null)
+        viewModel.getTownCommentList(10,tag,null)
         collectTownCommentList()
         setInfiniteScroll(tag)
     }
@@ -102,7 +105,6 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
     private fun selectTags(selectedTag: TextView, textviews:List<TextView>){
         textviews.forEach{
             it.isSelected = textviews == selectedTag
-            //updateTextColor(it)
         }
         when(selectedTag){
             binding.all ->{
