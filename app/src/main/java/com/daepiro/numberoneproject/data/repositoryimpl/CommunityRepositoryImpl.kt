@@ -4,6 +4,7 @@ import android.net.Uri
 import android.util.Log
 import com.daepiro.numberoneproject.data.model.CommentWritingRequestBody
 import com.daepiro.numberoneproject.data.model.CommentWritingResponse
+import com.daepiro.numberoneproject.data.model.CommunityRereplyRequestBody
 import com.daepiro.numberoneproject.data.model.CommunityTownDetailData
 import com.daepiro.numberoneproject.data.model.CommunityTownListModel
 import com.daepiro.numberoneproject.data.model.CommunityTownReplyRequestBody
@@ -64,5 +65,14 @@ class CommunityRepositoryImpl @Inject constructor(
         body: CommunityTownReplyRequestBody)
     :ApiResult<CommunityTownReplyResponseModel>{
         return service.setTownReply(token,articleid,body)
+    }
+
+    override suspend fun setTownRereply(
+        token:String,
+        articleid: Int,
+        commentid:Long,
+        body: CommunityRereplyRequestBody
+    ):ApiResult<CommunityTownReplyResponseModel> {
+        return service.setTownRereply(token, articleid, commentid, body)
     }
 }

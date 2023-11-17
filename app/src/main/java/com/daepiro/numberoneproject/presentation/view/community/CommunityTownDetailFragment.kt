@@ -12,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.daepiro.numberoneproject.R
+import com.daepiro.numberoneproject.data.model.CommunityRereplyRequestBody
 import com.daepiro.numberoneproject.data.model.CommunityTownReplyRequestBody
 import com.daepiro.numberoneproject.databinding.FragmentCommunityTownDetailBinding
 import com.daepiro.numberoneproject.presentation.base.BaseFragment
@@ -84,8 +85,18 @@ class CommunityTownDetailFragment : BaseFragment<FragmentCommunityTownDetailBind
 
     private fun setUpReplyRecyclerView(){
         adapterReply = CommunityTownDetailReplyAdapter(emptyList(),object : CommunityTownDetailReplyAdapter.onItemClickListener{
-            override fun onItemClick() {
-                //좋아요 동작 및 신고 등등 동작 정의하기 위한 api호출
+            override fun onAdditionalItemClick(position: Int) {
+                showBottomSheet()
+            }
+
+            override fun onReplyClick(articleid: Int,commentid:Long) {
+                if(binding.replyContainer.text.toString().isNotEmpty()){
+                    //대댓글작성
+                    val data = CommunityRereplyRequestBody(
+                        content = binding.replyContainer.text.toString()
+                    )
+                    viewModel.writeRereply(articleid,commentid,data)
+                }
             }
         })
     }
@@ -112,6 +123,10 @@ class CommunityTownDetailFragment : BaseFragment<FragmentCommunityTownDetailBind
             latitude = 0.0
         )
         viewModel.writeReply(articleId, data)
+    }
+    private fun showBottomSheet(){
+        val bottomSheet = CommunityReplyBottomSheetFragment()
+        bottomSheet.show(parentFragmentManager,"select")
     }
 
 }

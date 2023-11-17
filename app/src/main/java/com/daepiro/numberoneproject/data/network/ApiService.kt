@@ -2,6 +2,7 @@ package com.daepiro.numberoneproject.data.network
 
 import com.daepiro.numberoneproject.data.model.CommentWritingRequestBody
 import com.daepiro.numberoneproject.data.model.CommentWritingResponse
+import com.daepiro.numberoneproject.data.model.CommunityRereplyRequestBody
 import com.daepiro.numberoneproject.data.model.CommunityTownDetailData
 import com.daepiro.numberoneproject.data.model.CommunityTownListModel
 import com.daepiro.numberoneproject.data.model.CommunityTownReplyRequestBody
@@ -137,6 +138,15 @@ interface ApiService {
         @Header("Authorization") token:String,
         @Path("articleid") articleid:Int,
         @Body body: CommunityTownReplyRequestBody
+    ):ApiResult<CommunityTownReplyResponseModel>
+
+    //커뮤니티 동네생활 대댓글 작성
+    @POST("/api/comments/{articleid}/{commentid}")
+    suspend fun setTownRereply(
+        @Header("Authorization") token:String,
+        @Path("articleid") articleid:Int,
+        @Path("commentid") commentid:Long,
+        @Body body: CommunityRereplyRequestBody
     ):ApiResult<CommunityTownReplyResponseModel>
 
 }

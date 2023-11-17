@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.daepiro.numberoneproject.data.model.CommentWritingRequestBody
 import com.daepiro.numberoneproject.data.model.CommentWritingResponse
+import com.daepiro.numberoneproject.data.model.CommunityRereplyRequestBody
 import com.daepiro.numberoneproject.data.model.CommunityTownDetailData
 import com.daepiro.numberoneproject.data.model.CommunityTownListModel
 import com.daepiro.numberoneproject.data.model.CommunityTownReplyRequestBody
@@ -19,6 +20,7 @@ import com.daepiro.numberoneproject.domain.usecase.GetCommunityTownDetailUseCase
 import com.daepiro.numberoneproject.domain.usecase.GetCommunityTownListUseCase
 import com.daepiro.numberoneproject.domain.usecase.GetTownReplyUseCase
 import com.daepiro.numberoneproject.domain.usecase.SetCommunityTownReplyWritingUseCase
+import com.daepiro.numberoneproject.domain.usecase.SetCommunityTownRereplyWritingUseCase
 import com.daepiro.numberoneproject.domain.usecase.SetCommunityWritingUseCase
 
 import com.daepiro.numberoneproject.presentation.util.TokenManager
@@ -45,7 +47,8 @@ class CommunityViewModel @Inject constructor(
     private val getCommunityTownDetailUseCase: GetCommunityTownDetailUseCase,
     private val setCommunityWritingUseCase: SetCommunityWritingUseCase,
     private val getTownReplyUseCase: GetTownReplyUseCase,
-    private val setCommunityTownReplyWritingUseCase: SetCommunityTownReplyWritingUseCase
+    private val setCommunityTownReplyWritingUseCase: SetCommunityTownReplyWritingUseCase,
+    private val setCommunityTownRereplyWritingUseCase: SetCommunityTownRereplyWritingUseCase
 ) : ViewModel() {
 
     private val _townCommentList = MutableStateFlow(CommunityTownListModel())
@@ -144,6 +147,21 @@ class CommunityViewModel @Inject constructor(
                 }
                 .onFailure {
                     Log.e("writeReply","$it")
+                }
+        }
+    }
+
+    //대댓글 작성
+    fun writeRereply(articleid: Int,commentid:Long,body: CommunityRereplyRequestBody){
+        viewModelScope.launch {
+            val token = "Bearer ${tokenManager.accessToken.first()}"
+            setCommunityTownRereplyWritingUseCase.invoke(token,articleid,commentid,body)
+                .onSuccess {
+                    setReply(articleid)
+                    Log.e("writeRereply","$it")
+                }
+                .onFailure {
+                    Log.e("writeRereply","$it")
                 }
         }
     }

@@ -75,4 +75,8 @@
     <string name="댓글을_입력해주세요">댓글을 입력해주세요</string>
     <string name="게시">게시</string>
 
+    <string name="수정하기">수정하기</string>
+    <string name="신고하기">신고하기</string>
+    <string name="삭제하기">삭제하기</string>
+
 </resources>

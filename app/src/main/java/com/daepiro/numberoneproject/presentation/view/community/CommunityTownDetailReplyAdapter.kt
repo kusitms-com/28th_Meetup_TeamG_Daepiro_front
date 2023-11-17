@@ -17,13 +17,16 @@ class CommunityTownDetailReplyAdapter(
 ):RecyclerView.Adapter<CommunityTownDetailReplyAdapter.ViewHolder>() {
 
     interface onItemClickListener{
-        fun onItemClick()
+        fun onAdditionalItemClick(position: Int)
+        fun onReplyClick(articleid: Int,commentid:Long)
     }
     class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
         val userInfo: TextView = itemView.findViewById(R.id.user_info)
         val content : TextView = itemView.findViewById(R.id.content)
         val likenum:TextView = itemView.findViewById(R.id.like_num)
         val likebtn: ImageView = itemView.findViewById(R.id.like_btn)
+        val additional:ImageView = itemView.findViewById(R.id.additional)
+        val rereply:ImageView = itemView.findViewById(R.id.rereply_btn)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -47,6 +50,12 @@ class CommunityTownDetailReplyAdapter(
                     DrawableCompat.setTint(wrappedDrawable,color)
                     holder.likebtn.setImageDrawable(wrappedDrawable)
                 }
+            }
+            holder.additional.setOnClickListener{
+                listener.onAdditionalItemClick(position)
+            }
+            holder.rereply.setOnClickListener{
+                listener.onReplyClick(item.authorId,item.commentId)
             }
         }
 
