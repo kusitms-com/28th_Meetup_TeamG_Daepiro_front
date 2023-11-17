@@ -29,4 +29,7 @@
     <color name="surface">#F4F5F6</color>
     <color name="outline">#1A000000</color>
     <color name="modal_background">#99000000</color>
+    <color name="warning">#FA2C1F</color>
+    <color name="green">#2DAD00</color>
+    <color name="light_green">#53C52B</color>
 </resources>

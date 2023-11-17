@@ -55,7 +55,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_bottom_left_right_radius_8"
-                    android:backgroundTint="@color/surface"
+                    android:backgroundTint="@color/secondary_50"
                     android:orientation="vertical"
                     android:paddingHorizontal="20dp"
                     android:paddingVertical="24dp"
@@ -158,7 +158,7 @@
                             android:gravity="center_vertical">
 
                             <TextView
-                                style="@style/headline6"
+                                style="@style/subtitle1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/화재_행동요령_체크리스트"

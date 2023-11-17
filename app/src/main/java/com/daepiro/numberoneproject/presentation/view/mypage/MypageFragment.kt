@@ -6,9 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.daepiro.numberoneproject.R
+import com.daepiro.numberoneproject.databinding.FragmentMypageBinding
+import com.daepiro.numberoneproject.presentation.base.BaseFragment
 
-class MypageFragment : Fragment() {
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_mypage, container, false)
+class MypageFragment : BaseFragment<FragmentMypageBinding>(R.layout.fragment_mypage) {
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
     }
 }
