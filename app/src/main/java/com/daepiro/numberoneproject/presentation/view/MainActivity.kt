@@ -34,6 +34,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         initNavigation()
 
         loginVM.loginTest()
+
+        if (intent.getStringExtra("tokenFromFamily")?.isNotEmpty() == true) {
+            showToast("초대받고옴" + intent.getStringExtra("tokenFromFamily").toString())
+        } else {
+            showToast("그냥 옴")
+        }
     }
 
     override fun subscribeUi() {

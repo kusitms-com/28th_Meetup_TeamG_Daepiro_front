@@ -6,12 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.daepiro.numberoneproject.R
 import com.daepiro.numberoneproject.databinding.FragmentFamilyBinding
 import com.daepiro.numberoneproject.presentation.base.BaseFragment
+import com.daepiro.numberoneproject.presentation.util.Extensions.repeatOnStarted
 import com.daepiro.numberoneproject.presentation.util.Extensions.showToast
 import com.daepiro.numberoneproject.presentation.view.funding.detail.CheerDialogFragment
+import com.daepiro.numberoneproject.presentation.viewmodel.FamilyViewModel
 import com.kakao.sdk.share.ShareClient
 import com.kakao.sdk.template.model.Button
 import com.kakao.sdk.template.model.Content
@@ -19,15 +23,23 @@ import com.kakao.sdk.template.model.FeedTemplate
 import com.kakao.sdk.template.model.Link
 import com.kakao.sdk.template.model.Social
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
 class FamilyFragment : BaseFragment<FragmentFamilyBinding>(R.layout.fragment_family) {
+    val familyVM by viewModels<FamilyViewModel>()
     private lateinit var familyListAdapter: FamilyListAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setFamilyRV()
+
+        binding.tvManage.setOnClickListener {
+            familyListAdapter.changeManageMode()
+            familyVM.isFamilyListManageMode.value = !familyVM.isFamilyListManageMode.value
+        }
 
         binding.cdAddFamily.setOnClickListener {
             kakaoShare()
@@ -75,15 +87,42 @@ class FamilyFragment : BaseFragment<FragmentFamilyBinding>(R.layout.fragment_fam
         familyListAdapter = FamilyListAdapter()
 
         binding.rvFamily.apply {
+            setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext())
             adapter = familyListAdapter
         }
 
         familyListAdapter.setItemClickListener(object : FamilyListAdapter.OnItemClickListener {
             override fun onClickItem(v: View, position: Int) {
-                SafetySendDialogFragment().show(parentFragmentManager, "")
+                if (!familyVM.isFamilyListManageMode.value) {
+                    SafetySendDialogFragment().show(parentFragmentManager, "")
+                }
             }
 
+            override fun onClickManage(v: View, position: Int) {
+                if (familyVM.isFamilyListManageMode.value) {
+                    FamilyDeleteDialogFragment().show(parentFragmentManager, "")
+                }
+            }
         })
+    }
+
+    override fun subscribeUi() {
+        repeatOnStarted {
+            familyVM.isFamilyListManageMode.collectLatest {
+                // 관리모드
+                if (it) {
+                    binding.tvManage.apply {
+                        text = getString(R.string.완료)
+                        setTextColor(ContextCompat.getColor(requireContext(), R.color.orange_400))
+                    }
+                } else {
+                    binding.tvManage.apply {
+                        text = getString(R.string.관리)
+                        setTextColor(ContextCompat.getColor(requireContext(), R.color.secondary_400))
+                    }
+                }
+            }
+        }
     }
 }

@@ -82,4 +82,6 @@
     <string name="가족_맺기를_수락하시면_서로의_안전_상태를_">가족 맺기를 수락하시면 서로의 안전 상태를 확인할 수 있어요. </string>
     <string name="초대_수락하기">초대 수락하기</string>
     <string name="_님이_대피로_가족으로_초대하셨어요_">%s님이 대피로 가족으로 초대하셨어요!</string>
+    <string name="예">예</string>
+    <string name="아니오">아니오</string>
 </resources>
