@@ -11,12 +11,14 @@ import com.daepiro.numberoneproject.data.model.CommentWritingRequestBody
 import com.daepiro.numberoneproject.data.model.CommentWritingResponse
 import com.daepiro.numberoneproject.data.model.CommunityTownDetailData
 import com.daepiro.numberoneproject.data.model.CommunityTownListModel
+import com.daepiro.numberoneproject.data.model.CommunityTownReplyRequestBody
 import com.daepiro.numberoneproject.data.model.CommunityTownReplyResponse
 import com.daepiro.numberoneproject.data.network.onFailure
 import com.daepiro.numberoneproject.data.network.onSuccess
 import com.daepiro.numberoneproject.domain.usecase.GetCommunityTownDetailUseCase
 import com.daepiro.numberoneproject.domain.usecase.GetCommunityTownListUseCase
 import com.daepiro.numberoneproject.domain.usecase.GetTownReplyUseCase
+import com.daepiro.numberoneproject.domain.usecase.SetCommunityTownReplyWritingUseCase
 import com.daepiro.numberoneproject.domain.usecase.SetCommunityWritingUseCase
 
 import com.daepiro.numberoneproject.presentation.util.TokenManager
@@ -42,7 +44,8 @@ class CommunityViewModel @Inject constructor(
     private val getCommunityTownListUseCase: GetCommunityTownListUseCase,
     private val getCommunityTownDetailUseCase: GetCommunityTownDetailUseCase,
     private val setCommunityWritingUseCase: SetCommunityWritingUseCase,
-    private val getTownReplyUseCase: GetTownReplyUseCase
+    private val getTownReplyUseCase: GetTownReplyUseCase,
+    private val setCommunityTownReplyWritingUseCase: SetCommunityTownReplyWritingUseCase
 ) : ViewModel() {
 
     private val _townCommentList = MutableStateFlow(CommunityTownListModel())
@@ -62,6 +65,16 @@ class CommunityViewModel @Inject constructor(
 
     val _tagData = MutableLiveData<String>()
     val tagData:LiveData<String> = _tagData
+
+    private val _replycontent= MutableStateFlow("")
+    val replycontent:StateFlow<String> = _replycontent.asStateFlow()
+
+    var tag:Int=0
+
+    fun updateContent(input:String){
+        _replycontent.value = input
+    }
+
 
 
     fun getTownCommentList(size:Int,tag:String?,lastArticleId:Int?){
@@ -106,7 +119,8 @@ class CommunityViewModel @Inject constructor(
         }
     }
 
-    fun getReply(articleId:Int){
+    //댓글 조회
+    fun setReply(articleId:Int){
         viewModelScope.launch {
             val token = "Bearer ${tokenManager.accessToken.first()}"
             getTownReplyUseCase.invoke(token,articleId)
@@ -116,6 +130,20 @@ class CommunityViewModel @Inject constructor(
                 }
                 .onFailure {
                     Log.e("getReply","$it")
+                }
+        }
+    }
+
+    //댓글 작성
+    fun writeReply(articleId: Int, body: CommunityTownReplyRequestBody){
+        viewModelScope.launch {
+            val token = "Bearer ${tokenManager.accessToken.first()}"
+            setCommunityTownReplyWritingUseCase.invoke(token,articleId,body)
+                .onSuccess {
+                    setReply(articleId)
+                }
+                .onFailure {
+                    Log.e("writeReply","$it")
                 }
         }
     }

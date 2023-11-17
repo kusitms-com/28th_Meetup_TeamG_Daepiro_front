@@ -6,7 +6,9 @@ import com.daepiro.numberoneproject.data.model.CommentWritingRequestBody
 import com.daepiro.numberoneproject.data.model.CommentWritingResponse
 import com.daepiro.numberoneproject.data.model.CommunityTownDetailData
 import com.daepiro.numberoneproject.data.model.CommunityTownListModel
+import com.daepiro.numberoneproject.data.model.CommunityTownReplyRequestBody
 import com.daepiro.numberoneproject.data.model.CommunityTownReplyResponse
+import com.daepiro.numberoneproject.data.model.CommunityTownReplyResponseModel
 import com.daepiro.numberoneproject.data.network.ApiResult
 import com.daepiro.numberoneproject.data.network.ApiService
 import com.daepiro.numberoneproject.domain.repository.CommunityRepository
@@ -54,5 +56,13 @@ class CommunityRepositoryImpl @Inject constructor(
         articleId:Int
     ):ApiResult<CommunityTownReplyResponse>{
         return service.getTownReply(token,articleId)
+    }
+
+    override suspend fun setTownReply(
+        token:String,
+        articleid: Int,
+        body: CommunityTownReplyRequestBody)
+    :ApiResult<CommunityTownReplyResponseModel>{
+        return service.setTownReply(token,articleid,body)
     }
 }

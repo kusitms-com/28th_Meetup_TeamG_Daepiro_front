@@ -72,8 +72,10 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
     private fun setUpRecyclerView(){
         adapter = TownCommentListAdapter(emptyList(),object :TownCommentListAdapter.onItemClickListener{
             override fun onItemClick(id: Int) {
+                Log.d("taaaaag","$id")
+                viewModel.tag = id
                 viewModel.getTownDetail(id)
-                viewModel.getReply(id)
+                viewModel.setReply(id)
                 findNavController().navigate(R.id.action_communityFragment_to_communityTownDetailFragment)
             }
         })

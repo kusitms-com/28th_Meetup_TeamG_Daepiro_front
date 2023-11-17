@@ -1,6 +1,9 @@
 package com.daepiro.numberoneproject.presentation.view.community
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.daepiro.numberoneproject.R
+import com.daepiro.numberoneproject.data.model.CommunityTownReplyRequestBody
 import com.daepiro.numberoneproject.databinding.FragmentCommunityTownDetailBinding
 import com.daepiro.numberoneproject.presentation.base.BaseFragment
 import com.daepiro.numberoneproject.presentation.util.Extensions.repeatOnStarted
@@ -36,6 +40,32 @@ class CommunityTownDetailFragment : BaseFragment<FragmentCommunityTownDetailBind
             findNavController().popBackStack()
         }
         collectImage()
+
+        binding.replyContainer.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                viewModel.updateContent(p0.toString())
+            }
+
+        })
+
+        binding.complete.setOnClickListener{
+            //ollectWriting()
+            if(viewModel.townDetail.value.articleId != null){
+                val articleId = viewModel.townDetail.value.articleId
+                val response = binding.replyContainer.text.toString()
+                if(response.isNotEmpty()){
+                    collectWriting(articleId,response)
+                    binding.replyContainer.text.clear()
+                }
+            }
+            binding.replyContainer.text.clear()
+        }
     }
     //사진 데이터 감지
     private fun collectImage(){
@@ -60,7 +90,7 @@ class CommunityTownDetailFragment : BaseFragment<FragmentCommunityTownDetailBind
         })
     }
 
-    //댓글 감지
+    //댓글 업데이트
     private fun collectReply(){
         repeatOnStarted {
             viewModel.replyResult.collect{response ->
@@ -75,6 +105,13 @@ class CommunityTownDetailFragment : BaseFragment<FragmentCommunityTownDetailBind
         }
     }
 
-
+    private fun collectWriting(articleId:Int,response:String) {
+        val data = CommunityTownReplyRequestBody(
+            content = response,
+            longitude = 0.0,
+            latitude = 0.0
+        )
+        viewModel.writeReply(articleId, data)
+    }
 
 }

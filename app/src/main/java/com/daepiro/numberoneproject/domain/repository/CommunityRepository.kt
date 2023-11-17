@@ -4,7 +4,9 @@ import com.daepiro.numberoneproject.data.model.CommentWritingRequestBody
 import com.daepiro.numberoneproject.data.model.CommentWritingResponse
 import com.daepiro.numberoneproject.data.model.CommunityTownDetailData
 import com.daepiro.numberoneproject.data.model.CommunityTownListModel
+import com.daepiro.numberoneproject.data.model.CommunityTownReplyRequestBody
 import com.daepiro.numberoneproject.data.model.CommunityTownReplyResponse
+import com.daepiro.numberoneproject.data.model.CommunityTownReplyResponseModel
 import com.daepiro.numberoneproject.data.network.ApiResult
 import okhttp3.MultipartBody
 
@@ -22,4 +24,6 @@ interface CommunityRepository {
         ):ApiResult<CommentWritingResponse>
 
     suspend fun getTownReply(token:String, articleId:Int) : ApiResult<CommunityTownReplyResponse>
+
+    suspend fun setTownReply(token:String,articleId: Int, body: CommunityTownReplyRequestBody):ApiResult<CommunityTownReplyResponseModel>
 }

@@ -4,7 +4,9 @@ import com.daepiro.numberoneproject.data.model.CommentWritingRequestBody
 import com.daepiro.numberoneproject.data.model.CommentWritingResponse
 import com.daepiro.numberoneproject.data.model.CommunityTownDetailData
 import com.daepiro.numberoneproject.data.model.CommunityTownListModel
+import com.daepiro.numberoneproject.data.model.CommunityTownReplyRequestBody
 import com.daepiro.numberoneproject.data.model.CommunityTownReplyResponse
+import com.daepiro.numberoneproject.data.model.CommunityTownReplyResponseModel
 import com.daepiro.numberoneproject.data.model.DisasterRequestBody
 import com.daepiro.numberoneproject.data.model.DisasterResponse
 import com.daepiro.numberoneproject.data.model.FundingDetailResponse
@@ -122,11 +124,19 @@ interface ApiService {
         @Part imageList: List<MultipartBody.Part>
     ):ApiResult<CommentWritingResponse>
 
+    //커뮤니티 동네생활 댓글 조회
     @GET("/api/comments/{articleid}")
     suspend fun getTownReply(
         @Header("Authorization") token:String,
         @Path("articleid") articleid:Int
     ):ApiResult<CommunityTownReplyResponse>
 
+    //커뮤니티 동네생활 댓글 작성
+    @POST("/api/articles/comments/{articleid}")
+    suspend fun setTownReply(
+        @Header("Authorization") token:String,
+        @Path("articleid") articleid:Int,
+        @Body body: CommunityTownReplyRequestBody
+    ):ApiResult<CommunityTownReplyResponseModel>
 
 }
