@@ -37,25 +37,25 @@ class FamilyFragment : BaseFragment<FragmentFamilyBinding>(R.layout.fragment_fam
     private fun kakaoShare() {
         val defaultFeed = FeedTemplate(
             content = Content(
-                title = "대피로로 돔황챠 ~~~",
-                description = "가족 맺기를 수락하면 서로의 안전 상태를 확인할 수 있어요. ",
-                imageUrl = "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FAFCSa%2FbtsAqzzFseG%2FtD5dchJEDuJ4k4C6JT038k%2Fimg.png",
+                title = String.format(getString(R.string._님이_대피로_가족으로_초대하셨어요_), "종석"),
+                description = getString(R.string.가족_맺기를_수락하시면_서로의_안전_상태를_),
+                imageUrl = "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F6J5Im%2FbtsAqIjXTzo%2FtOBkJD8VpHuZtJBGfdBLjk%2Fimg.png",
                 link = Link(
-                    mobileWebUrl = "https://play.google.com/store/apps"
+                    mobileWebUrl = "https://play.google.com/store/apps/details?id=com.daepiro.numberoneproject"
                 )
             ),
             social = Social(
-                likeCount = 18,
-                commentCount = 18,
+                likeCount = 11,
+                commentCount = 17,
                 sharedCount = 28
             ),
             buttons = listOf(
                 Button(
-                    "초대 수락하기",
+                    getString(R.string.초대_수락하기),
                     Link(
                         androidExecutionParams = mapOf(
-                            "key1" to "value1",
-                            "key2" to "value2"
+                            "userToken" to "23",
+                            "number" to "1"
                         )
                     )
                 )
