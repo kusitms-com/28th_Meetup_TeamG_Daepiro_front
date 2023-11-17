@@ -21,14 +21,5 @@
             android:scaleType="fitXY"/>
 </androidx.cardview.widget.CardView>
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_delete"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="6dp"
-        android:layout_marginRight="6dp"
-        app:tint="@color/modal_background"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

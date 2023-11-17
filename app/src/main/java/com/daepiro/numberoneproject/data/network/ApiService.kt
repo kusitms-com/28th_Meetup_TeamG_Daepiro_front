@@ -1,5 +1,7 @@
 package com.daepiro.numberoneproject.data.network
 
+import com.daepiro.numberoneproject.data.model.CommentWritingRequestBody
+import com.daepiro.numberoneproject.data.model.CommentWritingResponse
 import com.daepiro.numberoneproject.data.model.CommunityTownDetailData
 import com.daepiro.numberoneproject.data.model.CommunityTownListModel
 import com.daepiro.numberoneproject.data.model.DisasterRequestBody
@@ -12,10 +14,15 @@ import com.daepiro.numberoneproject.data.model.ShelterData
 import com.daepiro.numberoneproject.data.model.ShelterListResponse
 import com.daepiro.numberoneproject.data.model.ShelterRequestBody
 import com.daepiro.numberoneproject.data.model.TokenRequestBody
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.Part
+import retrofit2.http.PartMap
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -65,11 +72,6 @@ interface ApiService {
         @Header("Authorization") token:String
     ): ApiResult<List<ShelterData>>
 
-//    //대피소 url로부터 파싱
-//    @GET
-//    suspend fun getDataFromUrl(
-//        @Url url:String
-//    ):ApiResult<List<ShelterData>>
 
     // 후원 목록 최신순 조회
     @GET("/api/sponsor/latest")
@@ -105,4 +107,24 @@ interface ApiService {
         @Header("Authorization") token:String,
         @Path("articleid") articleid:Int
     ):ApiResult<CommunityTownDetailData>
+
+    //커뮤니티 동네생활 게시글 작성
+//    @Multipart
+//    @POST("/api/articles")
+//    suspend fun setTownDetail(
+//        @Header("Authorization") token:String,
+//        @Part("partMap") partMap:CommentWritingRequestBody,
+//        @Part imageList: List<MultipartBody.Part>
+//    ):ApiResult<CommentWritingResponse>
+    @Multipart
+    @POST("/api/articles")
+    suspend fun setTownDetail(
+        @Header("Authorization") token:String,
+        @Part("title") title:RequestBody,
+        @Part("content") content:RequestBody,
+        @Part("articleTag") articleTag:RequestBody,
+        @Part("longitude") longitude:RequestBody,
+        @Part("latitude") latitude:RequestBody,
+        @Part imageList: List<MultipartBody.Part>
+    ):ApiResult<CommentWritingResponse>
 }

@@ -65,6 +65,9 @@
         <action
             android:id="@+id/action_communityFragment_to_communityTownDetailFragment"
             app:destination="@id/communityTownDetailFragment" />
+        <action
+            android:id="@+id/action_communityFragment_to_communityTownWritingFragment"
+            app:destination="@id/communityTownWritingFragment" />
     </fragment>
     <fragment
         android:id="@+id/communityTownDetailFragment"
@@ -75,4 +78,8 @@
             android:id="@+id/communirt_detailFragment"
             app:destination="@id/communirt_detailFragment"/>
     </fragment>
+    <fragment
+        android:id="@+id/communityTownWritingFragment"
+        android:name="com.daepiro.numberoneproject.presentation.view.community.CommunityTownWritingFragment"
+        android:label="CommunityTownWritingFragment" />
 </navigation>

@@ -1,14 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout>
+    <data>
+        <variable
+            name="viewModel"
+            type="com.daepiro.numberoneproject.presentation.viewmodel.CommunityViewModel" />
+    </data>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     tools:context=".presentation.view.community.TagSelectBottomFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/subtitle1"
+            android:paddingTop="13dp"
+            android:paddingBottom="13dp"
+            android:textColor="@color/secondary_600"
+            android:text="@string/게시글_주제"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+        <ImageView
+            android:id="@+id/closeBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_close"
+            app:tint="@color/secondary_600"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="12dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/outline"/>
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/tag1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/일상"
+        style="@style/body1"
+        android:clickable="true"
+        android:textColor="@color/secondary_400"
+        android:paddingBottom="14dp"
+        android:paddingTop="14dp"
+        android:paddingLeft="20dp"/>
+    <TextView
+        android:id="@+id/tag2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/교통"
+        style="@style/body1"
+        android:clickable="true"
+        android:textColor="@color/secondary_400"
+        android:paddingBottom="14dp"
+        android:paddingTop="14dp"
+        android:paddingLeft="20dp"/>
+    <TextView
+        android:id="@+id/tag3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/기타"
+        style="@style/body1"
+        android:clickable="true"
+        android:textColor="@color/secondary_400"
+        android:paddingBottom="14dp"
+        android:paddingTop="14dp"
+        android:paddingLeft="20dp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/complete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/bg_radius_4"
+        android:text="@string/선택하기"
+        android:backgroundTint="@color/orange_500"
+        android:textColor="@color/white"
+        style="@style/button"/>
+
+</LinearLayout>
+</layout>

@@ -50,6 +50,10 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
             }
         }
 
+        binding.writeBtn.setOnClickListener{
+            findNavController().navigate(R.id.communityTownWritingFragment)
+        }
+
     }
     private fun collectTownCommentList(){
         repeatOnStarted {

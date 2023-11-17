@@ -7,12 +7,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.daepiro.numberoneproject.data.model.CommentWritingRequestBody
+import com.daepiro.numberoneproject.data.model.CommentWritingResponse
 import com.daepiro.numberoneproject.data.model.CommunityTownDetailData
 import com.daepiro.numberoneproject.data.model.CommunityTownListModel
 import com.daepiro.numberoneproject.data.network.onFailure
 import com.daepiro.numberoneproject.data.network.onSuccess
 import com.daepiro.numberoneproject.domain.usecase.GetCommunityTownDetailUseCase
 import com.daepiro.numberoneproject.domain.usecase.GetCommunityTownListUseCase
+import com.daepiro.numberoneproject.domain.usecase.SetCommunityWritingUseCase
+
 import com.daepiro.numberoneproject.presentation.util.TokenManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,6 +27,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
 import java.time.Duration
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -33,7 +38,8 @@ import javax.inject.Inject
 class CommunityViewModel @Inject constructor(
     private val tokenManager: TokenManager,
     private val getCommunityTownListUseCase: GetCommunityTownListUseCase,
-    private val getCommunityTownDetailUseCase: GetCommunityTownDetailUseCase
+    private val getCommunityTownDetailUseCase: GetCommunityTownDetailUseCase,
+    private val setCommunityWritingUseCase: SetCommunityWritingUseCase
 ) : ViewModel() {
 
     private val _townCommentList = MutableStateFlow(CommunityTownListModel())
@@ -45,7 +51,11 @@ class CommunityViewModel @Inject constructor(
     val _isVisible = MutableLiveData<Boolean>()
     val isVisible:LiveData<Boolean> = _isVisible
 
-    private val _createdTime = MutableStateFlow<String>("")
+    private val _writingResult = MutableStateFlow(CommentWritingResponse())
+    val writingResult = _writingResult.asStateFlow()
+
+    val _tagData = MutableLiveData<String>()
+    val tagData:LiveData<String> = _tagData
 
 
     fun getTownCommentList(size:Int,tag:String?,lastArticleId:Int?){
@@ -73,6 +83,24 @@ class CommunityViewModel @Inject constructor(
                 }
         }
     }
+
+    fun postComment(title:String,content:String,articleTag:String,longtitude:Double,latitude:Double, imageList:List<MultipartBody.Part>){
+        viewModelScope.launch {
+            val token = "Bearer ${tokenManager.accessToken.first()}"
+            setCommunityWritingUseCase.invoke(token,title,content,articleTag,longtitude,latitude,imageList)
+                .onSuccess {
+                    _writingResult.value = it
+                    Log.d("CommunityViewModel", "성공성공성공")
+                    Log.d("CommunityViewModel", "$it")
+                }
+                .onFailure {
+                    Log.d("CommunityViewModel1", "$it")
+                }
+
+        }
+    }
+
+
 
     val tagText: StateFlow<String> = townDetail
         .map { detail -> tagTextForDetail(detail.articleTag) }

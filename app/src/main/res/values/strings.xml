@@ -60,7 +60,9 @@
 
     <string name="일상">일상</string>
     <string name="교통">교통</string>
-    <string name="치안">치안</string>
+
+    <string name="게시글_주제">게시글 주제</string>
+    <string name="선택하기">선택하기</string>
 
     <string name="글_제목">글 제목</string>
     <string name="글쓰기">글쓰기</string>
