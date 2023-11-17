@@ -73,6 +73,7 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
         adapter = TownCommentListAdapter(emptyList(),object :TownCommentListAdapter.onItemClickListener{
             override fun onItemClick(id: Int) {
                 viewModel.getTownDetail(id)
+                viewModel.getReply(id)
                 findNavController().navigate(R.id.action_communityFragment_to_communityTownDetailFragment)
             }
         })

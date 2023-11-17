@@ -190,11 +190,13 @@
                 android:layout_marginTop="16dp"/>
 
            <androidx.recyclerview.widget.RecyclerView
+               android:id="@+id/reply_recycler"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                tools:listitem="@layout/item_community_commentlist"
                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-               android:orientation="vertical"/>
+               android:orientation="vertical"
+               android:visibility="gone"/>
 
         </LinearLayout>
 

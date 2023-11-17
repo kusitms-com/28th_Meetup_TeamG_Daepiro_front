@@ -27,7 +27,10 @@ class CommunityTownDetailFragment : BaseFragment<FragmentCommunityTownDetailBind
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
         adapter = CommunityTownDetailImageAdapter(emptyList())
+        setUpReplyRecyclerView()
         binding.images.adapter = adapter
+        binding.replyRecycler.adapter = adapterReply
+        collectReply()
 
         binding.backBtn.setOnClickListener{
             findNavController().popBackStack()
@@ -45,6 +48,29 @@ class CommunityTownDetailFragment : BaseFragment<FragmentCommunityTownDetailBind
                     adapter.updateList(it)
                     viewModel._isVisible.value = true
                 }
+            }
+        }
+    }
+
+    private fun setUpReplyRecyclerView(){
+        adapterReply = CommunityTownDetailReplyAdapter(emptyList(),object : CommunityTownDetailReplyAdapter.onItemClickListener{
+            override fun onItemClick() {
+                //좋아요 동작 및 신고 등등 동작 정의하기 위한 api호출
+            }
+        })
+    }
+
+    //댓글 감지
+    private fun collectReply(){
+        repeatOnStarted {
+            viewModel.replyResult.collect{response ->
+                if(response.isEmpty()){
+                    return@collect
+                }else{
+                    binding.replyRecycler.visibility = View.VISIBLE
+                    adapterReply.updateList(response)
+                }
+
             }
         }
     }

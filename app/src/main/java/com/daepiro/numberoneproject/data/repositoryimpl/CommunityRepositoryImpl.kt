@@ -6,6 +6,7 @@ import com.daepiro.numberoneproject.data.model.CommentWritingRequestBody
 import com.daepiro.numberoneproject.data.model.CommentWritingResponse
 import com.daepiro.numberoneproject.data.model.CommunityTownDetailData
 import com.daepiro.numberoneproject.data.model.CommunityTownListModel
+import com.daepiro.numberoneproject.data.model.CommunityTownReplyResponse
 import com.daepiro.numberoneproject.data.network.ApiResult
 import com.daepiro.numberoneproject.data.network.ApiService
 import com.daepiro.numberoneproject.domain.repository.CommunityRepository
@@ -46,5 +47,12 @@ class CommunityRepositoryImpl @Inject constructor(
         val latitudeRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(),latitude.toString())
         Log.d("CommunityRepositoryImpl", "after: ${imageList.size}")
         return service.setTownDetail(token,titleRequestBody,contentRequestBody,articleTagRequestBody,longtitudeRequestBody,latitudeRequestBody,imageList)
+    }
+
+    override suspend fun getTownReply(
+        token:String,
+        articleId:Int
+    ):ApiResult<CommunityTownReplyResponse>{
+        return service.getTownReply(token,articleId)
     }
 }

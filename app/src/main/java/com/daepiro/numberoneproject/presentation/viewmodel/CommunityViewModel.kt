@@ -11,10 +11,12 @@ import com.daepiro.numberoneproject.data.model.CommentWritingRequestBody
 import com.daepiro.numberoneproject.data.model.CommentWritingResponse
 import com.daepiro.numberoneproject.data.model.CommunityTownDetailData
 import com.daepiro.numberoneproject.data.model.CommunityTownListModel
+import com.daepiro.numberoneproject.data.model.CommunityTownReplyResponse
 import com.daepiro.numberoneproject.data.network.onFailure
 import com.daepiro.numberoneproject.data.network.onSuccess
 import com.daepiro.numberoneproject.domain.usecase.GetCommunityTownDetailUseCase
 import com.daepiro.numberoneproject.domain.usecase.GetCommunityTownListUseCase
+import com.daepiro.numberoneproject.domain.usecase.GetTownReplyUseCase
 import com.daepiro.numberoneproject.domain.usecase.SetCommunityWritingUseCase
 
 import com.daepiro.numberoneproject.presentation.util.TokenManager
@@ -39,7 +41,8 @@ class CommunityViewModel @Inject constructor(
     private val tokenManager: TokenManager,
     private val getCommunityTownListUseCase: GetCommunityTownListUseCase,
     private val getCommunityTownDetailUseCase: GetCommunityTownDetailUseCase,
-    private val setCommunityWritingUseCase: SetCommunityWritingUseCase
+    private val setCommunityWritingUseCase: SetCommunityWritingUseCase,
+    private val getTownReplyUseCase: GetTownReplyUseCase
 ) : ViewModel() {
 
     private val _townCommentList = MutableStateFlow(CommunityTownListModel())
@@ -53,6 +56,9 @@ class CommunityViewModel @Inject constructor(
 
     private val _writingResult = MutableStateFlow(CommentWritingResponse())
     val writingResult = _writingResult.asStateFlow()
+
+    private val _replyResult = MutableStateFlow(CommunityTownReplyResponse())
+    val replyResult = _replyResult.asStateFlow()
 
     val _tagData = MutableLiveData<String>()
     val tagData:LiveData<String> = _tagData
@@ -97,6 +103,20 @@ class CommunityViewModel @Inject constructor(
                     Log.d("CommunityViewModel1", "$it")
                 }
 
+        }
+    }
+
+    fun getReply(articleId:Int){
+        viewModelScope.launch {
+            val token = "Bearer ${tokenManager.accessToken.first()}"
+            getTownReplyUseCase.invoke(token,articleId)
+                .onSuccess {response->
+                    _replyResult.value = response
+                    Log.d("getReply", "$response")
+                }
+                .onFailure {
+                    Log.e("getReply","$it")
+                }
         }
     }
 

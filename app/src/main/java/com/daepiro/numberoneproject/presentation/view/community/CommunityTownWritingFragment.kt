@@ -107,7 +107,6 @@ class CommunityTownWritingFragment : BaseFragment<FragmentCommunityTownWritingBi
             Log.d("postComment","$articleTag")
         }
 
-
     }
 
     private fun checkPermission():Boolean{

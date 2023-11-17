@@ -14,6 +14,7 @@
         android:layout_marginTop="12dp"
         android:gravity="center_vertical">
         <TextView
+            android:id="@+id/user_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="김연지 ∙ 5분전"
@@ -30,6 +31,7 @@
             app:tint="@color/secondary_300"/>
     </LinearLayout>
     <TextView
+        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
@@ -46,16 +48,25 @@
         android:layout_marginBottom="12dp"
         android:gravity="center_vertical">
         <ImageView
+            android:id="@+id/like_btn"
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:src="@drawable/ic_good"
-            app:tint="@color/secondary_300"
-            android:layout_marginRight="6dp"/>
+            app:tint="@color/secondary_300" />
+        <TextView
+            android:id="@+id/like_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/caption"
+            android:textColor="@color/orange_500"
+            android:text="1"
+            android:visibility="gone"/>
         <ImageView
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:src="@drawable/ic_community"
-            app:tint="@color/secondary_300"/>
+            app:tint="@color/secondary_300"
+            android:layout_marginLeft="6dp"/>
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"

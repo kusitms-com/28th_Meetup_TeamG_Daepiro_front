@@ -4,6 +4,7 @@ import com.daepiro.numberoneproject.data.model.CommentWritingRequestBody
 import com.daepiro.numberoneproject.data.model.CommentWritingResponse
 import com.daepiro.numberoneproject.data.model.CommunityTownDetailData
 import com.daepiro.numberoneproject.data.model.CommunityTownListModel
+import com.daepiro.numberoneproject.data.model.CommunityTownReplyResponse
 import com.daepiro.numberoneproject.data.model.DisasterRequestBody
 import com.daepiro.numberoneproject.data.model.DisasterResponse
 import com.daepiro.numberoneproject.data.model.FundingDetailResponse
@@ -109,13 +110,6 @@ interface ApiService {
     ):ApiResult<CommunityTownDetailData>
 
     //커뮤니티 동네생활 게시글 작성
-//    @Multipart
-//    @POST("/api/articles")
-//    suspend fun setTownDetail(
-//        @Header("Authorization") token:String,
-//        @Part("partMap") partMap:CommentWritingRequestBody,
-//        @Part imageList: List<MultipartBody.Part>
-//    ):ApiResult<CommentWritingResponse>
     @Multipart
     @POST("/api/articles")
     suspend fun setTownDetail(
@@ -127,4 +121,12 @@ interface ApiService {
         @Part("latitude") latitude:RequestBody,
         @Part imageList: List<MultipartBody.Part>
     ):ApiResult<CommentWritingResponse>
+
+    @GET("/api/comments/{articleid}")
+    suspend fun getTownReply(
+        @Header("Authorization") token:String,
+        @Path("articleid") articleid:Int
+    ):ApiResult<CommunityTownReplyResponse>
+
+
 }
