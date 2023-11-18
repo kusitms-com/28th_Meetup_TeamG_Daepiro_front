@@ -1,6 +1,7 @@
 package com.daepiro.numberoneproject.presentation.view.family
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -105,6 +106,11 @@ class FamilyFragment : BaseFragment<FragmentFamilyBinding>(R.layout.fragment_fam
                 }
             }
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        familyVM.isFamilyListManageMode.value = false
     }
 
     override fun subscribeUi() {
