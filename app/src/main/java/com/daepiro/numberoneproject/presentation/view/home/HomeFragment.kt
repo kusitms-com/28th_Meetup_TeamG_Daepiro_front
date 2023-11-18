@@ -12,6 +12,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
+import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
@@ -58,7 +59,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private lateinit var mLocationRequest: LocationRequest //
     private lateinit var mLastLocation: Location
     private lateinit var userLocation: Pair<Double, Double>
-    private var userAddress = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -68,6 +68,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
         mLocationRequest =  LocationRequest.create().apply {
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        }
+
+        binding.tvRefresh.setOnClickListener {
+            disasterVM.getDisasterMessage(DisasterRequestBody(userLocation.first, userLocation.second))
         }
 
         binding.ivExpand.setOnClickListener {
@@ -123,7 +127,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private val mLocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
             // 시스템에서 받은 location 정보를 onLocationChanged()에 전달
-
+            Log.d("taag", "123")
             onLocationChanged(locationResult.lastLocation)
         }
     }
@@ -145,6 +149,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     fun onLocationChanged(location: Location) {
         mLastLocation = location
         userLocation = Pair(mLastLocation.latitude, mLastLocation.longitude) // 갱신 된 위도
+
+        Log.d("taag location", userLocation.first.toString())
 
         disasterVM.getDisasterMessage(DisasterRequestBody(userLocation.first, userLocation.second))
         shelterVM.getAroundSheltersList(ShelterRequestBody(userLocation.first, userLocation.second, "민방위"))

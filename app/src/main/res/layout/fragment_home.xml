@@ -119,6 +119,7 @@
                             app:tint="@color/secondary_300"/>
 
                         <TextView
+                            android:id="@+id/tv_refresh"
                             style="@style/button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

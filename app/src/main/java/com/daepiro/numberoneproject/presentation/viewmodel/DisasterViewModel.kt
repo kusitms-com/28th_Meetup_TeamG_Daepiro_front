@@ -28,13 +28,16 @@ class DisasterViewModel @Inject constructor(
     val checkListIsExpanded = MutableStateFlow(false)
 
     fun getDisasterMessage(disasterRequestBody: DisasterRequestBody) {
+        _disasterMessage.value = DisasterResponse()
+        disasterLoadingState.value = true
+
         viewModelScope.launch {
             val token = "Bearer ${tokenManager.accessToken.first()}"
 
             disasterMessageUseCase(token, disasterRequestBody)
                 .onSuccess {
                     _disasterMessage.value = it
-                    disasterLoadingState.emit(false)
+                    disasterLoadingState.value = false
                 }
                 .onFailure {
 
