@@ -31,7 +31,11 @@
     <fragment
         android:id="@+id/mypageFragment"
         android:name="com.daepiro.numberoneproject.presentation.view.mypage.MypageFragment"
-        android:label="MypageFragment" />
+        android:label="MypageFragment" >
+        <action
+            android:id="@+id/action_mypageFragment_to_heartChargeFragment"
+            app:destination="@id/heartChargeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/fundingDetailFragment"
         android:name="com.daepiro.numberoneproject.presentation.view.funding.detail.FundingDetailFragment"

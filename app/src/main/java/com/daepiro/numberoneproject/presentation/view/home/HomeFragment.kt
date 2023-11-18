@@ -79,7 +79,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             val action = HomeFragmentDirections.actionHomeFragmentToAroundShelterDetailFragment(
                 latitude = userLocation.first.toFloat(),
                 longitude = userLocation.second.toFloat(),
-                address = userAddress
+                address = changeToAddress()
             )
             findNavController().navigate(action)
         }
@@ -245,6 +245,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 //                userAddress = it.info.split(" ・")[0]
             }
         }
+    }
+
+    private fun changeToAddress(): String {
+        val geocoder = Geocoder(requireContext(), Locale.KOREAN)
+        val address = geocoder.getFromLocation(userLocation.first, userLocation.second, 1)
+        Log.d("taag", address.toString())
+        return address?.get(0)?.getAddressLine(0).toString().replace("대한민국 ","")
     }
 
     private fun searchLoadToNaverMap(latitude: Double, longitude: Double) {

@@ -51,8 +51,6 @@
                 style="@style/subtitle1"
                 android:textColor="@color/secondary_400"
                 android:gravity="center_vertical"
-                android:drawableRight="@drawable/ic_arrow_down"
-                android:drawableTint="@color/secondary_400"
                 android:text="서울특별시 강남구"/>
         </LinearLayout>
 
