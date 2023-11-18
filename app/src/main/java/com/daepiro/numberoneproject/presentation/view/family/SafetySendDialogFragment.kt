@@ -13,11 +13,12 @@ import com.daepiro.numberoneproject.R
 import com.daepiro.numberoneproject.databinding.FragmentCheerDialogBinding
 import com.daepiro.numberoneproject.databinding.FragmentSafetySendDialogBinding
 import com.daepiro.numberoneproject.presentation.base.BaseDialogFragment
+import com.daepiro.numberoneproject.presentation.util.Extensions.showToast
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-class SafetySendDialogFragment @Inject constructor(
-
-): BaseDialogFragment<FragmentSafetySendDialogBinding>(R.layout.fragment_safety_send_dialog) {
+@AndroidEntryPoint
+class SafetySendDialogFragment: BaseDialogFragment<FragmentSafetySendDialogBinding>(R.layout.fragment_safety_send_dialog) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -25,7 +26,7 @@ class SafetySendDialogFragment @Inject constructor(
         this.isCancelable = false
 
         binding.btnComplete.setOnClickListener {
-
+            showToast("안부 묻기")
         }
 
         binding.btnClose.setOnClickListener {

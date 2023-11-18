@@ -35,16 +35,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 return@OnCompleteListener
             }
 
-            // Get new FCM registration token
             val token = task.result
-
-            // Log and toast
 //            val msg = getString(R.string.msg_token_fmt, token)
-            Log.d("taag", token)
+            Log.d("taag fcm token", token)
 //            Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
         })
-
-//        Log.d("taag", FirebaseMessaging.getInstance().token.toString())
     }
 
     override fun setupInit() {
