@@ -5,6 +5,7 @@ import android.util.Log
 import com.daepiro.numberoneproject.data.model.CommentWritingRequestBody
 import com.daepiro.numberoneproject.data.model.CommentWritingResponse
 import com.daepiro.numberoneproject.data.model.CommunityRereplyRequestBody
+import com.daepiro.numberoneproject.data.model.CommunityTownDeleteCommentResponse
 import com.daepiro.numberoneproject.data.model.CommunityTownDetailData
 import com.daepiro.numberoneproject.data.model.CommunityTownListModel
 import com.daepiro.numberoneproject.data.model.CommunityTownReplyRequestBody
@@ -74,5 +75,12 @@ class CommunityRepositoryImpl @Inject constructor(
         body: CommunityRereplyRequestBody
     ):ApiResult<CommunityTownReplyResponseModel> {
         return service.setTownRereply(token, articleid, commentid, body)
+    }
+
+    override suspend fun deleteComment(
+        token:String,
+        articleid: Int
+    ):ApiResult<CommunityTownDeleteCommentResponse>{
+        return service.deleteComment(token,articleid)
     }
 }

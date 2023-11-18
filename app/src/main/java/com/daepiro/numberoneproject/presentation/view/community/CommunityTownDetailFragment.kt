@@ -67,6 +67,11 @@ class CommunityTownDetailFragment : BaseFragment<FragmentCommunityTownDetailBind
             }
             binding.replyContainer.text.clear()
         }
+
+        binding.additional.setOnClickListener{
+            showBottomSheet()
+            collectCommentDelete()
+        }
     }
     //사진 데이터 감지
     private fun collectImage(){
@@ -89,13 +94,14 @@ class CommunityTownDetailFragment : BaseFragment<FragmentCommunityTownDetailBind
                 showBottomSheet()
             }
 
-            override fun onReplyClick(articleid: Int,commentid:Long) {
+            override fun onReplyClick(commentid:Long) {
                 if(binding.replyContainer.text.toString().isNotEmpty()){
                     //대댓글작성
                     val data = CommunityRereplyRequestBody(
                         content = binding.replyContainer.text.toString()
                     )
-                    viewModel.writeRereply(articleid,commentid,data)
+                    val articleId = viewModel.townDetail.value.articleId
+                    viewModel.writeRereply(articleId,commentid,data)
                 }
             }
         })
@@ -123,6 +129,18 @@ class CommunityTownDetailFragment : BaseFragment<FragmentCommunityTownDetailBind
             latitude = 0.0
         )
         viewModel.writeReply(articleId, data)
+    }
+
+    //게시물 삭제 상태 체크
+    private fun collectCommentDelete(){
+        val articleId = viewModel.townDetail.value.articleId
+        repeatOnStarted {
+            viewModel.additionalState.collect{state->
+                if(state == "삭제하기"){
+                    viewModel.deleteComment(articleId)
+                }
+            }
+        }
     }
     private fun showBottomSheet(){
         val bottomSheet = CommunityReplyBottomSheetFragment()

@@ -16,6 +16,7 @@ import com.daepiro.numberoneproject.data.model.CommunityTownReplyRequestBody
 import com.daepiro.numberoneproject.data.model.CommunityTownReplyResponse
 import com.daepiro.numberoneproject.data.network.onFailure
 import com.daepiro.numberoneproject.data.network.onSuccess
+import com.daepiro.numberoneproject.domain.usecase.DeleteCommunityTownCommentUseCase
 import com.daepiro.numberoneproject.domain.usecase.GetCommunityTownDetailUseCase
 import com.daepiro.numberoneproject.domain.usecase.GetCommunityTownListUseCase
 import com.daepiro.numberoneproject.domain.usecase.GetTownReplyUseCase
@@ -48,7 +49,8 @@ class CommunityViewModel @Inject constructor(
     private val setCommunityWritingUseCase: SetCommunityWritingUseCase,
     private val getTownReplyUseCase: GetTownReplyUseCase,
     private val setCommunityTownReplyWritingUseCase: SetCommunityTownReplyWritingUseCase,
-    private val setCommunityTownRereplyWritingUseCase: SetCommunityTownRereplyWritingUseCase
+    private val setCommunityTownRereplyWritingUseCase: SetCommunityTownRereplyWritingUseCase,
+    private val deleteCommunityTownCommentUseCase: DeleteCommunityTownCommentUseCase
 ) : ViewModel() {
 
     private val _townCommentList = MutableStateFlow(CommunityTownListModel())
@@ -71,6 +73,13 @@ class CommunityViewModel @Inject constructor(
 
     private val _replycontent= MutableStateFlow("")
     val replycontent:StateFlow<String> = _replycontent.asStateFlow()
+
+    private val _additionalState = MutableStateFlow("")
+    val additionalState:StateFlow<String> = _additionalState.asStateFlow()
+
+    fun updateAdditionalType(input:String){
+        _additionalState.value= input
+    }
 
     var tag:Int=0
 
@@ -162,6 +171,15 @@ class CommunityViewModel @Inject constructor(
                 }
                 .onFailure {
                     Log.e("writeRereply","$it")
+                }
+        }
+    }
+    fun deleteComment(articleId: Int){
+        viewModelScope.launch {
+            val token = "Bearer ${tokenManager.accessToken.first()}"
+            deleteCommunityTownCommentUseCase.invoke(token,articleId)
+                .onSuccess{
+                    getTownCommentList(10,null,null)
                 }
         }
     }
