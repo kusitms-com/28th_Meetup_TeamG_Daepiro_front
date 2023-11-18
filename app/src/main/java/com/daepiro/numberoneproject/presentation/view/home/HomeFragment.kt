@@ -12,7 +12,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
-import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
@@ -67,7 +66,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         binding.shelterVM = shelterVM
 
 
-
         mLocationRequest =  LocationRequest.create().apply {
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         }
@@ -84,6 +82,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             )
             findNavController().navigate(action)
         }
+
+        binding.llAlarm.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToAlarmDetailFragment()
+            findNavController().navigate(action)
+        }
     }
 
     override fun setupInit() {
@@ -97,7 +100,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     }
 
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun requestPermission() {
         TedPermission.create()
             .setPermissionListener(object : PermissionListener {
@@ -246,18 +248,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 }
             }
         }
-
-        repeatOnStarted {
-            disasterVM.disasterMessage.collectLatest {
-//                userAddress = it.info.split(" ・")[0]
-            }
-        }
     }
 
     private fun changeToAddress(): String {
         val geocoder = Geocoder(requireContext(), Locale.KOREAN)
         val address = geocoder.getFromLocation(userLocation.first, userLocation.second, 1)
-        Log.d("taag", address.toString())
         return address?.get(0)?.getAddressLine(0).toString().replace("대한민국 ","")
     }
 

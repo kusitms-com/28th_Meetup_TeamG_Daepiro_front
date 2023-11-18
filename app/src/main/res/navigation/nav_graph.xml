@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_homeFragment_to_aroundShelterDetailFragment"
             app:destination="@id/aroundShelterDetailFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_alarmDetailFragment"
+            app:destination="@id/alarmDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/familyFragment"
@@ -83,4 +86,8 @@
         android:name="com.daepiro.numberoneproject.presentation.view.funding.detail.HeartChargeFragment"
         android:label="HeartChargeFragment"
         tools:layout="@layout/fragment_heart_charge"/>
+    <fragment
+        android:id="@+id/alarmDetailFragment"
+        android:name="com.daepiro.numberoneproject.presentation.view.home.AlarmDetailFragment"
+        android:label="AlarmDetailFragment" />
 </navigation>

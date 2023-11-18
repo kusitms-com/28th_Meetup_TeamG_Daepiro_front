@@ -40,11 +40,30 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_weight="1"/>
-                <ImageView
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/ll_alarm"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_alarm"
-                    app:tint="@color/secondary_300"/>
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_alarm"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/secondary_300" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="6dp"
+                        android:layout_height="6dp"
+                        app:cardBackgroundColor="@color/warning"
+                        app:cardCornerRadius="48dp"
+                        android:layout_marginRight="4dp"
+                        android:layout_marginTop="4dp"
+                        app:strokeWidth="0dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.constraintlayout.widget.ConstraintLayout
