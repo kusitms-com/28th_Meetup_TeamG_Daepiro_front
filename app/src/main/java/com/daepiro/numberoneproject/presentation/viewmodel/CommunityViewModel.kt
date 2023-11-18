@@ -16,6 +16,7 @@ import com.daepiro.numberoneproject.data.model.CommunityTownReplyRequestBody
 import com.daepiro.numberoneproject.data.model.CommunityTownReplyResponse
 import com.daepiro.numberoneproject.data.network.onFailure
 import com.daepiro.numberoneproject.data.network.onSuccess
+import com.daepiro.numberoneproject.domain.usecase.DeleteCommunityReplyUseCase
 import com.daepiro.numberoneproject.domain.usecase.DeleteCommunityTownCommentUseCase
 import com.daepiro.numberoneproject.domain.usecase.GetCommunityTownDetailUseCase
 import com.daepiro.numberoneproject.domain.usecase.GetCommunityTownListUseCase
@@ -35,6 +36,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
+import retrofit2.HttpException
 import java.time.Duration
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -50,7 +52,8 @@ class CommunityViewModel @Inject constructor(
     private val getTownReplyUseCase: GetTownReplyUseCase,
     private val setCommunityTownReplyWritingUseCase: SetCommunityTownReplyWritingUseCase,
     private val setCommunityTownRereplyWritingUseCase: SetCommunityTownRereplyWritingUseCase,
-    private val deleteCommunityTownCommentUseCase: DeleteCommunityTownCommentUseCase
+    private val deleteCommunityTownCommentUseCase: DeleteCommunityTownCommentUseCase,
+    private val deleteCommunityReplyUseCase: DeleteCommunityReplyUseCase
 ) : ViewModel() {
 
     private val _townCommentList = MutableStateFlow(CommunityTownListModel())
@@ -97,8 +100,14 @@ class CommunityViewModel @Inject constructor(
                     _townCommentList.value = datalist
                     Log.d("CommunityForTownViewModel","성공")
                 }
-                .onFailure {
-                    Log.e("CommunityForTownViewModel","$it")
+                .onFailure {it->
+                    //Log.e("CommunityForTownViewModel","$it")
+                    if(it is HttpException){
+                        Log.e("CommunityForTownViewModel1","$it")
+                    }
+                    else{
+                        Log.e("CommunityForTownViewModel2","${it}")
+                    }
                 }
         }
     }
@@ -161,7 +170,7 @@ class CommunityViewModel @Inject constructor(
     }
 
     //대댓글 작성
-    fun writeRereply(articleid: Int,commentid:Long,body: CommunityRereplyRequestBody){
+    fun writeRereply(articleid: Int,commentid:Int,body: CommunityRereplyRequestBody){
         viewModelScope.launch {
             val token = "Bearer ${tokenManager.accessToken.first()}"
             setCommunityTownRereplyWritingUseCase.invoke(token,articleid,commentid,body)
@@ -174,12 +183,23 @@ class CommunityViewModel @Inject constructor(
                 }
         }
     }
+    //게시글 삭제
     fun deleteComment(articleId: Int){
         viewModelScope.launch {
             val token = "Bearer ${tokenManager.accessToken.first()}"
             deleteCommunityTownCommentUseCase.invoke(token,articleId)
                 .onSuccess{
                     getTownCommentList(10,null,null)
+                }
+        }
+    }
+    //동네생활 댓글 삭제
+    fun deleteReply(commentid: Int){
+        viewModelScope.launch {
+            val token = "Bearer ${tokenManager.accessToken.first()}"
+            deleteCommunityReplyUseCase.invoke(token,commentid)
+                .onSuccess {
+                    townDetail.value?.articleId?.let { it1 -> setReply(it1) }
                 }
         }
     }

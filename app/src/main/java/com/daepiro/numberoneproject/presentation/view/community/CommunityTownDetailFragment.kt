@@ -90,11 +90,13 @@ class CommunityTownDetailFragment : BaseFragment<FragmentCommunityTownDetailBind
 
     private fun setUpReplyRecyclerView(){
         adapterReply = CommunityTownDetailReplyAdapter(emptyList(),object : CommunityTownDetailReplyAdapter.onItemClickListener{
-            override fun onAdditionalItemClick(position: Int) {
+            override fun onAdditionalItemClick(commentid: Int) {
                 showBottomSheet()
+                //deleteReply
+                collectReplyDelete(commentid)
             }
 
-            override fun onReplyClick(commentid:Long) {
+            override fun onReplyClick(commentid:Int) {
                 if(binding.replyContainer.text.toString().isNotEmpty()){
                     //대댓글작성
                     val data = CommunityRereplyRequestBody(
@@ -138,6 +140,17 @@ class CommunityTownDetailFragment : BaseFragment<FragmentCommunityTownDetailBind
             viewModel.additionalState.collect{state->
                 if(state == "삭제하기"){
                     viewModel.deleteComment(articleId)
+                }
+            }
+        }
+    }
+
+    //댓글 삭제 상태 체크
+    private fun collectReplyDelete(commentid:Int){
+        repeatOnStarted {
+            viewModel.additionalState.collect{state->
+                if(state == "삭제하기"){
+                    viewModel.deleteReply(commentid)
                 }
             }
         }

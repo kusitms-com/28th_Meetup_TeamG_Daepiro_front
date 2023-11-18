@@ -6,6 +6,7 @@ import com.daepiro.numberoneproject.data.model.CommunityRereplyRequestBody
 import com.daepiro.numberoneproject.data.model.CommunityTownDeleteCommentResponse
 import com.daepiro.numberoneproject.data.model.CommunityTownDetailData
 import com.daepiro.numberoneproject.data.model.CommunityTownListModel
+import com.daepiro.numberoneproject.data.model.CommunityTownReplyDeleteResponse
 import com.daepiro.numberoneproject.data.model.CommunityTownReplyRequestBody
 import com.daepiro.numberoneproject.data.model.CommunityTownReplyResponse
 import com.daepiro.numberoneproject.data.model.CommunityTownReplyResponseModel
@@ -148,7 +149,7 @@ interface ApiService {
     suspend fun setTownRereply(
         @Header("Authorization") token:String,
         @Path("articleid") articleid:Int,
-        @Path("commentid") commentid:Long,
+        @Path("commentid") commentid:Int,
         @Body body: CommunityRereplyRequestBody
     ):ApiResult<CommunityTownReplyResponseModel>
 
@@ -158,5 +159,12 @@ interface ApiService {
         @Header("Authorization") token:String,
         @Path("articleid") articleid:Int,
     ):ApiResult<CommunityTownDeleteCommentResponse>
+
+    //커뮤니티 동네생활 댓글 삭제
+    @DELETE("/api/comments/{commentid}")
+    suspend fun deleteReply(
+        @Header("Authorization") token:String,
+        @Path("commentid") commentid:Int
+    ):ApiResult<CommunityTownReplyDeleteResponse>
 
 }

@@ -8,6 +8,7 @@ import com.daepiro.numberoneproject.data.model.CommunityRereplyRequestBody
 import com.daepiro.numberoneproject.data.model.CommunityTownDeleteCommentResponse
 import com.daepiro.numberoneproject.data.model.CommunityTownDetailData
 import com.daepiro.numberoneproject.data.model.CommunityTownListModel
+import com.daepiro.numberoneproject.data.model.CommunityTownReplyDeleteResponse
 import com.daepiro.numberoneproject.data.model.CommunityTownReplyRequestBody
 import com.daepiro.numberoneproject.data.model.CommunityTownReplyResponse
 import com.daepiro.numberoneproject.data.model.CommunityTownReplyResponseModel
@@ -71,7 +72,7 @@ class CommunityRepositoryImpl @Inject constructor(
     override suspend fun setTownRereply(
         token:String,
         articleid: Int,
-        commentid:Long,
+        commentid:Int,
         body: CommunityRereplyRequestBody
     ):ApiResult<CommunityTownReplyResponseModel> {
         return service.setTownRereply(token, articleid, commentid, body)
@@ -82,5 +83,11 @@ class CommunityRepositoryImpl @Inject constructor(
         articleid: Int
     ):ApiResult<CommunityTownDeleteCommentResponse>{
         return service.deleteComment(token,articleid)
+    }
+    override suspend fun deleteReply(
+        token:String,
+        commentid:Int
+    ):ApiResult<CommunityTownReplyDeleteResponse>{
+        return service.deleteReply(token,commentid)
     }
 }

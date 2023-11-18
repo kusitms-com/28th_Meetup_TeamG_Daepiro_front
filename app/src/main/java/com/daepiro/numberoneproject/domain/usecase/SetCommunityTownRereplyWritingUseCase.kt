@@ -7,7 +7,7 @@ import com.daepiro.numberoneproject.domain.repository.CommunityRepository
 import javax.inject.Inject
 
 class SetCommunityTownRereplyWritingUseCase @Inject constructor(private val communityRepository: CommunityRepository) {
-    suspend operator fun invoke(token:String,articleid:Int,commentid:Long,body: CommunityRereplyRequestBody
+    suspend operator fun invoke(token:String,articleid:Int,commentid:Int,body: CommunityRereplyRequestBody
     ):ApiResult<CommunityTownReplyResponseModel>{
         return communityRepository.setTownRereply(token,articleid,commentid,body)
     }

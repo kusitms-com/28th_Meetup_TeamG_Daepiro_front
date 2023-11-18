@@ -5,7 +5,7 @@ data class CommunityTownReplyResponseItem(
     val authorNickName: String="",
     val authorProfileImageUrl: String="",
     val childComments: List<Any>?,
-    val commentId: Long=0,
+    val commentId: Int=0,
     val content: String = "",
     val createdAt: String = "",
     val likeCount: Int = 0,

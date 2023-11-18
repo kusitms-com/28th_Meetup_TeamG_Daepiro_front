@@ -17,8 +17,8 @@ class CommunityTownDetailReplyAdapter(
 ):RecyclerView.Adapter<CommunityTownDetailReplyAdapter.ViewHolder>() {
 
     interface onItemClickListener{
-        fun onAdditionalItemClick(articleid: Int)
-        fun onReplyClick(commentid:Long)
+        fun onAdditionalItemClick(commentid:Int)
+        fun onReplyClick(commentid:Int)
     }
     class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
         val userInfo: TextView = itemView.findViewById(R.id.user_info)
@@ -52,7 +52,7 @@ class CommunityTownDetailReplyAdapter(
                 }
             }
             holder.additional.setOnClickListener{
-                listener.onAdditionalItemClick(position)
+                listener.onAdditionalItemClick(item.commentId)
             }
             holder.rereply.setOnClickListener{
                 listener.onReplyClick(item.commentId)
