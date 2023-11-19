@@ -18,7 +18,8 @@ class GuideSecondFragment: BaseFragment<FragmentGuideSecondBinding>(R.layout.fra
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnNext.setOnClickListener {
-
+            val action = GuideSecondFragmentDirections.actionGuideSecondFragmentToInputUserInfoFragment()
+            findNavController().navigate(action)
         }
 
         binding.btnBack.setOnClickListener {
