@@ -118,4 +118,17 @@ interface ApiService {
         @Path("supportId") supportId: Int,
         @Body body: CheerMessageRequest
     ): ApiResult<Any>
+
+    // 온라인 상태 전환
+    @GET("/api/members/online")
+    suspend fun changeOnline(
+        @Header("Authorization") token:String
+    ): ApiResult<Any?>
+
+    // 오프라인 상태 전환
+    @GET("/api/members/offline")
+    suspend fun changeOffline(
+        @Header("Authorization") token:String
+    ): ApiResult<Any?>
+
 }

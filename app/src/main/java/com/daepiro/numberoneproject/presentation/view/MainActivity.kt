@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.daepiro.numberoneproject.R
 import com.daepiro.numberoneproject.data.network.ApiResult
+import com.daepiro.numberoneproject.data.network.ApiService
 import com.daepiro.numberoneproject.databinding.ActivityMainBinding
 import com.daepiro.numberoneproject.presentation.base.BaseActivity
 import com.daepiro.numberoneproject.presentation.util.Extensions.repeatOnStarted
@@ -20,12 +22,15 @@ import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
+class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     val loginVM by viewModels<LoginViewModel>()
     @Inject lateinit var tokenManager: TokenManager
+    @Inject lateinit var service: ApiService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -106,5 +111,21 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 binding.bottomNavigationBox.visibility = View.GONE
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        lifecycleScope.launch {
+            val token = "Bearer ${tokenManager.accessToken.first()}"
+            service.changeOnline(token)
+        }
+    }
+
+    override fun onDestroy() {
+        runBlocking {
+            val token = "Bearer ${tokenManager.accessToken.first()}"
+            service.changeOffline(token)
+        }
+        super.onDestroy()
     }
 }
