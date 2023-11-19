@@ -33,6 +33,12 @@ class FundingDetailFragment : BaseFragment<FragmentFundingDetailBinding>(R.layou
 
         fundingVM.getFundingDetail(args.sponsorId)
 
+        findNavController().addOnDestinationChangedListener { nav, destination, _ ->
+            if (destination.id == R.id.fundingDetailFragment) {
+                fundingVM.getFundingDetail(args.sponsorId)
+            }
+        }
+
         binding.tvSponsorLink.setOnClickListener {
             val intent = Intent(requireContext(), WebViewActivity::class.java)
             intent.putExtra("url", fundingVM.fundingDetail.value.sponsorUrl)
@@ -40,7 +46,11 @@ class FundingDetailFragment : BaseFragment<FragmentFundingDetailBinding>(R.layou
         }
 
         binding.btnFunding.setOnClickListener {
-            SendHeartBottomSheet(args.sponsorId, fundingVM.fundingDetail.value.title).show(parentFragmentManager, "")
+            val action = FundingDetailFragmentDirections.actionFundingDetailFragmentToSendHeartBottomSheet(
+                sponsorId = args.sponsorId,
+                title = fundingVM.fundingDetail.value.title
+            )
+            findNavController().navigate(action)
         }
 
         binding.btnBack.setOnClickListener {
@@ -83,17 +93,11 @@ class FundingDetailFragment : BaseFragment<FragmentFundingDetailBinding>(R.layou
 
         binding.pbFunding.viewTreeObserver.addOnGlobalLayoutListener(globalListener)
 
-        /** 이게 왜 됨....?? 제거하면 뒤로가기 튕김... **/
         binding.pbFunding.doOnDetach { view ->
             globalListener?.let {
                 view.viewTreeObserver?.removeOnGlobalLayoutListener(it)
             }
             globalListener = null
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        fundingVM.getFundingDetail(args.sponsorId)
     }
 }

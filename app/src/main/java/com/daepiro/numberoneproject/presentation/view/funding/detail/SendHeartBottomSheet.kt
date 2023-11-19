@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.daepiro.numberoneproject.R
 import com.daepiro.numberoneproject.data.model.SupportRequest
 import com.daepiro.numberoneproject.databinding.FragmentSendHeartBottomSheetBinding
@@ -29,10 +30,8 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
-class SendHeartBottomSheet(
-    private val sponsorId: Int,
-    private val title: String
-): BottomSheetDialogFragment() {
+class SendHeartBottomSheet: BottomSheetDialogFragment() {
+    private val args by navArgs<SendHeartBottomSheetArgs>()
     private lateinit var binding: FragmentSendHeartBottomSheetBinding
     val fundingVM by viewModels<FundingViewModel>()
 
@@ -57,23 +56,17 @@ class SendHeartBottomSheet(
         repeatOnStarted {
             fundingVM.supportResult.collectLatest {
                 if (it != -1) {
-                    this@SendHeartBottomSheet.dismiss()
                     showToast("후원이 완료되었습니다.")
 
-                    val cheerDialog = CheerDialogFragment()
-                    cheerDialog.apply {
-                        val bundle = Bundle()
-                        bundle.putInt("supportId", it)
-                        this.arguments = bundle
-                    }
-                    cheerDialog.show(parentFragmentManager, "")
+                    val action = SendHeartBottomSheetDirections.actionSendHeartBottomSheetToCheerDialogFragment(sponsorId = args.sponsorId)
+                    findNavController().navigate(action)
                 }
             }
         }
     }
 
     private fun initView() {
-        binding.tvTitle.text = title
+        binding.tvTitle.text = args.title
 
         fundingVM.getUserHeartCnt()
     }
@@ -103,7 +96,7 @@ class SendHeartBottomSheet(
                     if (fundingVM.selectedHeartCount.value == 0) {
                         showToast("후원할 마음 갯수를 선택해주세요.")
                     } else {
-                        fundingVM.postSupport(SupportRequest(sponsorId, fundingVM.selectedHeartCount.value))
+                        fundingVM.postSupport(SupportRequest(args.sponsorId, fundingVM.selectedHeartCount.value))
                     }
                 }
             }

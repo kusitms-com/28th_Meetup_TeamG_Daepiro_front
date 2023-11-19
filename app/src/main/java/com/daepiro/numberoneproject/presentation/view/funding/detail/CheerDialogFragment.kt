@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.daepiro.numberoneproject.R
 import com.daepiro.numberoneproject.data.model.CheerMessageRequest
 import com.daepiro.numberoneproject.databinding.FragmentCheerDialogBinding
@@ -15,27 +17,27 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class CheerDialogFragment: BaseDialogFragment<FragmentCheerDialogBinding>(R.layout.fragment_cheer_dialog) {
+    private val args by navArgs<CheerDialogFragmentArgs>()
     val fundingVM by viewModels<FundingViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        this.isCancelable = false
 
         binding.btnComplete.setOnClickListener {
             if (binding.etMessage.text.isNullOrEmpty()) {
                 showToast("응원메시지를 입력해 주세요.")
             } else {
                 fundingVM.postCheerMessage(
-                    supportId = arguments?.getInt("supportId")!!,
+                    supportId = args.sponsorId,
                     body = CheerMessageRequest(binding.etMessage.text.toString())
                 )
-                this@CheerDialogFragment.dismiss()
+                findNavController().navigateUp()
             }
         }
 
         binding.btnPass.setOnClickListener {
-            this.dismiss()
+            findNavController().navigateUp()
         }
-
-        this.isCancelable = false
     }
 }
