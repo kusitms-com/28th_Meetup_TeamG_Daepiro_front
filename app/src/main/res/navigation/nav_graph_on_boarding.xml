@@ -12,7 +12,11 @@
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_guideFirstFragment"
-            app:destination="@id/guideFirstFragment" />
+            app:destination="@id/guideFirstFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out"/>
     </fragment>
     <fragment
         android:id="@+id/guideSecondFragment"
@@ -26,6 +30,10 @@
         tools:layout="@layout/fragment_guide_first">
         <action
             android:id="@+id/action_guideFirstFragment_to_guideSecondFragment"
-            app:destination="@id/guideSecondFragment" />
+            app:destination="@id/guideSecondFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out"/>
     </fragment>
 </navigation>
