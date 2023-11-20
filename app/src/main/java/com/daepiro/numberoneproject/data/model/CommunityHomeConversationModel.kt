@@ -1,10 +1,10 @@
 package com.daepiro.numberoneproject.data.model
 
-data class Conversation(
-    val content: String,
-    val conversationId: Int,
-    val info: String,
-    val isEditable: Boolean,
-    val isLiked: Boolean,
-    val like: Int
+data class CommunityHomeConversationModel(
+    val content: String = "",
+    val conversationId: Int = 0,
+    val info: String = "",
+    val isEditable: Boolean = false,
+    val isLiked: Boolean = false,
+    val like: Int=0
 )

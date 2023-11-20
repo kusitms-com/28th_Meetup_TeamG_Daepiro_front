@@ -4,6 +4,8 @@ import android.net.Uri
 import android.util.Log
 import com.daepiro.numberoneproject.data.model.CommentWritingRequestBody
 import com.daepiro.numberoneproject.data.model.CommentWritingResponse
+import com.daepiro.numberoneproject.data.model.CommunityHomeDisasterResponse
+import com.daepiro.numberoneproject.data.model.CommunityHomeSituationModel
 import com.daepiro.numberoneproject.data.model.CommunityRereplyRequestBody
 import com.daepiro.numberoneproject.data.model.CommunityTownDeleteCommentResponse
 import com.daepiro.numberoneproject.data.model.CommunityTownDetailData
@@ -33,25 +35,29 @@ class CommunityRepositoryImpl @Inject constructor(
     override suspend fun getTownCommentList(
         token:String,
         size:Int,
-        tag:String?,
-        lastArticleId:Int?
+        tag:String,
+        lastArticleId:Int?,
+//        longtitude: Double?,
+//        latitude: Double?,
+        regionLv2:String
     ):ApiResult<CommunityTownListModel>{
-        return service.getTownCommentList(token,size,tag,lastArticleId)
+        return service.getTownCommentList(token,size,tag,lastArticleId,regionLv2)
     }
 
     override suspend fun getTownCommentDetail(token:String,articleId:Int):ApiResult<CommunityTownDetailData>{
         return service.getTownCommentDetail(token,articleId)
     }
-    override suspend fun setTownDetail(token:String, title:String, content:String, articleTag:String,longtitude:Double, latitude:Double, imageList:List<MultipartBody.Part>)
+    override suspend fun setTownDetail(token:String, title:String, content:String, articleTag:String,longtitude:Double?, latitude:Double?,regionAgreementCheck:Boolean, imageList:List<MultipartBody.Part>)
     :ApiResult<CommentWritingResponse>{
-        Log.d("CommunityRepositoryImpl", "before: ${imageList.size}")
+        Log.d("CommunityRepositoryImpl", "before: ${imageList?.size}")
         val titleRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(),title)
         val contentRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(),content)
         val articleTagRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(),articleTag)
         val longtitudeRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(),longtitude.toString())
         val latitudeRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(),latitude.toString())
-        Log.d("CommunityRepositoryImpl", "after: ${imageList.size}")
-        return service.setTownDetail(token,titleRequestBody,contentRequestBody,articleTagRequestBody,longtitudeRequestBody,latitudeRequestBody,imageList)
+        val regionAgreementCheckRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), regionAgreementCheck.toString())
+        Log.d("CommunityRepositoryImpl", "after: ${imageList?.size}")
+        return service.setTownDetail(token,titleRequestBody,contentRequestBody,articleTagRequestBody,longtitudeRequestBody,latitudeRequestBody,regionAgreementCheckRequestBody,imageList)
     }
 
     override suspend fun getTownReply(
@@ -89,5 +95,10 @@ class CommunityRepositoryImpl @Inject constructor(
         commentid:Int
     ):ApiResult<CommunityTownReplyDeleteResponse>{
         return service.deleteReply(token,commentid)
+    }
+
+    //재난상황 커뮤니티 홈
+    override suspend fun getDisasterHome(token:String):ApiResult<CommunityHomeDisasterResponse>{
+        return service.getDisasterHome(token)
     }
 }
