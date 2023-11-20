@@ -2,6 +2,9 @@ package com.daepiro.numberoneproject.data.network
 
 import com.daepiro.numberoneproject.data.model.CommentWritingRequestBody
 import com.daepiro.numberoneproject.data.model.CommentWritingResponse
+import com.daepiro.numberoneproject.data.model.CommunityDisasterDetailResponse
+import com.daepiro.numberoneproject.data.model.CommunityHomeDisasterResponse
+import com.daepiro.numberoneproject.data.model.CommunityHomeSituationModel
 import com.daepiro.numberoneproject.data.model.CommunityRereplyRequestBody
 import com.daepiro.numberoneproject.data.model.CommunityTownDeleteCommentResponse
 import com.daepiro.numberoneproject.data.model.CommunityTownDetailData
@@ -105,8 +108,11 @@ interface ApiService {
     suspend fun getTownCommentList(
         @Header("Authorization") token:String,
         @Query("size") size:Int,
-        @Query("tag") tag:String?,
-        @Query("lastArticleId") lastArticleId:Int?
+        @Query("tag") tag:String,
+        @Query("lastArticleId") lastArticleId:Int?,
+        //@Query("longtitude") longtitude:Double?,
+        //@Query("latitude") latitude:Double?,
+        @Query("regionLv2") regionLv2:String
     ):ApiResult<CommunityTownListModel>
 
     //커뮤니티 동네생활 게시글 상세 조회
@@ -124,8 +130,9 @@ interface ApiService {
         @Part("title") title:RequestBody,
         @Part("content") content:RequestBody,
         @Part("articleTag") articleTag:RequestBody,
-        @Part("longitude") longitude:RequestBody,
-        @Part("latitude") latitude:RequestBody,
+        @Part("longitude") longitude:RequestBody?,
+        @Part("latitude") latitude:RequestBody?,
+        @Part("regionAgreementCheck") regionAgreementCheck:RequestBody,
         @Part imageList: List<MultipartBody.Part>
     ):ApiResult<CommentWritingResponse>
 
@@ -167,4 +174,18 @@ interface ApiService {
         @Path("commentid") commentid:Int
     ):ApiResult<CommunityTownReplyDeleteResponse>
 
+
+    //재난상황 커뮤니티
+    @GET("/api/disaster/situation")
+    suspend fun getDisasterHome(
+        @Header("Authorization") token:String,
+    ):ApiResult<CommunityHomeDisasterResponse>
+
+    //재난상황
+    @GET("/api/disaster/{sort}/{disasterId}")
+    suspend fun getDisasterHomeDetail(
+        @Header("Authorization") token:String,
+        @Path("disasterId") disasterId:Int,
+        @Path("sort") sort:String
+    ):ApiResult<CommunityDisasterDetailResponse>
 }

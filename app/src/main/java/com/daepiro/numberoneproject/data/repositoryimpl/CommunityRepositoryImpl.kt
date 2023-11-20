@@ -4,6 +4,7 @@ import android.net.Uri
 import android.util.Log
 import com.daepiro.numberoneproject.data.model.CommentWritingRequestBody
 import com.daepiro.numberoneproject.data.model.CommentWritingResponse
+import com.daepiro.numberoneproject.data.model.CommunityDisasterDetailResponse
 import com.daepiro.numberoneproject.data.model.CommunityHomeDisasterResponse
 import com.daepiro.numberoneproject.data.model.CommunityHomeSituationModel
 import com.daepiro.numberoneproject.data.model.CommunityRereplyRequestBody
@@ -100,5 +101,10 @@ class CommunityRepositoryImpl @Inject constructor(
     //재난상황 커뮤니티 홈
     override suspend fun getDisasterHome(token:String):ApiResult<CommunityHomeDisasterResponse>{
         return service.getDisasterHome(token)
+    }
+
+    //재난상황 커뮤니티 더보기
+    override suspend fun getDisasterHomeDetail(token:String, sort:String,disasterId:Int):ApiResult<CommunityDisasterDetailResponse>{
+        return service.getDisasterHomeDetail(token,disasterId,sort)
     }
 }

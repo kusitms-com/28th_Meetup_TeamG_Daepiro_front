@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@color/surface">
 
     <TextView
+        android:id="@+id/disasterType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/caption"
@@ -23,6 +26,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"/>
     <TextView
+        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -32,6 +36,7 @@
         android:textColor="@color/secondary_800"
         android:text="태풍 카눈 한반도 상륙 15시간 중단"/>
     <TextView
+        android:id="@+id/msg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -54,6 +59,7 @@
             android:src="@drawable/ic_location"
             app:tint="@color/secondary_300"/>
         <TextView
+            android:id="@+id/info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="전국 ∙ 오후 2시 46분"
@@ -67,8 +73,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_community"
-            app:tint="@color/secondary_300"
-            android:layout_marginRight="8dp"/>
+            app:tint="@color/secondary_300" />
+        <TextView
+            android:id="@+id/conversationCnt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            style="@style/body1"
+            android:text="1"
+            android:visibility="gone"
+            android:textColor="@color/secondary_300"/>
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -78,4 +93,31 @@
 
     </LinearLayout>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_reply"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/item_community_homelist"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:visibility="visible"/>
+
+
+    <TextView
+        android:id="@+id/additional"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        style="@style/body2"
+        android:textColor="@color/secondary_800"
+        android:layout_marginBottom="20dp"
+        android:paddingTop="10dp"
+        android:gravity="center"
+        android:visibility="visible"
+        android:text="더보기"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/outline"/>
+
 </LinearLayout>
+</layout>

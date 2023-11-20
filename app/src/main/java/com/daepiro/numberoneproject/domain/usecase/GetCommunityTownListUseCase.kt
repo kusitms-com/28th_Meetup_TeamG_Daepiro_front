@@ -6,7 +6,7 @@ import com.daepiro.numberoneproject.domain.repository.CommunityRepository
 import javax.inject.Inject
 
 class GetCommunityTownListUseCase @Inject constructor(private val communityRepository: CommunityRepository) {
-    suspend operator fun invoke(token:String,tag:String?,lastArticleId:Int?,size:Int):ApiResult<CommunityTownListModel>{
-        return communityRepository.getTownCommentList(token,size,tag,lastArticleId)
+    suspend operator fun invoke(token:String,size:Int,tag:String,lastArticleId:Int?,regionLv2:String):ApiResult<CommunityTownListModel>{
+        return communityRepository.getTownCommentList(token,size,tag,lastArticleId,regionLv2)
     }
 }

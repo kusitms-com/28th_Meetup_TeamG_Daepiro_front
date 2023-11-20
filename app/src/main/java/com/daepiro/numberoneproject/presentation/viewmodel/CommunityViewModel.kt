@@ -9,6 +9,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.daepiro.numberoneproject.data.model.CommentWritingRequestBody
 import com.daepiro.numberoneproject.data.model.CommentWritingResponse
+import com.daepiro.numberoneproject.data.model.CommunityDisasterDetailResponse
+import com.daepiro.numberoneproject.data.model.CommunityHomeDisasterResponse
+import com.daepiro.numberoneproject.data.model.CommunityHomeSituationModel
 import com.daepiro.numberoneproject.data.model.CommunityRereplyRequestBody
 import com.daepiro.numberoneproject.data.model.CommunityTownDetailData
 import com.daepiro.numberoneproject.data.model.CommunityTownListModel
@@ -18,8 +21,10 @@ import com.daepiro.numberoneproject.data.network.onFailure
 import com.daepiro.numberoneproject.data.network.onSuccess
 import com.daepiro.numberoneproject.domain.usecase.DeleteCommunityReplyUseCase
 import com.daepiro.numberoneproject.domain.usecase.DeleteCommunityTownCommentUseCase
+import com.daepiro.numberoneproject.domain.usecase.GetCommunityHomeDetailUseCase
 import com.daepiro.numberoneproject.domain.usecase.GetCommunityTownDetailUseCase
 import com.daepiro.numberoneproject.domain.usecase.GetCommunityTownListUseCase
+import com.daepiro.numberoneproject.domain.usecase.GetDisasterHomeUseCase
 import com.daepiro.numberoneproject.domain.usecase.GetTownReplyUseCase
 import com.daepiro.numberoneproject.domain.usecase.SetCommunityTownReplyWritingUseCase
 import com.daepiro.numberoneproject.domain.usecase.SetCommunityTownRereplyWritingUseCase
@@ -53,7 +58,9 @@ class CommunityViewModel @Inject constructor(
     private val setCommunityTownReplyWritingUseCase: SetCommunityTownReplyWritingUseCase,
     private val setCommunityTownRereplyWritingUseCase: SetCommunityTownRereplyWritingUseCase,
     private val deleteCommunityTownCommentUseCase: DeleteCommunityTownCommentUseCase,
-    private val deleteCommunityReplyUseCase: DeleteCommunityReplyUseCase
+    private val deleteCommunityReplyUseCase: DeleteCommunityReplyUseCase,
+    private val getDisasterHomeUseCase: GetDisasterHomeUseCase,
+    private val getCommunityHomeDetailUseCase: GetCommunityHomeDetailUseCase
 ) : ViewModel() {
 
     private val _townCommentList = MutableStateFlow(CommunityTownListModel())
@@ -80,6 +87,9 @@ class CommunityViewModel @Inject constructor(
     private val _additionalState = MutableStateFlow("")
     val additionalState:StateFlow<String> = _additionalState.asStateFlow()
 
+    private val _disasterHome = MutableStateFlow(CommunityHomeDisasterResponse())
+    val disasterHome = _disasterHome.asStateFlow()
+
     fun updateAdditionalType(input:String){
         _additionalState.value= input
     }
@@ -92,10 +102,10 @@ class CommunityViewModel @Inject constructor(
 
 
 
-    fun getTownCommentList(size:Int,tag:String?,lastArticleId:Int?){
+    fun getTownCommentList(size:Int,tag:String,lastArticleId:Int?,regionLv2:String){
         viewModelScope.launch {
             val token = "Bearer ${tokenManager.accessToken.first()}"
-            getCommunityTownListUseCase(token,tag,lastArticleId,size)
+            getCommunityTownListUseCase(token,size,tag,lastArticleId,regionLv2)
                 .onSuccess {datalist->
                     _townCommentList.value = datalist
                     Log.d("CommunityForTownViewModel","성공")
@@ -124,10 +134,10 @@ class CommunityViewModel @Inject constructor(
         }
     }
 
-    fun postComment(title:String,content:String,articleTag:String,longtitude:Double,latitude:Double, imageList:List<MultipartBody.Part>){
+    fun postComment(title:String,content:String,articleTag:String,longtitude:Double,latitude:Double,regionAgreementCheck:Boolean, imageList:List<MultipartBody.Part>){
         viewModelScope.launch {
             val token = "Bearer ${tokenManager.accessToken.first()}"
-            setCommunityWritingUseCase.invoke(token,title,content,articleTag,longtitude,latitude,imageList)
+            setCommunityWritingUseCase.invoke(token,title,content,articleTag,longtitude,latitude,regionAgreementCheck,imageList)
                 .onSuccess {
                     _writingResult.value = it
                     Log.d("CommunityViewModel", "성공성공성공")
@@ -189,7 +199,8 @@ class CommunityViewModel @Inject constructor(
             val token = "Bearer ${tokenManager.accessToken.first()}"
             deleteCommunityTownCommentUseCase.invoke(token,articleId)
                 .onSuccess{
-                    getTownCommentList(10,null,null)
+                    //게시글 삭제 주석처리 추후 포함시켜야함
+                    //getTownCommentList(10,null,null,null,null,"신길동")
                 }
         }
     }
@@ -200,6 +211,48 @@ class CommunityViewModel @Inject constructor(
             deleteCommunityReplyUseCase.invoke(token,commentid)
                 .onSuccess {
                     townDetail.value?.articleId?.let { it1 -> setReply(it1) }
+                }
+        }
+    }
+
+    val _isLoading = MutableLiveData<Boolean>()
+    val isLoading:LiveData<Boolean> = _isLoading
+
+    //재난상황 api
+    fun getDisasterHome(){
+        viewModelScope.launch {
+            _isLoading.value = true
+            val token = "Bearer ${tokenManager.accessToken.first()}"
+            getDisasterHomeUseCase.invoke(token)
+                .onSuccess { response->
+                    _disasterHome.value = response
+                    _isLoading.value = false
+                    Log.d("getDisasterHome", "${response}")
+                }
+                .onFailure {
+                    _isLoading.value = true
+                    Log.e("getDisasterHome" , "${isLoading.value}")
+                }
+        }
+    }
+
+    private val _disasterHomeDetail = MutableStateFlow(CommunityDisasterDetailResponse())
+    val disasterHomeDetail = _disasterHomeDetail.asStateFlow()
+
+    //재난상황 댓글 더보기
+    fun getDisasterDetail(sort:String,disasterId:Int){
+        viewModelScope.launch {
+            _isLoading.value = true
+            val token = "Bearer ${tokenManager.accessToken.first()}"
+            getCommunityHomeDetailUseCase.invoke(token,sort,disasterId)
+                .onSuccess { response->
+                    _disasterHomeDetail.value = response
+                    _isLoading.value = false
+                    Log.d("getDisasterDetail", "${response}")
+                }
+                .onFailure {
+                    _isLoading.value = true
+                    Log.d("getDisasterDetail", "${it}")
                 }
         }
     }
@@ -252,6 +305,9 @@ class CommunityViewModel @Inject constructor(
             Log.e("getTimeDifference", "$e")
             return "파싱 오류"
         }
+    }
+    init{
+        _isLoading.value = true
     }
 }
 

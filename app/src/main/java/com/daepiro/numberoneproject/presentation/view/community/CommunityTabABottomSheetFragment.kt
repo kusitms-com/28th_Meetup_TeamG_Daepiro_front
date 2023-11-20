@@ -5,56 +5,68 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import androidx.fragment.app.activityViewModels
 import com.daepiro.numberoneproject.R
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [CommunityTabABottomSheetFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class CommunityTabABottomSheetFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+import com.daepiro.numberoneproject.databinding.FragmentCommunityTabABinding
+import com.daepiro.numberoneproject.databinding.FragmentCommunityTabABottomSheetBinding
+import com.daepiro.numberoneproject.presentation.viewmodel.CommunityViewModel
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+//댓글 더보기 화면
+class CommunityTabABottomSheetFragment : BottomSheetDialogFragment() {
+    private val viewModel: CommunityViewModel by activityViewModels()
+    private var _binding:FragmentCommunityTabABottomSheetBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_community_tab_a_bottom_sheet, container, false)
+        _binding = FragmentCommunityTabABottomSheetBinding.inflate(inflater,container,false)
+        binding.lifecycleOwner = this
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CommunityTabABottomSheetFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            CommunityTabABottomSheetFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
+
+        setSpinner()
+        setupRecyclerview()
+
+        binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                val selectedItem = p0?.getItemAtPosition(p2).toString()
+                //recycler updatelist 호출
             }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+
+            }
+        }
+
+        //collect
     }
+
+
+
+
+    private fun setupRecyclerview(){
+
+    }
+
+    private fun setSpinner(){
+        val spinnerData = listOf("최신순", "인기순")
+        val adapter = ArrayAdapter(requireContext(), R.layout.item_spinner,spinnerData)
+        adapter.setDropDownViewResource(R.layout.item_spinner,)
+        binding.spinner.adapter = adapter
+    }
+
+
+
+
+
+
 }

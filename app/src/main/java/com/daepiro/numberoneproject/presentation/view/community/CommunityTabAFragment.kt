@@ -1,5 +1,6 @@
 package com.daepiro.numberoneproject.presentation.view.community
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -24,8 +25,8 @@ class CommunityTabAFragment : BaseFragment<FragmentCommunityTabABinding>(R.layou
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpRecyclerView()
+        binding.viewModel = viewModel
         viewModel.getDisasterHome()
-        //collectDisasterHomeData()
 
     }
 
@@ -40,14 +41,16 @@ class CommunityTabAFragment : BaseFragment<FragmentCommunityTabABinding>(R.layou
     }
 
     private fun setUpRecyclerView(){
-        mainAdapter = DisasterCommunityMainAdapter(emptyList(),object : DisasterCommunityMainAdapter.onItemClickListener{
+        mainAdapter = DisasterCommunityMainAdapter(requireContext(),emptyList(),object : DisasterCommunityMainAdapter.onItemClickListener{
             override fun onItemClickListener(disasterId: Int) {
-
+                viewModel.getDisasterDetail("time", disasterId)
+                showBottomSheet()
             }
 
         })
         binding.mainRecycler.adapter = mainAdapter
     }
+
 
     private fun collectDisasterHomeData(){
         repeatOnStarted {
@@ -61,6 +64,11 @@ class CommunityTabAFragment : BaseFragment<FragmentCommunityTabABinding>(R.layou
                 }
             }
         }
+    }
+
+    private fun showBottomSheet(){
+        val dialog = CommunityTabABottomSheetFragment()
+        dialog.show(requireActivity().supportFragmentManager, "dialogTag")
     }
 
 

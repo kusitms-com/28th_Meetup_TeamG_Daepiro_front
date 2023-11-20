@@ -8,13 +8,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.daepiro.numberoneproject.R
-import com.daepiro.numberoneproject.databinding.FragmentCommunityReplyBottomSheetBinding
+
+import com.daepiro.numberoneproject.databinding.FragmentCommunityReplydeleteBottomSheetBinding
 import com.daepiro.numberoneproject.presentation.viewmodel.CommunityViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class CommunityReplyBottomSheetFragment : BottomSheetDialogFragment() {
     private val viewModel: CommunityViewModel by activityViewModels()
-    private var _binding:FragmentCommunityReplyBottomSheetBinding? = null
+    private var _binding:FragmentCommunityReplydeleteBottomSheetBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +26,7 @@ class CommunityReplyBottomSheetFragment : BottomSheetDialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentCommunityReplyBottomSheetBinding.inflate(inflater,container,false)
+        _binding = FragmentCommunityReplydeleteBottomSheetBinding.inflate(inflater,container,false)
         binding.lifecycleOwner = this
         return binding.root
     }

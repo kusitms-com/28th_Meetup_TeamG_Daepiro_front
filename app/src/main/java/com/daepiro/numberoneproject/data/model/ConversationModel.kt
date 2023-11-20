@@ -1,7 +1,7 @@
 package com.daepiro.numberoneproject.data.model
 
-data class Conversation(
-    val childs: List<Child>,
+data class ConversationModel(
+    val childs: List<ChildModel>,
     val content: String,
     val conversationId: Int,
     val info: String,

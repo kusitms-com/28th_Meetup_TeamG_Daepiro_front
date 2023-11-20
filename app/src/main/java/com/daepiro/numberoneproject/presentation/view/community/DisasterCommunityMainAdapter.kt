@@ -1,5 +1,7 @@
 package com.daepiro.numberoneproject.presentation.view.community
 
+import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +11,7 @@ import com.daepiro.numberoneproject.R
 import com.daepiro.numberoneproject.data.model.CommunityHomeSituationModel
 
 class DisasterCommunityMainAdapter(
+    private val context: Context,
     private var items:List<CommunityHomeSituationModel>,
     private val listener:onItemClickListener
 ): RecyclerView.Adapter<DisasterCommunityMainAdapter.ViewHolder>() {
@@ -20,6 +23,8 @@ class DisasterCommunityMainAdapter(
         val title: TextView = itemView.findViewById(R.id.title)
         val msg: TextView = itemView.findViewById(R.id.msg)
         val info: TextView = itemView.findViewById(R.id.info)
+        val recycler:RecyclerView = itemView.findViewById(R.id.recycler_reply)
+        val additional : TextView = itemView.findViewById(R.id.additional)
         //없을때 인비저블
         val conversationCnt : TextView = itemView.findViewById(R.id.conversationCnt)
     }
@@ -44,6 +49,21 @@ class DisasterCommunityMainAdapter(
             if(conversationCnt != 0){
                 holder.conversationCnt.visibility = View.VISIBLE
                 holder.conversationCnt.text = item.conversationCnt.toString()
+            }
+            else{
+                //댓글 없을때
+                holder.additional.visibility = View.GONE
+            }
+            //내부 recycler
+            val subAdapter = DisasterCommunitySubAdapter(context,item.conversations, object : DisasterCommunitySubAdapter.onItemClickListener{
+                override fun onItemClickListener() {
+                    //필요한가..?
+                }
+
+            })
+            holder.recycler.adapter = subAdapter
+            holder.additional.setOnClickListener{
+                listener.onItemClickListener(item.disasterId)
             }
         }
     }

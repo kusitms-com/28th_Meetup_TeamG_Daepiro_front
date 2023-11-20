@@ -1,5 +1,5 @@
 package com.daepiro.numberoneproject.data.model
 
 data class CommunityDisasterDetailResponse(
-    val conversations: List<Conversation>
+    val conversations: List<ConversationModel> = listOf()
 )

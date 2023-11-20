@@ -15,8 +15,9 @@ class SetCommunityWritingUseCase @Inject constructor(private val communityReposi
         articleTag:String,
         longtitude:Double,
         latitude:Double,
+        regionAgreementCheck:Boolean,
         imageList:List<MultipartBody.Part>
     ):ApiResult<CommentWritingResponse>{
-        return communityRepository.setTownDetail(token,title,content,articleTag,longtitude,latitude,imageList)
+        return communityRepository.setTownDetail(token,title,content,articleTag,longtitude,latitude,regionAgreementCheck,imageList)
     }
 }

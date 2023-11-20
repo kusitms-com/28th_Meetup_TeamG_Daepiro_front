@@ -37,9 +37,9 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
         binding.all.isSelected = true
 
 
-        viewModel.getTownCommentList(10,null,null)
+        viewModel.getTownCommentList(10,"NONE",null,"신길동")
         collectTownCommentList()
-        setInfiniteScroll(null)
+        setInfiniteScroll("NONE")
 
         //카테고리 tag들
         val tags = listOf(binding.all, binding.traffic, binding.safety, binding.life)
@@ -82,7 +82,7 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
         binding.recycler.adapter = adapter
     }
 
-    private fun setInfiniteScroll(tag:String?) {
+    private fun setInfiniteScroll(tag:String) {
         binding.recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -96,15 +96,15 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
                 // 목록의 마지막 아이템에 도달했을 때 API 호출
                 if (totalItemCount - 1 == lastVisibleItemPosition) {
                     isLoading = true
-                    viewModel.getTownCommentList(10, tag, lastItemId) // lastItemId를 API 호출에 포함
+                    viewModel.getTownCommentList(10, tag, lastItemId,"영등포구") // lastItemId를 API 호출에 포함
                 }
             }
         })
     }
 
-    private fun clearUpdateData(tag:String?){
+    private fun clearUpdateData(tag:String){
         adapter.clearData()
-        viewModel.getTownCommentList(10,tag,null)
+        viewModel.getTownCommentList(10,tag,null,"영등포구")
         collectTownCommentList()
         setInfiniteScroll(tag)
     }
@@ -116,7 +116,7 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
         when(selectedTag){
             binding.all ->{
                 binding.all.isSelected = !binding.all.isSelected
-                clearUpdateData(null)
+                clearUpdateData("NONE")
 
             }
             binding.life -> {

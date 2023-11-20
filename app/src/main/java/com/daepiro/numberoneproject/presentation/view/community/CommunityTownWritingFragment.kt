@@ -6,6 +6,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -35,109 +37,92 @@ import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import java.io.ByteArrayOutputStream
 import java.lang.RuntimeException
 
 class CommunityTownWritingFragment : BaseFragment<FragmentCommunityTownWritingBinding>(R.layout.fragment_community_town_writing) {
     val viewModel by activityViewModels<CommunityViewModel>()
     private val imageUrls = mutableListOf<String>()
-    private var selectedImageUri:Uri? = null
-    //private var imagePart: MultipartBody.Part? = null
+    private var selectedImageUri: Uri? = null
     private var imagePartList = mutableListOf<MultipartBody.Part>()
-    private var title:String=""
-    private var content:String=""
-    private var latitude = 0
-    private var longtitude=0
-    private var articleTag:String = ""
+    private var title: String = ""
+    private var content: String = ""
+    private var latitude = 0.0
+    private var longitude = 0.0
+    private var articleTag: String = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
 
-        binding.select.setOnClickListener{
+        binding.select.setOnClickListener {
             showBottomSheet()
         }
 
-        binding.titleTxt.addTextChangedListener(object : TextWatcher{
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-                title=p0.toString()
-            }
-
-        })
-        binding.contentTxt.addTextChangedListener(object :TextWatcher{
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-                content=p0.toString()
-            }
-
-        })
-        viewModel.tagData.observe(viewLifecycleOwner, Observer{tag->
-            when(tag){
-                "일상" -> articleTag = "LIFE"
-                "교통" -> articleTag = "TRAFFIC"
-                else -> articleTag = "NONE"
+        binding.titleTxt.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                title = s.toString()
             }
         })
 
+        binding.contentTxt.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                content = s.toString()
+            }
+        })
 
-        binding.addPhoto.setOnClickListener{
-            if(checkPermission()){
+        viewModel.tagData.observe(viewLifecycleOwner, Observer { tag ->
+            articleTag = when (tag) {
+                "일상" -> "LIFE"
+                "교통" -> "TRAFFIC"
+                "치안" -> "SAFETY"
+                else -> "NONE"
+            }
+        })
+
+        binding.addPhoto.setOnClickListener {
+            if (checkPermission()) {
                 getImage()
             }
         }
 
-
-
-        binding.complete.setOnClickListener{
-            if(title.isNotEmpty() && content.isNotEmpty()){
-                viewModel.postComment(title,content,articleTag,126.9723,37.5559,imagePartList)
-                Log.d("postComment1","$imagePartList")
+        binding.complete.setOnClickListener {
+            if (title.isNotEmpty() && content.isNotEmpty()) {
+                viewModel.postComment(title, content, articleTag, latitude, longitude, true, imagePartList)
+                Log.d("postComment1", "$imagePartList")
                 findNavController().popBackStack()
             }
-            Log.d("postComment","$articleTag")
+            Log.d("postComment", "$articleTag")
         }
-
     }
 
-    private fun checkPermission():Boolean{
-        if(ContextCompat.checkSelfPermission(requireContext(),Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED){
-            requestPermissions(arrayOf(Manifest.permission.READ_MEDIA_IMAGES),STORAGE_PERMISSION_CODE)
-            Log.d("checkPermission","false")
+    private fun checkPermission(): Boolean {
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(arrayOf(Manifest.permission.READ_MEDIA_IMAGES), STORAGE_PERMISSION_CODE)
+            Log.d("checkPermission", "false")
             return false
         }
-        Log.d("checkPermission","true")
+        Log.d("checkPermission", "true")
         return true
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        when(requestCode){
-            STORAGE_PERMISSION_CODE ->{
-                if((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)){
-                    //갤러리 오픈
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        when (requestCode) {
+            STORAGE_PERMISSION_CODE -> {
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     getImage()
-                }
-                else{
+                } else {
                     Log.e("writingFragment", "권한 허용이 필요합니다")
                 }
             }
         }
     }
 
-    private fun getImage(){
+    private fun getImage() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
         startActivityForResult(intent, GALLERY_REQUEST_CODE)
@@ -145,34 +130,38 @@ class CommunityTownWritingFragment : BaseFragment<FragmentCommunityTownWritingBi
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(resultCode == Activity.RESULT_OK || requestCode == GALLERY_REQUEST_CODE){
+        if (resultCode == Activity.RESULT_OK && requestCode == GALLERY_REQUEST_CODE) {
             selectedImageUri = data?.data
-            selectedImageUri?.let{uri->
+            selectedImageUri?.let { uri ->
                 val imageUrl = uri.toString()
                 addImageToImageUrls(imageUrl)
                 val imagePart = uriToMultipartBody(uri)
+                Log.d("CommunityTownWritingFragment", "Image part: $imagePart")
                 imagePartList.add(imagePart)
-                Log.d("CommunityTownWritingFragment","$imagePartList")
+                Log.d("CommunityTownWritingFragment", "$imagePartList")
             }
         }
     }
 
-    private fun uriToMultipartBody(uri:Uri):MultipartBody.Part{
-        Log.d("uriToMultipartBody","$uri")
-        val cursor = requireContext().contentResolver.query(uri,null,null,null,null)
-        cursor?.use{
-            if(it.moveToFirst()){
+    private fun uriToMultipartBody(uri: Uri): MultipartBody.Part {
+        val cursor = requireContext().contentResolver.query(uri, null, null, null, null)
+        cursor?.use {
+            if (it.moveToFirst()) {
                 val index = it.getColumnIndex(OpenableColumns.DISPLAY_NAME)
                 val fileName = it.getString(index)
                 val inputStream = requireContext().contentResolver.openInputStream(uri)
-                val requestBody = inputStream?.let{stream->
+                val requestBody = inputStream?.let { stream ->
                     RequestBody.create("image/*".toMediaTypeOrNull(), stream.readBytes())
                 }
-                Log.d("uriToMultipartBody","$fileName")
-                return MultipartBody.Part.createFormData("image",fileName,requestBody!!)
+                return MultipartBody.Part.createFormData("image", fileName, requestBody!!)
             }
         }
         throw RuntimeException("Failed to get uri")
+    }
+
+    private fun addImageToImageUrls(imageUrl: String) {
+        imageUrls.add(imageUrl)
+        updateImageViews()
     }
 
     private fun updateImageViews() {
@@ -181,31 +170,26 @@ class CommunityTownWritingFragment : BaseFragment<FragmentCommunityTownWritingBi
 
         imageUrls.forEachIndexed { index, imageUrl ->
             if (index < imageViews.size) {
-                loadImageIntoImageView(imageUrl, imageViews[index],cardViews[index])
+                loadImageIntoImageView(imageUrl, imageViews[index], cardViews[index])
             }
         }
     }
 
-    private fun loadImageIntoImageView(imageUrl: String, imageView: ImageView,cardView:CardView) {
+    private fun loadImageIntoImageView(imageUrl: String, imageView: ImageView, cardView: CardView) {
         cardView.visibility = View.VISIBLE
-        Glide.with(this)
-            .load(imageUrl)
-            .into(imageView)
+        Glide.with(this).load(imageUrl).into(imageView)
     }
 
-    private fun addImageToImageUrls(imageUrl: String) {
-        imageUrls.add(imageUrl)
-        updateImageViews()
-    }
-
-
-    private fun showBottomSheet(){
+    private fun showBottomSheet() {
         val bottomSheet = TagSelectBottomFragment()
-        bottomSheet.show(parentFragmentManager,"select")
+        bottomSheet.show(parentFragmentManager, "select")
     }
-    companion object{
+
+    companion object {
         private const val STORAGE_PERMISSION_CODE = 100
         private const val GALLERY_REQUEST_CODE = 101
     }
-
 }
+
+
+

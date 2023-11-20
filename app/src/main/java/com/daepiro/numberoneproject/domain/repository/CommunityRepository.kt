@@ -2,6 +2,7 @@ package com.daepiro.numberoneproject.domain.repository
 
 import com.daepiro.numberoneproject.data.model.CommentWritingRequestBody
 import com.daepiro.numberoneproject.data.model.CommentWritingResponse
+import com.daepiro.numberoneproject.data.model.CommunityDisasterDetailResponse
 import com.daepiro.numberoneproject.data.model.CommunityHomeDisasterResponse
 import com.daepiro.numberoneproject.data.model.CommunityHomeSituationModel
 import com.daepiro.numberoneproject.data.model.CommunityRereplyRequestBody
@@ -36,4 +37,5 @@ interface CommunityRepository {
     suspend fun deleteComment(token:String,articleId: Int):ApiResult<CommunityTownDeleteCommentResponse>
     suspend fun deleteReply(token:String, commentid: Int):ApiResult<CommunityTownReplyDeleteResponse>
     suspend fun getDisasterHome(token:String):ApiResult<CommunityHomeDisasterResponse>
+    suspend fun getDisasterHomeDetail(token:String, sort:String,disasterId:Int):ApiResult<CommunityDisasterDetailResponse>
 }
