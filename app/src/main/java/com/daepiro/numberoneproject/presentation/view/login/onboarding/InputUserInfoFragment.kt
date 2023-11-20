@@ -9,12 +9,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.daepiro.numberoneproject.R
 import com.daepiro.numberoneproject.databinding.FragmentInputUserInfoBinding
 import com.daepiro.numberoneproject.presentation.base.BaseFragment
+import com.daepiro.numberoneproject.presentation.viewmodel.OnboardingViewModel
 
 class InputUserInfoFragment: BaseFragment<FragmentInputUserInfoBinding>(R.layout.fragment_input_user_info) {
+    private val viewModel:OnboardingViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,6 +45,11 @@ class InputUserInfoFragment: BaseFragment<FragmentInputUserInfoBinding>(R.layout
 
         binding.btnBack.setOnClickListener {
             findNavController().navigateUp()
+        }
+
+        binding.btnNext.setOnClickListener{
+            val action = InputUserInfoFragmentDirections.actionInputUserInfoFragmentToSelectLocationFragment()
+            findNavController().navigate(action)
         }
     }
 }

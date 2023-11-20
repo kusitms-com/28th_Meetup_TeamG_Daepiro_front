@@ -48,5 +48,22 @@
         android:id="@+id/inputUserInfoFragment"
         android:name="com.daepiro.numberoneproject.presentation.view.login.onboarding.InputUserInfoFragment"
         android:label="InputUserInfoFragment"
-        tools:layout="@layout/fragment_input_user_info"/>
+        tools:layout="@layout/fragment_input_user_info">
+        <action
+            android:id="@+id/action_inputUserInfoFragment_to_selectLocationFragment"
+            app:destination="@id/selectLocationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectLocationFragment"
+        android:name="com.daepiro.numberoneproject.presentation.view.login.onboarding.SelectLocationFragment"
+        android:label="SelectLocationFragment" >
+        <action
+            android:id="@+id/action_selectLocationFragment_to_selectDisasterTypeFragment"
+            app:destination="@id/selectDisasterTypeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectDisasterTypeFragment"
+        android:name="com.daepiro.numberoneproject.presentation.view.login.onboarding.SelectDisasterTypeFragment"
+        android:label="fragment_select_disaster_type"
+        tools:layout="@layout/fragment_select_disaster_type" />
 </navigation>

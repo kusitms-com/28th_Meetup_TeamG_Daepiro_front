@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="339dp"
+    android:orientation="vertical"
+    android:layout_marginTop="16dp"
+    android:layout_marginRight="20dp"
+    android:layout_marginLeft="20dp">
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabRippleColor="@android:color/transparent"
+        app:tabSelectedTextColor="@color/secondary_900"
+        app:tabTextColor="@color/secondary_200"
+        app:tabIndicatorColor="@color/secondary_800"
+        android:backgroundTint="@color/surface"
+        app:tabIndicatorHeight="2dp"
+        app:tabGravity="fill"
+        app:tabIndicatorFullWidth="true">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/시도"
+            android:stateListAnimator="@null"
+            style="@style/button"/>
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/구군"
+            android:stateListAnimator="@null"
+            style="@style/button"/>
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/동읍면"
+            android:stateListAnimator="@null"
+            style="@style/button"/>
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        tools:listitem="@layout/item_location"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+</LinearLayout>
+</layout>
