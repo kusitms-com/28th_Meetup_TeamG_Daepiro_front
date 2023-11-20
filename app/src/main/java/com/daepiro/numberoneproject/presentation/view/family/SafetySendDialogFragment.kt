@@ -6,21 +6,25 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.daepiro.numberoneproject.R
 import com.daepiro.numberoneproject.databinding.FragmentCheerDialogBinding
 import com.daepiro.numberoneproject.databinding.FragmentSafetySendDialogBinding
 import com.daepiro.numberoneproject.presentation.base.BaseDialogFragment
+import com.daepiro.numberoneproject.presentation.util.Extensions.repeatOnStarted
 import com.daepiro.numberoneproject.presentation.util.Extensions.showToast
 import com.daepiro.numberoneproject.presentation.viewmodel.FamilyViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -36,19 +40,20 @@ class SafetySendDialogFragment: BaseDialogFragment<FragmentSafetySendDialogBindi
         setArguments()
 
         binding.btnComplete.setOnClickListener {
-            showToast("안부 묻기")
+            familyVM.postFamilySafety(args.familyInfo.friendMemberId)
         }
 
         binding.btnClose.setOnClickListener {
             this.dismiss()
         }
 
+    }
 
     private fun setArguments() {
         binding.tvLocation.text = args.familyInfo.location
         binding.tvName.text = args.familyInfo.realName
         Glide.with(requireContext()).load(args.familyInfo.profileImageUrl).into(binding.ivProfile)
-        binding.ivOnlineState.circleBackgroundColor = ContextCompat.getColor(itemView.context, R.color.warning)
+        binding.ivOnlineState.circleBackgroundColor = ContextCompat.getColor(requireContext(), R.color.warning)
 
         if (args.familyInfo.isSafety) {
             binding.tvSafetyState.apply {
@@ -70,6 +75,19 @@ class SafetySendDialogFragment: BaseDialogFragment<FragmentSafetySendDialogBindi
                 imageTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.warning))
             }
             binding.llSafetyState.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.light_waring))
+        }
+    }
+
+    override fun subscribeUi() {
+        repeatOnStarted {
+            familyVM.isCompletePostSafety.collectLatest {
+                Log.d("taag", it.toString())
+                if (it) {
+                    showToast("가족에게 안부를 물었습니다!")
+
+                    findNavController().navigateUp()
+                }
+            }
         }
     }
 

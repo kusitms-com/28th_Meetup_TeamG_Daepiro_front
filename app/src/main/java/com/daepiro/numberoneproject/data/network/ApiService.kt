@@ -132,10 +132,16 @@ interface ApiService {
         @Header("Authorization") token:String
     ): ApiResult<Any?>
 
-
-    // 친구목록 조회
+    // 가족 목록 조회
     @GET("/api/friendships")
     suspend fun getFamilyList(
         @Header("Authorization") token:String
     ): ApiResult<List<FamilyListResponse>>
+
+    // 가족 안부묻기
+    @GET("/api/friendships/{friend-id}")
+    suspend fun postFamilySafety(
+        @Header("Authorization") token:String,
+        @Path("friend-id") friendId: Int
+    ): ApiResult<Any>
 }

@@ -7,4 +7,5 @@ import com.daepiro.numberoneproject.data.network.ApiResult
 
 interface FamilyRepository {
     suspend fun getFamilyList(token: String): ApiResult<List<FamilyListResponse>>
+    suspend fun postFamilySafety(token: String, friendId: Int): ApiResult<Any>
 }
