@@ -10,6 +10,7 @@ import com.daepiro.numberoneproject.data.model.LoginTestResponse
 import com.daepiro.numberoneproject.data.model.LoginTokenResponse
 import com.daepiro.numberoneproject.data.model.OnlineResponse
 import com.daepiro.numberoneproject.data.model.RegisterFamilyResponse
+import com.daepiro.numberoneproject.data.model.SendSafetyResponse
 import com.daepiro.numberoneproject.data.model.ShelterData
 import com.daepiro.numberoneproject.data.model.ShelterListResponse
 import com.daepiro.numberoneproject.data.model.ShelterRequestBody
@@ -146,7 +147,7 @@ interface ApiService {
     suspend fun postFamilySafety(
         @Header("Authorization") token:String,
         @Path("friend-id") friendId: Int
-    ): ApiResult<Any>
+    ): ApiResult<SendSafetyResponse>
 
     // 친구 초대하기
     @PUT("/api/friendships/{inviting-member-id}")

@@ -3,6 +3,7 @@ package com.daepiro.numberoneproject.data.repositoryimpl
 import com.daepiro.numberoneproject.data.model.DisasterRequestBody
 import com.daepiro.numberoneproject.data.model.DisasterResponse
 import com.daepiro.numberoneproject.data.model.FamilyListResponse
+import com.daepiro.numberoneproject.data.model.SendSafetyResponse
 import com.daepiro.numberoneproject.data.network.ApiResult
 import com.daepiro.numberoneproject.data.network.ApiService
 import com.daepiro.numberoneproject.domain.repository.DisasterRepository
@@ -18,7 +19,7 @@ class FamilyRepositoryImpl @Inject constructor(
         return service.getFamilyList(token)
     }
 
-    override suspend fun postFamilySafety(token: String, friendId: Int): ApiResult<Any> {
+    override suspend fun postFamilySafety(token: String, friendId: Int): ApiResult<SendSafetyResponse> {
         return service.postFamilySafety(token, friendId)
     }
 }

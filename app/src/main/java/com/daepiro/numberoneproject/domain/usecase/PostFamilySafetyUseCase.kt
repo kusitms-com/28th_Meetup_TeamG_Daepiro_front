@@ -1,6 +1,7 @@
 package com.daepiro.numberoneproject.domain.usecase
 
 import com.daepiro.numberoneproject.data.model.FamilyListResponse
+import com.daepiro.numberoneproject.data.model.SendSafetyResponse
 import com.daepiro.numberoneproject.data.model.ShelterListResponse
 import com.daepiro.numberoneproject.data.model.ShelterRequestBody
 import com.daepiro.numberoneproject.data.network.ApiResult
@@ -14,7 +15,7 @@ class PostFamilySafetyUseCase @Inject constructor(
     suspend operator fun invoke(
         token: String,
         friendId: Int
-    ): ApiResult<Any> {
+    ): ApiResult<SendSafetyResponse> {
         return familyRepository.postFamilySafety(token, friendId)
     }
 }

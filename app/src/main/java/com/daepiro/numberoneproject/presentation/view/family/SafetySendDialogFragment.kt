@@ -87,7 +87,6 @@ class SafetySendDialogFragment: BaseDialogFragment<FragmentSafetySendDialogBindi
     override fun subscribeUi() {
         repeatOnStarted {
             familyVM.isCompletePostSafety.collectLatest {
-                Log.d("taag", it.toString())
                 if (it) {
                     showToast("가족에게 안부를 물었습니다!")
 
