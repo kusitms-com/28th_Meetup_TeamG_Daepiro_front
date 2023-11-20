@@ -42,6 +42,12 @@ class FamilyListAdapter: RecyclerView.Adapter<FamilyListAdapter.CustomViewHolder
                 binding.llSafetyState.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(itemView.context, R.color.light_waring))
             }
 
+            if (item.session) {
+                binding.ivOnlineState.circleBackgroundColor = ContextCompat.getColor(itemView.context, R.color.green)
+            } else {
+                binding.ivOnlineState.circleBackgroundColor = ContextCompat.getColor(itemView.context, R.color.warning)
+            }
+
             if (isManageMode) {
                 binding.ivManage.setImageDrawable(ContextCompat.getDrawable(itemView.context, R.drawable.ic_delete_orange))
             } else {
@@ -63,7 +69,7 @@ class FamilyListAdapter: RecyclerView.Adapter<FamilyListAdapter.CustomViewHolder
         holder.bind(familyList[position])
 
         holder.itemView.setOnClickListener {
-            itemClickListener.onClickItem(it, position)
+            itemClickListener.onClickItem(it, position, familyList[position])
         }
     }
 
@@ -78,7 +84,7 @@ class FamilyListAdapter: RecyclerView.Adapter<FamilyListAdapter.CustomViewHolder
     }
 
     interface OnItemClickListener {
-        fun onClickItem(v: View, position: Int)
+        fun onClickItem(v: View, position: Int, familyInfo: FamilyListResponse)
         fun onClickManage(v: View, position: Int)
     }
 

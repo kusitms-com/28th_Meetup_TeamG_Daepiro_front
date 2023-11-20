@@ -7,6 +7,7 @@ plugins {
     id("com.google.dagger.hilt.android")
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.gms.google-services")
+    id("kotlin-parcelize")
 }
 
 fun getBaseUrl(propertyBaseUrl : String): String {

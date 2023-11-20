@@ -18,7 +18,11 @@
         android:id="@+id/familyFragment"
         android:name="com.daepiro.numberoneproject.presentation.view.family.FamilyFragment"
         android:label="FamilyFragment"
-        tools:layout="@layout/fragment_family"/>
+        tools:layout="@layout/fragment_family">
+        <action
+            android:id="@+id/action_familyFragment_to_safetySendDialogFragment"
+            app:destination="@id/safetySendDialogFragment" />
+    </fragment>
     <fragment
         android:id="@+id/fundingFragment"
         android:name="com.daepiro.numberoneproject.presentation.view.funding.main.FundingFragment"
@@ -107,5 +111,14 @@
             android:name="sponsorId"
             app:argType="integer"
             android:defaultValue="0" />
+    </dialog>
+    <dialog
+        android:id="@+id/safetySendDialogFragment"
+        android:name="com.daepiro.numberoneproject.presentation.view.family.SafetySendDialogFragment"
+        android:label="SafetySendDialogFragment"
+        tools:layout="@layout/fragment_safety_send_dialog">
+        <argument
+            android:name="familyInfo"
+            app:argType="com.daepiro.numberoneproject.data.model.FamilyListResponse"/>
     </dialog>
 </navigation>

@@ -9,16 +9,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.annotation.RequiresApi
+import androidx.navigation.fragment.navArgs
 import com.daepiro.numberoneproject.R
 import com.daepiro.numberoneproject.databinding.FragmentCheerDialogBinding
 import com.daepiro.numberoneproject.databinding.FragmentFamilyDeleteDialogBinding
 import com.daepiro.numberoneproject.databinding.FragmentSafetySendDialogBinding
 import com.daepiro.numberoneproject.presentation.base.BaseDialogFragment
+import com.daepiro.numberoneproject.presentation.view.home.AroundShelterDetailFragmentArgs
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-class FamilyDeleteDialogFragment @Inject constructor(
-
-): BaseDialogFragment<FragmentFamilyDeleteDialogBinding>(R.layout.fragment_family_delete_dialog) {
+@AndroidEntryPoint
+class FamilyDeleteDialogFragment: BaseDialogFragment<FragmentFamilyDeleteDialogBinding>(R.layout.fragment_family_delete_dialog) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

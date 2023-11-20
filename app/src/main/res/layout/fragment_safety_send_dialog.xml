@@ -31,10 +31,10 @@
                     android:src="@drawable/ic_location"
                     app:tint="@color/secondary_400"/>
                 <TextView
+                    android:id="@+id/tv_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/subtitle1"
-                    android:text="서울특별시 강남구"
                     android:textColor="@color/secondary_600"/>
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -43,6 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp">
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_profile"
                     android:layout_width="54dp"
                     android:layout_height="54dp"
                     android:src="@drawable/image_sample"
@@ -51,6 +52,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_online_state"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:src="@color/warning"
@@ -61,14 +63,15 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
+                android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/button"
                 android:textColor="@color/secondary_600"
-                android:layout_marginTop="8dp"
-                android:text="오종석"/>
+                android:layout_marginTop="8dp" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/ll_safety_state"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingVertical="4dp"
@@ -79,17 +82,16 @@
                 android:background="@drawable/bg_radius_4"
                 android:gravity="center_vertical">
                 <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:src="@drawable/ic_warning"
+                    android:id="@+id/iv_safety_state"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
                     app:tint="@color/warning"/>
                 <TextView
+                    android:id="@+id/tv_safety_state"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/overline"
-                    android:textColor="@color/warning"
-                    android:layout_marginLeft="4dp"
-                    android:text="@string/현재_위험_지역에_있어요_안부를_물어보세요_"/>
+                    android:layout_marginLeft="4dp" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat

@@ -30,6 +30,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_online_state"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:src="@color/warning"

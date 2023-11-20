@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.daepiro.numberoneproject.R
+import com.daepiro.numberoneproject.data.model.FamilyListResponse
 import com.daepiro.numberoneproject.databinding.FragmentFamilyBinding
 import com.daepiro.numberoneproject.presentation.base.BaseFragment
 import com.daepiro.numberoneproject.presentation.util.Extensions.repeatOnStarted
@@ -88,9 +90,11 @@ class FamilyFragment : BaseFragment<FragmentFamilyBinding>(R.layout.fragment_fam
         }
 
         familyListAdapter.setItemClickListener(object : FamilyListAdapter.OnItemClickListener {
-            override fun onClickItem(v: View, position: Int) {
+            override fun onClickItem(v: View, position: Int, familyInfo: FamilyListResponse) {
                 if (!familyVM.isFamilyListManageMode.value) {
-                    SafetySendDialogFragment().show(parentFragmentManager, "")
+//                    SafetySendDialogFragment().show(parentFragmentManager, "")
+                    val action = FamilyFragmentDirections.actionFamilyFragmentToSafetySendDialogFragment(familyInfo)
+                    findNavController().navigate(action)
                 }
             }
 
