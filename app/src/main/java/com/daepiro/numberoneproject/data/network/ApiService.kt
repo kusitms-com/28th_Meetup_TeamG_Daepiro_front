@@ -3,6 +3,7 @@ package com.daepiro.numberoneproject.data.network
 import com.daepiro.numberoneproject.data.model.CheerMessageRequest
 import com.daepiro.numberoneproject.data.model.DisasterRequestBody
 import com.daepiro.numberoneproject.data.model.DisasterResponse
+import com.daepiro.numberoneproject.data.model.FamilyListResponse
 import com.daepiro.numberoneproject.data.model.FundingDetailResponse
 import com.daepiro.numberoneproject.data.model.FundingListResponse
 import com.daepiro.numberoneproject.data.model.LoginTestResponse
@@ -131,4 +132,10 @@ interface ApiService {
         @Header("Authorization") token:String
     ): ApiResult<Any?>
 
+
+    // 친구목록 조회
+    @GET("/api/friendships")
+    suspend fun getFamilyList(
+        @Header("Authorization") token:String
+    ): ApiResult<List<FamilyListResponse>>
 }

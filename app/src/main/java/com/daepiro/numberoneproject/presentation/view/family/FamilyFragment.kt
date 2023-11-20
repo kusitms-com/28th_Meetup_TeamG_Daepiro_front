@@ -1,12 +1,7 @@
 package com.daepiro.numberoneproject.presentation.view.family
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,7 +10,6 @@ import com.daepiro.numberoneproject.databinding.FragmentFamilyBinding
 import com.daepiro.numberoneproject.presentation.base.BaseFragment
 import com.daepiro.numberoneproject.presentation.util.Extensions.repeatOnStarted
 import com.daepiro.numberoneproject.presentation.util.Extensions.showToast
-import com.daepiro.numberoneproject.presentation.view.funding.detail.CheerDialogFragment
 import com.daepiro.numberoneproject.presentation.viewmodel.FamilyViewModel
 import com.kakao.sdk.share.ShareClient
 import com.kakao.sdk.template.model.Button
@@ -24,7 +18,6 @@ import com.kakao.sdk.template.model.FeedTemplate
 import com.kakao.sdk.template.model.Link
 import com.kakao.sdk.template.model.Social
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
@@ -35,6 +28,7 @@ class FamilyFragment : BaseFragment<FragmentFamilyBinding>(R.layout.fragment_fam
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        familyVM.getFamilyList()
         setFamilyRV()
 
         binding.tvManage.setOnClickListener {
@@ -114,6 +108,11 @@ class FamilyFragment : BaseFragment<FragmentFamilyBinding>(R.layout.fragment_fam
     }
 
     override fun subscribeUi() {
+        repeatOnStarted {
+            familyVM.familyList.collectLatest {
+                familyListAdapter.setData(it)
+            }
+        }
         repeatOnStarted {
             familyVM.isFamilyListManageMode.collectLatest {
                 // 관리모드

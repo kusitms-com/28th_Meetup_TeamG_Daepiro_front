@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="model"
+            type="com.daepiro.numberoneproject.data.model.FamilyListResponse" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -21,6 +23,7 @@
                 android:layout_width="54dp"
                 android:layout_height="54dp"
                 android:src="@drawable/image_sample"
+                app:loadImage="@{model.profileImageUrl}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -48,29 +51,27 @@
                 style="@style/button"
                 android:textColor="@color/secondary_600"
                 android:layout_marginBottom="4dp"
-                android:text="이름"/>
+                android:text="@{model.realName}"/>
 
             <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/ll_safety_state"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingVertical="4dp"
                 android:paddingStart="6dp"
                 android:paddingEnd="8dp"
-                android:backgroundTint="@color/light_waring"
                 android:background="@drawable/bg_radius_4"
                 android:gravity="center_vertical">
                 <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:src="@drawable/ic_warning"
-                    app:tint="@color/warning"/>
+                    android:id="@+id/iv_safety_state"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp" />
                 <TextView
+                    android:id="@+id/tv_safety_state"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/overline"
-                    android:textColor="@color/warning"
-                    android:layout_marginLeft="4dp"
-                    android:text="이름"/>
+                    android:layout_marginLeft="4dp"/>
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.appcompat.widget.LinearLayoutCompat>
 
