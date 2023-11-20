@@ -14,7 +14,8 @@ import android.os.Looper
 import android.provider.Settings
 import android.util.Log
 import android.view.View
-import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -93,11 +94,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         requestPermission()
         setSheltersViewPager()
         setCheckListViewPager()
-
-
     }
 
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun requestPermission() {
         TedPermission.create()
             .setPermissionListener(object : PermissionListener {
@@ -106,15 +104,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 }
 
                 override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
-                    showToast("위치 권한과 알림 권한은 필수로 필요합니다.")
+                    showToast("위치 권한은 필수로 필요합니다.")
                 }
             })
-            .setDeniedMessage("권한을 허용해주세요. [설정] > [앱 및 알림] > [고급] > [앱 권한]")
+            .setDeniedMessage("위치 권한을 허용해주세요. [설정] > [앱 및 알림] > [고급] > [앱 권한]")
             .setPermissions(
-                android.Manifest.permission.ACCESS_FINE_LOCATION,
-                android.Manifest.permission.POST_NOTIFICATIONS
+                android.Manifest.permission.POST_NOTIFICATIONS,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
             )
-            .setPermissions(android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION)
             .check()
     }
 
