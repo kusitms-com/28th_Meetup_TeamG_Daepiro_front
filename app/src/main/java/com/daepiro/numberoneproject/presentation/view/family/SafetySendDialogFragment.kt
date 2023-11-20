@@ -53,7 +53,13 @@ class SafetySendDialogFragment: BaseDialogFragment<FragmentSafetySendDialogBindi
         binding.tvLocation.text = args.familyInfo.location
         binding.tvName.text = args.familyInfo.realName
         Glide.with(requireContext()).load(args.familyInfo.profileImageUrl).into(binding.ivProfile)
-        binding.ivOnlineState.circleBackgroundColor = ContextCompat.getColor(requireContext(), R.color.warning)
+
+        if (args.familyInfo.session) {
+            binding.ivOnlineState.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_online))
+        } else {
+            binding.ivOnlineState.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_offline))
+        }
+
 
         if (args.familyInfo.isSafety) {
             binding.tvSafetyState.apply {

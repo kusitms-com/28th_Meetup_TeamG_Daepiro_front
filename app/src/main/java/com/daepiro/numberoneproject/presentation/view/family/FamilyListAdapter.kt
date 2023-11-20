@@ -1,6 +1,7 @@
 package com.daepiro.numberoneproject.presentation.view.family
 
 import android.content.res.ColorStateList
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,9 +44,9 @@ class FamilyListAdapter: RecyclerView.Adapter<FamilyListAdapter.CustomViewHolder
             }
 
             if (item.session) {
-                binding.ivOnlineState.circleBackgroundColor = ContextCompat.getColor(itemView.context, R.color.green)
+                binding.ivOnlineState.setImageDrawable(ContextCompat.getDrawable(itemView.context, R.drawable.ic_online))
             } else {
-                binding.ivOnlineState.circleBackgroundColor = ContextCompat.getColor(itemView.context, R.color.warning)
+                binding.ivOnlineState.setImageDrawable(ContextCompat.getDrawable(itemView.context, R.drawable.ic_offline))
             }
 
             if (isManageMode) {

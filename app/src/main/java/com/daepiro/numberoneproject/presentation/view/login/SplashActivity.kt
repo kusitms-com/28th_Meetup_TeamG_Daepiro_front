@@ -66,11 +66,11 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
                     if (Intent.ACTION_VIEW == intent.action) {
                         val uri = intent.data
                         if (uri != null) {
-                            val userToken = uri.getQueryParameter("userToken")
+                            val userToken = uri.getQueryParameter("memberId")
 
                             if (userToken != null) {
                                 val intent = Intent(this@SplashActivity, MainActivity::class.java)
-                                intent.putExtra("tokenFromFamily", userToken)
+                                intent.putExtra("memberId", userToken)
                                 startActivity(intent)
                                 finish()
                             }

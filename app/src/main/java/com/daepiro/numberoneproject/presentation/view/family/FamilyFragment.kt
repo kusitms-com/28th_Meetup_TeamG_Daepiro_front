@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.daepiro.numberoneproject.R
@@ -12,6 +13,7 @@ import com.daepiro.numberoneproject.databinding.FragmentFamilyBinding
 import com.daepiro.numberoneproject.presentation.base.BaseFragment
 import com.daepiro.numberoneproject.presentation.util.Extensions.repeatOnStarted
 import com.daepiro.numberoneproject.presentation.util.Extensions.showToast
+import com.daepiro.numberoneproject.presentation.util.TokenManager
 import com.daepiro.numberoneproject.presentation.viewmodel.FamilyViewModel
 import com.kakao.sdk.share.ShareClient
 import com.kakao.sdk.template.model.Button
@@ -20,12 +22,18 @@ import com.kakao.sdk.template.model.FeedTemplate
 import com.kakao.sdk.template.model.Link
 import com.kakao.sdk.template.model.Social
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class FamilyFragment : BaseFragment<FragmentFamilyBinding>(R.layout.fragment_family) {
     val familyVM by viewModels<FamilyViewModel>()
     private lateinit var familyListAdapter: FamilyListAdapter
+    @Inject lateinit var tokenManager: TokenManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -39,11 +47,18 @@ class FamilyFragment : BaseFragment<FragmentFamilyBinding>(R.layout.fragment_fam
         }
 
         binding.cdAddFamily.setOnClickListener {
-            kakaoShare()
+            lifecycleScope.launch {
+                val myMemberId = tokenManager.memberId.first()
+
+                withContext(Dispatchers.Main) {
+                    kakaoShare(myMemberId)
+
+                }
+            }
         }
     }
 
-    private fun kakaoShare() {
+    private fun kakaoShare(myMemberId: String) {
         val defaultFeed = FeedTemplate(
             content = Content(
                 title = String.format(getString(R.string._님이_대피로_가족으로_초대하셨어요_), "종석"),
@@ -53,18 +68,12 @@ class FamilyFragment : BaseFragment<FragmentFamilyBinding>(R.layout.fragment_fam
                     mobileWebUrl = "https://play.google.com/store/apps/details?id=com.daepiro.numberoneproject"
                 )
             ),
-            social = Social(
-                likeCount = 11,
-                commentCount = 17,
-                sharedCount = 28
-            ),
             buttons = listOf(
                 Button(
                     getString(R.string.초대_수락하기),
                     Link(
                         androidExecutionParams = mapOf(
-                            "userToken" to "23",
-                            "number" to "1"
+                            "memberId" to myMemberId
                         )
                     )
                 )

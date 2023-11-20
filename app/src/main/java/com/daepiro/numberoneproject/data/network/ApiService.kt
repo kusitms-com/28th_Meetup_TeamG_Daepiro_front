@@ -8,6 +8,8 @@ import com.daepiro.numberoneproject.data.model.FundingDetailResponse
 import com.daepiro.numberoneproject.data.model.FundingListResponse
 import com.daepiro.numberoneproject.data.model.LoginTestResponse
 import com.daepiro.numberoneproject.data.model.LoginTokenResponse
+import com.daepiro.numberoneproject.data.model.OnlineResponse
+import com.daepiro.numberoneproject.data.model.RegisterFamilyResponse
 import com.daepiro.numberoneproject.data.model.ShelterData
 import com.daepiro.numberoneproject.data.model.ShelterListResponse
 import com.daepiro.numberoneproject.data.model.ShelterRequestBody
@@ -19,6 +21,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface ApiService {
@@ -124,7 +127,7 @@ interface ApiService {
     @GET("/api/members/online")
     suspend fun changeOnline(
         @Header("Authorization") token:String
-    ): ApiResult<Any?>
+    ): ApiResult<OnlineResponse>
 
     // 오프라인 상태 전환
     @GET("/api/members/offline")
@@ -144,4 +147,11 @@ interface ApiService {
         @Header("Authorization") token:String,
         @Path("friend-id") friendId: Int
     ): ApiResult<Any>
+
+    // 친구 초대하기
+    @PUT("/api/friendships/{inviting-member-id}")
+    suspend fun registerFamily(
+        @Header("Authorization") token:String,
+        @Path("inviting-member-id") memberId: Int
+    ): ApiResult<RegisterFamilyResponse>
 }

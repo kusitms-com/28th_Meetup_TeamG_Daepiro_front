@@ -11,6 +11,8 @@ import androidx.navigation.ui.setupWithNavController
 import com.daepiro.numberoneproject.R
 import com.daepiro.numberoneproject.data.network.ApiResult
 import com.daepiro.numberoneproject.data.network.ApiService
+import com.daepiro.numberoneproject.data.network.onFailure
+import com.daepiro.numberoneproject.data.network.onSuccess
 import com.daepiro.numberoneproject.databinding.ActivityMainBinding
 import com.daepiro.numberoneproject.presentation.base.BaseActivity
 import com.daepiro.numberoneproject.presentation.util.Extensions.repeatOnStarted
@@ -20,10 +22,12 @@ import com.daepiro.numberoneproject.presentation.viewmodel.LoginViewModel
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -52,10 +56,28 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
         loginVM.loginTest()
 
-        if (intent.getStringExtra("tokenFromFamily")?.isNotEmpty() == true) {
-            showToast("초대받고옴" + intent.getStringExtra("tokenFromFamily").toString())
+        if (intent.getStringExtra("memberId")?.isNotEmpty() == true) {
+            Log.d("taag", "초대받고 들어 옴")
+
+            lifecycleScope.launch {
+                val token = "Bearer ${tokenManager.accessToken.first()}"
+                val response = service.registerFamily(token, intent.getStringExtra("memberId")!!.toInt())
+
+                withContext(Dispatchers.IO) {
+                    Log.d("taag t", token)
+                    Log.d("taag m", intent.getStringExtra("memberId")!!)
+
+                    response
+                        .onSuccess {
+                            showToast("가족 등록에 성공했습니다.")
+                        }
+                        .onFailure {
+                            showToast("가족 등록에 실패했습니다.")
+                        }
+                }
+            }
         } else {
-            showToast("그냥 옴")
+            Log.d("taag", "그냥 들어 옴")
         }
     }
 
@@ -117,7 +139,13 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         super.onResume()
         lifecycleScope.launch {
             val token = "Bearer ${tokenManager.accessToken.first()}"
-            service.changeOnline(token)
+            val response = service.changeOnline(token)
+
+            withContext(Dispatchers.IO) {
+                response.onSuccess {
+                    tokenManager.writeMemberId(it.memberId)
+                }
+            }
         }
     }
 
