@@ -40,7 +40,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        
+
     }
 
     override fun setupInit() {
@@ -68,8 +68,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                         }
                 }
             }
-            showToast("초대받고옴" + intent.getStringExtra("tokenFromFamily").toString())
-            navController.navigate(R.id.familyFragment)
+            binding.bottomNavigationBar.selectedItemId = R.id.familyFragment
         } else {
             Log.d("taag", "그냥 들어 옴")
         }
@@ -93,16 +92,16 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                             when(it.code) {
                                 403 -> {    // AccessToken이 만료된 경우
                                     loginVM.refreshAccessToken()
-                                    showToast("403에러 : MainActivity에서 Token 갱신")
+                                    Log.d("taag", "403에러 : MainActivity에서 Token 갱신")
                                 }
                                 404 -> {    // RefreshToken이 만료된 경우
-                                    showToast("MainActivity 404 에러 펑")
+                                    Log.d("taag", "MainActivity 404 에러 펑")
                                     tokenManager.writeLoginTokens("", "")
 
                                     finish()
                                     startActivity(Intent(this@MainActivity, LoginActivity::class.java))
                                 }
-                                else -> { showToast("MainActivity ${it.code}번 에러 펑") }
+                                else -> { Log.d("taag", "MainActivity ${it.code}번 에러 펑") }
                             }
                         }
                         else -> showToast("네트워크 상태를 확인하세요.")
