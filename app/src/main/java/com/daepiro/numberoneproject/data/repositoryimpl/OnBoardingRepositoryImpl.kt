@@ -7,7 +7,6 @@ import com.daepiro.numberoneproject.domain.repository.OnBoardingRepository
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
 class OnBoardingRepositoryImpl @Inject constructor(
     private val service: ApiService
 ): OnBoardingRepository {

@@ -70,7 +70,9 @@ abstract class RepositoryModule {
     abstract fun bindFamilyRepository(
         familyRepositoryImpl: FamilyRepositoryImpl
     ): FamilyRepository
-  
+
+    @Singleton
+    @Binds
     abstract fun bindOnBoardingRepository(
         onBoardingRepositoryImpl: OnBoardingRepositoryImpl
     ):OnBoardingRepository
