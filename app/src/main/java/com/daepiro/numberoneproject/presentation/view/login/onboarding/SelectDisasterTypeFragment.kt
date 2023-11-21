@@ -19,6 +19,8 @@ import com.daepiro.numberoneproject.data.model.InitDataOnBoardingRequest
 import com.daepiro.numberoneproject.databinding.FragmentSelectDisasterTypeBinding
 import com.daepiro.numberoneproject.presentation.base.BaseFragment
 import com.daepiro.numberoneproject.presentation.viewmodel.OnboardingViewModel
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -28,6 +30,8 @@ class SelectDisasterTypeFragment : BaseFragment<FragmentSelectDisasterTypeBindin
     private lateinit var adapter:GridviewAdapter
     private val selectedItems = mutableListOf<DisastertypeDataModel>()
     private var totalItems = listOf<DisasterTypeModel>()
+    private var fcmToken = ""
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
@@ -82,7 +86,7 @@ class SelectDisasterTypeFragment : BaseFragment<FragmentSelectDisasterTypeBindin
             val body = InitDataOnBoardingRequest(
                 realname = viewModel.realname,
                 nickname = viewModel.nickname,
-                fcmToken = "fcmToken",
+                fcmToken = fcmToken,
                 addresses = viewModel.getAddressForApi.toList(),
                 disasterTypes =  totalItems
             )
@@ -97,6 +101,18 @@ class SelectDisasterTypeFragment : BaseFragment<FragmentSelectDisasterTypeBindin
             findNavController().navigateUp()
         }
 
+        setFcmTokenListener()
+    }
+
+    private fun setFcmTokenListener() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                return@OnCompleteListener
+            }
+
+            fcmToken = task.result
+            Log.d("taag fcmToken", fcmToken)
+        })
     }
 
     override fun subscribeUi() {
