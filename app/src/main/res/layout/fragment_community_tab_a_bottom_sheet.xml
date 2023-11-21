@@ -13,7 +13,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/bg_radius_4"
+    style="@style/CustomBottomSheetDialog"
+    android:background="@drawable/bg_radius_12_top"
     android:backgroundTint="@color/white"
     tools:context=".presentation.view.community.CommunityTabABottomSheetFragment">
 
@@ -35,6 +36,7 @@
             android:layout_gravity="center_horizontal"/>
 
         <ImageView
+            android:id="@+id/close_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_close"
@@ -71,6 +73,7 @@
         android:background="@color/outline"/>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

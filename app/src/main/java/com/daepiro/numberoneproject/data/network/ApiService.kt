@@ -181,7 +181,7 @@ interface ApiService {
         @Header("Authorization") token:String,
     ):ApiResult<CommunityHomeDisasterResponse>
 
-    //재난상황
+    //재난상황 댓글 모두보기
     @GET("/api/disaster/{sort}/{disasterId}")
     suspend fun getDisasterHomeDetail(
         @Header("Authorization") token:String,

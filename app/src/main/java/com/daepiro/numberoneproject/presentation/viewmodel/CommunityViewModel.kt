@@ -239,7 +239,7 @@ class CommunityViewModel @Inject constructor(
     private val _disasterHomeDetail = MutableStateFlow(CommunityDisasterDetailResponse())
     val disasterHomeDetail = _disasterHomeDetail.asStateFlow()
 
-    //재난상황 댓글 더보기
+    //재난상황 댓글 모두
     fun getDisasterDetail(sort:String,disasterId:Int){
         viewModelScope.launch {
             _isLoading.value = true
