@@ -65,5 +65,14 @@
         android:id="@+id/selectDisasterTypeFragment"
         android:name="com.daepiro.numberoneproject.presentation.view.login.onboarding.SelectDisasterTypeFragment"
         android:label="fragment_select_disaster_type"
-        tools:layout="@layout/fragment_select_disaster_type" />
+        tools:layout="@layout/fragment_select_disaster_type" >
+        <action
+            android:id="@+id/action_selectDisasterTypeFragment_to_guideLastFragment"
+            app:destination="@id/guideLastFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/guideLastFragment"
+        android:name="com.daepiro.numberoneproject.presentation.view.login.onboarding.GuideLastFragment"
+        android:label="fragment_guide_last"
+        tools:layout="@layout/fragment_guide_last" />
 </navigation>

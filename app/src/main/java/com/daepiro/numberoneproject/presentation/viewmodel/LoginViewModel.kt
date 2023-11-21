@@ -1,8 +1,11 @@
 package com.daepiro.numberoneproject.presentation.viewmodel
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.fragment.findNavController
 import com.daepiro.numberoneproject.data.model.TokenRequestBody
 import com.daepiro.numberoneproject.data.network.ApiResult
 import com.daepiro.numberoneproject.data.network.onFailure
@@ -12,8 +15,10 @@ import com.daepiro.numberoneproject.domain.usecase.NaverLoginUseCase
 import com.daepiro.numberoneproject.domain.usecase.RefreshAccessTokenUseCase
 import com.daepiro.numberoneproject.domain.usecase.TestUseCase
 import com.daepiro.numberoneproject.presentation.util.TokenManager
+import com.daepiro.numberoneproject.presentation.view.login.LoginFragmentDirections
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -31,13 +36,16 @@ class LoginViewModel @Inject constructor(
     private val _loginErrorState = MutableStateFlow<ApiResult.Failure?>(null)
     val loginErrorState = _loginErrorState.asStateFlow()
 
+    private val _isNewmember = MutableStateFlow<Boolean>(false)
+    val isNewmember : StateFlow<Boolean?> = _isNewmember
+
 
     fun userNaverLogin(loginBody: TokenRequestBody) {
         viewModelScope.launch {
             naverLoginUseCase(loginBody)
                 .onSuccess {
                     tokenManager.writeLoginTokens(it.accessToken, it.refreshToken)
-
+                    _isNewmember.value = it.isNewMember
                 }
                 .onFailure {
                     _loginErrorState.value = it
@@ -50,6 +58,7 @@ class LoginViewModel @Inject constructor(
             kakaoLoginUseCase(loginBody)
                 .onSuccess {
                     tokenManager.writeLoginTokens(it.accessToken, it.refreshToken)
+                    _isNewmember.value = it.isNewMember
                 }
                 .onFailure {
                     _loginErrorState.value = it
@@ -86,6 +95,9 @@ class LoginViewModel @Inject constructor(
                     Log.d("taag", "AccessToken Refresh 실패")
                 }
         }
+    }
+    init{
+        _isNewmember.value = false
     }
 
 }

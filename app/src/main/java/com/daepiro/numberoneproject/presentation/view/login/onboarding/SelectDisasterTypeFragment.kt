@@ -1,5 +1,6 @@
 package com.daepiro.numberoneproject.presentation.view.login.onboarding
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -88,6 +89,8 @@ class SelectDisasterTypeFragment : BaseFragment<FragmentSelectDisasterTypeBindin
             lifecycleScope.launch {
                 viewModel.postInitData(body)
             }
+            val action = SelectDisasterTypeFragmentDirections.actionSelectDisasterTypeFragmentToGuideLastFragment()
+            findNavController().navigate(action)
         }
 
         binding.btnBack.setOnClickListener {
@@ -135,11 +138,9 @@ class SelectDisasterTypeFragment : BaseFragment<FragmentSelectDisasterTypeBindin
 
     private fun updateButtonColor(isAnyItemSelected: Boolean) {
         if (isAnyItemSelected) {
-            // 버튼 색상을 변경 (예: 선택된 아이템이 있을 때)
-            binding.completeBtn.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.orange_500))
+            binding.completeBtn.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.orange_500))
         } else {
-            // 버튼 색상을 원래대로 복원 (예: 선택된 아이템이 없을 때)
-            binding.completeBtn.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.surface))
+            binding.completeBtn.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.surface))
         }
     }
 

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+        android:orientation="vertical"
+    tools:context=".presentation.view.login.onboarding.GuideLastFragment">
+
+
+   <ImageView
+       android:layout_width="91dp"
+       android:layout_height="24dp"
+       android:src="@drawable/logo_main"
+       android:layout_marginLeft="20dp"
+       app:tint="@color/orange_500"
+       android:layout_marginTop="56dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/지금_바로_대피로와_함께_안전한_생활을_시작해보세요_"
+            style="@style/headline5"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/secondary_800"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/start_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="0dp"
+            android:background="@drawable/bg_radius_4"
+            android:backgroundTint="@color/orange_500"
+            android:text="@string/시작하기"
+            style="@style/button"
+            android:textColor="@color/white"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"/>
+
+</LinearLayout>
+</layout>

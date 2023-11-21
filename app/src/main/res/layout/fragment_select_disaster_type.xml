@@ -204,6 +204,7 @@
                 android:backgroundTint="@color/surface"
                 android:layout_marginBottom="20dp"
                 android:text="@string/다음"
+                android:elevation="0dp"
                 style="@style/button"/>
         </LinearLayout>
 
