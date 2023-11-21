@@ -43,6 +43,9 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
+        // 가족 초대 수락받고 왔는지 확인
+        initKakaoShareLink()
+
         val builder = NetworkRequest.Builder()
         cm = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         cm.registerNetworkCallback(builder.build(),networkCallBack)
@@ -51,6 +54,21 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
             binding.ltSplash.cancelAnimation()
             checkAutoLogin()
         }, DURATION_TIME)
+    }
+
+    private fun initKakaoShareLink() {
+        if (Intent.ACTION_VIEW == intent.action) {
+            val uri = intent.data
+            if (uri != null) {
+                // ⭐️여기서 androidExecutionParams 값들을 받아와 어떠한 상세페이지를 띄울지 결정할 수 있음
+                val userToken = uri.getQueryParameter("userToken")
+                val number = uri.getQueryParameter("number")
+
+                if (userToken != null) {
+                    Log.d("taag", userToken)
+                }
+            }
+        }
     }
 
     /** 자동로그인 가능한지 확인 **/

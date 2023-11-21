@@ -12,6 +12,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -59,14 +60,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private lateinit var userLocation: Pair<Double, Double>
     private var userAddress = ""
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.disasterVM = disasterVM
         binding.shelterVM = shelterVM
-      
-        //로컬에 대피소 저장하기 위해 호출
-        shelterVM.getSheltersetLocal()
+
+
 
         mLocationRequest =  LocationRequest.create().apply {
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
@@ -87,11 +86,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     }
 
     override fun setupInit() {
+        //로컬에 대피소 저장하기 위해 호출
+        shelterVM.getSheltersetLocal()
+
         requestPermission()
         setSheltersViewPager()
         setCheckListViewPager()
-
     }
+
 
     private fun requestPermission() {
         TedPermission.create()
