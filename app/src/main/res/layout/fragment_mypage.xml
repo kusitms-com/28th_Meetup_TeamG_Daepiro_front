@@ -3,6 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.daepiro.numberoneproject.presentation.viewmodel.FundingViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -85,7 +91,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="6dp"
-                        android:src="@drawable/ic_heart_count" />
+                        android:src="@drawable/ic_funding" />
 
                     <TextView
                         style="@style/subtitle1"
@@ -99,7 +105,7 @@
                         style="@style/button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="200개"
+                        android:text="@{Integer.toString(viewmodel.heartCnt) + `개`}"
                         android:textColor="@color/orange_200" />
 
                     <View
@@ -108,7 +114,9 @@
                         android:layout_weight="1" />
 
                     <TextView
+                        android:id="@+id/tv_heart_charge"
                         style="@style/button"
+                        android:padding="4dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/충전하기"

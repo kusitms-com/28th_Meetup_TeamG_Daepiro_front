@@ -7,9 +7,13 @@ import com.daepiro.numberoneproject.databinding.ItemDisasterCheckListBinding
 
 class DisasterCheckListAdapter: RecyclerView.Adapter<DisasterCheckListAdapter.CustomViewHolder>() {
     private var checkList = listOf<String>()
-    inner class CustomViewHolder(val binding: ItemDisasterCheckListBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind() {
+    private var resetCheckBox = false
 
+    inner class CustomViewHolder(val binding: ItemDisasterCheckListBinding): RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: String) {
+            binding.tvCheckList.text = item
+
+            binding.cbCheckList.isChecked = !resetCheckBox
         }
     }
 
@@ -19,13 +23,17 @@ class DisasterCheckListAdapter: RecyclerView.Adapter<DisasterCheckListAdapter.Cu
     }
 
     override fun onBindViewHolder(holder: DisasterCheckListAdapter.CustomViewHolder, position: Int) {
-        holder.bind()
+        holder.bind(checkList[position])
 
     }
 
     fun setData(newData: List<String>) {
         checkList = newData
         notifyDataSetChanged()
+    }
+
+    fun resetCheckBox(boolean: Boolean) {
+        resetCheckBox = boolean
     }
 
     override fun getItemCount() = checkList.size

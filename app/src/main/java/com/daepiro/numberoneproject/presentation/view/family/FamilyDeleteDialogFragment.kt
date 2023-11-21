@@ -11,14 +11,14 @@ import android.view.WindowManager
 import androidx.annotation.RequiresApi
 import com.daepiro.numberoneproject.R
 import com.daepiro.numberoneproject.databinding.FragmentCheerDialogBinding
+import com.daepiro.numberoneproject.databinding.FragmentFamilyDeleteDialogBinding
 import com.daepiro.numberoneproject.databinding.FragmentSafetySendDialogBinding
 import com.daepiro.numberoneproject.presentation.base.BaseDialogFragment
-import com.daepiro.numberoneproject.presentation.util.Extensions.showToast
-import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-@AndroidEntryPoint
-class SafetySendDialogFragment: BaseDialogFragment<FragmentSafetySendDialogBinding>(R.layout.fragment_safety_send_dialog) {
+class FamilyDeleteDialogFragment @Inject constructor(
+
+): BaseDialogFragment<FragmentFamilyDeleteDialogBinding>(R.layout.fragment_family_delete_dialog) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -26,14 +26,12 @@ class SafetySendDialogFragment: BaseDialogFragment<FragmentSafetySendDialogBindi
         this.isCancelable = false
 
         binding.btnComplete.setOnClickListener {
-            showToast("안부 묻기")
+
         }
 
         binding.btnClose.setOnClickListener {
             this.dismiss()
         }
-
-        binding.btnComplete
 
     }
 

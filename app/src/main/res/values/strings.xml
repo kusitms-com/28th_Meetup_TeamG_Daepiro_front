@@ -111,4 +111,10 @@
     <string name="환불_정책">환불 정핵</string>
     <string name="개인정보_처리_약관">개인정보 처리 약관</string>
     <string name="앱_버전">앱 버전</string>
+    <string name="예">예</string>
+    <string name="아니오">아니오</string>
+
+    <string name="재난문자">재난문자</string>
+    <string name="알림">알림</string>
+    <string name="소식">소식</string>
 </resources>

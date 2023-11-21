@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
+import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.daepiro.numberoneproject.R
@@ -15,6 +16,8 @@ import com.daepiro.numberoneproject.presentation.util.Extensions.repeatOnStarted
 import com.daepiro.numberoneproject.presentation.util.TokenManager
 import com.daepiro.numberoneproject.presentation.view.login.LoginActivity
 import com.daepiro.numberoneproject.presentation.viewmodel.LoginViewModel
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.first
@@ -24,16 +27,34 @@ import javax.inject.Inject
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     val loginVM by viewModels<LoginViewModel>()
     @Inject lateinit var tokenManager: TokenManager
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                return@OnCompleteListener
+            }
+
+            val token = task.result
+//            val msg = getString(R.string.msg_token_fmt, token)
+            Log.d("taag fcm token", token)
+//            Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
+        })
     }
 
     override fun setupInit() {
         initNavigation()
 
         loginVM.loginTest()
+
+        if (intent.getStringExtra("tokenFromFamily")?.isNotEmpty() == true) {
+            showToast("초대받고옴" + intent.getStringExtra("tokenFromFamily").toString())
+            navController.navigate(R.id.familyFragment)
+        } else {
+            showToast("그냥 옴")
+        }
     }
 
     override fun subscribeUi() {
@@ -75,7 +96,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private fun initNavigation() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view) as NavHostFragment
-        val navController = navHostFragment.navController
+        navController = navHostFragment.navController
 
         binding.bottomNavigationBar.setupWithNavController(navController)
 

@@ -23,7 +23,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_splash) {
-    private val DURATION_TIME = 2300L    // 스플래시 화면 지연시간
+    private val DURATION_TIME = 2000L    // 스플래시 화면 지연시간
     private lateinit var cm : ConnectivityManager
     @Inject lateinit var tokenManager: TokenManager
     private var isNetworkAvailable = false
@@ -43,9 +43,6 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        // 가족 초대 수락받고 왔는지 확인
-        initKakaoShareLink()
-
         val builder = NetworkRequest.Builder()
         cm = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         cm.registerNetworkCallback(builder.build(),networkCallBack)
@@ -56,20 +53,6 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
         }, DURATION_TIME)
     }
 
-    private fun initKakaoShareLink() {
-        if (Intent.ACTION_VIEW == intent.action) {
-            val uri = intent.data
-            if (uri != null) {
-                // ⭐️여기서 androidExecutionParams 값들을 받아와 어떠한 상세페이지를 띄울지 결정할 수 있음
-                val userToken = uri.getQueryParameter("userToken")
-                val number = uri.getQueryParameter("number")
-
-                if (userToken != null) {
-                    Log.d("taag", userToken)
-                }
-            }
-        }
-    }
 
     /** 자동로그인 가능한지 확인 **/
     private fun checkAutoLogin() {
@@ -79,9 +62,24 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
 
             if (isNetworkAvailable) {      // 네트워크가 연결된 경우
                 if (accessToken.isNotEmpty()) {
-                    val intent = Intent(this@SplashActivity, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                    // 카카오톡 공유에서 초대받고 들어 온 경우
+                    if (Intent.ACTION_VIEW == intent.action) {
+                        val uri = intent.data
+                        if (uri != null) {
+                            val userToken = uri.getQueryParameter("userToken")
+
+                            if (userToken != null) {
+                                val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                                intent.putExtra("tokenFromFamily", userToken)
+                                startActivity(intent)
+                                finish()
+                            }
+                        }
+                    } else {
+                        val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
                 } else {
                     val intent = Intent(this@SplashActivity, LoginActivity::class.java)
                     startActivity(intent)

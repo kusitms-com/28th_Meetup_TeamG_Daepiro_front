@@ -6,6 +6,7 @@ plugins {
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
     id("androidx.navigation.safeargs.kotlin")
+    id("com.google.gms.google-services")
 }
 
 fun getBaseUrl(propertyBaseUrl : String): String {
@@ -103,9 +104,13 @@ dependencies {
 
     // Ted Permission
     implementation("io.github.ParkSangGwon:tedpermission-normal:3.3.0")
-    
+
     // lottie library
     implementation("com.airbnb.android:lottie:6.1.0")
+
+    // Firebase
+    implementation(platform("com.google.firebase:firebase-bom:32.5.0"))
+    implementation("com.google.firebase:firebase-messaging-ktx:23.3.1")
 
     // 현재 위치, GPS 추적
     implementation("com.google.android.gms:play-services-maps:18.0.0")

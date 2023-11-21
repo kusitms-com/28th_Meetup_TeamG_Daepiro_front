@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_radius_12"
+            android:backgroundTint="@color/white"
+            android:gravity="center_horizontal"
+            android:layout_marginHorizontal="42dp">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="12dp"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_location"
+                    android:visibility="invisible"
+                    app:tint="@color/secondary_400"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/body1"
+                android:textColor="@color/secondary_800"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:text="ㅇㅇㅇ님을 삭제하시겠습니까??"/>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+                <TextView
+                    android:id="@+id/btn_close"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/button"
+                    android:layout_weight="1"
+                    android:textColor="@color/secondary_400"
+                    android:gravity="center"
+                    android:paddingVertical="8dp"
+                    android:background="@drawable/bg_radius_4"
+                    android:backgroundTint="@color/secondary_50"
+                    android:layout_marginRight="8dp"
+                    android:text="@string/아니오"/>
+                <TextView
+                    android:id="@+id/btn_complete"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/button"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:paddingVertical="8dp"
+                    android:background="@drawable/bg_radius_4"
+                    android:backgroundTint="@color/orange_500"
+                    android:text="@string/예"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>
