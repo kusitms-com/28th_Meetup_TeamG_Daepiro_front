@@ -45,9 +45,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             }
 
             val token = task.result
-//            val msg = getString(R.string.msg_token_fmt, token)
             Log.d("taag fcm token", token)
-//            Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
         })
     }
 
@@ -147,6 +145,11 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 }
             }
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+
     }
 
     override fun onDestroy() {

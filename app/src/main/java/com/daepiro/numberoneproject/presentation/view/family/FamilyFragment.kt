@@ -101,15 +101,15 @@ class FamilyFragment : BaseFragment<FragmentFamilyBinding>(R.layout.fragment_fam
         familyListAdapter.setItemClickListener(object : FamilyListAdapter.OnItemClickListener {
             override fun onClickItem(v: View, position: Int, familyInfo: FamilyListResponse) {
                 if (!familyVM.isFamilyListManageMode.value) {
-//                    SafetySendDialogFragment().show(parentFragmentManager, "")
                     val action = FamilyFragmentDirections.actionFamilyFragmentToSafetySendDialogFragment(familyInfo)
                     findNavController().navigate(action)
                 }
             }
 
-            override fun onClickManage(v: View, position: Int) {
+            override fun onClickManage(v: View, position: Int, familyInfo: FamilyListResponse) {
                 if (familyVM.isFamilyListManageMode.value) {
-                    FamilyDeleteDialogFragment().show(parentFragmentManager, "")
+                    val action = FamilyFragmentDirections.actionFamilyFragmentToFamilyDeleteDialogFragment(familyInfo)
+                    findNavController().navigate(action)
                 }
             }
         })

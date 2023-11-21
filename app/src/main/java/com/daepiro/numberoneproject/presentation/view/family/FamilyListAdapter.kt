@@ -56,7 +56,7 @@ class FamilyListAdapter: RecyclerView.Adapter<FamilyListAdapter.CustomViewHolder
             }
 
             binding.ivManage.setOnClickListener {
-                itemClickListener.onClickManage(it, position)
+                itemClickListener.onClickManage(it, position, familyList[position])
             }
         }
     }
@@ -86,7 +86,7 @@ class FamilyListAdapter: RecyclerView.Adapter<FamilyListAdapter.CustomViewHolder
 
     interface OnItemClickListener {
         fun onClickItem(v: View, position: Int, familyInfo: FamilyListResponse)
-        fun onClickManage(v: View, position: Int)
+        fun onClickManage(v: View, position: Int, familyInfo: FamilyListResponse)
     }
 
     fun setItemClickListener(onItemClickListener: OnItemClickListener) {

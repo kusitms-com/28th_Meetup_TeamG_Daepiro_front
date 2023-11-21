@@ -21,14 +21,17 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class FamilyDeleteDialogFragment: BaseDialogFragment<FragmentFamilyDeleteDialogBinding>(R.layout.fragment_family_delete_dialog) {
+    private val args by navArgs<FamilyDeleteDialogFragmentArgs>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         this.isCancelable = false
 
-        binding.btnComplete.setOnClickListener {
+        binding.tvTitle.text = String.format(getString(R.string._님을_삭제하시겠습니까_), args.familyInfo.realName)
 
+        binding.btnComplete.setOnClickListener {
+            
         }
 
         binding.btnClose.setOnClickListener {

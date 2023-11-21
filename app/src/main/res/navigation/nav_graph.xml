@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_familyFragment_to_safetySendDialogFragment"
             app:destination="@id/safetySendDialogFragment" />
+        <action
+            android:id="@+id/action_familyFragment_to_familyDeleteDialogFragment"
+            app:destination="@id/familyDeleteDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/fundingFragment"
@@ -117,6 +120,15 @@
         android:name="com.daepiro.numberoneproject.presentation.view.family.SafetySendDialogFragment"
         android:label="SafetySendDialogFragment"
         tools:layout="@layout/fragment_safety_send_dialog">
+        <argument
+            android:name="familyInfo"
+            app:argType="com.daepiro.numberoneproject.data.model.FamilyListResponse"/>
+    </dialog>
+    <dialog
+        android:id="@+id/familyDeleteDialogFragment"
+        android:name="com.daepiro.numberoneproject.presentation.view.family.FamilyDeleteDialogFragment"
+        android:label="FamilyDeleteDialogFragment"
+        tools:layout="@layout/fragment_family_delete_dialog">
         <argument
             android:name="familyInfo"
             app:argType="com.daepiro.numberoneproject.data.model.FamilyListResponse"/>
