@@ -6,6 +6,7 @@ import com.daepiro.numberoneproject.data.model.DisasterResponse
 import com.daepiro.numberoneproject.data.model.FamilyListResponse
 import com.daepiro.numberoneproject.data.model.FundingDetailResponse
 import com.daepiro.numberoneproject.data.model.FundingListResponse
+import com.daepiro.numberoneproject.data.model.InitDataOnBoardingRequest
 import com.daepiro.numberoneproject.data.model.LoginTestResponse
 import com.daepiro.numberoneproject.data.model.LoginTokenResponse
 import com.daepiro.numberoneproject.data.model.OnlineResponse
@@ -163,4 +164,11 @@ interface ApiService {
         @Header("Authorization") token:String,
         @Path("friend-id") friendId: Int
     ): ApiResult<FamilyListResponse>
+  
+    //온보딩시 초기 데이터 설정
+    @POST("/api/members/onboarding")
+    suspend fun postinitData(
+        @Header("Authorization") token:String,
+        @Body body: InitDataOnBoardingRequest
+    ):ApiResult<Any>
 }

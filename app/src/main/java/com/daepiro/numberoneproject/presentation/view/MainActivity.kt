@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.daepiro.numberoneproject.R
@@ -35,6 +36,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     val loginVM by viewModels<LoginViewModel>()
     @Inject lateinit var tokenManager: TokenManager
     @Inject lateinit var service: ApiService
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,6 +76,8 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                         }
                 }
             }
+            showToast("초대받고옴" + intent.getStringExtra("tokenFromFamily").toString())
+            navController.navigate(R.id.familyFragment)
         } else {
             Log.d("taag", "그냥 들어 옴")
         }
@@ -118,7 +122,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     private fun initNavigation() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_container_view) as NavHostFragment
-        val navController = navHostFragment.navController
+        navController = navHostFragment.navController
 
         binding.bottomNavigationBar.setupWithNavController(navController)
 

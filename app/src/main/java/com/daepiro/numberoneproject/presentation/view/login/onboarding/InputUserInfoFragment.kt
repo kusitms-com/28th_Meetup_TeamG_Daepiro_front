@@ -1,20 +1,28 @@
 package com.daepiro.numberoneproject.presentation.view.login.onboarding
 
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.Editable
 import android.text.Spannable
 import android.text.SpannableString
+import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.daepiro.numberoneproject.R
 import com.daepiro.numberoneproject.databinding.FragmentInputUserInfoBinding
 import com.daepiro.numberoneproject.presentation.base.BaseFragment
+import com.daepiro.numberoneproject.presentation.viewmodel.OnboardingViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class InputUserInfoFragment: BaseFragment<FragmentInputUserInfoBinding>(R.layout.fragment_input_user_info) {
+    private val viewModel:OnboardingViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -43,5 +51,36 @@ class InputUserInfoFragment: BaseFragment<FragmentInputUserInfoBinding>(R.layout
         binding.btnBack.setOnClickListener {
             findNavController().navigateUp()
         }
+
+        binding.btnNext.setOnClickListener{
+            val action = InputUserInfoFragmentDirections.actionInputUserInfoFragmentToSelectLocationFragment()
+            findNavController().navigate(action)
+        }
+
+        binding.nameEdit.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                viewModel.realname = p0.toString()
+            }
+
+        })
+
+        binding.nicknameEdit.addTextChangedListener(object  : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                viewModel.nickname = p0.toString()
+            }
+
+        })
     }
 }

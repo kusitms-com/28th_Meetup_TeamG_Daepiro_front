@@ -12,7 +12,18 @@
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_aroundShelterDetailFragment"
-            app:destination="@id/aroundShelterDetailFragment" />
+            app:destination="@id/aroundShelterDetailFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out"/>
+        <action
+            android:id="@+id/action_homeFragment_to_alarmDetailFragment"
+            app:destination="@id/alarmDetailFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out"/>
     </fragment>
     <fragment
         android:id="@+id/familyFragment"
@@ -33,7 +44,11 @@
         tools:layout="@layout/fragment_funding">
         <action
             android:id="@+id/action_fundingFragment_to_fundingDetailFragment"
-            app:destination="@id/fundingDetailFragment" />
+            app:destination="@id/fundingDetailFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out"/>
     </fragment>
     <fragment
         android:id="@+id/mypageFragment"
@@ -41,7 +56,11 @@
         android:label="MypageFragment" >
         <action
             android:id="@+id/action_mypageFragment_to_heartChargeFragment"
-            app:destination="@id/heartChargeFragment" />
+            app:destination="@id/heartChargeFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out"/>
     </fragment>
     <fragment
         android:id="@+id/fundingDetailFragment"
@@ -58,6 +77,11 @@
         <action
             android:id="@+id/action_fundingDetailFragment_to_sendHeartBottomSheet"
             app:destination="@id/sendHeartBottomSheet" />
+            app:destination="@id/heartChargeFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out"/>
     </fragment>
     <fragment
         android:id="@+id/aroundShelterDetailFragment"
@@ -99,6 +123,11 @@
             app:destination="@id/cheerDialogFragment"
             app:popUpTo="@id/sendHeartBottomSheet"
             app:popUpToInclusive="true"/>
+            app:destination="@id/heartChargeFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out"/>
     </dialog>
     <fragment
         android:id="@+id/heartChargeFragment"
@@ -133,4 +162,7 @@
             android:name="familyInfo"
             app:argType="com.daepiro.numberoneproject.data.model.FamilyListResponse"/>
     </dialog>
+        android:id="@+id/alarmDetailFragment"
+        android:name="com.daepiro.numberoneproject.presentation.view.home.AlarmDetailFragment"
+        android:label="AlarmDetailFragment" />
 </navigation>
