@@ -29,7 +29,14 @@
         android:id="@+id/familyFragment"
         android:name="com.daepiro.numberoneproject.presentation.view.family.FamilyFragment"
         android:label="FamilyFragment"
-        tools:layout="@layout/fragment_family"/>
+        tools:layout="@layout/fragment_family">
+        <action
+            android:id="@+id/action_familyFragment_to_safetySendDialogFragment"
+            app:destination="@id/safetySendDialogFragment" />
+        <action
+            android:id="@+id/action_familyFragment_to_familyDeleteDialogFragment"
+            app:destination="@id/familyDeleteDialogFragment" />
+    </fragment>
     <fragment
         android:id="@+id/fundingFragment"
         android:name="com.daepiro.numberoneproject.presentation.view.funding.main.FundingFragment"
@@ -66,6 +73,10 @@
             android:defaultValue="0" />
         <action
             android:id="@+id/action_fundingDetailFragment_to_heartChargeFragment"
+            app:destination="@id/heartChargeFragment" />
+        <action
+            android:id="@+id/action_fundingDetailFragment_to_sendHeartBottomSheet"
+            app:destination="@id/sendHeartBottomSheet" />
             app:destination="@id/heartChargeFragment"
             app:enterAnim="@anim/slide_in"
             app:exitAnim="@anim/fade_out"
@@ -97,8 +108,21 @@
         android:name="com.daepiro.numberoneproject.presentation.view.funding.detail.SendHeartBottomSheet"
         android:label="SendHeartBottomSheet"
         tools:layout="@layout/fragment_send_heart_bottom_sheet">
+        <argument
+            android:name="sponsorId"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="title"
+            app:argType="string" />
         <action
             android:id="@+id/action_sendHeartBottomSheet_to_heartChargeFragment"
+            app:destination="@id/heartChargeFragment" />
+        <action
+            android:id="@+id/action_sendHeartBottomSheet_to_cheerDialogFragment"
+            app:destination="@id/cheerDialogFragment"
+            app:popUpTo="@id/sendHeartBottomSheet"
+            app:popUpToInclusive="true"/>
             app:destination="@id/heartChargeFragment"
             app:enterAnim="@anim/slide_in"
             app:exitAnim="@anim/fade_out"
@@ -110,7 +134,34 @@
         android:name="com.daepiro.numberoneproject.presentation.view.funding.detail.HeartChargeFragment"
         android:label="HeartChargeFragment"
         tools:layout="@layout/fragment_heart_charge"/>
-    <fragment
+    <dialog
+        android:id="@+id/cheerDialogFragment"
+        android:name="com.daepiro.numberoneproject.presentation.view.funding.detail.CheerDialogFragment"
+        android:label="CheerDialogFragment"
+        tools:layout="@layout/fragment_cheer_dialog">
+        <argument
+            android:name="sponsorId"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </dialog>
+    <dialog
+        android:id="@+id/safetySendDialogFragment"
+        android:name="com.daepiro.numberoneproject.presentation.view.family.SafetySendDialogFragment"
+        android:label="SafetySendDialogFragment"
+        tools:layout="@layout/fragment_safety_send_dialog">
+        <argument
+            android:name="familyInfo"
+            app:argType="com.daepiro.numberoneproject.data.model.FamilyListResponse"/>
+    </dialog>
+    <dialog
+        android:id="@+id/familyDeleteDialogFragment"
+        android:name="com.daepiro.numberoneproject.presentation.view.family.FamilyDeleteDialogFragment"
+        android:label="FamilyDeleteDialogFragment"
+        tools:layout="@layout/fragment_family_delete_dialog">
+        <argument
+            android:name="familyInfo"
+            app:argType="com.daepiro.numberoneproject.data.model.FamilyListResponse"/>
+    </dialog>
         android:id="@+id/alarmDetailFragment"
         android:name="com.daepiro.numberoneproject.presentation.view.home.AlarmDetailFragment"
         android:label="AlarmDetailFragment" />

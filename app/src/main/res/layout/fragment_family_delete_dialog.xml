@@ -18,29 +18,17 @@
             android:background="@drawable/bg_radius_12"
             android:backgroundTint="@color/white"
             android:gravity="center_horizontal"
-            android:layout_marginHorizontal="42dp">
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingVertical="12dp"
-                android:gravity="center">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_location"
-                    android:visibility="invisible"
-                    app:tint="@color/secondary_400"/>
-            </androidx.appcompat.widget.LinearLayoutCompat>
+            android:layout_marginHorizontal="42dp"
+            android:paddingTop="24dp">
 
             <TextView
+                android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/body1"
                 android:textColor="@color/secondary_800"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="20dp"
-                android:text="ㅇㅇㅇ님을 삭제하시겠습니까??"/>
+                android:layout_marginBottom="20dp" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"

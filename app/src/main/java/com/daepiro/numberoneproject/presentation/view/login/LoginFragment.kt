@@ -45,7 +45,6 @@ class LoginFragment: BaseFragment<FragmentLoginBinding>(R.layout.fragment_login)
         super.onViewCreated(view, savedInstanceState)
         binding.fragment = this@LoginFragment
 
-
     }
 
     override fun setupInit() {
@@ -84,8 +83,6 @@ class LoginFragment: BaseFragment<FragmentLoginBinding>(R.layout.fragment_login)
                 }
             }
         }
-
-
     }
 
     fun setupNaverLogin(view: View) {
@@ -144,5 +141,4 @@ class LoginFragment: BaseFragment<FragmentLoginBinding>(R.layout.fragment_login)
             UserApiClient.instance.loginWithKakaoAccount(requireContext(), callback = callback)
         }
     }
-
 }

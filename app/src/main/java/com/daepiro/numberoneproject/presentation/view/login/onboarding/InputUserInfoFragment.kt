@@ -1,6 +1,7 @@
 package com.daepiro.numberoneproject.presentation.view.login.onboarding
 
 import android.os.Bundle
+import android.text.SpannableString
 import android.text.Editable
 import android.text.Spannable
 import android.text.SpannableString

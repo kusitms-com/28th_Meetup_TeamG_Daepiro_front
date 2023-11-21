@@ -5,11 +5,15 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.daepiro.numberoneproject.R
 import com.daepiro.numberoneproject.data.network.ApiResult
+import com.daepiro.numberoneproject.data.network.ApiService
+import com.daepiro.numberoneproject.data.network.onFailure
+import com.daepiro.numberoneproject.data.network.onSuccess
 import com.daepiro.numberoneproject.databinding.ActivityMainBinding
 import com.daepiro.numberoneproject.presentation.base.BaseActivity
 import com.daepiro.numberoneproject.presentation.util.Extensions.repeatOnStarted
@@ -19,14 +23,19 @@ import com.daepiro.numberoneproject.presentation.viewmodel.LoginViewModel
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
+class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     val loginVM by viewModels<LoginViewModel>()
     @Inject lateinit var tokenManager: TokenManager
+    @Inject lateinit var service: ApiService
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,9 +47,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             }
 
             val token = task.result
-//            val msg = getString(R.string.msg_token_fmt, token)
             Log.d("taag fcm token", token)
-//            Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
         })
     }
 
@@ -49,11 +56,30 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
         loginVM.loginTest()
 
-        if (intent.getStringExtra("tokenFromFamily")?.isNotEmpty() == true) {
+        if (intent.getStringExtra("memberId")?.isNotEmpty() == true) {
+            Log.d("taag", "초대받고 들어 옴")
+
+            lifecycleScope.launch {
+                val token = "Bearer ${tokenManager.accessToken.first()}"
+                val response = service.registerFamily(token, intent.getStringExtra("memberId")!!.toInt())
+
+                withContext(Dispatchers.Main) {
+                    Log.d("taag t", token)
+                    Log.d("taag m", intent.getStringExtra("memberId")!!)
+
+                    response
+                        .onSuccess {
+                            Log.d("taag", "가족 등록에 성공했습니다.")
+                        }
+                        .onFailure {
+                            Log.d("taag", "가족 등록에 실패했습니다.")
+                        }
+                }
+            }
             showToast("초대받고옴" + intent.getStringExtra("tokenFromFamily").toString())
             navController.navigate(R.id.familyFragment)
         } else {
-            showToast("그냥 옴")
+            Log.d("taag", "그냥 들어 옴")
         }
     }
 
@@ -109,5 +135,32 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 binding.bottomNavigationBox.visibility = View.GONE
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        lifecycleScope.launch {
+            val token = "Bearer ${tokenManager.accessToken.first()}"
+            val response = service.changeOnline(token)
+
+            withContext(Dispatchers.IO) {
+                response.onSuccess {
+                    tokenManager.writeMyInfo(it.realname, it.memberId)
+                }
+            }
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+    }
+
+    override fun onDestroy() {
+        runBlocking {
+            val token = "Bearer ${tokenManager.accessToken.first()}"
+            service.changeOffline(token)
+        }
+        super.onDestroy()
     }
 }

@@ -3,11 +3,15 @@ package com.daepiro.numberoneproject.data.network
 import com.daepiro.numberoneproject.data.model.CheerMessageRequest
 import com.daepiro.numberoneproject.data.model.DisasterRequestBody
 import com.daepiro.numberoneproject.data.model.DisasterResponse
+import com.daepiro.numberoneproject.data.model.FamilyListResponse
 import com.daepiro.numberoneproject.data.model.FundingDetailResponse
 import com.daepiro.numberoneproject.data.model.FundingListResponse
 import com.daepiro.numberoneproject.data.model.InitDataOnBoardingRequest
 import com.daepiro.numberoneproject.data.model.LoginTestResponse
 import com.daepiro.numberoneproject.data.model.LoginTokenResponse
+import com.daepiro.numberoneproject.data.model.OnlineResponse
+import com.daepiro.numberoneproject.data.model.RegisterFamilyResponse
+import com.daepiro.numberoneproject.data.model.SendSafetyResponse
 import com.daepiro.numberoneproject.data.model.ShelterData
 import com.daepiro.numberoneproject.data.model.ShelterListResponse
 import com.daepiro.numberoneproject.data.model.ShelterRequestBody
@@ -16,9 +20,11 @@ import com.daepiro.numberoneproject.data.model.SupportResponse
 import com.daepiro.numberoneproject.data.model.TokenRequestBody
 import com.daepiro.numberoneproject.data.model.UserHeartResponse
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface ApiService {
@@ -120,6 +126,45 @@ interface ApiService {
         @Body body: CheerMessageRequest
     ): ApiResult<Any>
 
+    // 온라인 상태 전환
+    @GET("/api/members/online")
+    suspend fun changeOnline(
+        @Header("Authorization") token:String
+    ): ApiResult<OnlineResponse>
+
+    // 오프라인 상태 전환
+    @GET("/api/members/offline")
+    suspend fun changeOffline(
+        @Header("Authorization") token:String
+    ): ApiResult<Any?>
+
+    // 가족 목록 조회
+    @GET("/api/friendships")
+    suspend fun getFamilyList(
+        @Header("Authorization") token:String
+    ): ApiResult<List<FamilyListResponse>>
+
+    // 가족 안부묻기
+    @GET("/api/friendships/{friend-id}")
+    suspend fun postFamilySafety(
+        @Header("Authorization") token:String,
+        @Path("friend-id") friendId: Int
+    ): ApiResult<SendSafetyResponse>
+
+    // 가족 초대하기
+    @PUT("/api/friendships/{inviting-member-id}")
+    suspend fun registerFamily(
+        @Header("Authorization") token:String,
+        @Path("inviting-member-id") memberId: Int
+    ): ApiResult<RegisterFamilyResponse>
+
+    // 가족 삭제하기
+    @DELETE("/api/friendships/{friend-id}")
+    suspend fun deleteFamily(
+        @Header("Authorization") token:String,
+        @Path("friend-id") friendId: Int
+    ): ApiResult<FamilyListResponse>
+  
     //온보딩시 초기 데이터 설정
     @POST("/api/members/onboarding")
     suspend fun postinitData(

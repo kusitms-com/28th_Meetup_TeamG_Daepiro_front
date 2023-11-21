@@ -5,12 +5,14 @@ import com.daepiro.numberoneproject.BuildConfig
 import com.daepiro.numberoneproject.data.network.ApiResultCallAdapterFactory
 import com.daepiro.numberoneproject.data.network.ApiService
 import com.daepiro.numberoneproject.data.repositoryimpl.DisasterRepositoryImpl
+import com.daepiro.numberoneproject.data.repositoryimpl.FamilyRepositoryImpl
 import com.daepiro.numberoneproject.data.repositoryimpl.FundingRepositoryImpl
 import com.daepiro.numberoneproject.data.repositoryimpl.GetShelterRepositoryImpl
 import com.daepiro.numberoneproject.data.repositoryimpl.LoginRepositoryImpl
 import com.daepiro.numberoneproject.data.repositoryimpl.OnBoardingRepositoryImpl
 import com.daepiro.numberoneproject.data.repositoryimpl.ShelterRepositoryImpl
 import com.daepiro.numberoneproject.domain.repository.DisasterRepository
+import com.daepiro.numberoneproject.domain.repository.FamilyRepository
 import com.daepiro.numberoneproject.domain.repository.FundingRepository
 import com.daepiro.numberoneproject.domain.repository.GetShelterRepository
 import com.daepiro.numberoneproject.domain.repository.LoginRepository
@@ -65,6 +67,10 @@ abstract class RepositoryModule {
 
     @Singleton
     @Binds
+    abstract fun bindFamilyRepository(
+        familyRepositoryImpl: FamilyRepositoryImpl
+    ): FamilyRepository
+  
     abstract fun bindOnBoardingRepository(
         onBoardingRepositoryImpl: OnBoardingRepositoryImpl
     ):OnBoardingRepository

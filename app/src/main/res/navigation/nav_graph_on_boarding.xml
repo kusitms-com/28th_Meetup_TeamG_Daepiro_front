@@ -48,6 +48,7 @@
         android:id="@+id/inputUserInfoFragment"
         android:name="com.daepiro.numberoneproject.presentation.view.login.onboarding.InputUserInfoFragment"
         android:label="InputUserInfoFragment"
+        tools:layout="@layout/fragment_input_user_info"/>
         tools:layout="@layout/fragment_input_user_info">
         <action
             android:id="@+id/action_inputUserInfoFragment_to_selectLocationFragment"
