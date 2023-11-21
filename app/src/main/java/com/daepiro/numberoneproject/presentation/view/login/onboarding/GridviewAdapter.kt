@@ -9,26 +9,28 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.daepiro.numberoneproject.R
 import com.daepiro.numberoneproject.data.model.DisastertypeDataModel
+import com.google.android.material.datepicker.OnSelectionChangedListener
 
 class GridviewAdapter(
     private var items:List<DisastertypeDataModel>,
-    private val listener:onItemClickListener
+    private val onItemClickListener: (String, Boolean) -> Unit,
+    private val onSelectionChanged: (Boolean) -> Unit,
+    private val handleItemClick: (String, Boolean) -> Unit
 ):RecyclerView.Adapter<GridviewAdapter.ViewHolder>()  {
     private var original : List<DisastertypeDataModel> = items.toList()
-    interface onItemClickListener{
-        fun onItemClickListener(disasterType:String, isSelected:Boolean)
-    }
 
     class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
         val image: ImageView = itemView.findViewById(R.id.image)
         val disasterType : TextView = itemView.findViewById(R.id.disastertype)
-        fun bind(item: DisastertypeDataModel, listener: onItemClickListener) {
+        fun bind(item: DisastertypeDataModel, onItemClickListener:(String, Boolean) -> Unit) {
             itemView.isSelected = item.isSelected
             itemView.setOnClickListener {
                 item.isSelected = !item.isSelected
                 itemView.isSelected = item.isSelected
-                listener.onItemClickListener(item.disasterType, item.isSelected)
+                onItemClickListener(item.disasterType, item.isSelected)
             }
+            image.setImageResource(item.imageResId)
+            disasterType.text = item.disasterType
         }
     }
 
@@ -46,20 +48,18 @@ class GridviewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if(position < items.size){
-//            val item=items[position]
-//            holder.bind(item,listener)
-//            //holder.itemView.isSelected = false
-//            holder.image.setImageResource(item.imageResId)
-//            holder.disasterType.text = item.disasterType
+        val item = items[position]
+        holder.bind(item,{disasterType, isSelected->
+            handleItemClick(disasterType, isSelected)
+            val isAnyItemSelected = items.any { it.isSelected }
+            onSelectionChanged(isAnyItemSelected)
+        })
 
-        }
-        val item=items[position]
-        holder.bind(item,listener)
-        //holder.itemView.isSelected = false
-        holder.image.setImageResource(item.imageResId)
-        holder.disasterType.text = item.disasterType
 
+    }
+    private fun checkAndUpdateSelectionState() {
+        val isAnyItemSelected = items.any { it.isSelected }
+        onSelectionChanged(isAnyItemSelected) // 선택 상태 변경 콜백 호출
     }
     fun filterByCategory(category:String){
         items = if(category == ""){

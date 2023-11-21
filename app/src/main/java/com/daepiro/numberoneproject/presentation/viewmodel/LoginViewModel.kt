@@ -37,6 +37,7 @@ class LoginViewModel @Inject constructor(
             naverLoginUseCase(loginBody)
                 .onSuccess {
                     tokenManager.writeLoginTokens(it.accessToken, it.refreshToken)
+
                 }
                 .onFailure {
                     _loginErrorState.value = it

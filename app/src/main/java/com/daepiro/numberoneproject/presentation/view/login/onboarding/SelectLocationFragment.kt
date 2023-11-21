@@ -2,49 +2,58 @@ package com.daepiro.numberoneproject.presentation.view.login.onboarding
 
 import android.app.Activity
 import android.os.Bundle
+import android.provider.Telephony.Mms.Addr
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.core.content.ContentProviderCompat
-import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.daepiro.numberoneproject.R
+import com.daepiro.numberoneproject.data.model.AddresseModel
 import com.daepiro.numberoneproject.databinding.FragmentSelectLocationBinding
 import com.daepiro.numberoneproject.presentation.base.BaseFragment
 import com.daepiro.numberoneproject.presentation.view.networkerror.LocationAdapter
 import com.daepiro.numberoneproject.presentation.viewmodel.OnboardingViewModel
 import com.google.android.material.tabs.TabLayout
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SelectLocationFragment : BaseFragment<FragmentSelectLocationBinding>(R.layout.fragment_select_location) {
     private val viewModel: OnboardingViewModel by activityViewModels(){
         ViewModelProvider.NewInstanceFactory()
     }
-    //private lateinit var adapter:LocationAdapter
     private lateinit var adapter1: LocationAdapter
     private lateinit var adapter2: LocationAdapter
     private lateinit var adapter3: LocationAdapter
-    //var selectedItems = mutableMapOf<Int,String>()
+
     var selectedItems1 = mutableMapOf<Int, String>()
     var selectedItems2 = mutableMapOf<Int, String>()
     var selectedItems3 = mutableMapOf<Int, String>()
-    //val selectedPosition = HashMap<Int,Int>()
+
     private var addressesList = mutableListOf<Map<String, String>>()
-    //var txt:String=""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
-        setupInit()
-        subscribeUi()
 
-        viewModel.showSelectAddress.observe(viewLifecycleOwner, Observer {
-            Log.d("showSelectAddress", "$it")
-        })
+        //일부 글자 색상 변경
+        var fullText = binding.title.text
+        val spannable = SpannableString(fullText)
+        val start = fullText.indexOf("지역")
+        val end = start + "지역".length
+
+        spannable.setSpan(
+            ForegroundColorSpan(resources.getColor(R.color.orange_500)), // 색상을 변경할 Span 객체
+            start, // 변경할 텍스트의 시작 인덱스
+            end, // 변경할 텍스트의 끝 인덱스
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        binding.title.text = spannable
 
 
         binding.btn.setOnClickListener{
@@ -170,16 +179,6 @@ class SelectLocationFragment : BaseFragment<FragmentSelectLocationBinding>(R.lay
                 Log.d("onViewCreated","$selectedItemsMap")
             }
 
-//            override fun onTabUnselected(tab: TabLayout.Tab?) {
-//                tab?.let{
-//                    val previousTabIndex = it.position-1
-//                    if(previousTabIndex >=0){
-//                        updateListForSelectedTab(previousTabIndex)
-//                    }else{
-//                        setList(R.array.all)
-//                    }
-//                }
-//            }
                 override fun onTabUnselected(tab: TabLayout.Tab?) {
                     tab?.let {
                         val previousTabIndex = it.position - 1
@@ -204,13 +203,8 @@ class SelectLocationFragment : BaseFragment<FragmentSelectLocationBinding>(R.lay
         })
     }
 
-
-
-
-
     private fun moveToNextTab(currentTabLayout: TabLayout,currentTab:Int,value:String,selectedItemsMap: MutableMap<Int, String>){
         selectedItemsMap[currentTab] = value
-        //updateListForSelectedTab(currentTab)
         if(currentTab < currentTabLayout.tabCount-1){
             currentTabLayout.getTabAt(currentTab +1)?.apply {
                 view?.isClickable = true
@@ -219,6 +213,15 @@ class SelectLocationFragment : BaseFragment<FragmentSelectLocationBinding>(R.lay
         }
 
         else{ //마지막 선택시
+            if (currentTabLayout == binding.locationSelect1.tabLayout) {
+                // 두 번째 TabLayout의 첫 번째 탭 초기화
+                initializeNextTabLayout(binding.locationSelect2.tabLayout)
+            }
+            if (currentTabLayout == binding.locationSelect2.tabLayout) {
+                // 두 번째 TabLayout의 첫 번째 탭 초기화
+                initializeNextTabLayout(binding.locationSelect3.tabLayout)
+            }
+
             var locationString = listOfNotNull(selectedItemsMap[0],selectedItemsMap[1],selectedItemsMap[2]).joinToString(separator = " ")
             val addressObject = mapOf(
                 "lv1" to (selectedItemsMap[0] ?: ""),
@@ -236,6 +239,21 @@ class SelectLocationFragment : BaseFragment<FragmentSelectLocationBinding>(R.lay
 
             Log.e("address","$addressObject")
         }
+    }
+    private fun initializeNextTabLayout(nextTabLayout: TabLayout) {
+        val resourceId = R.array.all // 또는 다른 초기화에 필요한 리소스 ID
+        setListForTabLayout(nextTabLayout, resourceId)
+    }
+
+    private fun setListForTabLayout(tabLayout: TabLayout, resourceId: Int) {
+        val localList = requireContext().resources.getStringArray(resourceId).toList()
+        val adapter = when (tabLayout) {
+            binding.locationSelect1.tabLayout -> adapter1
+            binding.locationSelect2.tabLayout -> adapter2
+            binding.locationSelect3.tabLayout -> adapter3
+            else -> return
+        }
+        adapter.updateList(localList)
     }
 
 
@@ -263,6 +281,7 @@ class SelectLocationFragment : BaseFragment<FragmentSelectLocationBinding>(R.lay
             Log.e("updateListForSelectedTab", "invalid resource id")
         }
     }
+
 }
 
 
