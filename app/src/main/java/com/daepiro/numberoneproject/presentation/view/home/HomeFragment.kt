@@ -150,8 +150,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         mLastLocation = location
         userLocation = Pair(mLastLocation.latitude, mLastLocation.longitude) // 갱신 된 위도
 
-        Log.d("taag location", userLocation.first.toString())
-
         disasterVM.getDisasterMessage(DisasterRequestBody(userLocation.first, userLocation.second))
         shelterVM.getAroundSheltersList(ShelterRequestBody(userLocation.first, userLocation.second, "민방위"))
     }
@@ -171,7 +169,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             shelterVM.shelterLoadingState.value = true
 
             if (R.id.chip_around_shelter_all in checkedIds) {
-                shelterVM.getAroundSheltersList(ShelterRequestBody(userLocation.first, userLocation.second, "민방위"))
+                shelterVM.getAroundSheltersList(ShelterRequestBody(userLocation.first, userLocation.second, null))
             } else if (R.id.chip_around_shelter_1 in checkedIds) {
                 shelterVM.getAroundSheltersList(ShelterRequestBody(userLocation.first, userLocation.second, "지진"))
             } else if (R.id.chip_around_shelter_2 in checkedIds) {
@@ -252,6 +250,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                     disasterCheckListAdapter.setData(checkList.subList(0,3))
                     binding.ivExpand.setImageDrawable(requireContext().getDrawable(R.drawable.ic_arrow_down))
                 }
+            }
+        }
+
+        repeatOnStarted {
+            disasterVM.disasterLoadingState.collectLatest {
+
             }
         }
     }

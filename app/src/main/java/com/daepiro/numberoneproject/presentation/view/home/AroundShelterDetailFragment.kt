@@ -55,7 +55,7 @@ class AroundShelterDetailFragment: BaseFragment<FragmentAroundShelterDetailBindi
         binding.tlCategory.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when(tab?.position) {
-                    0 -> shelterVM.getAroundSheltersList(ShelterRequestBody(userLocation.first, userLocation.second, "민방위"))
+                    0 -> shelterVM.getAroundSheltersList(ShelterRequestBody(userLocation.first, userLocation.second, null))
                     1 -> shelterVM.getAroundSheltersList(ShelterRequestBody(userLocation.first, userLocation.second, "지진"))
                     2 -> shelterVM.getAroundSheltersList(ShelterRequestBody(userLocation.first, userLocation.second, "수해"))
                     3 -> shelterVM.getAroundSheltersList(ShelterRequestBody(userLocation.first, userLocation.second, "민방위"))

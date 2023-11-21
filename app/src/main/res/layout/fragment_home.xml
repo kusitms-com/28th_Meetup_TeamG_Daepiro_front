@@ -170,6 +170,7 @@
                         android:background="@drawable/bg_radius_8"
                         android:backgroundTint="@color/white"
                         android:orientation="vertical"
+                        android:visibility="@{disasterVM.disasterLoadingState ? View.GONE : View.VISIBLE}"
                         android:padding="16dp">
 
                         <androidx.appcompat.widget.LinearLayoutCompat
