@@ -13,19 +13,25 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.daepiro.numberoneproject.R
 import com.daepiro.numberoneproject.databinding.FragmentCheerDialogBinding
 import com.daepiro.numberoneproject.databinding.FragmentFamilyDeleteDialogBinding
 import com.daepiro.numberoneproject.databinding.FragmentSafetySendDialogBinding
 import com.daepiro.numberoneproject.presentation.base.BaseDialogFragment
+import com.daepiro.numberoneproject.presentation.util.Extensions.repeatOnStarted
 import com.daepiro.numberoneproject.presentation.view.home.AroundShelterDetailFragmentArgs
+import com.daepiro.numberoneproject.presentation.viewmodel.FamilyViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class FamilyDeleteDialogFragment: BaseDialogFragment<FragmentFamilyDeleteDialogBinding>(R.layout.fragment_family_delete_dialog) {
     private val args by navArgs<FamilyDeleteDialogFragmentArgs>()
+    val familyVM by viewModels<FamilyViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,13 +52,23 @@ class FamilyDeleteDialogFragment: BaseDialogFragment<FragmentFamilyDeleteDialogB
         binding.tvTitle.text = spannableString
 
         binding.btnComplete.setOnClickListener {
-            
+            familyVM.deleteFamily(args.familyInfo.friendMemberId)
         }
 
         binding.btnClose.setOnClickListener {
             this.dismiss()
         }
 
+    }
+
+    override fun subscribeUi() {
+        repeatOnStarted {
+            familyVM.isCompleteDeleteFamily.collectLatest {
+                if (it) {
+                    findNavController().navigateUp()
+                }
+            }
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.R)

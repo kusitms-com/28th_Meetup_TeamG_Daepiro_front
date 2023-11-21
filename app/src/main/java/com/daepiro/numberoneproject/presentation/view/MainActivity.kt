@@ -61,16 +61,16 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 val token = "Bearer ${tokenManager.accessToken.first()}"
                 val response = service.registerFamily(token, intent.getStringExtra("memberId")!!.toInt())
 
-                withContext(Dispatchers.IO) {
+                withContext(Dispatchers.Main) {
                     Log.d("taag t", token)
                     Log.d("taag m", intent.getStringExtra("memberId")!!)
 
                     response
                         .onSuccess {
-                            showToast("가족 등록에 성공했습니다.")
+                            Log.d("taag", "가족 등록에 성공했습니다.")
                         }
                         .onFailure {
-                            showToast("가족 등록에 실패했습니다.")
+                            Log.d("taag", "가족 등록에 실패했습니다.")
                         }
                 }
             }
@@ -141,7 +141,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
             withContext(Dispatchers.IO) {
                 response.onSuccess {
-                    tokenManager.writeMemberId(it.memberId)
+                    tokenManager.writeMyInfo(it.realname, it.memberId)
                 }
             }
         }

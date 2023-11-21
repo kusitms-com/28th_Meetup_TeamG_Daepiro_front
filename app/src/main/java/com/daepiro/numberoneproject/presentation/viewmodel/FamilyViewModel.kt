@@ -7,6 +7,7 @@ import com.daepiro.numberoneproject.data.model.DisasterRequestBody
 import com.daepiro.numberoneproject.data.model.FamilyListResponse
 import com.daepiro.numberoneproject.data.network.onFailure
 import com.daepiro.numberoneproject.data.network.onSuccess
+import com.daepiro.numberoneproject.domain.usecase.DeleteFamilyUseCase
 import com.daepiro.numberoneproject.domain.usecase.GetFamilyListUseCase
 import com.daepiro.numberoneproject.domain.usecase.PostFamilySafetyUseCase
 import com.daepiro.numberoneproject.presentation.util.TokenManager
@@ -21,7 +22,8 @@ import javax.inject.Inject
 class FamilyViewModel @Inject constructor(
     private val tokenManager: TokenManager,
     private val getFamilyListUseCase: GetFamilyListUseCase,
-    private val postFamilySafetyUseCase: PostFamilySafetyUseCase
+    private val postFamilySafetyUseCase: PostFamilySafetyUseCase,
+    private val deleteFamilyUseCase: DeleteFamilyUseCase
 ): ViewModel() {
     private val _familyList = MutableStateFlow<List<FamilyListResponse>>(emptyList())
     val familyList = _familyList.asStateFlow()
@@ -29,6 +31,7 @@ class FamilyViewModel @Inject constructor(
     val isFamilyListManageMode = MutableStateFlow(false)
 
     val isCompletePostSafety = MutableStateFlow(false)
+    val isCompleteDeleteFamily = MutableStateFlow(false)
 
     fun getFamilyList() {
         viewModelScope.launch {
@@ -56,6 +59,20 @@ class FamilyViewModel @Inject constructor(
                 }
                 .onFailure {
                     Log.d("taag", it.toString())
+                }
+        }
+    }
+
+    fun deleteFamily(friendId: Int) {
+        viewModelScope.launch {
+            val token = "Bearer ${tokenManager.accessToken.first()}"
+
+            deleteFamilyUseCase(token, friendId)
+                .onSuccess {
+                    isCompleteDeleteFamily.value = true
+                }
+                .onFailure {
+                    isCompleteDeleteFamily.value = false
                 }
         }
     }

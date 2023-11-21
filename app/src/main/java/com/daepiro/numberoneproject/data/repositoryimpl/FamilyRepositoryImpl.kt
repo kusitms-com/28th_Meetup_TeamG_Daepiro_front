@@ -22,4 +22,8 @@ class FamilyRepositoryImpl @Inject constructor(
     override suspend fun postFamilySafety(token: String, friendId: Int): ApiResult<SendSafetyResponse> {
         return service.postFamilySafety(token, friendId)
     }
+
+    override suspend fun deleteFamily(token: String, friendId: Int): ApiResult<FamilyListResponse> {
+        return service.deleteFamily(token, friendId)
+    }
 }

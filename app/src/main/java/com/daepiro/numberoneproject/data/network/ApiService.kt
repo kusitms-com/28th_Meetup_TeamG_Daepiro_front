@@ -19,6 +19,7 @@ import com.daepiro.numberoneproject.data.model.SupportResponse
 import com.daepiro.numberoneproject.data.model.TokenRequestBody
 import com.daepiro.numberoneproject.data.model.UserHeartResponse
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
@@ -149,10 +150,17 @@ interface ApiService {
         @Path("friend-id") friendId: Int
     ): ApiResult<SendSafetyResponse>
 
-    // 친구 초대하기
+    // 가족 초대하기
     @PUT("/api/friendships/{inviting-member-id}")
     suspend fun registerFamily(
         @Header("Authorization") token:String,
         @Path("inviting-member-id") memberId: Int
     ): ApiResult<RegisterFamilyResponse>
+
+    // 가족 삭제하기
+    @DELETE("/api/friendships/{friend-id}")
+    suspend fun deleteFamily(
+        @Header("Authorization") token:String,
+        @Path("friend-id") friendId: Int
+    ): ApiResult<FamilyListResponse>
 }

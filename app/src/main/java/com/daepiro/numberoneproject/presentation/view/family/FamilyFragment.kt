@@ -1,6 +1,7 @@
 package com.daepiro.numberoneproject.presentation.view.family
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
@@ -38,7 +39,6 @@ class FamilyFragment : BaseFragment<FragmentFamilyBinding>(R.layout.fragment_fam
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        familyVM.getFamilyList()
         setFamilyRV()
 
         binding.tvManage.setOnClickListener {
@@ -49,19 +49,26 @@ class FamilyFragment : BaseFragment<FragmentFamilyBinding>(R.layout.fragment_fam
         binding.cdAddFamily.setOnClickListener {
             lifecycleScope.launch {
                 val myMemberId = tokenManager.memberId.first()
+                val myName = tokenManager.name.first()
 
                 withContext(Dispatchers.Main) {
-                    kakaoShare(myMemberId)
+                    kakaoShare(myName, myMemberId)
 
                 }
             }
         }
+
+        findNavController().addOnDestinationChangedListener { nav, destination, _ ->
+            if (destination.id == R.id.familyFragment) {
+                familyVM.getFamilyList()
+            }
+        }
     }
 
-    private fun kakaoShare(myMemberId: String) {
+    private fun kakaoShare(myName: String, myMemberId: String) {
         val defaultFeed = FeedTemplate(
             content = Content(
-                title = String.format(getString(R.string._님이_대피로_가족으로_초대하셨어요_), "종석"),
+                title = String.format(getString(R.string._님이_대피로_가족으로_초대하셨어요_), myName),
                 description = getString(R.string.가족_맺기를_수락하시면_서로의_안전_상태를_),
                 imageUrl = "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F6J5Im%2FbtsAqIjXTzo%2FtOBkJD8VpHuZtJBGfdBLjk%2Fimg.png",
                 link = Link(
