@@ -5,10 +5,14 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.navArgs
 import com.daepiro.numberoneproject.R
 import com.daepiro.numberoneproject.databinding.FragmentCheerDialogBinding
@@ -28,7 +32,18 @@ class FamilyDeleteDialogFragment: BaseDialogFragment<FragmentFamilyDeleteDialogB
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         this.isCancelable = false
 
-        binding.tvTitle.text = String.format(getString(R.string._님을_삭제하시겠습니까_), args.familyInfo.realName)
+        val originalText = getString(R.string._님을_삭제하시겠습니까_).format(args.familyInfo.realName)
+        val spannableString = SpannableString(originalText)
+        // 문자열에서 강조할 부분의 시작 인덱스 찾기
+        val startIndex = originalText.indexOf(args.familyInfo.realName)
+
+        spannableString.setSpan(
+            ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.orange_500)),
+            startIndex,
+            startIndex + args.familyInfo.realName.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        binding.tvTitle.text = spannableString
 
         binding.btnComplete.setOnClickListener {
             
