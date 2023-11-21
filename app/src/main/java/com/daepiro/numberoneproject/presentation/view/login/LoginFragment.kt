@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.daepiro.numberoneproject.BuildConfig
 import com.daepiro.numberoneproject.R
@@ -43,6 +44,7 @@ class LoginFragment: BaseFragment<FragmentLoginBinding>(R.layout.fragment_login)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.fragment = this@LoginFragment
+
 
     }
 
@@ -82,6 +84,8 @@ class LoginFragment: BaseFragment<FragmentLoginBinding>(R.layout.fragment_login)
                 }
             }
         }
+
+
     }
 
     fun setupNaverLogin(view: View) {
@@ -140,4 +144,5 @@ class LoginFragment: BaseFragment<FragmentLoginBinding>(R.layout.fragment_login)
             UserApiClient.instance.loginWithKakaoAccount(requireContext(), callback = callback)
         }
     }
+
 }

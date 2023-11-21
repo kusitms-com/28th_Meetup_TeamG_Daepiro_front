@@ -56,7 +56,6 @@ class LocationSettingDialogFragment : BaseDialogFragment<FragmentLocationSetting
         setList(R.array.all)
 
 
-
         binding.tabLayout.addOnTabSelectedListener(object :TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 //먼저 아이템 선택되었는지 확인
