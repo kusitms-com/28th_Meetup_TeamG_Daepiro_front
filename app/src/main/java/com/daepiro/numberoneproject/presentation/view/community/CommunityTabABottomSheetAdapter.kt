@@ -12,12 +12,14 @@ class CommunityTabABottomSheetAdapter(
     private var items:List<ConversationModel>,
     private val listener:onItemClickListener
 ):RecyclerView.Adapter<CommunityTabABottomSheetAdapter.ViewHolder>() {
+    private lateinit var subadapter: CommunityTownDetailRereplyAdapter
     interface onItemClickListener{
-        fun onItemClickListener()
+        fun onItemClickListener(disasterId:Int)
     }
     class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
         val info : TextView = itemView.findViewById(R.id.user_info)
         val content:TextView = itemView.findViewById(R.id.content)
+        val recycler : RecyclerView = itemView.findViewById(R.id.recycler)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -30,10 +32,13 @@ class CommunityTabABottomSheetAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        subadapter = CommunityTownDetailRereplyAdapter(emptyList())
+        holder.recycler.adapter = subadapter
         if(position < items.size){
             val item = items[position]
             holder.info.text = item.info
             holder.content.text = item.content
+            subadapter.updateList(item.childs)
         }
     }
 

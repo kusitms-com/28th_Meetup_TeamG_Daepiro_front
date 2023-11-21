@@ -21,6 +21,7 @@
             android:orientation="vertical"
             android:background="@drawable/bg_radius_4"
             android:backgroundTint="@color/surface"
+            android:layout_marginBottom="8dp"
             android:layout_marginRight="20dp">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -30,12 +31,15 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="12dp"
                 android:gravity="center_vertical">
+
                 <TextView
+                    android:id="@+id/info"
+                    style="@style/caption"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="송승희 ∙ 5분전"
-                    style="@style/caption"
-                    android:textColor="@color/secondary_300"/>
+                    android:textColor="@color/secondary_300" />
+
                 <View
                     android:layout_width="0dp"
                     android:layout_height="0dp"
@@ -46,6 +50,7 @@
                     android:src="@drawable/ic_moreinfo"/>
             </LinearLayout>
             <TextView
+                android:id="@+id/content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="아마 역 안에는 못들어갈거에요"
@@ -58,17 +63,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:orientation="horizontal"
-                android:layout_marginTop="4dp">
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="12dp">
                 <ImageView
+                    android:id="@+id/like_btn_good"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:src="@drawable/ic_good"
-                    app:tint="@color/secondary_300"
-                    android:layout_marginBottom="12dp"/>
+                    app:tint="@color/secondary_300" />
                 <TextView
+                    android:id="@+id/like_num"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/caption"
+                    android:visibility="visible"
                     android:textColor="@color/orange_500"
                     android:text="2"/>
             </LinearLayout>

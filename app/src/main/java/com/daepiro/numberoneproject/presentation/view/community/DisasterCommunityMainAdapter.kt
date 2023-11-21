@@ -57,7 +57,7 @@ class DisasterCommunityMainAdapter(
             //내부 recycler
             val subAdapter = DisasterCommunitySubAdapter(context,item.conversations, object : DisasterCommunitySubAdapter.onItemClickListener{
                 override fun onItemClickListener() {
-                    //필요한가..?
+
                 }
 
             })

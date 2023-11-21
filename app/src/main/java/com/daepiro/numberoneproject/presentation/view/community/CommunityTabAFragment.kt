@@ -44,6 +44,7 @@ class CommunityTabAFragment : BaseFragment<FragmentCommunityTabABinding>(R.layou
         mainAdapter = DisasterCommunityMainAdapter(requireContext(),emptyList(),object : DisasterCommunityMainAdapter.onItemClickListener{
             override fun onItemClickListener(disasterId: Int) {
                 viewModel.getDisasterDetail("time", disasterId)
+                viewModel.tag = disasterId
                 showBottomSheet()
             }
 
@@ -65,6 +66,7 @@ class CommunityTabAFragment : BaseFragment<FragmentCommunityTabABinding>(R.layou
             }
         }
     }
+
 
     private fun showBottomSheet(){
         val dialog = CommunityTabABottomSheetFragment()

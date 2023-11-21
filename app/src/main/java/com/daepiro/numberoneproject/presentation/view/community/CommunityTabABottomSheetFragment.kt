@@ -25,6 +25,7 @@ class CommunityTabABottomSheetFragment : BottomSheetDialogFragment() {
     private val binding get() = _binding!!
     private lateinit var adapter:CommunityTabABottomSheetAdapter
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,7 +46,11 @@ class CommunityTabABottomSheetFragment : BottomSheetDialogFragment() {
         binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 val selectedItem = p0?.getItemAtPosition(p2).toString()
-                //recycler updatelist 호출
+                if(selectedItem == "인기순"){
+                    viewModel.getDisasterDetail("popularity", viewModel.tag)
+                }else{
+                    viewModel.getDisasterDetail("time", viewModel.tag)
+                }
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -69,8 +74,8 @@ class CommunityTabABottomSheetFragment : BottomSheetDialogFragment() {
 
     private fun setupRecyclerview(){
         adapter = CommunityTabABottomSheetAdapter(emptyList(), object : CommunityTabABottomSheetAdapter.onItemClickListener{
-            override fun onItemClickListener() {
-
+            override fun onItemClickListener(disasterId:Int) {
+                //추후 대댓글 작성 로직
             }
 
         })
