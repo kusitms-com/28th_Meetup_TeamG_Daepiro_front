@@ -270,6 +270,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 }
             }
         }
+
+        repeatOnStarted {
+            disasterVM.disasterMessage.collectLatest {
+                binding.ivDisaster.setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_rain))
+            }
+        }
     }
 
     private fun changeToAddress(): String {

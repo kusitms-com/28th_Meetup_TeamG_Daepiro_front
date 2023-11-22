@@ -88,23 +88,27 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical">
 
-                        <androidx.cardview.widget.CardView
+                        <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
-                            app:cardBackgroundColor="@color/orange_500"
-                            app:cardCornerRadius="4dp"
-                            app:cardElevation="0dp">
-
+                            android:paddingHorizontal="12dp"
+                            android:paddingVertical="4dp"
+                            android:gravity="center_vertical"
+                            android:background="@drawable/bg_radius_4"
+                            android:backgroundTint="@color/orange_500">
+                            <ImageView
+                                android:id="@+id/iv_disaster"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="4dp"/>
                             <TextView
                                 style="@style/button"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="16dp"
-                                android:layout_marginVertical="6dp"
                                 android:text="@{disasterVM.disasterMessage.disasterType}"
                                 android:textColor="@color/orange_50" />
-                        </androidx.cardview.widget.CardView>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
 
                         <View
                             android:layout_width="match_parent"
