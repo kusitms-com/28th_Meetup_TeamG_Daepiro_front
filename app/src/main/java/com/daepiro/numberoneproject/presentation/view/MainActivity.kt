@@ -142,9 +142,13 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         }
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onPause() {
+        runBlocking {
+            val token = "Bearer ${tokenManager.accessToken.first()}"
+            service.changeOffline(token)
+        }
 
+        super.onPause()
     }
 
     override fun onDestroy() {
@@ -152,6 +156,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             val token = "Bearer ${tokenManager.accessToken.first()}"
             service.changeOffline(token)
         }
+
         super.onDestroy()
     }
 }
