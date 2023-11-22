@@ -43,6 +43,10 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/slide_out"/>
+        <action
+            android:id="@+id/action_guideFirstFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/inputUserInfoFragment"
@@ -51,7 +55,11 @@
         tools:layout="@layout/fragment_input_user_info">
         <action
             android:id="@+id/action_inputUserInfoFragment_to_selectLocationFragment"
-            app:destination="@id/selectLocationFragment" />
+            app:destination="@id/selectLocationFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out"/>
     </fragment>
     <fragment
         android:id="@+id/selectLocationFragment"
@@ -59,7 +67,11 @@
         android:label="SelectLocationFragment" >
         <action
             android:id="@+id/action_selectLocationFragment_to_selectDisasterTypeFragment"
-            app:destination="@id/selectDisasterTypeFragment" />
+            app:destination="@id/selectDisasterTypeFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out"/>
     </fragment>
     <fragment
         android:id="@+id/selectDisasterTypeFragment"
@@ -68,7 +80,11 @@
         tools:layout="@layout/fragment_select_disaster_type" >
         <action
             android:id="@+id/action_selectDisasterTypeFragment_to_guideLastFragment"
-            app:destination="@id/guideLastFragment" />
+            app:destination="@id/guideLastFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out"/>
     </fragment>
     <fragment
         android:id="@+id/guideLastFragment"

@@ -24,9 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SelectLocationFragment : BaseFragment<FragmentSelectLocationBinding>(R.layout.fragment_select_location) {
-    private val viewModel: OnboardingViewModel by activityViewModels(){
-        ViewModelProvider.NewInstanceFactory()
-    }
+    private val viewModel: OnboardingViewModel by activityViewModels()
     private lateinit var adapter1: LocationAdapter
     private lateinit var adapter2: LocationAdapter
     private lateinit var adapter3: LocationAdapter
