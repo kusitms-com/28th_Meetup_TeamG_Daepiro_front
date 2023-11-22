@@ -38,7 +38,8 @@ class CommunityTownDetailFragment : BaseFragment<FragmentCommunityTownDetailBind
         collectReply()
 
         binding.backBtn.setOnClickListener{
-            findNavController().popBackStack()
+            //이게 오류의 원인인가..?
+            //findNavController().popBackStack()
         }
         collectImage()
 

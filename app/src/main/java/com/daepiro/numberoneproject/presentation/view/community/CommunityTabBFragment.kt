@@ -26,7 +26,9 @@ import com.daepiro.numberoneproject.presentation.viewmodel.CommunityViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.w3c.dom.Text
 
 @AndroidEntryPoint
@@ -45,19 +47,17 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
         setUpRecyclerView()
         binding.viewModel = viewModel
         binding.all.isSelected = true
+
+        //위경도를 가져옴과 동시에 초기 api호출
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         getCurrentLocation()
 
-        viewModel.getTownCommentList(10,"",null,longitude,latitude,region)
-        //collectTownCommentList()
-        setInfiniteScroll("")
 
         //카테고리 tag들
-        val tags = listOf(binding.all, binding.traffic, binding.safety, binding.life,binding.other)
+        val tags = listOf(binding.all, binding.life, binding.traffic, binding.safety,binding.other)
         tags.forEach{textview->
             textview.setOnClickListener{
                 selectTags(textview,tags)
-                Log.d("tags","${textview.isSelected}")
             }
         }
 
@@ -95,7 +95,14 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
                 location?.let {
                     latitude = it.latitude
                     longitude = it.longitude
-
+                    lifecycleScope.launch {
+                        if(isAdded){
+                            viewModel.selectRegion.collect{region->
+                                viewModel.getTownCommentList(10,"",null,longitude,latitude,viewModel.selectRegion.value)
+                                setInfiniteScroll("")
+                            }
+                        }
+                    }
                 }
             }
     }
@@ -163,12 +170,27 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
         })
     }
 
+    //태그를 누를때 데이터 셋팅하는 함수
     private fun clearUpdateData(tag:String){
-        adapter.clearData()
-        viewModel.getTownCommentList(10,tag,null,longitude,latitude,region)
-        collectTownCommentList()
-        setInfiniteScroll(tag)
+//        adapter.clearData()
+//        lifecycleScope.launch {
+//            viewModel.selectRegion.collect{region->
+//                viewModel.getTownCommentList(10,tag,null,longitude,latitude,region)
+//            }
+//        }
+//        collectTownCommentList()
+//        setInfiniteScroll(tag)
+        if(!isLoading){
+            isLoading = true
+            adapter.clearData()
+            lifecycleScope.launch {
+                viewModel.selectRegion.collect{region->
+                    viewModel.getTownCommentList(10,tag,null,longitude,latitude,region)
+                }
+            }
+        }
     }
+
 
     private fun selectTags(selectedTag: TextView, textviews:List<TextView>){
         textviews.forEach{
@@ -198,9 +220,6 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
             }
         }
     }
-
-
-
 
 
 }

@@ -47,13 +47,15 @@ class TownCommentListAdapter(
                 "LIFE" -> "일상"
                 "TRAFFIC" -> "교통"
                 "SAFETY" -> "치안"
-                else -> "기타"
+                 "NONE" -> "기타"
+                else-> "전체"
             }
             holder.content.text = item.content
             holder.writerInfo.text = " ${item.ownerNickName} ∙ ${item.createdAt}"
             Glide.with(holder.itemView.context)
                 .load(item.thumbNailImageUrl)
                 .into(holder.image)
+
             holder.likenum.text = item.articleLikeCount.toString()
             holder.replynum.text = item.commentCount.toString()
             holder.itemView.setOnClickListener{
