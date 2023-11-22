@@ -100,6 +100,7 @@ class SelectDisasterTypeFragment : BaseFragment<FragmentSelectDisasterTypeBindin
             lifecycleScope.launch {
                 viewModel.postInitData(body)
             }
+
             val action = SelectDisasterTypeFragmentDirections.actionSelectDisasterTypeFragmentToGuideLastFragment()
             findNavController().navigate(action)
         }
