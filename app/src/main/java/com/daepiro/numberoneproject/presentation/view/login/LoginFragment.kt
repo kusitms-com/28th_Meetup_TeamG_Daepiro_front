@@ -46,6 +46,8 @@ class LoginFragment: BaseFragment<FragmentLoginBinding>(R.layout.fragment_login)
         super.onViewCreated(view, savedInstanceState)
         binding.fragment = this@LoginFragment
 
+
+
     }
 
     override fun setupInit() {
