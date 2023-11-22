@@ -108,7 +108,7 @@
                     android:paddingVertical="8dp"
                     android:background="@drawable/bg_radius_4"
                     android:backgroundTint="@color/orange_500"
-                    android:text="@string/의견남기기"/>
+                    android:text="@string/응원하기"/>
             </androidx.appcompat.widget.LinearLayoutCompat>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
