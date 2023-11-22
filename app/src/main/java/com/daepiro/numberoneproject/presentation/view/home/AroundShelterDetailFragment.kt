@@ -118,21 +118,21 @@ class AroundShelterDetailFragment: BaseFragment<FragmentAroundShelterDetailBindi
         val encodedEndAddress = encodeAddress(endLocationAddress?.get(0)?.getAddressLine(0).toString().replace("대한민국 ",""))
 
         val url = "nmap://route/walk?slat=${userLocation.first}&slng=${userLocation.second}&sname=${encodedStartAddress}&dlat=${latitude}&dlng=${longitude}&dname=${encodedEndAddress}"
-        val storeUrl = "market://details?id=com.nhn.android.nmap"
+        val storeUrl = "com.nhn.android.nmap"
 
         searchUrlToLoadMap(url, storeUrl)
     }
 
     private fun searchLoadToKakaoMap(latitude: Double, longitude: Double) {
         val url ="kakaomap://route?sp=${userLocation.first},${userLocation.second}&ep=${latitude},${longitude}&by=FOOT"
-        val storeUrl = "market://details?id=net.daum.android.map"
+        val storeUrl = "net.daum.android.map"
 
         searchUrlToLoadMap(url, storeUrl)
     }
 
     private fun searchLoadToTMap(latitude: Double, longitude: Double) {
         val url = "tmap://route?startx=${userLocation.second}&starty=${userLocation.first}&goalx=${longitude}&goaly=${latitude}&reqCoordType=WGS84&resCoordType=WGS84"
-        val storeUrl = "market://details?id=com.skt.tmap.ku"
+        val storeUrl = "com.skt.tmap.ku"
 
         searchUrlToLoadMap(url, storeUrl)
     }
