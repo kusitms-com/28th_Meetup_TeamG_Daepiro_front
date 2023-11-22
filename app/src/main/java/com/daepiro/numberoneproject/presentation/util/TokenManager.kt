@@ -21,6 +21,7 @@ class TokenManager @Inject constructor(
         private val ACCESS_TOKEN = stringPreferencesKey("access_token")
         private val REFRESH_TOKEN = stringPreferencesKey("refresh_token")
         private val NAME = stringPreferencesKey("name")
+        private val NICK_NAME = stringPreferencesKey("nick_name")
         private val MEMBER_ID = stringPreferencesKey("member_id")
         const val DATA_STORE = "data_store"
     }
@@ -45,15 +46,21 @@ class TokenManager @Inject constructor(
 
     suspend fun writeMyInfo(
         name: String,
+        nickName: String,
         memberId: Int
     ) {
         context.dataStore.edit {
             it[NAME] = name
+            it[NICK_NAME] = nickName
             it[MEMBER_ID] = memberId.toString()
         }
     }
     val name: Flow<String> = context.dataStore.data.map {
         it[NAME] ?: ""
+    }
+
+    val nickName: Flow<String> = context.dataStore.data.map {
+        it[NICK_NAME] ?: ""
     }
 
     val memberId: Flow<String> = context.dataStore.data.map {

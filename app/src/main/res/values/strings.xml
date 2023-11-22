@@ -69,8 +69,9 @@
 
     <string name="마음충전">마음충전</string>
     <string name="마음이란_">마음이란?</string>
-    <string name="대피로에서_재난_후원을_할_때에_필요한_전용_결제_수단입니다.">대피로에서 재난 후원을 할 때에 필요한\n전용 결제 수단입니다.</string>
     <string name="보유_마음">보유 마음</string>
+    <string name="대피로에서_재난_후원을_할_때에_필요한_전용_결제_수단입니다.">대피로에서 재난 후원을 할 때에 필요한\n전용 결제 수단입니다.</string>
+    <string name="내_마음">내 마음</string>
     <string name="관리">관리</string>
     <string name="가족_초대하기">가족 초대하기</string>
     <string name="닫기">닫기</string>
@@ -108,11 +109,11 @@
     <string name="위험해요">위험해요</string>
     <string name="_님을_삭제하시겠습니까_">%s님을 삭제하시겠습니까?</string>
 
-    <string name="후원내역">후원내역</string>
+    <string name="나의_후원_기록">나의 후원 기록</string>
     <string name="내가_쓴_글">내가 쓴 글</string>
     <string name="저장한_글">저장한 글</string>
     <string name="공지사항">공지사항</string>
-    <string name="환불_정책">환불 정핵</string>
+    <string name="환불_정책">환불 정책</string>
     <string name="개인정보_처리_약관">개인정보 처리 약관</string>
     <string name="앱_버전">앱 버전</string>
     <string name="예">예</string>

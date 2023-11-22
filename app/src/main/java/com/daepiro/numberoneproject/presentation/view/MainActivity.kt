@@ -136,7 +136,7 @@ class MainActivity: BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
             withContext(Dispatchers.IO) {
                 response.onSuccess {
-                    tokenManager.writeMyInfo(it.realname, it.memberId)
+                    tokenManager.writeMyInfo(it.realname, it.nickname,  it.memberId)
                 }
             }
         }

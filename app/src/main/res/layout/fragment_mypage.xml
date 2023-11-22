@@ -49,6 +49,7 @@
                     android:src="@drawable/img_profile_default" />
 
                 <TextView
+                    android:id="@+id/tv_nickname"
                     style="@style/headline6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -98,7 +99,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="6dp"
-                        android:text="@string/보유_마음"
+                        android:text="@string/내_마음"
                         android:textColor="@color/white" />
 
                     <TextView
@@ -170,14 +171,14 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_mypage" />
+                            android:src="@drawable/ic_alarm" />
 
                         <TextView
                             style="@style/button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:text="내정보"
+                            android:text="알림설정"
                             android:textColor="@color/secondary_800" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -197,14 +198,14 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_alarm" />
+                            android:src="@drawable/ic_mypage" />
 
                         <TextView
                             style="@style/button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:text="알림설정"
+                            android:text="내 정보"
                             android:textColor="@color/secondary_800" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -223,7 +224,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="16dp"
-                        android:text="@string/후원내역"
+                        android:text="@string/나의_후원_기록"
                         android:textColor="@color/secondary_600" />
 
                     <TextView
