@@ -137,27 +137,25 @@ class AroundShelterDetailFragment: BaseFragment<FragmentAroundShelterDetailBindi
         searchUrlToLoadMap(url, storeUrl)
     }
 
+    private val STORE_URL = "market://details?id="
     private fun searchUrlToLoadMap(url: String, storeUrl: String) {
-        val intent =  Intent(Intent.ACTION_VIEW, Uri.parse(url))
-        intent.addCategory(Intent.CATEGORY_BROWSABLE)
-
-        val installCheck = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            requireContext().packageManager.queryIntentActivities(
-                Intent(Intent.ACTION_MAIN, null).addCategory(Intent.CATEGORY_LAUNCHER),
-                PackageManager.ResolveInfoFlags.of(PackageManager.MATCH_DEFAULT_ONLY.toLong())
-            )
-        } else {
-            requireContext().packageManager.queryIntentActivities(
-                Intent(Intent.ACTION_MAIN, null).addCategory(Intent.CATEGORY_LAUNCHER),
-                PackageManager.GET_META_DATA
-            )
-        }
-
-        // 이동할 지도앱이 설치되어 있다면 앱으로 연결, 설치되어 있지 않다면 스토어로 이동
-        if (installCheck.isEmpty()) {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(storeUrl)))
-        } else {
+        if (isAppInstalled(storeUrl, requireContext().packageManager)) {
+            // 앱이 설치되어 있으면 앱 실행
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
             startActivity(intent)
+        } else {
+            // 앱이 설치되어 있지 않으면 스토어로 이동
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(STORE_URL + storeUrl))
+            startActivity(intent)
+        }
+    }
+
+    private fun isAppInstalled(packageName : String, packageManager : PackageManager) : Boolean {
+        return try{
+            packageManager.getPackageInfo(packageName, 0)
+            true
+        }catch (ex : PackageManager.NameNotFoundException){
+            false
         }
     }
 

@@ -59,13 +59,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/subtitle1"
-                        android:text="종석"
+                        android:text="닉닉"
                         android:textColor="@color/secondary_800"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/body1"
-                        android:text="의 게시물에 새로운 댓글이 달렸어요."
+                        android:text="님의 게시물에 새로운 댓글이 달렸어요."
                         android:textColor="@color/secondary_800"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
