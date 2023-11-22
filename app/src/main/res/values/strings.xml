@@ -110,6 +110,31 @@
     <string name="위험해요">위험해요</string>
     <string name="_님을_삭제하시겠습니까_">%s님을 삭제하시겠습니까?</string>
 
+    <string name="일상">일상</string>
+    <string name="교통">교통</string>
+    <string name="치안">치안</string>
+
+    <string name="게시글_주제">게시글 주제</string>
+    <string name="선택하기">선택하기</string>
+
+    <string name="글_제목">글 제목</string>
+    <string name="글쓰기">글쓰기</string>
+    <string name="게시글의_주제를_선택해주세요_">게시글의 주제를 선택해주세요.</string>
+    <string name="제목을_입력하세요_">제목을 입력하세요.</string>
+    <string name="동네_생활과_관련된_질문이나_이야기를_주민들과_나누세요_">동네 생활과 관련된 질문이나 이야기를 주민들과 나누세요.</string>
+    <string name="사진">사진</string>
+    <string name="주의">주의</string>
+    <string name="안전하고_건강한_소통을_위해_대피로에서는_커뮤니티_이용규칙을_제정하여_운영하고_있습니다">안전하고 건강한 소통을 위해 \'대피로\'에서는 커뮤니티 이용규칙을 제정하여 운영하고 있습니다. 위반시, 게시물이 삭제되고 일정 기간동안 서비스 이용이 제한됩니다.\n\n&#160;&#160;∙&#160;욕설,비방 등의 명예훼손을 야기할 수 있는 행위 금지\n&#160;&#160;∙&#160;정치 및 사회 관련 행위 금지\n&#160;&#160;∙&#160;홍보 및 판매를 위한 행위 금지</string>
+    <string name="댓글을_입력해주세요">댓글을 입력해주세요</string>
+    <string name="게시">게시</string>
+
+    <string name="수정하기">수정하기</string>
+    <string name="신고하기">신고하기</string>
+    <string name="삭제하기">삭제하기</string>
+
+    <string name="현_위치를_표시하겠어요_">현 위치를 표시하겠어요?</string>
+
+
     <string name="나의_후원_기록">나의 후원 기록</string>
     <string name="내가_쓴_글">내가 쓴 글</string>
     <string name="저장한_글">저장한 글</string>

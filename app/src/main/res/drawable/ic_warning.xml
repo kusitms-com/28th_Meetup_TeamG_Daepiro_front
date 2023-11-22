@@ -8,6 +8,10 @@
       android:fillColor="#232B49"
       android:fillType="evenOdd"/>
   <path
+      android:pathData="M11.3,14C11.134,14 11,13.866 11,13.7V7.3C11,7.134 11.134,7 11.3,7H12.7C12.866,7 13,7.134 13,7.3V13.7C13,13.866 12.866,14 12.7,14H11.3Z"
+      android:fillColor="#232B49"
+      android:fillType="evenOdd"/>
+  <path
       android:pathData="M12,14C11.448,14 11,13.552 11,13V8C11,7.448 11.448,7 12,7C12.552,7 13,7.448 13,8V13C13,13.552 12.552,14 12,14Z"
       android:fillColor="#232B49"
       android:fillType="evenOdd"/>

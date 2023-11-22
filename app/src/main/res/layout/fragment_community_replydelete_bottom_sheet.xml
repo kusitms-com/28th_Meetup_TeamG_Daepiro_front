@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="viewModel"
+            type="com.daepiro.numberoneproject.presentation.viewmodel.CommunityViewModel" />
+    </data>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:orientation="vertical"
+    tools:context=".presentation.view.community.CommunityReplyBottomSheetFragment">
+
+    <TextView
+        android:id="@+id/report"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/신고하기"
+        style="@style/button"
+        android:clickable="true"
+        android:gravity="center"
+        android:textColor="@color/secondary_600"
+        android:background="@drawable/bg_radius_4"
+        android:paddingBottom="14dp"
+        android:paddingTop="14dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:backgroundTint="@color/white"
+        android:layout_marginBottom="8dp"/>
+    <TextView
+        android:id="@+id/modify"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/수정하기"
+        style="@style/button"
+        android:gravity="center"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/secondary_600"
+        android:background="@drawable/bg_radius_4"
+        android:paddingBottom="14dp"
+        android:paddingTop="14dp"
+        android:backgroundTint="@color/white"
+        android:layout_marginBottom="8dp"/>
+    <TextView
+        android:id="@+id/delete"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/삭제하기"
+        style="@style/button"
+        android:gravity="center"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/secondary_600"
+        android:background="@drawable/bg_radius_4"
+        android:paddingBottom="14dp"
+        android:paddingTop="14dp"
+        android:backgroundTint="@color/white" />
+
+</LinearLayout>
+</layout>

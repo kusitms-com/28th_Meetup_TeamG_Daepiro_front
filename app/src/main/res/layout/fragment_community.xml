@@ -16,9 +16,20 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/for_tabb"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:visibility="gone">
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_spinner"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="12dp"
+            style="@style/subtitle1" />
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -26,29 +37,31 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_alarm"
-            app:tint="@color/secondary_300"
-            android:layout_gravity="center"
-            android:layout_marginRight="20dp"/>
+            android:src="@drawable/ic_search"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="12dp"
+            app:tint="@color/secondary_300"/>
     </LinearLayout>
 
     <include
+        android:id="@+id/for_taba"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         layout="@layout/include_firsttab_appbar"
-        android:visibility="gone"/>
+        android:visibility="visible"/>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tablayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabRippleColor="@android:color/transparent"
-        app:tabSelectedTextColor="@color/secondary_900"
+        app:tabSelectedTextColor="@color/orange_500"
         app:tabTextColor="@color/secondary_200"
-        app:tabIndicatorColor="@color/secondary_800"
+        app:tabIndicatorColor="@color/orange_500"
         app:tabGravity="fill"
         app:tabIndicatorFullWidth="true"
-        app:tabIndicatorHeight="2dp">
+        app:tabIndicatorHeight="2dp"
+        android:background="@color/white">
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
