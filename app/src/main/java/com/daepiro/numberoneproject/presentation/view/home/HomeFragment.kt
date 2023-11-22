@@ -145,8 +145,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     // 시스템으로 부터 받은 위치 정보를 화면에 갱신해주는 메소드
     fun onLocationChanged(location: Location) {
         mLastLocation = location
-//        userLocation = Pair(mLastLocation.latitude, mLastLocation.longitude) // 갱신 된 위도
-        userLocation = Pair(37.546913f.toDouble(), 127.041145f.toDouble()) // 갱신 된 위도
+        userLocation = Pair(mLastLocation.latitude, mLastLocation.longitude) // 갱신 된 위도
+//        userLocation = Pair(37.546913f.toDouble(), 127.041145f.toDouble()) // 성수역 위경도
 
         disasterVM.getDisasterMessage(DisasterRequestBody(userLocation.first, userLocation.second))
         shelterVM.getAroundSheltersList(ShelterRequestBody(userLocation.first, userLocation.second, "민방위"))
@@ -171,7 +171,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             } else if (R.id.chip_around_shelter_1 in checkedIds) {
                 shelterVM.getAroundSheltersList(ShelterRequestBody(userLocation.first, userLocation.second, "지진"))
             } else if (R.id.chip_around_shelter_2 in checkedIds) {
-                shelterVM.getAroundSheltersList(ShelterRequestBody(userLocation.first, userLocation.second, "수해"))
+                shelterVM.getAroundSheltersList(ShelterRequestBody(userLocation.first, userLocation.second, "지진"))
             } else if (R.id.chip_around_shelter_3 in checkedIds) {
                 shelterVM.getAroundSheltersList(ShelterRequestBody(userLocation.first, userLocation.second, "민방위"))
             }
@@ -215,7 +215,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private val checkList1 = listOf("실내의 모든 문과 창문을 닫으셨나요?","지붕 및 벽이 뚫려있는 부분이 있는지 검사하셨나요?","가스로 인한 2차 피해를 막기 위해 가스를 차단하셨나요?","손전등, 배터리, 구급상자, 물 등 비상용품을 주변에 배치하셨나요?","일기 예보 및 경고에 대한 최신 정보를 확인하셨나요?")
     private val checkList2 = listOf("강과 하천으로부터 멀리 떨어져 있나요?","대피경로와 비상대피소 위치를 확인하셨나요?", "침수된 지하 차도와 도로 위치를 확인하셨나요?", "낮은 곳을 피해 높고 배수가 잘되는 곳으로 이동하셨나요?", "가족과 지인에게 연락하여 안전 여부를 확인하셨나요?")
-    private val checkList3 = listOf("기타","기타기타기타기타", "123213123")
+    private val checkList3 = listOf("송전탑이 넘어졌을 경우 즉시 119에 신고하셨나요?","감전 위험이 있는 가로등 및 고압전선과 가까이 있지는 않나요?", "하천에 주차된 자동차를 안전한 곳으로 이동시켰나요?", "건물의 출입문이나 창문을 닫으셨나요?", "비닐하우스를 단단히 묶어 두었나요?", "식수 및 비상식량은 미리 준비해두었나요?", "산사태가 일어날 수 있는 비탈면과 멀리 떨어져있나요?")
 
     private var selectedCheckList = 1
 
