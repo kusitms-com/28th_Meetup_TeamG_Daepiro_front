@@ -19,6 +19,7 @@ import com.daepiro.numberoneproject.data.network.ApiResult
 import com.daepiro.numberoneproject.databinding.FragmentLoginBinding
 import com.daepiro.numberoneproject.presentation.base.BaseFragment
 import com.daepiro.numberoneproject.presentation.util.Extensions.repeatOnStarted
+import com.daepiro.numberoneproject.presentation.util.Extensions.showToast
 import com.daepiro.numberoneproject.presentation.util.TokenManager
 import com.daepiro.numberoneproject.presentation.view.MainActivity
 import com.daepiro.numberoneproject.presentation.viewmodel.LoginViewModel
@@ -83,6 +84,10 @@ class LoginFragment: BaseFragment<FragmentLoginBinding>(R.layout.fragment_login)
                 }
             }
         }
+    }
+
+    fun clickNaverLogin(view: View) {
+        showToast("검수 중입니다.")
     }
 
     fun setupNaverLogin(view: View) {
