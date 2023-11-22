@@ -13,6 +13,7 @@ class AlarmNewsAdapter: RecyclerView.Adapter<AlarmNewsAdapter.CustomViewHolder>(
     inner class CustomViewHolder(val binding: ItemAlarmNewsBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Contents) {
             binding.model = item
+
         }
     }
 

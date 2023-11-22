@@ -14,8 +14,9 @@ class AlarmDisasterAdapter: RecyclerView.Adapter<AlarmDisasterAdapter.CustomView
         fun bind(item: Contents) {
             binding.model = item
 
-            val dateArr = item.createdAt.replace("-", " ").split(" ")
-            binding.tvLocationAndDate.text = "${item.location} · ${dateArr[0]}년 ${dateArr[1]}월 ${dateArr[2]}일 ${dateArr[3]}"
+//            val dateArr = item.createdAt.replace("-", " ").split(" ")
+            binding.tvLocationAndDate.text = "${item.location} · ${item.timeText}"
+
         }
     }
 

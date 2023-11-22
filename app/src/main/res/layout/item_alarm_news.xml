@@ -48,7 +48,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/caption"
-                        android:text="1시간 전"
+                        android:text="@{model.timeText}"
                         android:textColor="@color/secondary_300"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 

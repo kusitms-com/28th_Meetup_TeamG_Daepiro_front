@@ -19,7 +19,8 @@ data class Contents(
     val id: Int = 0,
     val tag: String = "",
     val title: String = "",
-    val location: String = ""
+    val location: String = "",
+    val timeText: String = ""
 )
 
 data class Pageable(
