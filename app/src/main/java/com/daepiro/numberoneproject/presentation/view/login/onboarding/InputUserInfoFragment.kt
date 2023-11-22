@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.daepiro.numberoneproject.R
 import com.daepiro.numberoneproject.databinding.FragmentInputUserInfoBinding
 import com.daepiro.numberoneproject.presentation.base.BaseFragment
+import com.daepiro.numberoneproject.presentation.util.Extensions.showToast
 import com.daepiro.numberoneproject.presentation.viewmodel.OnboardingViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -48,9 +49,14 @@ class InputUserInfoFragment: BaseFragment<FragmentInputUserInfoBinding>(R.layout
             findNavController().navigateUp()
         }
 
-        binding.btnNext.setOnClickListener{
-            val action = InputUserInfoFragmentDirections.actionInputUserInfoFragmentToSelectLocationFragment()
-            findNavController().navigate(action)
+        binding.btnNext.setOnClickListener {
+            if (binding.nameEdit.text.isNotEmpty() && binding.nicknameEdit.text.isNotEmpty()) {
+                val action = InputUserInfoFragmentDirections.actionInputUserInfoFragmentToSelectLocationFragment()
+                findNavController().navigate(action)
+            } else {
+                showToast("이름과 닉네임을 입력해주세요.")
+            }
+
         }
 
         binding.nameEdit.addTextChangedListener(object : TextWatcher{

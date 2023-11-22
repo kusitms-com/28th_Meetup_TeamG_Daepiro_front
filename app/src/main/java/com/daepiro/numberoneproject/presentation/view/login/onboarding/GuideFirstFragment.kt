@@ -18,7 +18,7 @@ class GuideFirstFragment: BaseFragment<FragmentGuideFirstBinding>(R.layout.fragm
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        
+
         val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
             Log.d("taag", "뒤로가기 막힘~")
         }
