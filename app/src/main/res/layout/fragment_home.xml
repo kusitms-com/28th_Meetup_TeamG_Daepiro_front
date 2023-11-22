@@ -182,7 +182,7 @@
                                 style="@style/subtitle1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/화재_행동요령_체크리스트"
+                                android:text="@string/호우_행동요령_체크리스트"
                                 android:textColor="@color/secondary_500" />
                         </androidx.appcompat.widget.LinearLayoutCompat>
 
