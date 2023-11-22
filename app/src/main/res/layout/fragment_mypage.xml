@@ -30,7 +30,7 @@
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
+                    android:gravity="center"
                     android:paddingVertical="13dp">
 
                     <TextView
@@ -38,7 +38,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/마이페이지"
-                        android:layout_marginStart="20dp"
                         android:textColor="@color/secondary_600" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 

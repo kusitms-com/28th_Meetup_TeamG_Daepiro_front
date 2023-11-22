@@ -26,14 +26,14 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|start"
                 android:src="@drawable/ic_arrow_left"
-                app:tint="@color/secondary_200" />
+                app:tint="@color/secondary_300" />
             <TextView
                 style="@style/subtitle1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/알림"
-                android:textColor="@color/secondary_400" />
+                android:textColor="@color/secondary_600" />
         </FrameLayout>
 
         <com.google.android.material.tabs.TabLayout

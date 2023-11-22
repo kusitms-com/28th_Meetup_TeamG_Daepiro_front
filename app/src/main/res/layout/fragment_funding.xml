@@ -29,7 +29,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/subtitle1"
-                    android:textColor="@color/secondary_400"
+                    android:textColor="@color/secondary_600"
                     android:textSize="16sp"
                     android:text="@string/후원" />
             </androidx.appcompat.widget.LinearLayoutCompat>
