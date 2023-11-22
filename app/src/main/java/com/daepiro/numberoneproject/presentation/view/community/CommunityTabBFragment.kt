@@ -83,6 +83,7 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
 
     }
 
+
     private fun getCurrentLocation(){
         if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
             && ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -127,6 +128,7 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
         repeatOnStarted {
             viewModel.townCommentList.collect {response->
                 if(response.empty){
+                    //여기 수정함
                     isLoading = false
                     return@collect
                 }
@@ -165,6 +167,7 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
                 if (totalItemCount - 1 == lastVisibleItemPosition) {
                     isLoading = true
                     viewModel.getTownCommentList(10, tag, lastItemId,longitude,latitude,region) // lastItemId를 API 호출에 포함
+
                 }
             }
         })
@@ -172,23 +175,9 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
 
     //태그를 누를때 데이터 셋팅하는 함수
     private fun clearUpdateData(tag:String){
-//        adapter.clearData()
-//        lifecycleScope.launch {
-//            viewModel.selectRegion.collect{region->
-//                viewModel.getTownCommentList(10,tag,null,longitude,latitude,region)
-//            }
-//        }
-//        collectTownCommentList()
-//        setInfiniteScroll(tag)
-        if(!isLoading){
-            isLoading = true
-            adapter.clearData()
-            lifecycleScope.launch {
-                viewModel.selectRegion.collect{region->
-                    viewModel.getTownCommentList(10,tag,null,longitude,latitude,region)
-                }
-            }
-        }
+        adapter.clearData()
+        viewModel.getTownCommentList(10, tag, null, longitude, latitude, region)
+        collectTownCommentList()
     }
 
 
