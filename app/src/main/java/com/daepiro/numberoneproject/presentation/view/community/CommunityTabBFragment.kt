@@ -183,31 +183,41 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
 
     private fun selectTags(selectedTag: TextView, textviews:List<TextView>){
         textviews.forEach{
-            it.isSelected = textviews == selectedTag
+            //it.isSelected = textviews == selectedTag
+            it.isSelected = it == selectedTag
         }
-        when(selectedTag){
-            binding.all ->{
-                binding.all.isSelected = !binding.all.isSelected
-                clearUpdateData("")
-
-            }
-            binding.life -> {
-                binding.life.isSelected = !binding.life.isSelected
-                clearUpdateData("LIFE")
-            }
-            binding.safety -> {
-                binding.safety.isSelected = !binding.safety.isSelected
-                clearUpdateData("SAFETY")
-            }
-            binding.traffic -> {
-                binding.traffic.isSelected = !binding.traffic.isSelected
-                clearUpdateData("TRAFFIC")
-            }
-            else ->{
-                binding.other.isSelected = !binding.other.isSelected
-                clearUpdateData("NONE")
-            }
+//        when(selectedTag){
+//            binding.all ->{
+//                binding.all.isSelected = !binding.all.isSelected
+//                clearUpdateData("")
+//
+//            }
+//            binding.life -> {
+//                binding.life.isSelected = !binding.life.isSelected
+//                clearUpdateData("LIFE")
+//            }
+//            binding.safety -> {
+//                binding.safety.isSelected = !binding.safety.isSelected
+//                clearUpdateData("SAFETY")
+//            }
+//            binding.traffic -> {
+//                binding.traffic.isSelected = !binding.traffic.isSelected
+//                clearUpdateData("TRAFFIC")
+//            }
+//            else ->{
+//                binding.other.isSelected = !binding.other.isSelected
+//                clearUpdateData("NONE")
+//            }
+//        }
+        val tag = when (selectedTag) {
+            binding.all -> ""
+            binding.life -> "LIFE"
+            binding.safety -> "SAFETY"
+            binding.traffic -> "TRAFFIC"
+            binding.other -> "NONE"
+            else -> ""
         }
+        clearUpdateData(tag)
     }
 
 
