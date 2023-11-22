@@ -129,7 +129,7 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
             viewModel.townCommentList.collect {response->
                 if(response.empty){
                     //여기 수정함
-                    isLoading = true
+                    isLoading = false
                     return@collect
                 }
                 adapter.updateList(response.content)
@@ -167,6 +167,7 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
                 if (totalItemCount - 1 == lastVisibleItemPosition) {
                     isLoading = true
                     viewModel.getTownCommentList(10, tag, lastItemId,longitude,latitude,region) // lastItemId를 API 호출에 포함
+
                 }
             }
         })
@@ -174,35 +175,15 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
 
     //태그를 누를때 데이터 셋팅하는 함수
     private fun clearUpdateData(tag:String){
-//        adapter.clearData()
-//        lifecycleScope.launch {
-//            viewModel.selectRegion.collect{region->
-//                viewModel.getTownCommentList(10,tag,null,longitude,latitude,region)
-//            }
-//        }
-//        collectTownCommentList()
-//        setInfiniteScroll(tag)
-//        if(!isLoading){
-//            isLoading = true
-//            adapter.clearData()
-//            lifecycleScope.launch {
-//                viewModel.selectRegion.collect{region->
-//                    viewModel.getTownCommentList(10,tag,null,longitude,latitude,region)
-//                }
-//            }
-//        }
         adapter.clearData()
-        lifecycleScope.launch {
-            viewModel.selectRegion.collect{region->
-                viewModel.getTownCommentList(10,tag,null,longitude,latitude,region)
-            }
-        }
+        viewModel.getTownCommentList(10, tag, null, longitude, latitude, region)
+        collectTownCommentList()
     }
 
 
     private fun selectTags(selectedTag: TextView, textviews:List<TextView>){
         textviews.forEach{
-            it.isSelected = it == selectedTag
+            it.isSelected = textviews == selectedTag
         }
         when(selectedTag){
             binding.all ->{

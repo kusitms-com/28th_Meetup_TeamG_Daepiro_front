@@ -82,6 +82,9 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragme
         val adapter = ArrayAdapter(requireContext(), R.layout.item_spinner,townData)
         adapter.setDropDownViewResource(R.layout.item_spinner,)
         binding.spinner.adapter = adapter
+        binding.spinner.post {
+            binding.spinner.dropDownVerticalOffset = binding.spinner.height
+        }
     }
 
 
