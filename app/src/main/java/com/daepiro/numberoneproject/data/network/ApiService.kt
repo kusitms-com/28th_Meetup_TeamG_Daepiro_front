@@ -13,10 +13,12 @@ import com.daepiro.numberoneproject.data.model.CommunityTownReplyDeleteResponse
 import com.daepiro.numberoneproject.data.model.CommunityTownReplyRequestBody
 import com.daepiro.numberoneproject.data.model.CommunityTownReplyResponse
 import com.daepiro.numberoneproject.data.model.CommunityTownReplyResponseModel
+import com.daepiro.numberoneproject.data.model.ConversationRequestBody
 import com.daepiro.numberoneproject.data.model.DisasterRequestBody
 import com.daepiro.numberoneproject.data.model.DisasterResponse
 import com.daepiro.numberoneproject.data.model.FundingDetailResponse
 import com.daepiro.numberoneproject.data.model.FundingListResponse
+import com.daepiro.numberoneproject.data.model.GetRegionResponse
 import com.daepiro.numberoneproject.data.model.LoginTestResponse
 import com.daepiro.numberoneproject.data.model.LoginTokenResponse
 import com.daepiro.numberoneproject.data.model.ShelterData
@@ -108,12 +110,18 @@ interface ApiService {
     suspend fun getTownCommentList(
         @Header("Authorization") token:String,
         @Query("size") size:Int,
-        @Query("tag") tag:String,
+        @Query("id") tag:String?,
         @Query("lastArticleId") lastArticleId:Int?,
-        //@Query("longtitude") longtitude:Double?,
-        //@Query("latitude") latitude:Double?,
+        @Query("longtitude") longtitude:Double?,
+        @Query("latitude") latitude:Double?,
         @Query("regionLv2") regionLv2:String
     ):ApiResult<CommunityTownListModel>
+
+    //온보딩시 선택한 지역리스트 조회
+    @GET("/api/members/regions")
+    suspend fun getTownList(
+        @Header("Authorization") token:String
+    ):ApiResult<GetRegionResponse>
 
     //커뮤니티 동네생활 게시글 상세 조회
     @GET("/api/articles/{articleid}")
@@ -130,10 +138,10 @@ interface ApiService {
         @Part("title") title:RequestBody,
         @Part("content") content:RequestBody,
         @Part("articleTag") articleTag:RequestBody,
+        @Part imageList: List<MultipartBody.Part>,
         @Part("longitude") longitude:RequestBody?,
         @Part("latitude") latitude:RequestBody?,
-        @Part("regionAgreementCheck") regionAgreementCheck:RequestBody,
-        @Part imageList: List<MultipartBody.Part>
+        @Part("regionAgreementCheck") regionAgreementCheck:RequestBody
     ):ApiResult<CommentWritingResponse>
 
     //커뮤니티 동네생활 댓글 조회
@@ -188,4 +196,11 @@ interface ApiService {
         @Path("disasterId") disasterId:Int,
         @Path("sort") sort:String
     ):ApiResult<CommunityDisasterDetailResponse>
+
+    //재난 상황 댓글 작성
+    @POST("/api/conversations")
+    suspend fun postDisasterConversation(
+        @Header("Authorization") token:String,
+        @Body body: ConversationRequestBody
+    ):ApiResult<Unit>
 }

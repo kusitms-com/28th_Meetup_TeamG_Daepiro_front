@@ -43,7 +43,12 @@ class TownCommentListAdapter(
         if(position < items.size){
             val item = items[position]
             holder.title.text = item.title
-            holder.tag.text = item.tag
+            holder.tag.text = when(item.tag.toString()){
+                "LIFE" -> "일상"
+                "TRAFFIC" -> "교통"
+                "SAFETY" -> "치안"
+                else -> "기타"
+            }
             holder.content.text = item.content
             holder.writerInfo.text = " ${item.ownerNickName} ∙ ${item.createdAt}"
             Glide.with(holder.itemView.context)

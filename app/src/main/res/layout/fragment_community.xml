@@ -16,24 +16,38 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/for_tabb"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:orientation="horizontal">
-        <TextView
+        android:orientation="horizontal"
+        android:visibility="gone">
+        <Spinner
+            android:id="@+id/spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/커뮤니티"
+            android:background="@drawable/bg_spinner"
             android:layout_marginLeft="20dp"
-            style="@style/subtitle1"
-            android:textColor="@color/secondary_600"
-            android:layout_gravity="center_vertical"/>
+            android:layout_marginTop="12dp"
+            style="@style/subtitle1" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_search"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="12dp"
+            app:tint="@color/secondary_300"/>
     </LinearLayout>
 
     <include
+        android:id="@+id/for_taba"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         layout="@layout/include_firsttab_appbar"
-        android:visibility="gone"/>
+        android:visibility="visible"/>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tablayout"

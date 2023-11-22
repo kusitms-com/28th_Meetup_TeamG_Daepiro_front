@@ -13,11 +13,11 @@ class SetCommunityWritingUseCase @Inject constructor(private val communityReposi
         title:String,
         content:String,
         articleTag:String,
+        imageList:List<MultipartBody.Part>,
         longtitude:Double,
         latitude:Double,
         regionAgreementCheck:Boolean,
-        imageList:List<MultipartBody.Part>
     ):ApiResult<CommentWritingResponse>{
-        return communityRepository.setTownDetail(token,title,content,articleTag,longtitude,latitude,regionAgreementCheck,imageList)
+        return communityRepository.setTownDetail(token,title,content,articleTag,imageList,longtitude,latitude,regionAgreementCheck)
     }
 }

@@ -7,16 +7,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.daepiro.numberoneproject.data.model.CommentWritingRequestBody
 import com.daepiro.numberoneproject.data.model.CommentWritingResponse
 import com.daepiro.numberoneproject.data.model.CommunityDisasterDetailResponse
 import com.daepiro.numberoneproject.data.model.CommunityHomeDisasterResponse
-import com.daepiro.numberoneproject.data.model.CommunityHomeSituationModel
 import com.daepiro.numberoneproject.data.model.CommunityRereplyRequestBody
 import com.daepiro.numberoneproject.data.model.CommunityTownDetailData
 import com.daepiro.numberoneproject.data.model.CommunityTownListModel
 import com.daepiro.numberoneproject.data.model.CommunityTownReplyRequestBody
 import com.daepiro.numberoneproject.data.model.CommunityTownReplyResponse
+import com.daepiro.numberoneproject.data.model.ConversationRequestBody
+import com.daepiro.numberoneproject.data.model.GetRegionResponse
 import com.daepiro.numberoneproject.data.network.onFailure
 import com.daepiro.numberoneproject.data.network.onSuccess
 import com.daepiro.numberoneproject.domain.usecase.DeleteCommunityReplyUseCase
@@ -25,7 +25,9 @@ import com.daepiro.numberoneproject.domain.usecase.GetCommunityHomeDetailUseCase
 import com.daepiro.numberoneproject.domain.usecase.GetCommunityTownDetailUseCase
 import com.daepiro.numberoneproject.domain.usecase.GetCommunityTownListUseCase
 import com.daepiro.numberoneproject.domain.usecase.GetDisasterHomeUseCase
+import com.daepiro.numberoneproject.domain.usecase.GetTownListUseCase
 import com.daepiro.numberoneproject.domain.usecase.GetTownReplyUseCase
+import com.daepiro.numberoneproject.domain.usecase.PostDisasterConversationUseCase
 import com.daepiro.numberoneproject.domain.usecase.SetCommunityTownReplyWritingUseCase
 import com.daepiro.numberoneproject.domain.usecase.SetCommunityTownRereplyWritingUseCase
 import com.daepiro.numberoneproject.domain.usecase.SetCommunityWritingUseCase
@@ -51,6 +53,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CommunityViewModel @Inject constructor(
     private val tokenManager: TokenManager,
+    private val getTownListUseCase:GetTownListUseCase,
     private val getCommunityTownListUseCase: GetCommunityTownListUseCase,
     private val getCommunityTownDetailUseCase: GetCommunityTownDetailUseCase,
     private val setCommunityWritingUseCase: SetCommunityWritingUseCase,
@@ -60,7 +63,9 @@ class CommunityViewModel @Inject constructor(
     private val deleteCommunityTownCommentUseCase: DeleteCommunityTownCommentUseCase,
     private val deleteCommunityReplyUseCase: DeleteCommunityReplyUseCase,
     private val getDisasterHomeUseCase: GetDisasterHomeUseCase,
-    private val getCommunityHomeDetailUseCase: GetCommunityHomeDetailUseCase
+    private val getCommunityHomeDetailUseCase: GetCommunityHomeDetailUseCase,
+    private val postDisasterConversationUseCase: PostDisasterConversationUseCase
+
 ) : ViewModel() {
 
     private val _townCommentList = MutableStateFlow(CommunityTownListModel())
@@ -94,21 +99,38 @@ class CommunityViewModel @Inject constructor(
         _additionalState.value= input
     }
 
-    var tag:Int=0
+    var id:Int=0
 
     fun updateContent(input:String){
         _replycontent.value = input
     }
+    private val _townList = MutableStateFlow(GetRegionResponse())
+    val townList = _townList.asStateFlow()
 
-
-
-    fun getTownCommentList(size:Int,tag:String,lastArticleId:Int?,regionLv2:String){
+    val _selectRegion = MutableStateFlow("")
+    val selectRegion:StateFlow<String> = _selectRegion.asStateFlow()
+    fun getTownList(){
         viewModelScope.launch {
             val token = "Bearer ${tokenManager.accessToken.first()}"
-            getCommunityTownListUseCase(token,size,tag,lastArticleId,regionLv2)
+            getTownListUseCase(token)
+                .onSuccess {
+                    _townList.value = it
+                    Log.d("getTownList", "$it")
+                }
+                .onFailure {
+                    Log.e("getTownList", "$it")
+                }
+        }
+    }
+
+
+
+    fun getTownCommentList(size:Int,tag:String?,lastArticleId:Int?,longtitude: Double?, latitude: Double?,regionLv2:String){
+        viewModelScope.launch {
+            val token = "Bearer ${tokenManager.accessToken.first()}"
+            getCommunityTownListUseCase(token,size,tag,lastArticleId,longtitude,latitude,regionLv2)
                 .onSuccess {datalist->
                     _townCommentList.value = datalist
-                    Log.d("CommunityForTownViewModel","성공")
                 }
                 .onFailure {it->
                     //Log.e("CommunityForTownViewModel","$it")
@@ -134,10 +156,10 @@ class CommunityViewModel @Inject constructor(
         }
     }
 
-    fun postComment(title:String,content:String,articleTag:String,longtitude:Double,latitude:Double,regionAgreementCheck:Boolean, imageList:List<MultipartBody.Part>){
+    fun postComment(title:String,content:String,articleTag:String,imageList:List<MultipartBody.Part>,longtitude:Double,latitude:Double,regionAgreementCheck:Boolean){
         viewModelScope.launch {
             val token = "Bearer ${tokenManager.accessToken.first()}"
-            setCommunityWritingUseCase.invoke(token,title,content,articleTag,longtitude,latitude,regionAgreementCheck,imageList)
+            setCommunityWritingUseCase.invoke(token,title,content,articleTag,imageList,longtitude,latitude,regionAgreementCheck)
                 .onSuccess {
                     _writingResult.value = it
                     Log.d("CommunityViewModel", "성공성공성공")
@@ -259,6 +281,16 @@ class CommunityViewModel @Inject constructor(
         }
     }
 
+    fun postDisasterConversation(body: ConversationRequestBody){
+        viewModelScope.launch {
+            val token = "Bearer ${tokenManager.accessToken.first()}"
+            postDisasterConversationUseCase(token,body)
+                .onSuccess {
+                    getDisasterDetail("time", body.disasterId)
+                }
+        }
+    }
+
 
 
     val tagText: StateFlow<String> = townDetail
@@ -282,7 +314,8 @@ class CommunityViewModel @Inject constructor(
         return when(articleTag){
             "SAFETY" -> "안전"
             "LIFE" -> "일상"
-            else -> "교통"
+            "TRAFFIC" -> "교통"
+            else->"기타"
         }
     }
 
@@ -310,6 +343,7 @@ class CommunityViewModel @Inject constructor(
     }
     init{
         _isLoading.value = true
+        getTownList()
     }
 }
 

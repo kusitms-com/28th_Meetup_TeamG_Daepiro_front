@@ -11,5 +11,5 @@
         android:layout_marginBottom="13dp"
         android:text="@string/커뮤니티"
         style="@style/subtitle1"
-        android:textColor="@color/secondary_400"/>
+        android:textColor="@color/secondary_600"/>
 </LinearLayout>

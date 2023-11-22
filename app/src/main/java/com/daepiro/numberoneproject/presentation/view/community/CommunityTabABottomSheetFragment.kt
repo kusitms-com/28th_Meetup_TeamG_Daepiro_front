@@ -1,7 +1,9 @@
 package com.daepiro.numberoneproject.presentation.view.community
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +11,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.activityViewModels
 import com.daepiro.numberoneproject.R
-import com.daepiro.numberoneproject.databinding.FragmentCommunityTabABinding
+import com.daepiro.numberoneproject.data.model.ConversationRequestBody
 import com.daepiro.numberoneproject.databinding.FragmentCommunityTabABottomSheetBinding
 import com.daepiro.numberoneproject.presentation.util.Extensions.repeatOnStarted
 import com.daepiro.numberoneproject.presentation.viewmodel.CommunityViewModel
@@ -24,6 +26,12 @@ class CommunityTabABottomSheetFragment : BottomSheetDialogFragment() {
     private var _binding:FragmentCommunityTabABottomSheetBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter:CommunityTabABottomSheetAdapter
+    var content:String= ""
+
+    interface CommentPostListener{
+        fun onCommentPasted()
+    }
+    var commentPostListener:CommentPostListener? = null
 
 
     override fun onCreateView(
@@ -43,13 +51,20 @@ class CommunityTabABottomSheetFragment : BottomSheetDialogFragment() {
         setSpinner()
         setupRecyclerview()
 
+        repeatOnStarted {
+            viewModel.disasterHomeDetail.collectLatest {detail->
+                Log.d("repeat", "${detail.conversations}")
+                adapter.updateList(detail.conversations)
+            }
+        }
+
         binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 val selectedItem = p0?.getItemAtPosition(p2).toString()
                 if(selectedItem == "인기순"){
-                    viewModel.getDisasterDetail("popularity", viewModel.tag)
+                    viewModel.getDisasterDetail("popularity", viewModel.id)
                 }else{
-                    viewModel.getDisasterDetail("time", viewModel.tag)
+                    viewModel.getDisasterDetail("time", viewModel.id)
                 }
             }
 
@@ -58,11 +73,27 @@ class CommunityTabABottomSheetFragment : BottomSheetDialogFragment() {
             }
         }
 
-        repeatOnStarted {
-            viewModel.disasterHomeDetail.collectLatest {
-                adapter.updateList(it.conversations)
+
+
+
+        binding.editBox.addTextChangedListener( object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                content = p0.toString()
+            }
+
+        })
+
+        binding.sendBtn.setOnClickListener{
+            postReply(content,viewModel.id)
+            binding.editBox.text.clear()
         }
+
 
         binding.closeBtn.setOnClickListener{
             dismiss()
@@ -71,11 +102,9 @@ class CommunityTabABottomSheetFragment : BottomSheetDialogFragment() {
 
 
 
-
     private fun setupRecyclerview(){
         adapter = CommunityTabABottomSheetAdapter(emptyList(), object : CommunityTabABottomSheetAdapter.onItemClickListener{
-            override fun onItemClickListener(disasterId:Int) {
-                //추후 대댓글 작성 로직
+            override fun onItemClickListener() {
             }
 
         })
@@ -103,7 +132,14 @@ class CommunityTabABottomSheetFragment : BottomSheetDialogFragment() {
         bottomSheetBehavior.isDraggable = false
     }
 
-
-
+    private fun postReply(content:String,disasterId:Int){
+        val body = ConversationRequestBody(
+            disasterId = disasterId,
+            content = content
+        )
+        viewModel.postDisasterConversation(body).apply {
+            commentPostListener?.onCommentPasted()
+        }
+    }
 
 }

@@ -15,6 +15,8 @@ import com.daepiro.numberoneproject.data.model.CommunityTownReplyDeleteResponse
 import com.daepiro.numberoneproject.data.model.CommunityTownReplyRequestBody
 import com.daepiro.numberoneproject.data.model.CommunityTownReplyResponse
 import com.daepiro.numberoneproject.data.model.CommunityTownReplyResponseModel
+import com.daepiro.numberoneproject.data.model.ConversationRequestBody
+import com.daepiro.numberoneproject.data.model.GetRegionResponse
 import com.daepiro.numberoneproject.data.network.ApiResult
 import com.daepiro.numberoneproject.data.network.ApiService
 import com.daepiro.numberoneproject.domain.repository.CommunityRepository
@@ -33,24 +35,28 @@ import javax.inject.Singleton
 class CommunityRepositoryImpl @Inject constructor(
     private val service:ApiService
 ):CommunityRepository {
+    override suspend fun getTownList(
+        token: String
+    ):ApiResult<GetRegionResponse>{
+        return service.getTownList(token)
+    }
     override suspend fun getTownCommentList(
         token:String,
         size:Int,
-        tag:String,
+        tag:String?,
         lastArticleId:Int?,
-//        longtitude: Double?,
-//        latitude: Double?,
+        longtitude: Double?,
+        latitude: Double?,
         regionLv2:String
     ):ApiResult<CommunityTownListModel>{
-        return service.getTownCommentList(token,size,tag,lastArticleId,regionLv2)
+        return service.getTownCommentList(token,size,tag,lastArticleId,longtitude,latitude,regionLv2)
     }
 
     override suspend fun getTownCommentDetail(token:String,articleId:Int):ApiResult<CommunityTownDetailData>{
         return service.getTownCommentDetail(token,articleId)
     }
-    override suspend fun setTownDetail(token:String, title:String, content:String, articleTag:String,longtitude:Double?, latitude:Double?,regionAgreementCheck:Boolean, imageList:List<MultipartBody.Part>)
+    override suspend fun setTownDetail(token:String, title:String, content:String, articleTag:String,imageList:List<MultipartBody.Part>,longtitude:Double, latitude:Double,regionAgreementCheck:Boolean)
     :ApiResult<CommentWritingResponse>{
-        Log.d("CommunityRepositoryImpl", "before: ${imageList?.size}")
         val titleRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(),title)
         val contentRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(),content)
         val articleTagRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(),articleTag)
@@ -58,7 +64,7 @@ class CommunityRepositoryImpl @Inject constructor(
         val latitudeRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(),latitude.toString())
         val regionAgreementCheckRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), regionAgreementCheck.toString())
         Log.d("CommunityRepositoryImpl", "after: ${imageList?.size}")
-        return service.setTownDetail(token,titleRequestBody,contentRequestBody,articleTagRequestBody,longtitudeRequestBody,latitudeRequestBody,regionAgreementCheckRequestBody,imageList)
+        return service.setTownDetail(token,titleRequestBody,contentRequestBody,articleTagRequestBody,imageList,longtitudeRequestBody,latitudeRequestBody,regionAgreementCheckRequestBody)
     }
 
     override suspend fun getTownReply(
@@ -106,5 +112,10 @@ class CommunityRepositoryImpl @Inject constructor(
     //재난상황 커뮤니티 더보기
     override suspend fun getDisasterHomeDetail(token:String, sort:String,disasterId:Int):ApiResult<CommunityDisasterDetailResponse>{
         return service.getDisasterHomeDetail(token,disasterId,sort)
+    }
+
+    //재난상황 커뮤니티 댓글작성
+    override suspend fun postDisasterConversation(token:String, body: ConversationRequestBody):ApiResult<Unit>{
+        return service.postDisasterConversation(token,body)
     }
 }

@@ -13,21 +13,24 @@ import com.daepiro.numberoneproject.data.model.CommunityTownReplyDeleteResponse
 import com.daepiro.numberoneproject.data.model.CommunityTownReplyRequestBody
 import com.daepiro.numberoneproject.data.model.CommunityTownReplyResponse
 import com.daepiro.numberoneproject.data.model.CommunityTownReplyResponseModel
+import com.daepiro.numberoneproject.data.model.ConversationRequestBody
+import com.daepiro.numberoneproject.data.model.GetRegionResponse
 import com.daepiro.numberoneproject.data.network.ApiResult
 import okhttp3.MultipartBody
 
 interface CommunityRepository {
-    suspend fun getTownCommentList(token:String,size:Int,tag:String,lastArticleId:Int?,regionLv2:String):ApiResult<CommunityTownListModel>
+    suspend fun getTownList(token: String):ApiResult<GetRegionResponse>
+    suspend fun getTownCommentList(token:String,size:Int,tag:String?,lastArticleId:Int?, longtitude: Double?, latitude: Double?,regionLv2:String):ApiResult<CommunityTownListModel>
     suspend fun getTownCommentDetail(token:String,articleId:Int):ApiResult<CommunityTownDetailData>
     suspend fun setTownDetail(
         token:String,
         title:String,
         content:String,
         articleTag:String,
-        longtitude:Double?,
-        latitude:Double?,
-        regionAgreementCheck:Boolean,
-        imageList: List<MultipartBody.Part>
+        imageList: List<MultipartBody.Part>,
+        longtitude:Double,
+        latitude:Double,
+        regionAgreementCheck:Boolean
         ):ApiResult<CommentWritingResponse>
 
     suspend fun getTownReply(token:String, articleId:Int) : ApiResult<CommunityTownReplyResponse>
@@ -38,4 +41,5 @@ interface CommunityRepository {
     suspend fun deleteReply(token:String, commentid: Int):ApiResult<CommunityTownReplyDeleteResponse>
     suspend fun getDisasterHome(token:String):ApiResult<CommunityHomeDisasterResponse>
     suspend fun getDisasterHomeDetail(token:String, sort:String,disasterId:Int):ApiResult<CommunityDisasterDetailResponse>
+    suspend fun postDisasterConversation(token:String, body: ConversationRequestBody):ApiResult<Unit>
 }

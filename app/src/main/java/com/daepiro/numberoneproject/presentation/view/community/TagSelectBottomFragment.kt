@@ -46,6 +46,9 @@ class TagSelectBottomFragment : BottomSheetDialogFragment() {
         binding.tag3.setOnClickListener{
             vieWModel._tagData.postValue(binding.tag3.text.toString())
         }
+        binding.tag4.setOnClickListener{
+            vieWModel._tagData.postValue(binding.tag3.text.toString())
+        }
         binding.complete.setOnClickListener{
             dismiss()
         }

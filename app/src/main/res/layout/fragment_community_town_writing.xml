@@ -95,6 +95,27 @@
                     app:tint="@color/secondary_600"
                     android:layout_marginRight="10dp"/>
             </LinearLayout>
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <CheckBox
+                    android:id="@+id/check_location_permission"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/custom_check_box"
+                    android:button="@null"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/현_위치를_표시하겠어요_"
+                    style="@style/button"
+                    android:textColor="@color/secondary_400"/>
+            </LinearLayout>
 
             <EditText
                 android:id="@+id/title_txt"

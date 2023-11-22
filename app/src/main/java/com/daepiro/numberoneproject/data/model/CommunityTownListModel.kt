@@ -24,7 +24,8 @@ data class Content(
     val tag: String="",
     val thumbNailImageId: Int=0,
     val thumbNailImageUrl: String="",
-    val title: String=""
+    val title: String="",
+    val isLiked:Boolean = true
 )
 
 data class Sort(

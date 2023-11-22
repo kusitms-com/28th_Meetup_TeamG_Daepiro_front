@@ -60,6 +60,7 @@
 
     <string name="일상">일상</string>
     <string name="교통">교통</string>
+    <string name="치안">치안</string>
 
     <string name="게시글_주제">게시글 주제</string>
     <string name="선택하기">선택하기</string>
@@ -78,6 +79,8 @@
     <string name="수정하기">수정하기</string>
     <string name="신고하기">신고하기</string>
     <string name="삭제하기">삭제하기</string>
+
+    <string name="현_위치를_표시하겠어요_">현 위치를 표시하겠어요?</string>
 
 
 </resources>

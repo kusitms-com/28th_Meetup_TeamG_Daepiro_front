@@ -71,6 +71,17 @@
         android:id="@+id/tag3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="@string/치안"
+        style="@style/body1"
+        android:clickable="true"
+        android:textColor="@color/secondary_400"
+        android:paddingBottom="14dp"
+        android:paddingTop="14dp"
+        android:paddingLeft="20dp"/>
+    <TextView
+        android:id="@+id/tag4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="@string/기타"
         style="@style/body1"
         android:clickable="true"

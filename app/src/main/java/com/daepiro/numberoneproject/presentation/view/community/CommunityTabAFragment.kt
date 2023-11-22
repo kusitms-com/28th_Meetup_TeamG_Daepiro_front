@@ -1,15 +1,9 @@
 package com.daepiro.numberoneproject.presentation.view.community
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.asLiveData
 import com.daepiro.numberoneproject.R
 import com.daepiro.numberoneproject.databinding.FragmentCommunityTabABinding
 import com.daepiro.numberoneproject.presentation.base.BaseFragment
@@ -27,9 +21,7 @@ class CommunityTabAFragment : BaseFragment<FragmentCommunityTabABinding>(R.layou
         setUpRecyclerView()
         binding.viewModel = viewModel
         viewModel.getDisasterHome()
-
     }
-
     override fun setupInit() {
         super.setupInit()
         setUpRecyclerView()
@@ -44,7 +36,7 @@ class CommunityTabAFragment : BaseFragment<FragmentCommunityTabABinding>(R.layou
         mainAdapter = DisasterCommunityMainAdapter(requireContext(),emptyList(),object : DisasterCommunityMainAdapter.onItemClickListener{
             override fun onItemClickListener(disasterId: Int) {
                 viewModel.getDisasterDetail("time", disasterId)
-                viewModel.tag = disasterId
+                viewModel.id = disasterId
                 showBottomSheet()
             }
 
@@ -56,22 +48,24 @@ class CommunityTabAFragment : BaseFragment<FragmentCommunityTabABinding>(R.layou
     private fun collectDisasterHomeData(){
         repeatOnStarted {
             viewModel.disasterHome.collect { response ->
-                if (response != null) {
-                    mainAdapter.updateList(response.situations)
-                    viewModel._isLoading.value = false
-                } else {
-                    viewModel._isLoading.value = true
-                    Log.d("collectDisasterHomeData", "Response is null")
-                }
+                mainAdapter.updateList(response.situations)
+                //viewModel.getDisasterHome()
+                viewModel._isLoading.value = false
             }
         }
     }
 
-
-    private fun showBottomSheet(){
-        val dialog = CommunityTabABottomSheetFragment()
+    private fun showBottomSheet() {
+        val dialog = CommunityTabABottomSheetFragment().apply {
+            commentPostListener = object : CommunityTabABottomSheetFragment.CommentPostListener {
+                override fun onCommentPasted() {
+                     viewModel.getDisasterHome()
+                }
+            }
+        }
         dialog.show(requireActivity().supportFragmentManager, "dialogTag")
     }
+
 
 
 }

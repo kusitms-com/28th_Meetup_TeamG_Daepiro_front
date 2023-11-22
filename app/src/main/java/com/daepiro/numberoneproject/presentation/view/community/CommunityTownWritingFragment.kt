@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.location.Location
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -26,6 +27,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.daepiro.numberoneproject.R
@@ -33,6 +35,9 @@ import com.daepiro.numberoneproject.data.model.CommentWritingRequestBody
 import com.daepiro.numberoneproject.databinding.FragmentCommunityTownWritingBinding
 import com.daepiro.numberoneproject.presentation.base.BaseFragment
 import com.daepiro.numberoneproject.presentation.viewmodel.CommunityViewModel
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import kotlinx.coroutines.launch
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -42,14 +47,16 @@ import java.lang.RuntimeException
 
 class CommunityTownWritingFragment : BaseFragment<FragmentCommunityTownWritingBinding>(R.layout.fragment_community_town_writing) {
     val viewModel by activityViewModels<CommunityViewModel>()
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
     private val imageUrls = mutableListOf<String>()
     private var selectedImageUri: Uri? = null
     private var imagePartList = mutableListOf<MultipartBody.Part>()
     private var title: String = ""
     private var content: String = ""
-    private var latitude = 0.0
-    private var longitude = 0.0
+    private var latitudeForsend = 0.0
+    private var longitudeForsend = 0.0
     private var articleTag: String = ""
+    private var regionAgreementCheck = true
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -58,6 +65,21 @@ class CommunityTownWritingFragment : BaseFragment<FragmentCommunityTownWritingBi
         binding.select.setOnClickListener {
             showBottomSheet()
         }
+
+        val checkbox = binding.checkLocationPermission
+        checkbox.setOnCheckedChangeListener{_,isChecked->
+            if(isChecked){
+                regionAgreementCheck = true
+                fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+                getCurrentLocation()
+            }else{
+                regionAgreementCheck = false
+                longitudeForsend=0.0
+                latitudeForsend=0.0
+            }
+        }
+
+        //checkLocationPermission()
 
         binding.titleTxt.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -91,14 +113,29 @@ class CommunityTownWritingFragment : BaseFragment<FragmentCommunityTownWritingBi
         }
 
         binding.complete.setOnClickListener {
-            if (title.isNotEmpty() && content.isNotEmpty()) {
-                viewModel.postComment(title, content, articleTag, latitude, longitude, true, imagePartList)
-                Log.d("postComment1", "$imagePartList")
-                findNavController().popBackStack()
-            }
+            postComment(title,content,articleTag,imagePartList,latitudeForsend,longitudeForsend,regionAgreementCheck)
+            findNavController().navigateUp()
             Log.d("postComment", "$articleTag")
         }
     }
+
+    //위치권한 미동의시 권한 요청
+    private fun getCurrentLocation(){
+        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+            && ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // 권한 요청
+            requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION), 1)
+            return
+        }
+        fusedLocationClient.lastLocation
+            .addOnSuccessListener { location: Location? ->
+                location?.let {
+                    latitudeForsend = it.latitude
+                    longitudeForsend = it.longitude
+                }
+            }
+    }
+
 
     private fun checkPermission(): Boolean {
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
@@ -115,8 +152,17 @@ class CommunityTownWritingFragment : BaseFragment<FragmentCommunityTownWritingBi
             STORAGE_PERMISSION_CODE -> {
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     getImage()
+                }
+                else {
+                    Log.e("writingFragment", "갤러리 접근 권한 허용이 필요합니다")
+                }
+            }
+            1-> {
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    getCurrentLocation()
                 } else {
-                    Log.e("writingFragment", "권한 허용이 필요합니다")
+                    // 권한 거부 처리
+                    Log.e("writingFragment", "위치 권한 허용이 필요합니다")
                 }
             }
         }
@@ -135,28 +181,35 @@ class CommunityTownWritingFragment : BaseFragment<FragmentCommunityTownWritingBi
             selectedImageUri?.let { uri ->
                 val imageUrl = uri.toString()
                 addImageToImageUrls(imageUrl)
-                val imagePart = uriToMultipartBody(uri)
-                Log.d("CommunityTownWritingFragment", "Image part: $imagePart")
-                imagePartList.add(imagePart)
+                //이미지 비트맵 변환
+                val bitmap = uriToBitmap(uri)
+                bitmap?.let{
+                    val imagePart = bitmapToMultipartBody(it)
+                    imagePartList.add(imagePart)
+                    Log.d("onActivityResult","$imagePartList")
+                }
                 Log.d("CommunityTownWritingFragment", "$imagePartList")
             }
         }
     }
 
-    private fun uriToMultipartBody(uri: Uri): MultipartBody.Part {
-        val cursor = requireContext().contentResolver.query(uri, null, null, null, null)
-        cursor?.use {
-            if (it.moveToFirst()) {
-                val index = it.getColumnIndex(OpenableColumns.DISPLAY_NAME)
-                val fileName = it.getString(index)
-                val inputStream = requireContext().contentResolver.openInputStream(uri)
-                val requestBody = inputStream?.let { stream ->
-                    RequestBody.create("image/*".toMediaTypeOrNull(), stream.readBytes())
-                }
-                return MultipartBody.Part.createFormData("image", fileName, requestBody!!)
-            }
-        }
-        throw RuntimeException("Failed to get uri")
+
+    private fun bitmapToMultipartBody(bitmap: Bitmap): MultipartBody.Part {
+        // 비트맵을 바이트 배열로 변환
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
+        val byteArray = byteArrayOutputStream.toByteArray()
+
+        // 바이트 배열을 RequestBody로 변환
+        val requestBody = RequestBody.create("image/jpeg".toMediaTypeOrNull(), byteArray)
+
+        // MultipartBody.Part로 변환
+        return MultipartBody.Part.createFormData("image", "image.jpg", requestBody)
+    }
+
+    private fun uriToBitmap(uri:Uri):Bitmap?{
+        val inputStream = requireContext().contentResolver.openInputStream(uri)
+        return BitmapFactory.decodeStream(inputStream)
     }
 
     private fun addImageToImageUrls(imageUrl: String) {
@@ -179,6 +232,13 @@ class CommunityTownWritingFragment : BaseFragment<FragmentCommunityTownWritingBi
         cardView.visibility = View.VISIBLE
         Glide.with(this).load(imageUrl).into(imageView)
     }
+
+    //게시글 작성 api요청
+    private fun postComment(title:String, content:String, articleTag:String,imageList:List<MultipartBody.Part>, longitude:Double, latitude:Double, regionAgreementCheck:Boolean){
+        viewModel.postComment(title, content, articleTag,imagePartList, latitude, longitude, regionAgreementCheck)
+        Log.d("postComment1", "${title}, ${content}, ${latitude} , ${longitude} , ${binding.checkLocationPermission.isChecked}")
+    }
+
 
     private fun showBottomSheet() {
         val bottomSheet = TagSelectBottomFragment()

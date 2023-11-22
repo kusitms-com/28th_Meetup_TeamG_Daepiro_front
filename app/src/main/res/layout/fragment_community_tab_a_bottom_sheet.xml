@@ -117,6 +117,7 @@
             android:layout_marginBottom="20dp">
 
             <EditText
+                android:id="@+id/edit_box"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -125,8 +126,10 @@
                 android:textColorHint="@color/secondary_200"
                 android:textColor="@color/secondary_600"
                 style="@style/body2"
-                android:background="@android:color/transparent"/>
+                android:backgroundTint="@android:color/transparent"
+                android:background="@null"/>
             <TextView
+                android:id="@+id/send_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/게시"

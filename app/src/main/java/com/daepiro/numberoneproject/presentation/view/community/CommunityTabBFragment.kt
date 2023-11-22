@@ -1,12 +1,16 @@
 package com.daepiro.numberoneproject.presentation.view.community
 
+import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
 import android.util.Log
+import android.Manifest
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -19,6 +23,8 @@ import com.daepiro.numberoneproject.databinding.FragmentCommunityTabBBinding
 import com.daepiro.numberoneproject.presentation.base.BaseFragment
 import com.daepiro.numberoneproject.presentation.util.Extensions.repeatOnStarted
 import com.daepiro.numberoneproject.presentation.viewmodel.CommunityViewModel
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import org.w3c.dom.Text
@@ -29,20 +35,25 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
     private lateinit var adapter : TownCommentListAdapter
     private var lastItemId:Int? = null
     private var isLoading = false
+    private var region : String = ""
+    private var latitude:Double=0.0
+    private var longitude:Double=0.0
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpRecyclerView()
         binding.viewModel = viewModel
         binding.all.isSelected = true
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+        getCurrentLocation()
 
-
-        viewModel.getTownCommentList(10,"NONE",null,"신길동")
-        collectTownCommentList()
-        setInfiniteScroll("NONE")
+        viewModel.getTownCommentList(10,"",null,longitude,latitude,region)
+        //collectTownCommentList()
+        setInfiniteScroll("")
 
         //카테고리 tag들
-        val tags = listOf(binding.all, binding.traffic, binding.safety, binding.life)
+        val tags = listOf(binding.all, binding.traffic, binding.safety, binding.life,binding.other)
         tags.forEach{textview->
             textview.setOnClickListener{
                 selectTags(textview,tags)
@@ -54,6 +65,56 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
             findNavController().navigate(R.id.communityTownWritingFragment)
         }
 
+    }
+
+    override fun setupInit() {
+        super.setupInit()
+    }
+
+    override fun subscribeUi() {
+        super.subscribeUi()
+        collectTownCommentList()
+
+        repeatOnStarted {
+            viewModel.selectRegion.collectLatest { response->
+                region = response
+            }
+        }
+
+    }
+
+    private fun getCurrentLocation(){
+        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+            && ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // 권한 요청
+            requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION), 1)
+            return
+        }
+        fusedLocationClient.lastLocation
+            .addOnSuccessListener { location: Location? ->
+                location?.let {
+                    latitude = it.latitude
+                    longitude = it.longitude
+
+                }
+            }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+           1 -> {
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    getCurrentLocation()
+                } else {
+                    // 권한 거부 처리
+                }
+            }
+        }
     }
     private fun collectTownCommentList(){
         repeatOnStarted {
@@ -73,7 +134,7 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
         adapter = TownCommentListAdapter(emptyList(),object :TownCommentListAdapter.onItemClickListener{
             override fun onItemClick(id: Int) {
                 Log.d("taaaaag","$id")
-                //viewModel.tag = id
+                //viewModel.id = id
                 viewModel.getTownDetail(id)
                 viewModel.setReply(id)
                 findNavController().navigate(R.id.action_communityFragment_to_communityTownDetailFragment)
@@ -96,7 +157,7 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
                 // 목록의 마지막 아이템에 도달했을 때 API 호출
                 if (totalItemCount - 1 == lastVisibleItemPosition) {
                     isLoading = true
-                    viewModel.getTownCommentList(10, tag, lastItemId,"영등포구") // lastItemId를 API 호출에 포함
+                    viewModel.getTownCommentList(10, tag, lastItemId,longitude,latitude,region) // lastItemId를 API 호출에 포함
                 }
             }
         })
@@ -104,7 +165,7 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
 
     private fun clearUpdateData(tag:String){
         adapter.clearData()
-        viewModel.getTownCommentList(10,tag,null,"영등포구")
+        viewModel.getTownCommentList(10,tag,null,longitude,latitude,region)
         collectTownCommentList()
         setInfiniteScroll(tag)
     }
@@ -116,7 +177,7 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
         when(selectedTag){
             binding.all ->{
                 binding.all.isSelected = !binding.all.isSelected
-                clearUpdateData("NONE")
+                clearUpdateData("")
 
             }
             binding.life -> {
@@ -131,8 +192,14 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
                 binding.traffic.isSelected = !binding.traffic.isSelected
                 clearUpdateData("TRAFFIC")
             }
+            else ->{
+                binding.other.isSelected = !binding.other.isSelected
+                clearUpdateData("NONE")
+            }
         }
     }
+
+
 
 
 
