@@ -67,7 +67,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         binding.disasterVM = disasterVM
         binding.shelterVM = shelterVM
 
-
         mLocationRequest =  LocationRequest.create().apply {
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         }
@@ -146,7 +145,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     // 시스템으로 부터 받은 위치 정보를 화면에 갱신해주는 메소드
     fun onLocationChanged(location: Location) {
         mLastLocation = location
-        userLocation = Pair(mLastLocation.latitude, mLastLocation.longitude) // 갱신 된 위도
+//        userLocation = Pair(mLastLocation.latitude, mLastLocation.longitude) // 갱신 된 위도
+        userLocation = Pair(37.546913f.toDouble(), 127.041145f.toDouble()) // 갱신 된 위도
 
         disasterVM.getDisasterMessage(DisasterRequestBody(userLocation.first, userLocation.second))
         shelterVM.getAroundSheltersList(ShelterRequestBody(userLocation.first, userLocation.second, "민방위"))
@@ -274,8 +274,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private fun changeToAddress(): String {
         val geocoder = Geocoder(requireContext(), Locale.KOREAN)
-        val address = geocoder.getFromLocation(userLocation.first, userLocation.second, 1)
-        return address?.get(0)?.getAddressLine(0).toString().replace("대한민국 ","")
+        val fullAddress = geocoder.getFromLocation(userLocation.first, userLocation.second, 1)
+
+        if (fullAddress?.get(0)?.getAddressLine(0).toString().replace("대한민국 ","").split(" ").size >= 3) {
+            val fullAddressList = fullAddress?.get(0)?.getAddressLine(0).toString().replace("대한민국 ","").split(" ")
+            return fullAddressList[0] + " " + fullAddressList[1] + " " + fullAddressList[2]
+        } else {
+            return fullAddress?.get(0)?.getAddressLine(0).toString().replace("대한민국 ","")
+        }
     }
 
     private val STORE_URL = "market://details?id="

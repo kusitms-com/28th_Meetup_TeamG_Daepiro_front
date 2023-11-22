@@ -4,6 +4,7 @@ import android.content.Context
 import com.daepiro.numberoneproject.BuildConfig
 import com.daepiro.numberoneproject.data.network.ApiResultCallAdapterFactory
 import com.daepiro.numberoneproject.data.network.ApiService
+import com.daepiro.numberoneproject.data.repositoryimpl.AlarmRepositoryImpl
 import com.daepiro.numberoneproject.data.repositoryimpl.CommunityRepositoryImpl
 import com.daepiro.numberoneproject.data.repositoryimpl.DisasterRepositoryImpl
 import com.daepiro.numberoneproject.data.repositoryimpl.FamilyRepositoryImpl
@@ -12,6 +13,7 @@ import com.daepiro.numberoneproject.data.repositoryimpl.GetShelterRepositoryImpl
 import com.daepiro.numberoneproject.data.repositoryimpl.LoginRepositoryImpl
 import com.daepiro.numberoneproject.data.repositoryimpl.OnBoardingRepositoryImpl
 import com.daepiro.numberoneproject.data.repositoryimpl.ShelterRepositoryImpl
+import com.daepiro.numberoneproject.domain.repository.AlarmRepository
 import com.daepiro.numberoneproject.domain.repository.CommunityRepository
 import com.daepiro.numberoneproject.domain.repository.DisasterRepository
 import com.daepiro.numberoneproject.domain.repository.FamilyRepository
@@ -85,6 +87,11 @@ abstract class RepositoryModule {
         onBoardingRepositoryImpl: OnBoardingRepositoryImpl
     ):OnBoardingRepository
 
+    @Singleton
+    @Binds
+    abstract fun bindAlarmRepository(
+        alarmRepositoryImpl: AlarmRepositoryImpl
+    ):AlarmRepository
 }
 
 @Module
