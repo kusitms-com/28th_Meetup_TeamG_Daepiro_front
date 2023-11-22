@@ -215,35 +215,35 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         })
     }
 
-    private val checkList1 = listOf("실내1","실내2","실내3","실내4","실내5")
-    private val checkList2 = listOf("실외1","실외22", "실외 333")
+    private val checkList1 = listOf("실내의 모든 문과 창문을 닫으셨나요?","지붕 및 벽이 뚫려있는 부분이 있는지 검사하셨나요?","가스로 인한 2차 피해를 막기 위해 가스를 차단하셨나요?","손전등, 배터리, 구급상자, 물 등 비상용품을 주변에 배치하셨나요?","일기 예보 및 경고에 대한 최신 정보를 확인하셨나요?")
+    private val checkList2 = listOf("강과 하천으로부터 멀리 떨어져 있나요?","대피경로와 비상대피소 위치를 확인하셨나요?", "침수된 지하 차도와 도로 위치를 확인하셨나요?", "낮은 곳을 피해 높고 배수가 잘되는 곳으로 이동하셨나요?", "가족과 지인에게 연락하여 안전 여부를 확인하셨나요?")
     private val checkList3 = listOf("기타","기타기타기타기타", "123213123")
+
     private var selectedCheckList = 1
 
     private fun setCheckListViewPager() {
         binding.cgCheckList.setOnCheckedStateChangeListener { group, checkedIds ->
-            disasterVM.checkListIsExpanded.value = false
             if (R.id.chip_check_list_1 in checkedIds) {
                 selectedCheckList = 1
-                disasterCheckListAdapter.setData(checkList1.subList(0,3))
+                disasterCheckListAdapter.setData(checkList1.subList(0,3), selectedCheckList)
             } else if (R.id.chip_check_list_2 in checkedIds) {
                 selectedCheckList = 2
-                disasterCheckListAdapter.setData(checkList2.subList(0,3))
+                disasterCheckListAdapter.setData(checkList2.subList(0,3), selectedCheckList)
             } else if (R.id.chip_check_list_3 in checkedIds) {
                 selectedCheckList = 3
-                disasterCheckListAdapter.setData(checkList3.subList(0,3))
+                disasterCheckListAdapter.setData(checkList3.subList(0,3), selectedCheckList)
             }
+            disasterVM.checkListIsExpanded.value = false
+
         }
 
         disasterCheckListAdapter = DisasterCheckListAdapter()
 
         binding.rvCheckList.apply {
+            setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext())
             adapter = disasterCheckListAdapter
         }
-
-        val snapHelper = PagerSnapHelper()
-        snapHelper.attachToRecyclerView(binding.rvCheckList)
     }
 
     override fun subscribeUi() {
@@ -257,16 +257,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             disasterVM.checkListIsExpanded.collectLatest {
                 if (it) {
                     when(selectedCheckList) {
-                        1 -> disasterCheckListAdapter.setData(checkList1)
-                        2 -> disasterCheckListAdapter.setData(checkList2)
-                        3 -> disasterCheckListAdapter.setData(checkList3)
+                        1 -> disasterCheckListAdapter.setData(checkList1, selectedCheckList)
+                        2 -> disasterCheckListAdapter.setData(checkList2, selectedCheckList)
+                        3 -> disasterCheckListAdapter.setData(checkList3, selectedCheckList)
                     }
                     binding.ivExpand.setImageDrawable(requireContext().getDrawable(R.drawable.ic_arrow_top))
                 } else {
                     when(selectedCheckList) {
-                        1 -> disasterCheckListAdapter.setData(checkList1.subList(0,3))
-                        2 -> disasterCheckListAdapter.setData(checkList2.subList(0,3))
-                        3 -> disasterCheckListAdapter.setData(checkList3.subList(0,3))
+                        1 -> disasterCheckListAdapter.setData(checkList1.subList(0,3), selectedCheckList)
+                        2 -> disasterCheckListAdapter.setData(checkList2.subList(0,3), selectedCheckList)
+                        3 -> disasterCheckListAdapter.setData(checkList3.subList(0,3), selectedCheckList)
                     }
                     binding.ivExpand.setImageDrawable(requireContext().getDrawable(R.drawable.ic_arrow_down))
                 }
