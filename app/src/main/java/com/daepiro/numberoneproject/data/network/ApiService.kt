@@ -121,7 +121,7 @@ interface ApiService {
     suspend fun getTownCommentList(
         @Header("Authorization") token:String,
         @Query("size") size:Int,
-        @Query("id") tag:String?,
+        @Query("tag") tag:String?,
         @Query("lastArticleId") lastArticleId:Int?,
         @Query("longtitude") longtitude:Double?,
         @Query("latitude") latitude:Double?,

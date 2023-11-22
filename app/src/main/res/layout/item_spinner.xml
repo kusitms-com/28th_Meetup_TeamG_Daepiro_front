@@ -4,7 +4,10 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="175dp"
         android:layout_height="wrap_content"
-
+        android:paddingRight="123dp"
         android:text="강남구"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         style="@style/button"
+        android:background="@drawable/bg_radius_4_stroke"
         android:textColor="@color/secondary_400"/>

@@ -128,7 +128,7 @@ class LoginFragment: BaseFragment<FragmentLoginBinding>(R.layout.fragment_login)
             }
             else if (token != null) {
                 loginVM.userKakaoLogin(TokenRequestBody(token.accessToken))
-            }
+                }
         }
 
         // 카카오톡 어플있다면 카카오톡 로그인 시도

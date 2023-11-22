@@ -7,6 +7,7 @@ import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.View
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -35,6 +36,7 @@ class SelectDisasterTypeFragment : BaseFragment<FragmentSelectDisasterTypeBindin
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
+        binding.allCategory.isSelected = true
         val data = setData()
         adapter.updateList(data)
 
@@ -61,19 +63,24 @@ class SelectDisasterTypeFragment : BaseFragment<FragmentSelectDisasterTypeBindin
         }
 
         binding.allCategory.setOnClickListener{
+            clearSelectionsExcept(binding.allCategory)
             val data = setData()
             adapter.updateList(data)
         }
         binding.naturlDisaster.setOnClickListener{
+            clearSelectionsExcept(binding.naturlDisaster)
             adapter.filterByCategory("자연재난")
         }
         binding.socialDisaster.setOnClickListener{
+            clearSelectionsExcept(binding.socialDisaster)
             adapter.filterByCategory("사회재난")
         }
         binding.emergency.setOnClickListener{
+            clearSelectionsExcept(binding.emergency)
             adapter.filterByCategory("비상대비")
         }
         binding.etc.setOnClickListener{
+            clearSelectionsExcept(binding.etc)
             adapter.filterByCategory("기타")
         }
 
@@ -102,6 +109,14 @@ class SelectDisasterTypeFragment : BaseFragment<FragmentSelectDisasterTypeBindin
         }
 
         setFcmTokenListener()
+    }
+
+    private fun clearSelectionsExcept(exceptTextView: TextView) {
+        val textViews = listOf(binding.allCategory, binding.naturlDisaster, binding.socialDisaster, binding.emergency, binding.etc)
+
+        textViews.forEach { textView ->
+            textView.isSelected = textView == exceptTextView
+        }
     }
 
     private fun setFcmTokenListener() {
@@ -155,8 +170,10 @@ class SelectDisasterTypeFragment : BaseFragment<FragmentSelectDisasterTypeBindin
     private fun updateButtonColor(isAnyItemSelected: Boolean) {
         if (isAnyItemSelected) {
             binding.completeBtn.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.orange_500))
+            binding.completeBtn.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
         } else {
             binding.completeBtn.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.surface))
+            binding.completeBtn.setTextColor(ContextCompat.getColor(requireContext(), R.color.secondary_100))
         }
     }
 
