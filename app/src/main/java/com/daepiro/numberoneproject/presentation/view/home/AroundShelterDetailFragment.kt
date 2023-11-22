@@ -55,7 +55,7 @@ class AroundShelterDetailFragment: BaseFragment<FragmentAroundShelterDetailBindi
         binding.tlCategory.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when(tab?.position) {
-                    0 -> shelterVM.getAroundSheltersList(ShelterRequestBody(userLocation.first, userLocation.second, "민방위"))
+                    0 -> shelterVM.getAroundSheltersList(ShelterRequestBody(userLocation.first, userLocation.second, null))
                     1 -> shelterVM.getAroundSheltersList(ShelterRequestBody(userLocation.first, userLocation.second, "지진"))
                     2 -> shelterVM.getAroundSheltersList(ShelterRequestBody(userLocation.first, userLocation.second, "수해"))
                     3 -> shelterVM.getAroundSheltersList(ShelterRequestBody(userLocation.first, userLocation.second, "민방위"))
@@ -118,46 +118,44 @@ class AroundShelterDetailFragment: BaseFragment<FragmentAroundShelterDetailBindi
         val encodedEndAddress = encodeAddress(endLocationAddress?.get(0)?.getAddressLine(0).toString().replace("대한민국 ",""))
 
         val url = "nmap://route/walk?slat=${userLocation.first}&slng=${userLocation.second}&sname=${encodedStartAddress}&dlat=${latitude}&dlng=${longitude}&dname=${encodedEndAddress}"
-        val storeUrl = "market://details?id=com.nhn.android.nmap"
+        val storeUrl = "com.nhn.android.nmap"
 
         searchUrlToLoadMap(url, storeUrl)
     }
 
     private fun searchLoadToKakaoMap(latitude: Double, longitude: Double) {
         val url ="kakaomap://route?sp=${userLocation.first},${userLocation.second}&ep=${latitude},${longitude}&by=FOOT"
-        val storeUrl = "market://details?id=net.daum.android.map"
+        val storeUrl = "net.daum.android.map"
 
         searchUrlToLoadMap(url, storeUrl)
     }
 
     private fun searchLoadToTMap(latitude: Double, longitude: Double) {
         val url = "tmap://route?startx=${userLocation.second}&starty=${userLocation.first}&goalx=${longitude}&goaly=${latitude}&reqCoordType=WGS84&resCoordType=WGS84"
-        val storeUrl = "market://details?id=com.skt.tmap.ku"
+        val storeUrl = "com.skt.tmap.ku"
 
         searchUrlToLoadMap(url, storeUrl)
     }
 
+    private val STORE_URL = "market://details?id="
     private fun searchUrlToLoadMap(url: String, storeUrl: String) {
-        val intent =  Intent(Intent.ACTION_VIEW, Uri.parse(url))
-        intent.addCategory(Intent.CATEGORY_BROWSABLE)
-
-        val installCheck = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            requireContext().packageManager.queryIntentActivities(
-                Intent(Intent.ACTION_MAIN, null).addCategory(Intent.CATEGORY_LAUNCHER),
-                PackageManager.ResolveInfoFlags.of(PackageManager.MATCH_DEFAULT_ONLY.toLong())
-            )
-        } else {
-            requireContext().packageManager.queryIntentActivities(
-                Intent(Intent.ACTION_MAIN, null).addCategory(Intent.CATEGORY_LAUNCHER),
-                PackageManager.GET_META_DATA
-            )
-        }
-
-        // 이동할 지도앱이 설치되어 있다면 앱으로 연결, 설치되어 있지 않다면 스토어로 이동
-        if (installCheck.isEmpty()) {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(storeUrl)))
-        } else {
+        if (isAppInstalled(storeUrl, requireContext().packageManager)) {
+            // 앱이 설치되어 있으면 앱 실행
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
             startActivity(intent)
+        } else {
+            // 앱이 설치되어 있지 않으면 스토어로 이동
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(STORE_URL + storeUrl))
+            startActivity(intent)
+        }
+    }
+
+    private fun isAppInstalled(packageName : String, packageManager : PackageManager) : Boolean {
+        return try{
+            packageManager.getPackageInfo(packageName, 0)
+            true
+        }catch (ex : PackageManager.NameNotFoundException){
+            false
         }
     }
 

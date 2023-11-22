@@ -23,7 +23,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_splash) {
-    private val DURATION_TIME = 1000L    // 스플래시 화면 지연시간
+    private val DURATION_TIME = 2000L    // 스플래시 화면 지연시간
     private lateinit var cm : ConnectivityManager
     @Inject lateinit var tokenManager: TokenManager
     private var isNetworkAvailable = false
@@ -48,9 +48,11 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
         cm.registerNetworkCallback(builder.build(),networkCallBack)
 
         Handler(Looper.getMainLooper()).postDelayed({
+            binding.ltSplash.cancelAnimation()
             checkAutoLogin()
         }, DURATION_TIME)
     }
+
 
     /** 자동로그인 가능한지 확인 **/
     private fun checkAutoLogin() {
@@ -60,9 +62,24 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
 
             if (isNetworkAvailable) {      // 네트워크가 연결된 경우
                 if (accessToken.isNotEmpty()) {
-                    val intent = Intent(this@SplashActivity, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                    // 카카오톡 공유에서 초대받고 들어 온 경우
+                    if (Intent.ACTION_VIEW == intent.action) {
+                        val uri = intent.data
+                        if (uri != null) {
+                            val userToken = uri.getQueryParameter("memberId")
+
+                            if (userToken != null) {
+                                val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                                intent.putExtra("memberId", userToken)
+                                startActivity(intent)
+                                finish()
+                            }
+                        }
+                    } else {
+                        val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
                 } else {
                     val intent = Intent(this@SplashActivity, LoginActivity::class.java)
                     startActivity(intent)

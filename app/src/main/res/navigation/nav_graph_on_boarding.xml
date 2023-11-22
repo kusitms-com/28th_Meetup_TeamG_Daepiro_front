@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_on_boarding"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.daepiro.numberoneproject.presentation.view.login.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_guideFirstFragment"
+            app:destination="@id/guideFirstFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out"/>
+    </fragment>
+    <fragment
+        android:id="@+id/guideSecondFragment"
+        android:name="com.daepiro.numberoneproject.presentation.view.login.onboarding.GuideSecondFragment"
+        android:label="GuideSecondFragment"
+        tools:layout="@layout/fragment_guide_second">
+        <action
+            android:id="@+id/action_guideSecondFragment_to_inputUserInfoFragment"
+            app:destination="@id/inputUserInfoFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out"/>
+    </fragment>
+    <fragment
+        android:id="@+id/guideFirstFragment"
+        android:name="com.daepiro.numberoneproject.presentation.view.login.onboarding.GuideFirstFragment"
+        android:label="GuideFirstFragment"
+        tools:layout="@layout/fragment_guide_first">
+        <action
+            android:id="@+id/action_guideFirstFragment_to_guideSecondFragment"
+            app:destination="@id/guideSecondFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out"/>
+    </fragment>
+    <fragment
+        android:id="@+id/inputUserInfoFragment"
+        android:name="com.daepiro.numberoneproject.presentation.view.login.onboarding.InputUserInfoFragment"
+        android:label="InputUserInfoFragment"
+        tools:layout="@layout/fragment_input_user_info">
+        <action
+            android:id="@+id/action_inputUserInfoFragment_to_selectLocationFragment"
+            app:destination="@id/selectLocationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectLocationFragment"
+        android:name="com.daepiro.numberoneproject.presentation.view.login.onboarding.SelectLocationFragment"
+        android:label="SelectLocationFragment" >
+        <action
+            android:id="@+id/action_selectLocationFragment_to_selectDisasterTypeFragment"
+            app:destination="@id/selectDisasterTypeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectDisasterTypeFragment"
+        android:name="com.daepiro.numberoneproject.presentation.view.login.onboarding.SelectDisasterTypeFragment"
+        android:label="fragment_select_disaster_type"
+        tools:layout="@layout/fragment_select_disaster_type" >
+        <action
+            android:id="@+id/action_selectDisasterTypeFragment_to_guideLastFragment"
+            app:destination="@id/guideLastFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/guideLastFragment"
+        android:name="com.daepiro.numberoneproject.presentation.view.login.onboarding.GuideLastFragment"
+        android:label="fragment_guide_last"
+        tools:layout="@layout/fragment_guide_last" />
+</navigation>

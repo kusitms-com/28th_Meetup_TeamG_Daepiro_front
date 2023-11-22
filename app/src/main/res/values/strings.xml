@@ -2,7 +2,7 @@
     <string name="app_name">대피로</string>
 
     <string name="홈">홈</string>
-    <string name="뉴스">뉴스</string>
+    <string name="가족">가족</string>
     <string name="후원">후원</string>
     <string name="마이페이지">마이페이지</string>
 
@@ -11,6 +11,13 @@
     <string name="후원하기">후원하기</string>
     <string name="후원정보">후원정보</string>
     <string name="후원사_소개">후원사 소개</string>
+
+    <string name="스팸_문자처럼_쌓여가는_재난_문자로_불편하셨나요_">스팸 문자처럼 쌓여가는\n재난 문자로 불편하셨나요?</string>
+    <string name="이제는_대피로에서_알림받고_싶은_재난_유형과_지역을_">이제는 ‘대피로’에서\n알림받고 싶은 재난 유형과 지역을\n맞춤형으로 설정하세요!</string>
+    <string name="다음">다음</string>
+    <string name="대피로에서_사용하실_닉네임을_설정해주세요_">대피로에서 사용하실\n이름과 닉네임을 입력해주세요.</string>
+    <string name="닉네임">닉네임</string>
+    <string name="이름">이름</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
@@ -27,6 +34,7 @@
     <string name="완료">완료</string>
     <string name="새로고침">새로고침</string>
     <string name="화재_행동요령_체크리스트">화재 행동요령 체크리스트</string>
+    <string name="호우_행동요령_체크리스트">호우 행동요령 체크리스트</string>
     <string name="실내">실내</string>
     <string name="실외">실외</string>
     <string name="주변_대피소">주변 대피소</string>
@@ -57,6 +65,50 @@
     <string name="동네생활">동네생활</string>
     <string name="커뮤니티">커뮤니티</string>
     <string name="댓글">댓글</string>
+    <string name="등급">등급</string>
+
+    <string name="마음충전">마음충전</string>
+    <string name="마음이란_">마음이란?</string>
+    <string name="보유_마음">보유 마음</string>
+    <string name="대피로에서_재난_후원을_할_때에_필요한_전용_결제_수단입니다.">대피로에서 재난 후원을 할 때에 필요한\n전용 결제 수단입니다.</string>
+    <string name="내_마음">내 마음</string>
+    <string name="관리">관리</string>
+    <string name="가족_초대하기">가족 초대하기</string>
+    <string name="닫기">닫기</string>
+    <string name="현재_위험_지역에_있어요_안부를_물어보세요_">현재 위험 지역에 있어요. 안부를 물어보세요!</string>
+    <string name="안부묻기">안부묻기</string>
+    <string name="건너뛰기">건너뛰기</string>
+    <string name="의견남기기">의견남기기</string>
+    <string name="응원의_한마디">응원의 한마디</string>
+    <string name="충전하기">충전하기</string>
+    <string name="응원하기">응원하기</string>
+
+    <string name="기부를_하는_기부를_받는_">기부를 하는, 기부를 받는 모두에게\n힘이 나는 메시지를 남겨주세요!</string>
+    <string name="메시지는_후원_페이지_상단에_노출돼요_">메시지는 후원 페이지 상단에 노출돼요.</string>
+    <string name="여러분의_메시지를_전해보세요_">여러분의 메시지를 전해보세요. (최대 15자)</string>
+
+    <string name="대피로에서_제공하는_서비스를_이용하기_위해_">대피로에서 제공하는 서비스를 이용하기 위해\n위치 권한 항상 허용으로 설정해주세요.</string>
+    <string name="위치_권한을_항상_허용_하지_않을_경우_">위치 권한을 ‘항상 허용’하지 않을 경우\n서비스 이용이 제한됩니다.</string>
+
+    <string name="지역">지역</string>
+    <string name="알림_받고_싶은_지역을_선택해주세요_">알림 받고 싶은\n지역을 선택해주세요.</string>
+    <string name="지역은_최대_3개까지_선택할_수_있습니다_">지역은 최대 3개까지 선택할 수 있습니다.</string>
+    <string name="재난_유형">재난 유형</string>
+    <string name="알림_받고_싶은_재난_유형을_선택해주세요_">알림 받고 싶은\n재난 유형을 선택해주세요.</string>
+    <string name="전체선택">전체선택</string>
+    <string name="사회재난">사회재난</string>
+
+    <string name="가뭄">가뭄</string>
+    <string name="지금_바로_대피로와_함께_안전한_생활을_시작해보세요_">지금 바로 대피로와 함께\n안전한 생활을 시작해보세요!</string>
+    <string name="시작하기">시작하기</string>
+
+
+    <string name="가족_맺기를_수락하시면_서로의_안전_상태를_">가족 맺기를 수락하시면 서로의 안전 상태를 확인할 수 있어요. </string>
+    <string name="초대_수락하기">초대 수락하기</string>
+    <string name="_님이_대피로_가족으로_초대하셨어요_">%s님이 대피로 가족으로 초대하셨어요!</string>
+    <string name="안전해요">안전해요</string>
+    <string name="위험해요">위험해요</string>
+    <string name="_님을_삭제하시겠습니까_">%s님을 삭제하시겠습니까?</string>
 
     <string name="일상">일상</string>
     <string name="교통">교통</string>
@@ -83,4 +135,17 @@
     <string name="현_위치를_표시하겠어요_">현 위치를 표시하겠어요?</string>
 
 
+    <string name="나의_후원_기록">나의 후원 기록</string>
+    <string name="내가_쓴_글">내가 쓴 글</string>
+    <string name="저장한_글">저장한 글</string>
+    <string name="공지사항">공지사항</string>
+    <string name="환불_정책">환불 정책</string>
+    <string name="개인정보_처리_약관">개인정보 처리 약관</string>
+    <string name="앱_버전">앱 버전</string>
+    <string name="예">예</string>
+    <string name="아니오">아니오</string>
+
+    <string name="재난문자">재난문자</string>
+    <string name="알림">알림</string>
+    <string name="소식">소식</string>
 </resources>

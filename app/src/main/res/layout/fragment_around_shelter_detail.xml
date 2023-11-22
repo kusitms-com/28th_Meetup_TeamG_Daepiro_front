@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/주변_대피소_조회"
-                android:textColor="@color/secondary_400"
+                android:textColor="@color/secondary_600"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_back"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -51,8 +51,6 @@
                 style="@style/subtitle1"
                 android:textColor="@color/secondary_400"
                 android:gravity="center_vertical"
-                android:drawableRight="@drawable/ic_arrow_down"
-                android:drawableTint="@color/secondary_400"
                 android:text="서울특별시 강남구"/>
         </LinearLayout>
 

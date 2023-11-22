@@ -6,15 +6,19 @@ import com.daepiro.numberoneproject.data.network.ApiResultCallAdapterFactory
 import com.daepiro.numberoneproject.data.network.ApiService
 import com.daepiro.numberoneproject.data.repositoryimpl.CommunityRepositoryImpl
 import com.daepiro.numberoneproject.data.repositoryimpl.DisasterRepositoryImpl
+import com.daepiro.numberoneproject.data.repositoryimpl.FamilyRepositoryImpl
 import com.daepiro.numberoneproject.data.repositoryimpl.FundingRepositoryImpl
 import com.daepiro.numberoneproject.data.repositoryimpl.GetShelterRepositoryImpl
 import com.daepiro.numberoneproject.data.repositoryimpl.LoginRepositoryImpl
+import com.daepiro.numberoneproject.data.repositoryimpl.OnBoardingRepositoryImpl
 import com.daepiro.numberoneproject.data.repositoryimpl.ShelterRepositoryImpl
 import com.daepiro.numberoneproject.domain.repository.CommunityRepository
 import com.daepiro.numberoneproject.domain.repository.DisasterRepository
+import com.daepiro.numberoneproject.domain.repository.FamilyRepository
 import com.daepiro.numberoneproject.domain.repository.FundingRepository
 import com.daepiro.numberoneproject.domain.repository.GetShelterRepository
 import com.daepiro.numberoneproject.domain.repository.LoginRepository
+import com.daepiro.numberoneproject.domain.repository.OnBoardingRepository
 import com.daepiro.numberoneproject.domain.repository.ShelterRepository
 import dagger.Binds
 import dagger.Module
@@ -68,6 +72,18 @@ abstract class RepositoryModule {
     abstract fun bindCommunityRepository(
         communityRepositoryImpl: CommunityRepositoryImpl
     ):CommunityRepository
+
+    @Singleton
+    @Binds
+    abstract fun bindFamilyRepository(
+        familyRepositoryImpl: FamilyRepositoryImpl
+    ): FamilyRepository
+
+    @Singleton
+    @Binds
+    abstract fun bindOnBoardingRepository(
+        onBoardingRepositoryImpl: OnBoardingRepositoryImpl
+    ):OnBoardingRepository
 
 }
 

@@ -11,7 +11,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="match_parent">
         android:orientation="vertical">
 
         <FrameLayout
@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|start"
                 android:src="@drawable/ic_arrow_left"
-                app:tint="@color/secondary_200" />
+                app:tint="@color/secondary_300" />
 
             <TextView
                 style="@style/subtitle1"
@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/후원정보"
-                android:textColor="@color/secondary_400" />
+                android:textColor="@color/secondary_600" />
         </FrameLayout>
 
         <View
@@ -122,6 +122,7 @@
                         android:background="@drawable/bg_top_left_right_radius_4"
                         android:clipToOutline="true"
                         android:scaleType="fitXY"
+                        app:loadImage="@{fundingVM.fundingDetail.imageUrl}"
                         android:src="@drawable/image_sample" />
 
                     <androidx.appcompat.widget.LinearLayoutCompat
@@ -195,7 +196,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:text="@{fundingVM.fundingDetail.content}"
-                    android:textColor="@color/secondary_300" />
+                    android:textColor="@color/secondary_600" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"

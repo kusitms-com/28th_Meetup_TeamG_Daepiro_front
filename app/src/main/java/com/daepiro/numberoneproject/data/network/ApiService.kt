@@ -14,19 +14,28 @@ import com.daepiro.numberoneproject.data.model.CommunityTownReplyRequestBody
 import com.daepiro.numberoneproject.data.model.CommunityTownReplyResponse
 import com.daepiro.numberoneproject.data.model.CommunityTownReplyResponseModel
 import com.daepiro.numberoneproject.data.model.ConversationRequestBody
+import com.daepiro.numberoneproject.data.model.CheerMessageRequest
 import com.daepiro.numberoneproject.data.model.DisasterRequestBody
 import com.daepiro.numberoneproject.data.model.DisasterResponse
+import com.daepiro.numberoneproject.data.model.FamilyListResponse
 import com.daepiro.numberoneproject.data.model.FundingDetailResponse
 import com.daepiro.numberoneproject.data.model.FundingListResponse
 import com.daepiro.numberoneproject.data.model.GetRegionResponse
+import com.daepiro.numberoneproject.data.model.InitDataOnBoardingRequest
 import com.daepiro.numberoneproject.data.model.LoginTestResponse
 import com.daepiro.numberoneproject.data.model.LoginTokenResponse
+import com.daepiro.numberoneproject.data.model.OnlineResponse
+import com.daepiro.numberoneproject.data.model.RegisterFamilyResponse
+import com.daepiro.numberoneproject.data.model.SendSafetyResponse
 import com.daepiro.numberoneproject.data.model.ShelterData
 import com.daepiro.numberoneproject.data.model.ShelterListResponse
 import com.daepiro.numberoneproject.data.model.ShelterRequestBody
+import com.daepiro.numberoneproject.data.model.SupportRequest
+import com.daepiro.numberoneproject.data.model.SupportResponse
 import com.daepiro.numberoneproject.data.model.TokenRequestBody
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import com.daepiro.numberoneproject.data.model.UserHeartResponse
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -36,6 +45,7 @@ import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.PartMap
+import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -203,4 +213,78 @@ interface ApiService {
         @Header("Authorization") token:String,
         @Body body: ConversationRequestBody
     ):ApiResult<Unit>
+
+    // 후원하기
+    @POST("/api/support")
+    suspend fun postSupport(
+        @Header("Authorization") token:String,
+        @Body body: SupportRequest
+    ): ApiResult<SupportResponse>
+
+    // 유저 마음 갯수 조회
+    @GET("/api/members/heart")
+    suspend fun getUserHeartCnt(
+        @Header("Authorization") token:String
+    ): ApiResult<UserHeartResponse>
+
+    // 마음 구매
+    @POST("/api/members/heart")
+    suspend fun postBuyHeart(
+        @Header("Authorization") token:String,
+        @Body body: UserHeartResponse
+    ): ApiResult<UserHeartResponse>
+
+    // 응원메시지 보내기
+    @POST("/api/support/{supportId}")
+    suspend fun postCheerMessage(
+        @Header("Authorization") token:String,
+        @Path("supportId") supportId: Int,
+        @Body body: CheerMessageRequest
+    ): ApiResult<Any>
+
+    // 온라인 상태 전환
+    @GET("/api/members/online")
+    suspend fun changeOnline(
+        @Header("Authorization") token:String
+    ): ApiResult<OnlineResponse>
+
+    // 오프라인 상태 전환
+    @GET("/api/members/offline")
+    suspend fun changeOffline(
+        @Header("Authorization") token:String
+    ): ApiResult<Any?>
+
+    // 가족 목록 조회
+    @GET("/api/friendships")
+    suspend fun getFamilyList(
+        @Header("Authorization") token:String
+    ): ApiResult<List<FamilyListResponse>>
+
+    // 가족 안부묻기
+    @GET("/api/friendships/{friend-id}")
+    suspend fun postFamilySafety(
+        @Header("Authorization") token:String,
+        @Path("friend-id") friendId: Int
+    ): ApiResult<SendSafetyResponse>
+
+    // 가족 초대하기
+    @PUT("/api/friendships/{inviting-member-id}")
+    suspend fun registerFamily(
+        @Header("Authorization") token:String,
+        @Path("inviting-member-id") memberId: Int
+    ): ApiResult<RegisterFamilyResponse>
+
+    // 가족 삭제하기
+    @DELETE("/api/friendships/{friend-id}")
+    suspend fun deleteFamily(
+        @Header("Authorization") token:String,
+        @Path("friend-id") friendId: Int
+    ): ApiResult<FamilyListResponse>
+
+    //온보딩시 초기 데이터 설정
+    @POST("/api/members/onboarding")
+    suspend fun postinitData(
+        @Header("Authorization") token:String,
+        @Body body: InitDataOnBoardingRequest
+    ):ApiResult<Any>
 }

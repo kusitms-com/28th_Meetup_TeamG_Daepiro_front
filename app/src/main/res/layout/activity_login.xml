@@ -9,39 +9,16 @@
             type="com.daepiro.numberoneproject.presentation.view.login.LoginActivity" />
     </data>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/white"
-        android:gravity="center">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="#FFEB3B"
-            android:text="카카오 로그인"
-            android:onClick="@{(v) -> activity.setupKakaoLogin(v)}"/>
-
-        <TextView
-            android:id="@+id/btn_naver_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="44dp"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="#4CAF50"
-            android:text="네이버 로그인"
-            android:onClick="@{(v) -> activity.setupNaverLogin(v)}"/>
-
-        <TextView
-            android:id="@+id/tv_result"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:textSize="20sp"/>
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragment_container_view_on_boarding"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/nav_graph_on_boarding"/>
+    </FrameLayout>
 </layout>

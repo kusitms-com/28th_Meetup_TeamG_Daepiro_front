@@ -6,6 +6,8 @@ plugins {
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
     id("androidx.navigation.safeargs.kotlin")
+    id("com.google.gms.google-services")
+    id("kotlin-parcelize")
 }
 
 fun getBaseUrl(propertyBaseUrl : String): String {
@@ -21,8 +23,9 @@ android {
         applicationId = "com.daepiro.numberoneproject"
         minSdk = 24
         targetSdk = 33
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 6
+        versionName = "1.5"
+        multiDexEnabled = true
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "BASE_URL", getBaseUrl("BASE_URL"))
@@ -42,12 +45,20 @@ android {
         }
     }
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
+
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
+    dependencies {
+        coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
+    }
+
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
     buildFeatures {
         viewBinding = true
         dataBinding = true
@@ -84,6 +95,7 @@ dependencies {
 
     // Kakao Login
     implementation("com.kakao.sdk:v2-user:2.11.0")
+    implementation("com.kakao.sdk:v2-share:2.11.0")
 
     // DataStore
     implementation("androidx.datastore:datastore-preferences:1.0.0")
@@ -93,9 +105,13 @@ dependencies {
 
     // Ted Permission
     implementation("io.github.ParkSangGwon:tedpermission-normal:3.3.0")
-    
+
     // lottie library
     implementation("com.airbnb.android:lottie:6.1.0")
+
+    // Firebase
+    implementation(platform("com.google.firebase:firebase-bom:32.5.0"))
+    implementation("com.google.firebase:firebase-messaging-ktx:23.3.1")
 
     // 현재 위치, GPS 추적
     implementation("com.google.android.gms:play-services-maps:18.0.0")
@@ -111,6 +127,9 @@ dependencies {
     //flexbox
     implementation("com.google.android.flexbox:flexbox:3.0.0")
 
+    // 인앱결제
+    implementation("com.android.billingclient:billing:6.0.1")
+    implementation("com.github.moisoni97:google-inapp-billing:1.1.3")
 
 
     implementation("androidx.core:core-ktx:1.9.0")

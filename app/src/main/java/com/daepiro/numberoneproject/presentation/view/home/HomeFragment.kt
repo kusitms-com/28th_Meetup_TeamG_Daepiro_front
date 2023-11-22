@@ -1,6 +1,7 @@
 package com.daepiro.numberoneproject.presentation.view.home
 
 import android.annotation.SuppressLint
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -12,7 +13,10 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
+import android.util.Log
 import android.view.View
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,6 +31,7 @@ import com.daepiro.numberoneproject.presentation.util.Extensions.repeatOnStarted
 import com.daepiro.numberoneproject.presentation.util.Extensions.showToast
 import com.daepiro.numberoneproject.presentation.viewmodel.DisasterViewModel
 import com.daepiro.numberoneproject.presentation.viewmodel.ShelterViewModel
+import com.google.android.gms.common.util.ClientLibraryUtils.getPackageInfo
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -51,25 +56,24 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private lateinit var aroundShelterAdapter: AroundShelterAdapter
     private lateinit var disasterCheckListAdapter: DisasterCheckListAdapter
-    private val checkList = listOf("1","2","3","4","5")
 
     private var mFusedLocationProviderClient: FusedLocationProviderClient? = null
     private lateinit var mLocationRequest: LocationRequest //
     private lateinit var mLastLocation: Location
     private lateinit var userLocation: Pair<Double, Double>
-    private var userAddress = ""
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.disasterVM = disasterVM
         binding.shelterVM = shelterVM
-      
-        //로컬에 대피소 저장하기 위해 호출
-        shelterVM.getSheltersetLocal()
+
 
         mLocationRequest =  LocationRequest.create().apply {
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        }
+
+        binding.tvRefresh.setOnClickListener {
+            disasterVM.getDisasterMessage(DisasterRequestBody(userLocation.first, userLocation.second))
         }
 
         binding.ivExpand.setOnClickListener {
@@ -80,17 +84,24 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             val action = HomeFragmentDirections.actionHomeFragmentToAroundShelterDetailFragment(
                 latitude = userLocation.first.toFloat(),
                 longitude = userLocation.second.toFloat(),
-                address = userAddress
+                address = changeToAddress()
             )
+            findNavController().navigate(action)
+        }
+
+        binding.llAlarm.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToAlarmDetailFragment()
             findNavController().navigate(action)
         }
     }
 
     override fun setupInit() {
+        //로컬에 대피소 저장하기 위해 호출
+        shelterVM.getSheltersetLocal()
+
         requestPermission()
         setSheltersViewPager()
         setCheckListViewPager()
-
     }
 
     private fun requestPermission() {
@@ -101,18 +112,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 }
 
                 override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
-                    showToast("위치 권한이 필수로 필요합니다.")
+                    showToast("위치 권한은 필수로 필요합니다.")
                 }
             })
-            .setDeniedMessage("권한을 허용해주세요. [설정] > [앱 및 알림] > [고급] > [앱 권한]")
-            .setPermissions(android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION)
+            .setDeniedMessage("위치 권한을 허용해주세요. [설정] > [앱 및 알림] > [고급] > [앱 권한]")
+            .setPermissions(
+                android.Manifest.permission.POST_NOTIFICATIONS,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            )
             .check()
     }
 
     private val mLocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
             // 시스템에서 받은 location 정보를 onLocationChanged()에 전달
-
             onLocationChanged(locationResult.lastLocation)
         }
     }
@@ -154,7 +167,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             shelterVM.shelterLoadingState.value = true
 
             if (R.id.chip_around_shelter_all in checkedIds) {
-                shelterVM.getAroundSheltersList(ShelterRequestBody(userLocation.first, userLocation.second, "민방위"))
+                shelterVM.getAroundSheltersList(ShelterRequestBody(userLocation.first, userLocation.second, null))
             } else if (R.id.chip_around_shelter_1 in checkedIds) {
                 shelterVM.getAroundSheltersList(ShelterRequestBody(userLocation.first, userLocation.second, "지진"))
             } else if (R.id.chip_around_shelter_2 in checkedIds) {
@@ -200,23 +213,35 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         })
     }
 
+    private val checkList1 = listOf("실내의 모든 문과 창문을 닫으셨나요?","지붕 및 벽이 뚫려있는 부분이 있는지 검사하셨나요?","가스로 인한 2차 피해를 막기 위해 가스를 차단하셨나요?","손전등, 배터리, 구급상자, 물 등 비상용품을 주변에 배치하셨나요?","일기 예보 및 경고에 대한 최신 정보를 확인하셨나요?")
+    private val checkList2 = listOf("강과 하천으로부터 멀리 떨어져 있나요?","대피경로와 비상대피소 위치를 확인하셨나요?", "침수된 지하 차도와 도로 위치를 확인하셨나요?", "낮은 곳을 피해 높고 배수가 잘되는 곳으로 이동하셨나요?", "가족과 지인에게 연락하여 안전 여부를 확인하셨나요?")
+    private val checkList3 = listOf("기타","기타기타기타기타", "123213123")
+
+    private var selectedCheckList = 1
+
     private fun setCheckListViewPager() {
         binding.cgCheckList.setOnCheckedStateChangeListener { group, checkedIds ->
             if (R.id.chip_check_list_1 in checkedIds) {
+                selectedCheckList = 1
+                disasterCheckListAdapter.setData(checkList1.subList(0,3), selectedCheckList)
             } else if (R.id.chip_check_list_2 in checkedIds) {
+                selectedCheckList = 2
+                disasterCheckListAdapter.setData(checkList2.subList(0,3), selectedCheckList)
             } else if (R.id.chip_check_list_3 in checkedIds) {
+                selectedCheckList = 3
+                disasterCheckListAdapter.setData(checkList3.subList(0,3), selectedCheckList)
             }
+            disasterVM.checkListIsExpanded.value = false
+
         }
 
         disasterCheckListAdapter = DisasterCheckListAdapter()
 
         binding.rvCheckList.apply {
+            setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext())
             adapter = disasterCheckListAdapter
         }
-
-        val snapHelper = PagerSnapHelper()
-        snapHelper.attachToRecyclerView(binding.rvCheckList)
     }
 
     override fun subscribeUi() {
@@ -229,22 +254,31 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         repeatOnStarted {
             disasterVM.checkListIsExpanded.collectLatest {
                 if (it) {
-                    disasterCheckListAdapter.setData(checkList)
+                    when(selectedCheckList) {
+                        1 -> disasterCheckListAdapter.setData(checkList1, selectedCheckList)
+                        2 -> disasterCheckListAdapter.setData(checkList2, selectedCheckList)
+                        3 -> disasterCheckListAdapter.setData(checkList3, selectedCheckList)
+                    }
                     binding.ivExpand.setImageDrawable(requireContext().getDrawable(R.drawable.ic_arrow_top))
                 } else {
-                    disasterCheckListAdapter.setData(checkList.subList(0,3))
+                    when(selectedCheckList) {
+                        1 -> disasterCheckListAdapter.setData(checkList1.subList(0,3), selectedCheckList)
+                        2 -> disasterCheckListAdapter.setData(checkList2.subList(0,3), selectedCheckList)
+                        3 -> disasterCheckListAdapter.setData(checkList3.subList(0,3), selectedCheckList)
+                    }
                     binding.ivExpand.setImageDrawable(requireContext().getDrawable(R.drawable.ic_arrow_down))
                 }
             }
         }
-
-        repeatOnStarted {
-            disasterVM.disasterMessage.collectLatest {
-//                userAddress = it.info.split(" ・")[0]
-            }
-        }
     }
 
+    private fun changeToAddress(): String {
+        val geocoder = Geocoder(requireContext(), Locale.KOREAN)
+        val address = geocoder.getFromLocation(userLocation.first, userLocation.second, 1)
+        return address?.get(0)?.getAddressLine(0).toString().replace("대한민국 ","")
+    }
+
+    private val STORE_URL = "market://details?id="
     private fun searchLoadToNaverMap(latitude: Double, longitude: Double) {
         val geocoder = Geocoder(requireContext(), Locale.KOREAN)
         val startLocationAddress = geocoder.getFromLocation(userLocation.first, userLocation.second, 1)
@@ -253,46 +287,43 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         val encodedEndAddress = encodeAddress(endLocationAddress?.get(0)?.getAddressLine(0).toString().replace("대한민국 ",""))
 
         val url = "nmap://route/walk?slat=${userLocation.first}&slng=${userLocation.second}&sname=${encodedStartAddress}&dlat=${latitude}&dlng=${longitude}&dname=${encodedEndAddress}"
-        val storeUrl = "market://details?id=com.nhn.android.nmap"
+        val storeUrl = "com.nhn.android.nmap"
 
         searchUrlToLoadMap(url, storeUrl)
     }
 
     private fun searchLoadToKakaoMap(latitude: Double, longitude: Double) {
         val url ="kakaomap://route?sp=${userLocation.first},${userLocation.second}&ep=${latitude},${longitude}&by=FOOT"
-        val storeUrl = "market://details?id=net.daum.android.map"
+        val storeUrl = "net.daum.android.map"
 
         searchUrlToLoadMap(url, storeUrl)
     }
 
     private fun searchLoadToTMap(latitude: Double, longitude: Double) {
         val url = "tmap://route?startx=${userLocation.second}&starty=${userLocation.first}&goalx=${longitude}&goaly=${latitude}&reqCoordType=WGS84&resCoordType=WGS84"
-        val storeUrl = "market://details?id=com.skt.tmap.ku"
+        val storeUrl = "com.skt.tmap.ku"
 
         searchUrlToLoadMap(url, storeUrl)
     }
 
     private fun searchUrlToLoadMap(url: String, storeUrl: String) {
-        val intent =  Intent(Intent.ACTION_VIEW, Uri.parse(url))
-        intent.addCategory(Intent.CATEGORY_BROWSABLE)
-
-        val installCheck = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            requireContext().packageManager.queryIntentActivities(
-                Intent(Intent.ACTION_MAIN, null).addCategory(Intent.CATEGORY_LAUNCHER),
-                PackageManager.ResolveInfoFlags.of(PackageManager.MATCH_DEFAULT_ONLY.toLong())
-            )
-        } else {
-            requireContext().packageManager.queryIntentActivities(
-                Intent(Intent.ACTION_MAIN, null).addCategory(Intent.CATEGORY_LAUNCHER),
-                PackageManager.GET_META_DATA
-            )
-        }
-
-        // 이동할 지도앱이 설치되어 있다면 앱으로 연결, 설치되어 있지 않다면 스토어로 이동
-        if (installCheck.isEmpty()) {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(storeUrl)))
-        } else {
+        if (isAppInstalled(storeUrl, requireContext().packageManager)) {
+            // 앱이 설치되어 있으면 앱 실행
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
             startActivity(intent)
+        } else {
+            // 앱이 설치되어 있지 않으면 스토어로 이동
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(STORE_URL + storeUrl))
+            startActivity(intent)
+        }
+    }
+
+    private fun isAppInstalled(packageName : String, packageManager : PackageManager) : Boolean {
+        return try{
+            packageManager.getPackageInfo(packageName, 0)
+            true
+        }catch (ex : PackageManager.NameNotFoundException){
+            false
         }
     }
 
