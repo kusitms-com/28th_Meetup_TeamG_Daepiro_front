@@ -79,6 +79,15 @@ class CommunityTownWritingFragment : BaseFragment<FragmentCommunityTownWritingBi
             }
         }
 
+        //binding.btnNext.setOnClickListener{
+        //            val action = InputUserInfoFragmentDirections.actionInputUserInfoFragmentToSelectLocationFragment()
+        //            findNavController().navigate(action)
+        //        }
+
+        binding.backBtn.setOnClickListener{
+            findNavController().navigateUp()
+        }
+
         //checkLocationPermission()
 
         binding.titleTxt.addTextChangedListener(object : TextWatcher {
@@ -112,6 +121,7 @@ class CommunityTownWritingFragment : BaseFragment<FragmentCommunityTownWritingBi
             }
         }
 
+            //저장되기 전에 화면이 전환되서 그런거 아닐까??
         binding.complete.setOnClickListener {
             postComment(title,content,articleTag,imagePartList,latitudeForsend,longitudeForsend,regionAgreementCheck)
             findNavController().navigateUp()
