@@ -73,32 +73,6 @@
                 android:layout_marginTop="10dp"
                 android:gravity="center">
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/btn_plus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="48dp"
-                    app:strokeColor="@color/outline"
-                    app:strokeWidth="1dp"
-                    app:contentPadding="8dp"
-                    android:onClick="@{(v) -> sheet.onClickView(v)}">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:tint="@color/secondary_300"
-                        android:src="@drawable/ic_plus"/>
-                </com.google.android.material.card.MaterialCardView>
-
-                <TextView
-                    android:id="@+id/tv_send_heart_cnt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/headline4"
-                    android:textColor="@color/secondary_400"
-                    android:text="@{Integer.toString(viewmodel.selectedHeartCount) + `개`}"
-                    android:layout_marginHorizontal="20dp"/>
-
-                <com.google.android.material.card.MaterialCardView
                     android:id="@+id/btn_minus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -113,6 +87,32 @@
                         android:layout_height="wrap_content"
                         app:tint="@color/secondary_300"
                         android:src="@drawable/ic_minus"/>
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:id="@+id/tv_send_heart_cnt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/headline4"
+                    android:textColor="@color/secondary_400"
+                    android:text="@{Integer.toString(viewmodel.selectedHeartCount) + `개`}"
+                    android:layout_marginHorizontal="20dp"/>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/btn_plus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="48dp"
+                    app:strokeColor="@color/outline"
+                    app:strokeWidth="1dp"
+                    app:contentPadding="8dp"
+                    android:onClick="@{(v) -> sheet.onClickView(v)}">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:tint="@color/secondary_300"
+                        android:src="@drawable/ic_plus"/>
                 </com.google.android.material.card.MaterialCardView>
             </androidx.appcompat.widget.LinearLayoutCompat>
 

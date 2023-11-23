@@ -74,6 +74,11 @@ class HeartChargeFragment: BaseFragment<FragmentHeartChargeBinding>(R.layout.fra
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        fundingVM.getUserHeartCnt()
+    }
+
     fun onClickView(view: View) {
         when(view.id) {
             R.id.ll_charge_10 -> {
