@@ -322,13 +322,14 @@ class CommunityViewModel @Inject constructor(
     @RequiresApi(Build.VERSION_CODES.O)
     fun getTimeDifference(createdTime: String): String {
         if (createdTime.isBlank()) {
-            return "기본값 또는 오류 메시지"
+            return "기본값 또는 오류 메시지"//createdAt":"2023-11-22 08:21
         }
 
-        val formatters = listOf(
+        val formatters = listOf(//2023-11-22 08:21
             DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSS"),
             DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS"),
-            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS")
+            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS"),
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
         )
         var parsedDateTime : LocalDateTime? = null
         for(formatter in formatters){

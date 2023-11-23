@@ -7,6 +7,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.daepiro.numberoneproject.R
 import com.daepiro.numberoneproject.databinding.FragmentCommunityBinding
 import com.daepiro.numberoneproject.presentation.base.BaseFragment

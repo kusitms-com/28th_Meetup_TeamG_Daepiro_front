@@ -73,6 +73,7 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginBottom="16dp"
                 android:background="@drawable/bg_radius_4"
                 android:backgroundTint="@color/surface"
                 android:gravity="center_vertical">
@@ -130,7 +131,8 @@
                 android:paddingTop="8dp"
                 android:textColorHint="@color/secondary_400"
                 android:paddingBottom="12dp"
-                android:backgroundTint="@color/outline"/>
+                android:backgroundTint="@color/outline"
+                android:inputType="textMultiLine|textNoSuggestions"/>
 
             <EditText
                 android:id="@+id/content_txt"
@@ -141,10 +143,11 @@
                 android:layout_marginTop="16dp"
                 android:hint="@string/동네_생활과_관련된_질문이나_이야기를_주민들과_나누세요_"
                 style="@style/body2"
+                android:inputType="textMultiLine|textNoSuggestions"
                 android:textColorHint="@color/secondary_300"
                 android:textColor="@color/secondary_600"
                 android:gravity="top"
-                android:background="@android:color/transparent"/>
+                android:background="@null"/>
 
             <LinearLayout
                 android:id="@+id/add_photo"

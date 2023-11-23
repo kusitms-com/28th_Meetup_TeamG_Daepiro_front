@@ -62,6 +62,7 @@ class CommunityTownWritingFragment : BaseFragment<FragmentCommunityTownWritingBi
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
 
+
         binding.select.setOnClickListener {
             showBottomSheet()
         }
