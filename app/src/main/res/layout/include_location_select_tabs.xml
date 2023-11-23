@@ -10,7 +10,8 @@
     android:orientation="vertical"
     android:layout_marginTop="16dp"
     android:layout_marginRight="20dp"
-    android:layout_marginLeft="20dp">
+    android:layout_marginLeft="20dp"
+    style="@style/button">
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
