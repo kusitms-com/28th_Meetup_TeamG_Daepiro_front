@@ -22,6 +22,7 @@
         android:backgroundTint="@color/surface"
         app:tabIndicatorHeight="2dp"
         app:tabGravity="fill"
+        style="@style/button"
         app:tabIndicatorFullWidth="true">
 
         <com.google.android.material.tabs.TabItem

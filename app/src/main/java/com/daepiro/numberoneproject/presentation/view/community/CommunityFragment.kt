@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.core.view.get
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -20,22 +21,26 @@ import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
 class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragment_community) {
+    private var selectedTabIndex =0
     val viewModel by activityViewModels<CommunityViewModel>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val tabLayout = binding.tablayout
         val fragmentContainer = binding.fragmentContainer
 
+
         tabLayout.addOnTabSelectedListener(object :OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when(tab?.position){
                     0 -> {
                         showFragment(CommunityTabAFragment())
+                        selectedTabIndex = 0
                         binding.forTaba.root.visibility = View.VISIBLE
                         binding.forTabb.visibility = View.GONE
                     }
                     1 -> {
                         showFragment(CommunityTabBFragment())
+                        selectedTabIndex = 1
                         binding.forTabb.visibility = View.VISIBLE
                         binding.forTaba.root.visibility = View.GONE
                     }
@@ -62,6 +67,11 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragme
             }
 
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.tablayout.getTabAt(selectedTabIndex)?.select()
     }
 
     override fun setupInit() {

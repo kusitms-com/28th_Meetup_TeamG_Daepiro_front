@@ -43,6 +43,7 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
     private var latitude:Double=0.0
     private var longitude:Double=0.0
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private var currentTag=""
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -69,6 +70,14 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
         }
 
     }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("onresume","$currentTag")
+        //clearUpdateData(currentTag)
+        viewModel.getTownCommentList(10, currentTag, lastItemId, latitude, longitude, region)
+    }
+
 
     override fun setupInit() {
         super.setupInit()
@@ -134,9 +143,9 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
                     isLoading = false
                     return@collect
                 }
+                isLoading = false
                 adapter.updateList(response.content)
                 lastItemId = response.content.lastOrNull()?.id
-                isLoading = false
                 Log.d("collectTownCommentList","${response.content}")
             }
         }
@@ -198,7 +207,7 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
             //it.isSelected = textviews == selectedTag
             it.isSelected = it == selectedTag
         }
-        val tag = when (selectedTag) {
+        currentTag = when (selectedTag) {
             binding.all -> ""
             binding.life -> "LIFE"
             binding.safety -> "SAFETY"
@@ -206,7 +215,7 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
             binding.other -> "NONE"
             else -> ""
         }
-        clearUpdateData(tag)
+        clearUpdateData(currentTag)
     }
 
 
