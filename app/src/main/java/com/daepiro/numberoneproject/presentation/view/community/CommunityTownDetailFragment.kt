@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.daepiro.numberoneproject.R
@@ -40,8 +41,10 @@ class CommunityTownDetailFragment : BaseFragment<FragmentCommunityTownDetailBind
         binding.replyRecycler.adapter = adapterReply
         collectReply()
 
-        binding.backBtn.setOnClickListener{
+        binding.backBtn.setOnClickListener {
+            //findNavController().popBackStack(R.id.communityTabBFragment, false)
             findNavController().popBackStack()
+            findNavController().navigate(R.id.communityTabBFragment)
         }
         collectImage()
         collectTitle()
