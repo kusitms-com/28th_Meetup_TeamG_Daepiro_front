@@ -80,13 +80,9 @@ class CommunityTownWritingFragment : BaseFragment<FragmentCommunityTownWritingBi
             }
         }
 
-        //binding.btnNext.setOnClickListener{
-        //            val action = InputUserInfoFragmentDirections.actionInputUserInfoFragmentToSelectLocationFragment()
-        //            findNavController().navigate(action)
-        //        }
 
         binding.backBtn.setOnClickListener{
-            findNavController().navigateUp()
+            findNavController().popBackStack()
         }
 
         //checkLocationPermission()
