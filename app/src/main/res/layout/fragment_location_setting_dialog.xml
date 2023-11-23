@@ -95,6 +95,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/완료"
+        style="@style/button"
         android:gravity="center"
         android:background="@{viewModel.isactive ? @color/secondary_100 : @color/secondary_50}"
         android:textColor="@{viewModel.isactive ? @color/secondary_900 : @color/secondary_200}"
