@@ -104,6 +104,8 @@
         android:name="com.daepiro.numberoneproject.presentation.view.community.CommunityFragment"
         android:label="CommunityFragment"
         tools:layout="@layout/fragment_community">
+
+
         <action
             android:id="@+id/action_communityFragment_to_communityTownDetailFragment"
             app:destination="@id/communityTownDetailFragment" />
@@ -124,9 +126,7 @@
         android:id="@+id/communityTownWritingFragment"
         android:name="com.daepiro.numberoneproject.presentation.view.community.CommunityTownWritingFragment"
         android:label="CommunityTownWritingFragment" >
-        <action
-            android:id="@+id/action_communityTownWritingFragment_to_communityTabBFragment"
-            app:destination="@id/communityTabBFragment" />
+
     </fragment>
         android:label="CommunityFragment" />
     <dialog
@@ -196,12 +196,4 @@
         android:name="com.daepiro.numberoneproject.presentation.view.home.AlarmDetailFragment"
         android:label="AlarmDetailFragment"
         tools:layout="@layout/fragment_alarm_detail"/>
-    <fragment
-        android:id="@+id/communityTabBFragment"
-        android:name="com.daepiro.numberoneproject.presentation.view.community.CommunityTabBFragment"
-        android:label="CommunityTabBFragment" >
-        <action
-            android:id="@+id/action_communityTabBFragment_to_communityTownWritingFragment"
-            app:destination="@id/communityTownWritingFragment" />
-    </fragment>
 </navigation>

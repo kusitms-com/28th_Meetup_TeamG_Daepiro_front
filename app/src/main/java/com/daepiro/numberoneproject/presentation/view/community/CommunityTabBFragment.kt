@@ -44,6 +44,7 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
     private var longitude:Double=0.0
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpRecyclerView()
@@ -64,7 +65,7 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
         }
 
         binding.writeBtn.setOnClickListener{
-            findNavController().navigate(R.id.communityTownWritingFragment)
+            findNavController().navigate(R.id.action_communityFragment_to_communityTownWritingFragment)
         }
 
     }
@@ -129,8 +130,8 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
     private fun collectTownCommentList(){
         repeatOnStarted {
             viewModel.townCommentList.collect {response->
+                adapter.clearData()
                 if(response.empty){
-                    //여기 수정함
                     isLoading = false
                     return@collect
                 }
@@ -138,6 +139,14 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
                 lastItemId = response.content.lastOrNull()?.id
                 isLoading = false
                 Log.d("collectTownCommentList","${response.content}")
+            }
+        }
+        //지역값 변경시 다시로드
+        repeatOnStarted {
+            viewModel.selectRegion.collectLatest { response->
+                region = response
+                adapter.clearData()
+                viewModel.getTownCommentList(10, "", null,longitude,latitude,region)
             }
         }
     }
