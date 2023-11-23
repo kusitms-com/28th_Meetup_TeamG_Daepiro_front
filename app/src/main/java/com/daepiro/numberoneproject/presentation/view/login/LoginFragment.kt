@@ -120,61 +120,39 @@ class LoginFragment: BaseFragment<FragmentLoginBinding>(R.layout.fragment_login)
         NaverIdLoginSDK.authenticate(requireContext(), oauthLoginCallback)
     }
 
-//    fun setupKakaoLogin(view:View) {
-//        // 카카오 계정 로그인
-//        val callback : (OAuthToken?, Throwable?) -> Unit = { token, error ->
-//            if (error != null) {
-//                Toast.makeText(requireContext(),"카카오계정 로그인 실패 ${error}", Toast.LENGTH_SHORT).show()
-//            }
-//            else if (token != null) {
-//                loginVM.userKakaoLogin(TokenRequestBody(token.accessToken))
-//                }
-//        }
-//
-//        // 카카오톡 어플있다면 카카오톡 로그인 시도
-//        if (UserApiClient.instance.isKakaoTalkLoginAvailable(requireContext())) {
-//            UserApiClient.instance.loginWithKakaoTalk(requireContext()) { token, error ->
-//                if (error != null) {
-//                    Log.e("KakaoLoginError", "Error logging in with Kakao: ", error)
-//                    Toast.makeText(requireContext(),"카카오톡 로그인 실패 ${error}", Toast.LENGTH_SHORT).show()
-//                    if (error is ClientError && error.reason == ClientErrorCause.Cancelled) {
-//                        return@loginWithKakaoTalk
-//                    }
-//
-//                    UserApiClient.instance.loginWithKakaoAccount(requireContext(), callback = callback)
-//                } else if (token != null) {
-//                    loginVM.userKakaoLogin(TokenRequestBody(token.accessToken))
-//                }
-//            }
-//        } else {
-//            UserApiClient.instance.loginWithKakaoAccount(requireContext(), callback = callback)
-//        }
-//    }
-
-    fun setupKakaoLogin(view:View){
-        if (UserApiClient.instance.isKakaoTalkLoginAvailable(requireContext())) {
-            UserApiClient.instance.loginWithKakaoTalk(requireContext(), callback = kakakoLoginCallback)
-        } else {
-            loginWithKakaoAccount()
-        }
-    }
-    private fun loginWithKakaoAccount(){
-        UserApiClient.instance.loginWithKakaoAccount(requireContext(), callback = kakakoLoginCallback)
-
-    }
-
-    private val kakakoLoginCallback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
-        if (error != null) {
-            if (error.toString().contains("statusCode=302")){
-                loginWithKakaoAccount()
-            } else {
-                Log.e("TAG", "로그인 실패", error)
+    fun setupKakaoLogin(view:View) {
+        // 카카오 계정 로그인
+        val callback : (OAuthToken?, Throwable?) -> Unit = { token, error ->
+            if (error != null) {
+                Toast.makeText(requireContext(),"카카오계정 로그인 실패 ${error}", Toast.LENGTH_SHORT).show()
             }
+            else if (token != null) {
+                loginVM.userKakaoLogin(TokenRequestBody(token.accessToken))
+                }
         }
-        else if (token != null) {
-            Log.i("TAG", "로그인 성공 ${token.accessToken}")
-            loginVM.userKakaoLogin(TokenRequestBody(token.accessToken))
+
+        // 카카오톡 어플있다면 카카오톡 로그인 시도
+        if (UserApiClient.instance.isKakaoTalkLoginAvailable(requireContext())) {
+            UserApiClient.instance.loginWithKakaoTalk(requireContext()) { token, error ->
+                if (error != null) {
+                    if(error.toString().contains("statusCode = 302")){
+                        Log.e("KakaoLoginError", "302302302error ", error)
+                        return@loginWithKakaoTalk
+                    }
+                    Log.e("KakaoLoginError", "Error logging in with Kakao: ", error)
+                    Toast.makeText(requireContext(),"카카오톡 로그인 실패 ${error}", Toast.LENGTH_SHORT).show()
+                    if (error is ClientError && error.reason == ClientErrorCause.Cancelled) {
+                        return@loginWithKakaoTalk
+                    }
+                    UserApiClient.instance.loginWithKakaoAccount(requireContext(), callback = callback)
+                } else if (token != null) {
+                    loginVM.userKakaoLogin(TokenRequestBody(token.accessToken))
+                }
+            }
+        } else {
+            UserApiClient.instance.loginWithKakaoAccount(requireContext(), callback = callback)
         }
     }
+
 
 }

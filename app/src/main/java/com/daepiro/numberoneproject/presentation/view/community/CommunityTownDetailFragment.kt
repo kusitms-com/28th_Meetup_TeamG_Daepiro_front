@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.daepiro.numberoneproject.R
 import com.daepiro.numberoneproject.data.model.CommunityRereplyRequestBody
 import com.daepiro.numberoneproject.data.model.CommunityTownReplyRequestBody
@@ -42,6 +43,7 @@ class CommunityTownDetailFragment : BaseFragment<FragmentCommunityTownDetailBind
             //findNavController().popBackStack()
         }
         collectImage()
+        collectTitle()
 
         binding.replyContainer.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -84,6 +86,21 @@ class CommunityTownDetailFragment : BaseFragment<FragmentCommunityTownDetailBind
                 response.imageUrls?.let {
                     adapter.updateList(it)
                     viewModel._isVisible.value = true
+                }
+            }
+        }
+    }
+
+    private fun collectTitle(){
+        repeatOnStarted {
+            viewModel.townDetail.collect{response->
+                if(response != null){
+                    binding.title.text = response.title
+                    //userporfile
+                    Glide.with(binding.userProfile)
+                        .load(response.ownerProfileImageUrl)
+                        .error(R.drawable.character_progress)
+                        .into(binding.userProfile)
                 }
             }
         }

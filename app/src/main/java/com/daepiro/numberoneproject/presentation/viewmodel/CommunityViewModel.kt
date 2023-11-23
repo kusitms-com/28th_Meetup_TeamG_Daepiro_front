@@ -320,26 +320,34 @@ class CommunityViewModel @Inject constructor(
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun getTimeDifference(createdTime: String): String {
+    fun getTimeDifference(createdTime: String): String {
         if (createdTime.isBlank()) {
             return "기본값 또는 오류 메시지"
         }
 
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS")
-        try {
-            val createdDateTime = LocalDateTime.parse(createdTime, formatter)
-            val currentDateTime = LocalDateTime.now()
-            val duration = Duration.between(createdDateTime, currentDateTime)
+        val formatters = listOf(
+            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSS"),
+            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS"),
+            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS")
+        )
+        var parsedDateTime : LocalDateTime? = null
+        for(formatter in formatters){
+            try {
+                parsedDateTime = LocalDateTime.parse(createdTime, formatter)
+                val currentDateTime = LocalDateTime.now()
+                val duration = Duration.between(parsedDateTime, currentDateTime)
+                return when {
+                    duration.toHours() < 1 -> "${duration.toMinutes()}분 전"
+                    duration.toDays() < 1 -> String.format("%02d:%02d",parsedDateTime.hour,parsedDateTime.minute)
+                    else -> "${parsedDateTime.monthValue}/${parsedDateTime.dayOfMonth}"
+                }
+            } catch (e: DateTimeParseException) {
+                // 현재 형식으로 파싱 실패; 다음 형식으로 시도
+                Log.e("getTimeDifference", "$e")
 
-            return when {
-                duration.toHours() < 1 -> "${duration.toMinutes()}분 전"
-                duration.toDays() < 1 -> String.format("%02d:%02d",createdDateTime.hour,createdDateTime.minute)
-                else -> "${createdDateTime.monthValue}/${createdDateTime.dayOfMonth}"
             }
-        } catch (e: DateTimeParseException) {
-            Log.e("getTimeDifference", "$e")
-            return "파싱 오류"
         }
+        return "파싱 오류"
     }
     init{
         _isLoading.value = true

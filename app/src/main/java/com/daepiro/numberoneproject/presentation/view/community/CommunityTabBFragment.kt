@@ -5,11 +5,13 @@ import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.Manifest
+import android.os.Build
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
@@ -139,6 +141,7 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
             }
         }
     }
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun setUpRecyclerView(){
         adapter = TownCommentListAdapter(emptyList(),object :TownCommentListAdapter.onItemClickListener{
             override fun onItemClick(id: Int) {
@@ -148,7 +151,8 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
                 viewModel.setReply(id)
                 findNavController().navigate(R.id.action_communityFragment_to_communityTownDetailFragment)
             }
-        })
+        },viewModel::getTimeDifference
+            )
         binding.recycler.adapter = adapter
     }
 
@@ -177,7 +181,7 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
     private fun clearUpdateData(tag:String){
         adapter.clearData()
         viewModel.getTownCommentList(10, tag, null, longitude, latitude, region)
-        collectTownCommentList()
+        //collectTownCommentList()
     }
 
 
@@ -186,29 +190,6 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
             //it.isSelected = textviews == selectedTag
             it.isSelected = it == selectedTag
         }
-//        when(selectedTag){
-//            binding.all ->{
-//                binding.all.isSelected = !binding.all.isSelected
-//                clearUpdateData("")
-//
-//            }
-//            binding.life -> {
-//                binding.life.isSelected = !binding.life.isSelected
-//                clearUpdateData("LIFE")
-//            }
-//            binding.safety -> {
-//                binding.safety.isSelected = !binding.safety.isSelected
-//                clearUpdateData("SAFETY")
-//            }
-//            binding.traffic -> {
-//                binding.traffic.isSelected = !binding.traffic.isSelected
-//                clearUpdateData("TRAFFIC")
-//            }
-//            else ->{
-//                binding.other.isSelected = !binding.other.isSelected
-//                clearUpdateData("NONE")
-//            }
-//        }
         val tag = when (selectedTag) {
             binding.all -> ""
             binding.life -> "LIFE"
