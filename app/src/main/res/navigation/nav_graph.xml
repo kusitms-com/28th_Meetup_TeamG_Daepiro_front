@@ -193,4 +193,8 @@
         android:name="com.daepiro.numberoneproject.presentation.view.home.AlarmDetailFragment"
         android:label="AlarmDetailFragment"
         tools:layout="@layout/fragment_alarm_detail"/>
+    <fragment
+        android:id="@+id/communityTabBFragment"
+        android:name="com.daepiro.numberoneproject.presentation.view.community.CommunityTabBFragment"
+        android:label="CommunityTabBFragment" />
 </navigation>

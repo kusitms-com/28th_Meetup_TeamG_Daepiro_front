@@ -53,13 +53,17 @@ class SelectDisasterTypeFragment : BaseFragment<FragmentSelectDisasterTypeBindin
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
         binding.sub.text = spannable
-
         binding.check.setOnCheckedChangeListener{_, isChecked ->
             if (isChecked) {
                 adapter.selectAllItems()
+                selectedItems.clear()
+                selectedItems.addAll(adapter.getItemList()) // 모든 아이템을 selectedItems에 추가
+                updateButtonColor(true)
             } else {
                 adapter.deselectAllItems()
+                selectedItems.clear() // selectedItems 리스트 비우기
             }
+            sendDisasterType()
         }
 
         binding.allCategory.setOnClickListener{
@@ -161,7 +165,12 @@ class SelectDisasterTypeFragment : BaseFragment<FragmentSelectDisasterTypeBindin
         item?.let {
             it.isSelected = isSelected
             if (isSelected) {
-                selectedItems.add(it)
+                //selectedItems.add(it)
+                if (!selectedItems.contains(it)) {
+                    selectedItems.add(it)
+                }
+                else{
+                }
             } else {
                 selectedItems.remove(it)
             }
@@ -182,6 +191,7 @@ class SelectDisasterTypeFragment : BaseFragment<FragmentSelectDisasterTypeBindin
         val disasterTypeList = selectedItems.filter{it.isSelected}
             .map{ DisasterTypeModel(it.disasterType) }
         totalItems = disasterTypeList
+        Log.d("sendDisasterType","$selectedItems")
     }
 
     private fun setData():List<DisastertypeDataModel> = listOf(
