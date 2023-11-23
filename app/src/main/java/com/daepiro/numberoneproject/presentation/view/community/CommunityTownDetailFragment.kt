@@ -42,9 +42,7 @@ class CommunityTownDetailFragment : BaseFragment<FragmentCommunityTownDetailBind
         collectReply()
 
         binding.backBtn.setOnClickListener {
-            //findNavController().popBackStack(R.id.communityTabBFragment, false)
             findNavController().popBackStack()
-            findNavController().navigate(R.id.communityTabBFragment)
         }
         collectImage()
         collectTitle()
