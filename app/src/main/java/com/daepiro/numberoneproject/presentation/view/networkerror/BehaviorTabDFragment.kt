@@ -8,21 +8,22 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import com.daepiro.numberoneproject.R
 import com.daepiro.numberoneproject.data.model.DisastertypeDataModel
-import com.daepiro.numberoneproject.databinding.FragmentBehaviorTabCBinding
+import com.daepiro.numberoneproject.databinding.FragmentBehaviorTabDBinding
 import com.daepiro.numberoneproject.presentation.base.BaseFragment
 import com.daepiro.numberoneproject.presentation.view.login.onboarding.GridviewAdapter
 
-class BehaviorTabCFragment : BaseFragment<FragmentBehaviorTabCBinding>(R.layout.fragment_behavior_tab_c) {
+class BehaviorTabDFragment : BaseFragment<FragmentBehaviorTabDBinding>(R.layout.fragment_behavior_tab_d) {
     private lateinit var adapter: GridviewAdapter
     companion object{
-        private var instance: BehaviorTabCFragment? = null
-        fun newInstance(): BehaviorTabCFragment{
+        private var instance: BehaviorTabDFragment? = null
+        fun newInstance(): BehaviorTabDFragment{
             if(instance == null){
-                instance = BehaviorTabCFragment()
+                instance = BehaviorTabDFragment()
             }
             return instance!!
         }
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,9 +43,8 @@ class BehaviorTabCFragment : BaseFragment<FragmentBehaviorTabCBinding>(R.layout.
     }
 
     private fun setData():List<DisastertypeDataModel> = listOf(
-        DisastertypeDataModel("비상대비","비상사태",R.drawable.ic_emergency),
-        DisastertypeDataModel("비상대비","테러",R.drawable.ic_terror),
-        DisastertypeDataModel("비상대비","화생방사고",R.drawable.ic_cbr),
+        DisastertypeDataModel("기타","실종",R.drawable.ic_missing),
+        DisastertypeDataModel("기타","기타",R.drawable.ic_add),
 
         )
 }

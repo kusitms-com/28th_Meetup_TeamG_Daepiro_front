@@ -54,10 +54,11 @@
         android:layout_height="wrap_content"
         app:tabRippleColor="@android:color/transparent"
         app:tabSelectedTextColor="@color/secondary_900"
-        app:tabTextColor="@color/secondary_900"
+        app:tabTextColor="@color/secondary_200"
         app:tabIndicatorColor="@color/secondary_800"
         app:tabIndicatorHeight="2dp"
         app:tabGravity="fill"
+        app:tabTextAppearance="@style/button"
         app:tabIndicatorFullWidth="true">
 
         <com.google.android.material.tabs.TabItem
