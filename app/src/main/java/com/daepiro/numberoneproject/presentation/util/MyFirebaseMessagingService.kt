@@ -25,8 +25,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         val editor = pref.edit()
         editor.putString("token", token).apply()
         editor.commit()
-
-        Log.i("로그: ", "성공적으로 토큰을 저장함")
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
@@ -35,17 +33,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         // Notification 메시지를 수신할 경우 remoteMessage.notification?.body!! 여기에 내용이 저장되어있다.
          Log.d(TAG, "Notification Message Body: " + remoteMessage.notification?.body!!)
 
-
-        if(remoteMessage.data.isNotEmpty()){
-            Log.i("바디: ", remoteMessage.data["body"].toString())
-            Log.i("타이틀: ", remoteMessage.data["title"].toString())
-            sendNotification(remoteMessage)
-        }
-
-        else {
-            Log.i("수신에러: ", "data가 비어있습니다. 메시지를 수신하지 못했습니다.")
-            Log.i("data값: ", remoteMessage.data.toString())
-        }
+        sendNotification(remoteMessage)
     }
 
     private fun sendNotification(remoteMessage: RemoteMessage) {
@@ -66,9 +54,11 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
         // 알림에 대한 UI 정보와 작업을 지정한다.
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
-            .setSmallIcon(R.mipmap.ic_launcher) // 아이콘 설정
-            .setContentTitle(remoteMessage.data["body"].toString()) // 제목
-            .setContentText(remoteMessage.data["title"].toString()) // 메시지 내용
+            .setSmallIcon(R.mipmap.app_icon_black_round) // 아이콘 설정
+//            .setContentTitle(remoteMessage.data["body"].toString()) // 제목
+//            .setContentText(remoteMessage.data["title"].toString()) // 메시지 내용
+            .setContentTitle(remoteMessage.notification?.title)
+            .setContentText(remoteMessage.notification?.body)
             .setAutoCancel(true)
             .setSound(soundUri) // 알림 소리
             .setContentIntent(pendingIntent) // 알림 실행 시 Intent
