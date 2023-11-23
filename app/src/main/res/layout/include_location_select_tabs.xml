@@ -30,20 +30,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/시도"
-            android:stateListAnimator="@null"
-            style="@style/button"/>
+            android:stateListAnimator="@null" />
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/구군"
-            android:stateListAnimator="@null"
-            style="@style/button"/>
+            android:stateListAnimator="@null" />
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/동읍면"
-            android:stateListAnimator="@null"
-            style="@style/button"/>
+            android:stateListAnimator="@null" />
 
     </com.google.android.material.tabs.TabLayout>
 
