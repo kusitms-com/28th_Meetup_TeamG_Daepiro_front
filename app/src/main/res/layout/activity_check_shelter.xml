@@ -61,22 +61,26 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/button"
             android:text="@string/전체"
             android:stateListAnimator="@null" />
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/지진"
+            style="@style/button"
             android:stateListAnimator="@null" />
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/수해"
+            style="@style/button"
             android:stateListAnimator="@null"/>
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/전쟁"
+            style="@style/button"
             android:stateListAnimator="@null"/>
     </com.google.android.material.tabs.TabLayout>
     <LinearLayout

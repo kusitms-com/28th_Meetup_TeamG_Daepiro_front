@@ -9,6 +9,9 @@ import com.google.android.material.tabs.TabLayout
 class BehaviorTipActivity : BaseActivity<ActivityBehaviorTipBinding>(R.layout.activity_behavior_tip) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding.includeAppBar.backBtn.setOnClickListener{
+            onBackPressed()
+        }
 
         val tabLayout = binding.tabLayout
         val fragmentManager = supportFragmentManager
@@ -24,6 +27,7 @@ class BehaviorTipActivity : BaseActivity<ActivityBehaviorTipBinding>(R.layout.ac
                     0 -> fragmentTransaction.replace(R.id.fragmentContainer, BehaviorTabAFragment.newInstance())
                     1 -> fragmentTransaction.replace(R.id.fragmentContainer, BehaviorTabBFragment.newInstance())
                     2 -> fragmentTransaction.replace(R.id.fragmentContainer, BehaviorTabCFragment.newInstance())
+                    3 -> fragmentTransaction.replace(R.id.fragmentContainer, BehaviorTabDFragment.newInstance())
                 }
                 fragmentTransaction.commit()
             }
