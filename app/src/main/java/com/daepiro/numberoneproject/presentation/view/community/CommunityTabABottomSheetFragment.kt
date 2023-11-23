@@ -113,8 +113,13 @@ class CommunityTabABottomSheetFragment : BottomSheetDialogFragment() {
 
     private fun setSpinner(){
         val spinnerData = listOf("최신순", "인기순")
-        val adapter = ArrayAdapter(requireContext(), R.layout.item_spinner,spinnerData)
-        adapter.setDropDownViewResource(R.layout.item_spinner,)
+        val adapter = object: ArrayAdapter<String>(requireContext(), R.layout.item_spinner,spinnerData){
+            override fun getDropDownView(position:Int, convertView: View?, parent:ViewGroup):View{
+                val view = super.getDropDownView(position, convertView, parent)
+                view.setBackgroundColor(R.drawable.bg_dropdown)
+                return view
+            }
+        }
         binding.spinner.adapter = adapter
     }
 
