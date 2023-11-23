@@ -13,7 +13,8 @@ import com.daepiro.numberoneproject.data.model.Content
 
 class TownCommentListAdapter(
     private var items: List<Content> = listOf(),
-    private val listener: onItemClickListener
+    private val listener: onItemClickListener,
+    private val getTimeDifference: (String) -> String
 ):RecyclerView.Adapter<TownCommentListAdapter.ViewHolder>() {
     interface onItemClickListener{
         fun onItemClick(id:Int)
@@ -51,7 +52,10 @@ class TownCommentListAdapter(
                 else-> "전체"
             }
             holder.content.text = item.content
-            holder.writerInfo.text = " ${item.ownerNickName} ∙ ${item.createdAt}"
+            //시간 처리
+            val time = getTimeDifference(item.createdAt)
+            holder.writerInfo.text = " ${item.address} ∙ ${item.ownerNickName} ∙ ${time}"
+
             Glide.with(holder.itemView.context)
                 .load(item.thumbNailImageUrl)
                 .into(holder.image)
@@ -61,7 +65,10 @@ class TownCommentListAdapter(
             holder.itemView.setOnClickListener{
                 listener.onItemClick(item.id)
             }
+
+
         }
+
     }
     fun updateList(newData:List<Content>){
         val startIndox = items.size
