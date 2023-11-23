@@ -72,9 +72,6 @@
             app:argType="integer"
             android:defaultValue="0" />
         <action
-            android:id="@+id/action_fundingDetailFragment_to_heartChargeFragment"
-            app:destination="@id/heartChargeFragment" />
-        <action
             android:id="@+id/action_fundingDetailFragment_to_sendHeartBottomSheet"
             app:destination="@id/sendHeartBottomSheet" />
             app:destination="@id/heartChargeFragment"

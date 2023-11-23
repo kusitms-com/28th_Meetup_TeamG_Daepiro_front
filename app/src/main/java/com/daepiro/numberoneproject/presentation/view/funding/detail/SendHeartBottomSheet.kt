@@ -85,7 +85,7 @@ class SendHeartBottomSheet: BottomSheetDialogFragment() {
             R.id.btn_heart_charge -> {
                 this@SendHeartBottomSheet.dismiss()
 
-                val action = FundingDetailFragmentDirections.actionFundingDetailFragmentToHeartChargeFragment()
+                val action = SendHeartBottomSheetDirections.actionSendHeartBottomSheetToHeartChargeFragment()
                 findNavController().navigate(action)
             }
 
