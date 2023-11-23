@@ -130,7 +130,6 @@ class CommunityTabBFragment : BaseFragment<FragmentCommunityTabBBinding>(R.layou
     private fun collectTownCommentList(){
         repeatOnStarted {
             viewModel.townCommentList.collect {response->
-                adapter.clearData()
                 if(response.empty){
                     isLoading = false
                     return@collect
