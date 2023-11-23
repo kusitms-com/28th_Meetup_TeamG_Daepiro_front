@@ -11,6 +11,7 @@
     android:orientation="vertical">
 
         <include
+            android:id="@+id/include_app_bar"
             layout="@layout/include_app_bar"/>
         <View
             android:layout_width="match_parent"
@@ -25,6 +26,7 @@
     app:tabRippleColor="@android:color/transparent"
     app:tabSelectedTextColor="@color/secondary_900"
     app:tabTextColor="@color/secondary_200"
+    app:tabTextAppearance="@style/button"
     app:tabIndicatorColor="@color/secondary_800"
     app:tabIndicatorHeight="2dp"
     app:tabGravity="fill"
@@ -33,13 +35,19 @@
     <com.google.android.material.tabs.TabItem
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/비상대비"
+        android:text="@string/자연재난"
         android:stateListAnimator="@null"
         style="@style/button"/>
     <com.google.android.material.tabs.TabItem
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/자연재난"
+        android:text="@string/사회재난"
+        style="@style/button"
+        android:stateListAnimator="@null"/>
+    <com.google.android.material.tabs.TabItem
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/비상대비"
         style="@style/button"
         android:stateListAnimator="@null"/>
     <com.google.android.material.tabs.TabItem

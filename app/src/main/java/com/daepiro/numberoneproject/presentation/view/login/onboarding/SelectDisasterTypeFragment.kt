@@ -204,7 +204,7 @@ class SelectDisasterTypeFragment : BaseFragment<FragmentSelectDisasterTypeBindin
         DisastertypeDataModel("사회재난","에너지",R.drawable.ic_energy),
         DisastertypeDataModel("사회재난","의료",R.drawable.ic_medical),
         DisastertypeDataModel("사회재난","전염병",R.drawable.ic_pendemic),
-        DisastertypeDataModel("비상대비","정전",R.drawable.ic_lightoff),
+        DisastertypeDataModel("사회재난","정전",R.drawable.ic_lightoff),
         DisastertypeDataModel("자연재난","지진",R.drawable.ic_earthquake),
 
         DisastertypeDataModel("자연재난","태풍",R.drawable.ic_storm),
