@@ -13,7 +13,8 @@ import com.daepiro.numberoneproject.data.model.CommunityTownReplyResponseItem
 
 class CommunityTownDetailReplyAdapter(
     private var items:List<CommunityTownReplyResponseItem> = listOf(),
-    private val listener : onItemClickListener
+    private val listener : onItemClickListener,
+    private val getTimeDifference: (String) -> String
 ):RecyclerView.Adapter<CommunityTownDetailReplyAdapter.ViewHolder>() {
 
     interface onItemClickListener{
@@ -42,7 +43,8 @@ class CommunityTownDetailReplyAdapter(
         val color = ContextCompat.getColor(holder.itemView.context, R.color.orange_500)
         if(position< items.size){
             val item = items[position]
-            holder.userInfo.text = "${item.authorNickName} ∙ ${item.createdAt}"
+            val time = getTimeDifference(item.createdAt)
+            holder.userInfo.text = "${item.authorNickName} ∙ ${time}"
             holder.content.text = item.content
             holder.likenum.text = item.likeCount.toString()
             if(item.likeCount > 0){
@@ -62,8 +64,10 @@ class CommunityTownDetailReplyAdapter(
 
     }
     fun updateList(newData:List<CommunityTownReplyResponseItem>){
-        val startIndex = items.size
-        items = items+newData
-        notifyItemRangeChanged(startIndex,newData.size)
+//        val startIndex = items.size
+//        items = items+newData
+//        notifyItemRangeChanged(startIndex,newData.size)
+        items=newData
+        notifyDataSetChanged()
     }
 }
