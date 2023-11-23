@@ -55,7 +55,7 @@
         app:layout_constraintTop_toBottomOf="@id/appbar"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:background="@color/secondary_300"/>
+        android:background="@color/surface"/>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollview"

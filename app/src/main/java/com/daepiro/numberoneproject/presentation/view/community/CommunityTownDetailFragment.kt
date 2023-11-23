@@ -1,5 +1,6 @@
 package com.daepiro.numberoneproject.presentation.view.community
 
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -28,7 +30,7 @@ class CommunityTownDetailFragment : BaseFragment<FragmentCommunityTownDetailBind
     val viewModel by activityViewModels<CommunityViewModel>()
     private lateinit var adapter:CommunityTownDetailImageAdapter
     private lateinit var adapterReply : CommunityTownDetailReplyAdapter
-    private lateinit var adapterRereply:CommunityTownDetailRereplyAdapter
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
@@ -39,8 +41,7 @@ class CommunityTownDetailFragment : BaseFragment<FragmentCommunityTownDetailBind
         collectReply()
 
         binding.backBtn.setOnClickListener{
-            //이게 오류의 원인인가..?
-            //findNavController().popBackStack()
+            findNavController().popBackStack()
         }
         collectImage()
         collectTitle()
@@ -106,6 +107,7 @@ class CommunityTownDetailFragment : BaseFragment<FragmentCommunityTownDetailBind
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun setUpReplyRecyclerView(){
         adapterReply = CommunityTownDetailReplyAdapter(emptyList(),object : CommunityTownDetailReplyAdapter.onItemClickListener{
             override fun onAdditionalItemClick(commentid: Int) {
@@ -124,7 +126,8 @@ class CommunityTownDetailFragment : BaseFragment<FragmentCommunityTownDetailBind
                     viewModel.writeRereply(articleId,commentid,data)
                 }
             }
-        })
+        },viewModel::getTimeDifference
+        )
     }
 
     //댓글 업데이트
@@ -132,7 +135,8 @@ class CommunityTownDetailFragment : BaseFragment<FragmentCommunityTownDetailBind
         repeatOnStarted {
             viewModel.replyResult.collect{response ->
                 if(response.isEmpty()){
-                    return@collect
+                    //return@collect
+                    binding.replyRecycler.visibility = View.GONE
                 }else{
                     binding.replyRecycler.visibility = View.VISIBLE
                     adapterReply.updateList(response)
