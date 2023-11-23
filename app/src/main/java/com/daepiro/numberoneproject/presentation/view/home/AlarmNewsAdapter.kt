@@ -3,14 +3,16 @@ package com.daepiro.numberoneproject.presentation.view.home
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.daepiro.numberoneproject.data.model.Contents
 import com.daepiro.numberoneproject.databinding.ItemAlarmDisasterBinding
 import com.daepiro.numberoneproject.databinding.ItemAlarmNewsBinding
 
 class AlarmNewsAdapter: RecyclerView.Adapter<AlarmNewsAdapter.CustomViewHolder>() {
-    private var alarmList = listOf<String>()
+    private var alarmList = listOf<Contents>()
 
     inner class CustomViewHolder(val binding: ItemAlarmNewsBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind() {
+        fun bind(item: Contents) {
+            binding.model = item
 
         }
     }
@@ -21,13 +23,13 @@ class AlarmNewsAdapter: RecyclerView.Adapter<AlarmNewsAdapter.CustomViewHolder>(
     }
 
     override fun onBindViewHolder(holder: AlarmNewsAdapter.CustomViewHolder, position: Int) {
-        holder.bind()
+        holder.bind(alarmList[position])
     }
 
-    fun setData(newData: List<String>) {
+    fun setData(newData: List<Contents>) {
         alarmList = newData
         notifyDataSetChanged()
     }
 
-    override fun getItemCount() = 7
+    override fun getItemCount() = alarmList.size
 }

@@ -18,6 +18,7 @@ class GuideLastFragment : BaseFragment<FragmentGuideLastBinding>(R.layout.fragme
         binding.startBtn.setOnClickListener{
             val intent = Intent(requireContext(),MainActivity::class.java)
             startActivity(intent)
+            requireActivity().finish()
         }
     }
 

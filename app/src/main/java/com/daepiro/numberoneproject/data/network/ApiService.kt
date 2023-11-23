@@ -1,5 +1,6 @@
 package com.daepiro.numberoneproject.data.network
 
+import com.daepiro.numberoneproject.data.model.AlarmResponse
 import com.daepiro.numberoneproject.data.model.CommentWritingRequestBody
 import com.daepiro.numberoneproject.data.model.CommentWritingResponse
 import com.daepiro.numberoneproject.data.model.CommunityDisasterDetailResponse
@@ -287,4 +288,13 @@ interface ApiService {
         @Header("Authorization") token:String,
         @Body body: InitDataOnBoardingRequest
     ):ApiResult<Any>
+
+    // 알림 목록 조회
+    @GET("/api/notifications")
+    suspend fun getAlarmList(
+        @Header("Authorization") token: String,
+        @Query("page") page: Int,
+        @Query("size") size: Int,
+        @Query("isDisaster") isDisaster: Boolean
+    ): ApiResult<AlarmResponse>
 }

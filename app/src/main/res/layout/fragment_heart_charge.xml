@@ -67,8 +67,9 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:paddingHorizontal="20dp"
-            android:paddingVertical="18dp">
+            android:paddingVertical="15dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -83,7 +84,37 @@
                 style="@style/subtitle1"
                 android:textColor="@color/orange_500"
                 android:text="@{Integer.toString(viewmodel.heartCnt) + `개`}"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="1"/>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="6dp"
+                android:paddingHorizontal="8dp"
+                android:backgroundTint="@color/orange_500"
+                android:background="@drawable/bg_radius_4"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/caption"
+                    android:textColor="@color/white"
+                    android:text="광고 보고 마음 받기"/>
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    app:tint="@color/white"
+                    android:src="@drawable/ic_arrow_right"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/outline"/>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"

@@ -10,7 +10,7 @@ import com.daepiro.numberoneproject.databinding.ItemDisasterCheckListBinding
 class DisasterCheckListAdapter: RecyclerView.Adapter<DisasterCheckListAdapter.CustomViewHolder>() {
     private val checkStateList1 = MutableList(5) {false}
     private val checkStateList2 = MutableList(5) {false}
-    private val checkStateList3 = MutableList(3) {false}
+    private val checkStateList3 = MutableList(7) {false}
     private var selectedChip = 0
 
     private var checkList = listOf<String>()
