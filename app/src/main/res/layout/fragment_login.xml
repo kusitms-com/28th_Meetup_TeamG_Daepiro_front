@@ -44,6 +44,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:onClick="@{(v) -> fragment.setupNaverLogin(v)}"/>
+            android:onClick="@{(v) -> fragment.clickNaverLogin(v)}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

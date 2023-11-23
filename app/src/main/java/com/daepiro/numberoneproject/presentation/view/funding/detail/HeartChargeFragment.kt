@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.daepiro.numberoneproject.R
 import com.daepiro.numberoneproject.data.model.UserHeartResponse
@@ -20,6 +21,8 @@ import games.moisoni.google_iab.enums.ProductType
 import games.moisoni.google_iab.models.BillingResponse
 import games.moisoni.google_iab.models.ProductInfo
 import games.moisoni.google_iab.models.PurchaseInfo
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HeartChargeFragment: BaseFragment<FragmentHeartChargeBinding>(R.layout.fragment_heart_charge) {
@@ -76,7 +79,11 @@ class HeartChargeFragment: BaseFragment<FragmentHeartChargeBinding>(R.layout.fra
 
     override fun onResume() {
         super.onResume()
-        fundingVM.getUserHeartCnt()
+
+        lifecycleScope.launch {
+            delay(100L)
+            fundingVM.getUserHeartCnt()
+        }
     }
 
     fun onClickView(view: View) {

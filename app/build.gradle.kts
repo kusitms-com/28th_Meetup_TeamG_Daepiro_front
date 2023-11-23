@@ -23,8 +23,8 @@ android {
         applicationId = "com.daepiro.numberoneproject"
         minSdk = 24
         targetSdk = 33
-        versionCode = 6
-        versionName = "1.5"
+        versionCode = 7
+        versionName = "1.0.7"
         multiDexEnabled = true
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

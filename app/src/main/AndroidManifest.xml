@@ -30,20 +30,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:host="kakaolink" android:scheme="${kakaoKey}" />
+            </intent-filter>
         </activity>
 
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:host="oauth" android:scheme="${kakaoKey}" />
+                <data android:host="kakaolink" android:scheme="${kakaoKey}" />
             </intent-filter>
         </activity>
-
 
         <activity android:name=".presentation.view.login.LoginActivity" />
         <activity android:name=".presentation.view.MainActivity" />
@@ -51,7 +57,7 @@
         <activity android:name=".presentation.view.networkerror.CheckShelterActivity" />
         <activity android:name=".presentation.view.funding.detail.WebViewActivity" />
 
-
+        <meta-data android:name="com.kakao.sdk.AppKey" android:value="${kakaoKey}" />
 
         <service
             android:name=".presentation.util.MyFirebaseMessagingService"
