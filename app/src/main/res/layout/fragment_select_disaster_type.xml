@@ -98,6 +98,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/checkcontainer"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="16dp"
             android:scrollbars="none">
@@ -174,19 +176,23 @@
             </LinearLayout>
         </HorizontalScrollView>
 
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             tools:listitem="@layout/list_item_disastertype"
             android:layout_marginTop="24dp"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginBottom="88dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/complete_container"
             app:layout_constraintTop_toBottomOf="@+id/horizontal"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
+            app:layout_constraintRight_toRightOf="parent" />
+
 
         <LinearLayout
             android:id="@+id/complete_container"

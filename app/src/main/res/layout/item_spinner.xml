@@ -9,5 +9,4 @@
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         style="@style/button"
-        android:background="@drawable/bg_radius_4_stroke"
         android:textColor="@color/secondary_400"/>
