@@ -43,14 +43,12 @@ class FundingListAdapter: RecyclerView.Adapter<FundingListAdapter.CustomViewHold
                 params.leftMargin = if (newMarginLeft < 100) {
                     newMarginLeft.roundToInt()
                 } else if (newMarginLeft > 800) {
-                    newMarginLeft.roundToInt() - 90
+                    newMarginLeft.roundToInt() - 80
                 } else {
                     newMarginLeft.roundToInt() - 25
                 }
                 binding.ivChar.layoutParams = params
             }
-
-
         }
     }
 

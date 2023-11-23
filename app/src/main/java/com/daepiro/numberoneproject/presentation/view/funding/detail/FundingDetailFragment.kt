@@ -84,7 +84,7 @@ class FundingDetailFragment : BaseFragment<FragmentFundingDetailBinding>(R.layou
             params.leftMargin = if (newMarginLeft < 100) {
                 newMarginLeft.roundToInt()
             } else if (newMarginLeft > 800) {
-                newMarginLeft.roundToInt() - 90
+                newMarginLeft.roundToInt() - 80
             } else {
                 newMarginLeft.roundToInt() - 25
             }
